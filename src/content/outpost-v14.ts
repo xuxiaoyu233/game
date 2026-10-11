@@ -1,0 +1,113 @@
+import type { OutpostDefinition, OutpostResources } from '../domain/outpost/types';
+
+const ZERO_RESOURCES: OutpostResources = {
+  'reclaimed-alloy': 0,
+  'charge-cell': 0,
+  biofiber: 0,
+  'structural-panel': 0,
+  'barrier-kit': 0,
+  'medical-kit': 0,
+  'anchor-shard': 0,
+  'echo-record': 0,
+  'anchor-frame': 0,
+};
+
+/** Candidate tuning for the first persistent outpost economy; all rates are per staffed hour. */
+export const OUTPOST_V14_DEFINITION: OutpostDefinition = {
+  population: 3,
+  storageCapacity: 300,
+  startingResources: {
+    ...ZERO_RESOURCES,
+    'reclaimed-alloy': 12,
+    'charge-cell': 10,
+    biofiber: 8,
+  },
+  resourceCaps: {
+    ...ZERO_RESOURCES,
+    'reclaimed-alloy': 100,
+    'charge-cell': 100,
+    biofiber: 80,
+    'structural-panel': 80,
+    'barrier-kit': 40,
+    'medical-kit': 40,
+    'anchor-shard': 20,
+    'echo-record': 20,
+    'anchor-frame': 12,
+  },
+  jobs: [
+    {
+      id: 'recover-alloy',
+      professionId: 'salvage',
+      output: 'reclaimed-alloy',
+      amountPerWorkerHour: 6,
+      experiencePerWorkerHour: 6,
+    },
+    {
+      id: 'recover-cells',
+      professionId: 'engineering',
+      output: 'charge-cell',
+      amountPerWorkerHour: 8,
+      experiencePerWorkerHour: 6,
+    },
+    {
+      id: 'cultivate-biofiber',
+      professionId: 'medical',
+      output: 'biofiber',
+      amountPerWorkerHour: 4,
+      experiencePerWorkerHour: 6,
+    },
+  ],
+  recipes: [
+    {
+      id: 'refine-structural-panel',
+      professionId: 'engineering',
+      inputs: { 'reclaimed-alloy': 3, 'charge-cell': 1 },
+      output: 'structural-panel',
+      outputAmount: 1,
+      durationMs: 180_000,
+      minimumProfessionLevel: 1,
+      requiredClueIds: [],
+    },
+    {
+      id: 'assemble-barrier-kit',
+      professionId: 'engineering',
+      inputs: { 'structural-panel': 2, 'charge-cell': 2 },
+      output: 'barrier-kit',
+      outputAmount: 1,
+      durationMs: 240_000,
+      minimumProfessionLevel: 2,
+      requiredClueIds: [],
+    },
+    {
+      id: 'prepare-medical-kit',
+      professionId: 'medical',
+      inputs: { biofiber: 2, 'charge-cell': 1 },
+      output: 'medical-kit',
+      outputAmount: 1,
+      durationMs: 180_000,
+      minimumProfessionLevel: 2,
+      requiredClueIds: [],
+    },
+    {
+      id: 'assemble-anchor-frame',
+      professionId: 'engineering',
+      inputs: { 'structural-panel': 3, 'charge-cell': 4, 'anchor-shard': 1, 'echo-record': 1 },
+      output: 'anchor-frame',
+      outputAmount: 1,
+      durationMs: 600_000,
+      minimumProfessionLevel: 3,
+      requiredClueIds: ['clue-unlisted-rescue-receipt'],
+    },
+  ],
+  facilities: [
+    {
+      id: 'production-hangar',
+      cost: { 'reclaimed-alloy': 8, 'charge-cell': 4 },
+      maxCount: 1,
+      storageCapacityBonus: 100,
+      resourceCapacityBonus: 40,
+    },
+  ],
+  professionLevelExperience: [0, 8, 24, 48],
+  experiencePerBatch: 2,
+};

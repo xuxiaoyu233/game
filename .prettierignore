@@ -1,0 +1,16 @@
+node_modules/
+dist/
+dist-desktop/
+artifacts/
+coverage/
+.cache/
+.tools/
+.local-data/
+src-tauri/target/
+src-tauri/gen/
+src-tauri/Cargo.lock
+package-lock.json
+*.rs
+docs/2026-10-03--前期调研与选型.md
+docs/2026-10-03--电脑基础版实施计划.md
+docs/2026-10-03--基础架构与原子能力.md

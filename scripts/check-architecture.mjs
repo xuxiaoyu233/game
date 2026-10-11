@@ -1,0 +1,113 @@
+import { readdir, readFile } from 'node:fs/promises';
+import path from 'node:path';
+import ts from 'typescript';
+
+const root = path.resolve('src');
+const allowed = {
+  domain: new Set(['domain']),
+  content: new Set(['content', 'domain']),
+  themes: new Set(['themes', 'domain']),
+  persistence: new Set(['persistence', 'domain']),
+  runtime: new Set(['runtime', 'domain', 'persistence', 'platform']),
+  platform: new Set(['platform']),
+  app: new Set(['app', 'domain', 'runtime', 'themes', 'platform']),
+};
+const errors = [];
+
+async function visit(directory) {
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    const file = path.join(directory, entry.name);
+    if (entry.isDirectory()) {
+      await visit(file);
+      continue;
+    }
+    if (!/\.tsx?$/.test(entry.name) || entry.name === 'vite-env.d.ts') continue;
+    const relative = path.relative(root, file).split(path.sep).join('/');
+    const layer = relative.split('/')[0];
+    if (
+      entry.name !== 'main.tsx' &&
+      !/^(?:[a-z][a-z0-9]*(?:-[a-z0-9]+)*(?:\.test)?\.ts|[A-Z][A-Za-z0-9]*\.tsx)$/.test(entry.name)
+    ) {
+      errors.push(`${relative}: filename must be kebab-case.ts or PascalCase.tsx`);
+    }
+    if (entry.name.endsWith('.test.ts') || layer === 'main.tsx') continue;
+    const source = ts.createSourceFile(
+      file,
+      await readFile(file, 'utf8'),
+      ts.ScriptTarget.Latest,
+      true,
+    );
+    function inspect(node) {
+      let specifier;
+      if (
+        (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) &&
+        node.moduleSpecifier &&
+        ts.isStringLiteral(node.moduleSpecifier)
+      )
+        specifier = node.moduleSpecifier.text;
+      if (
+        ts.isCallExpression(node) &&
+        node.expression.kind === ts.SyntaxKind.ImportKeyword &&
+        node.arguments[0] &&
+        ts.isStringLiteral(node.arguments[0])
+      )
+        specifier = node.arguments[0].text;
+      if (specifier?.startsWith('.')) {
+        const destination = path
+          .relative(root, path.resolve(path.dirname(file), specifier))
+          .split(path.sep)
+          .join('/');
+        const dependency = destination.split('/')[0];
+        if (!allowed[layer]?.has(dependency))
+          errors.push(`${relative}: ${layer} cannot depend on ${destination}`);
+        if (layer === 'runtime' && dependency === 'platform' && destination !== 'platform/ports')
+          errors.push(`${relative}: runtime can import platform ports only`);
+        if (
+          layer === 'content' &&
+          dependency === 'domain' &&
+          ![
+            'domain/types',
+            'domain/expedition/types',
+            'domain/expedition/v2-types',
+            'domain/outpost/types',
+          ].includes(destination)
+        )
+          errors.push(`${relative}: mechanical content can import domain types only`);
+      } else if (
+        specifier &&
+        ['domain', 'content', 'themes', 'persistence', 'runtime'].includes(layer)
+      ) {
+        errors.push(`${relative}: core layer cannot import external package ${specifier}`);
+      }
+      if (
+        layer === 'domain' &&
+        ts.isIdentifier(node) &&
+        [
+          'Date',
+          'window',
+          'document',
+          'localStorage',
+          'fetch',
+          'setInterval',
+          'setTimeout',
+        ].includes(node.text)
+      )
+        errors.push(`${relative}: rules must not use ${node.text}`);
+      if (
+        layer === 'domain' &&
+        ts.isPropertyAccessExpression(node) &&
+        node.expression.getText(source) === 'Math' &&
+        node.name.text === 'random'
+      )
+        errors.push(`${relative}: inject randomness instead of Math.random`);
+      ts.forEachChild(node, inspect);
+    }
+    inspect(source);
+  }
+}
+
+await visit(root);
+if (errors.length > 0) {
+  console.error(errors.join('\n'));
+  process.exitCode = 1;
+} else console.log('Architecture boundaries and source filenames passed.');

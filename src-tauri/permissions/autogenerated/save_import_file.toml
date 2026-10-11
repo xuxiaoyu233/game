@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-save-import-file"
+description = "Enables the save_import_file command without any pre-configured scope."
+commands.allow = ["save_import_file"]
+
+[[permission]]
+identifier = "deny-save-import-file"
+description = "Denies the save_import_file command without any pre-configured scope."
+commands.deny = ["save_import_file"]

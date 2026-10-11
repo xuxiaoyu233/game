@@ -1,0 +1,28 @@
+[package]
+name = "zhujie-rescue-bureau-desktop"
+version = "0.8.0"
+description = "诸界救援局本地优先桌面游戏"
+authors = ["诸界救援局"]
+edition = "2021"
+rust-version = "1.99"
+
+[lib]
+name = "zhujie_rescue_bureau_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon"] }
+tauri-plugin-dialog = "2"
+serde_json = "1"
+
+[target.'cfg(any(target_os = "macos", windows, target_os = "linux"))'.dependencies]
+tauri-plugin-single-instance = "2"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = ["Win32_Storage_FileSystem"] }
+
+[dev-dependencies]
+tempfile = "3"
