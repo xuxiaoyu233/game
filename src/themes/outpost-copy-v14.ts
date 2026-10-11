@@ -39,16 +39,19 @@ export const OUTPOST_RECIPE_COPY: Readonly<
 > = {
   'refine-structural-panel': {
     name: '精制结构板',
-    description: '把回收合金加工成可建设的结构板。',
+    description: '把回收合金加工成扩建回收货栈所需的结构材料。',
   },
-  'assemble-barrier-kit': { name: '组装屏障组件', description: '制作驻地防线所需的基础组件。' },
+  'assemble-barrier-kit': {
+    name: '组装屏障组件',
+    description: '用于失籍城救援中加固界锚，实际恢复量受稳定度容量限制。',
+  },
   'prepare-medical-kit': {
     name: '配制医疗包',
-    description: '制作副本救援与驻地修复使用的医疗物资。',
+    description: '修复规则接入后可消耗；当前仅开放制作。',
   },
   'assemble-anchor-frame': {
     name: '组装界锚框架',
-    description: '将副本取得的锚晶与回声记录制成长期设备。',
+    description: '待运输契约提供锚晶与回声记录，并接入返场效果后开放。',
   },
 };
 

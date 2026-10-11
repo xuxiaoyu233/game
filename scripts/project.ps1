@@ -98,7 +98,7 @@ try {
     switch ($Task) {
         'deps' { & npm.cmd ci }
         'dev' { & npm.cmd run dev }
-        'desktop' { & npm.cmd run tauri -- dev -- --portable }
+        'desktop' { & npm.cmd run tauri -- dev -- -- --portable }
         'check' { & npm.cmd run check }
         'build' { & npm.cmd run build }
         'e2e' {

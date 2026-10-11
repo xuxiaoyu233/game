@@ -607,7 +607,7 @@
   top: 0;
   z-index: 2;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 4px;
   margin: 10px 0 12px;
   padding: 4px;
@@ -820,6 +820,29 @@
   color: var(--muted);
 }
 
+.outpost-profession {
+  display: grid;
+  gap: 6px;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent) 5%, var(--panel));
+}
+
+.outpost-profession .section-title {
+  font-size: 0.82rem;
+}
+
+.outpost-profession progress {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.outpost-profession small {
+  color: var(--muted);
+  font-size: 0.73rem;
+}
+
 .outpost-resource,
 .outpost-job-card,
 .outpost-active-recipe,
@@ -893,6 +916,11 @@
 .outpost-target-control select {
   max-width: 190px;
   min-width: 0;
+}
+.outpost-target-warning {
+  display: block;
+  margin-top: 4px;
+  color: var(--warning, #e2ad5b);
 }
 
 .outpost-ledger {

@@ -32,10 +32,12 @@ const ACTION_ERRORS: Record<ExpeditionErrorCode, string> = {
   OUTPOST_RECIPE_LOCKED: '先提升对应专业或归档所需副本记录。',
   OUTPOST_RECIPE_UNKNOWN: '找不到这项工坊配方，请重新打开驻地。',
   OUTPOST_RECIPE_TARGET: '制作批数或库存目标必须是有效的正整数。',
+  OUTPOST_TARGET_CAPACITY: '库存目标超过当前物资上限；请先扩建驻地仓储。',
   OUTPOST_RESOURCES: '驻地原料不足，作业会等待库存补齐。',
   OUTPOST_STORAGE: '驻地仓储已满，释放空间后再继续。',
   OUTPOST_FACILITY_UNKNOWN: '找不到这项驻地设施，请重新打开游戏。',
   OUTPOST_FACILITY_MAX: '这项驻地设施已经建成。',
+  ANCHOR_STABLE: '界锚稳定度已满，屏障组件未消耗。',
 };
 
 interface ExpeditionAppProps {

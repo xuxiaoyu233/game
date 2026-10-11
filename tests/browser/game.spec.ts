@@ -1,5 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import { EXPEDITION_V13_DEFINITION } from '../../src/content/expedition-v13';
+import { EXPEDITION_V14_DEFINITION } from '../../src/content/expedition-v14';
 import {
   advanceExpedition,
   applyExpeditionCommand,
@@ -9,6 +10,7 @@ import type { ExpeditionCommand, SaveBundle } from '../../src/domain/expedition/
 import { encodeExpeditionSave } from '../../src/persistence/expedition-codec';
 
 const definition = EXPEDITION_V13_DEFINITION;
+const outpostDefinition = EXPEDITION_V14_DEFINITION;
 const worldId = 'world-unlisted-city';
 const fixtureTime = Date.UTC(2026, 9, 7, 12, 0, 0);
 
@@ -40,6 +42,70 @@ function createActiveRun(): SaveBundle {
     worldId,
     seed: 18,
   });
+}
+
+function createOverCapOutpostTarget(): SaveBundle {
+  const initial = createExpedition(outpostDefinition, fixtureTime);
+  const queued = applyExpeditionCommand(initial, outpostDefinition, {
+    kind: 'start-outpost-recipe',
+    recipeId: 'refine-structural-panel',
+    batches: 1,
+  });
+  if (!queued.ok) throw new Error(`Could not queue fixture panel: ${queued.error}`);
+  const state = advanceExpedition(queued.state, outpostDefinition, fixtureTime + 180_000);
+  if (state.outpost === null) throw new Error('Expected a v14 outpost fixture');
+  return {
+    ...state,
+    outpost: {
+      ...state.outpost,
+      jobTargets: { ...state.outpost.jobTargets, 'cultivate-biofiber': 100 },
+    },
+  };
+}
+
+function createExpandedWarehouseFixture(): SaveBundle {
+  const initial = createExpedition(outpostDefinition, fixtureTime);
+  const queued = applyExpeditionCommand(initial, outpostDefinition, {
+    kind: 'start-outpost-recipe',
+    recipeId: 'refine-structural-panel',
+    batches: 1,
+  });
+  if (!queued.ok) throw new Error(`Could not queue fixture panel: ${queued.error}`);
+  const crafted = advanceExpedition(queued.state, outpostDefinition, fixtureTime + 180_000);
+  const built = applyExpeditionCommand(crafted, outpostDefinition, {
+    kind: 'build-outpost-facility',
+    facilityId: 'production-hangar',
+  });
+  if (!built.ok) throw new Error(`Could not build fixture hangar: ${built.error}`);
+  return advanceExpedition(built.state, outpostDefinition, fixtureTime + 16 * 60 * 60 * 1000);
+}
+
+function createAnchorSupportFixture(): SaveBundle {
+  const state = createExpedition(outpostDefinition, fixtureTime);
+  if (state.activeRun !== null || state.outpost === null)
+    throw new Error('Expected a fresh v14 expedition fixture');
+  const entered = applyExpeditionCommand(state, outpostDefinition, {
+    kind: 'enter-world',
+    worldId,
+    seed: 18,
+  });
+  if (!entered.ok || entered.state.activeRun === null || entered.state.outpost === null)
+    throw new Error('Could not enter the anchor-city fixture');
+  return {
+    ...entered.state,
+    activeRun: {
+      ...entered.state.activeRun,
+      phase: 'preparing',
+      clearedWaves: 0,
+      anchorCityState: { stability: 56 },
+      randomEventsEnabled: false,
+      randomEventId: null,
+    },
+    outpost: {
+      ...entered.state.outpost,
+      professionExperience: { ...entered.state.outpost.professionExperience, engineering: 8 },
+    },
+  };
 }
 
 async function openSaveMenu(page: Page): Promise<void> {
@@ -128,11 +194,18 @@ test('the compact hub keeps the next action visible at both target window sizes'
   await expect(action).toBeVisible();
 });
 
-test('outpost crafting is queued, saved, and completed by background progression', async ({
-  page,
-}) => {
+test('engineering turns recovered materials into a storage expansion', async ({ page }) => {
   await page.getByRole('tab', { name: '成长', exact: true }).click();
-  const buildFacility = page.getByRole('button', { name: '建造扩容回收货栈', exact: true });
+  await expect(page.getByLabel('工程专业成长')).toContainText('工程专业 · 等级 1');
+  await expect(page.getByLabel('工程专业成长')).toContainText('/ 8 XP');
+  await expect(page.getByLabel('工程专业成长')).toContainText('组装屏障组件');
+  const facilityCard = page.locator('.outpost-facilities article');
+  const buildFacility = facilityCard.getByRole('button');
+  await expect(buildFacility).toHaveText('资源不足');
+  await expect(buildFacility).toBeDisabled();
+  await expect(facilityCard).toContainText('结构板 × 1');
+  const startOnePanel = page.getByRole('button', { name: '制作精制结构板1批', exact: true });
+  await expect(startOnePanel).toBeEnabled();
   for (const viewport of [
     { width: 420, height: 600 },
     { width: 360, height: 480 },
@@ -145,9 +218,81 @@ test('outpost crafting is queued, saved, and completed by background progression
     expect(bounds.x).toBeGreaterThanOrEqual(0);
     expect(bounds.x + bounds.width).toBeLessThanOrEqual(viewport.width);
   }
+
   await page.setViewportSize({ width: 420, height: 600 });
-  await page.getByRole('button', { name: '建造扩容回收货栈', exact: true }).click();
-  await expect(page.getByLabel('驻地回访摘要')).toBeVisible();
+  await startOnePanel.click();
+  await page.clock.runFor(180_000);
+  await expect(page.getByTestId('outpost-resource-structural-panel')).toHaveText('1 / 80 块');
+  await expect(buildFacility).toHaveText('建造扩容回收货栈');
+  await expect(buildFacility).toBeEnabled();
+  await buildFacility.click();
+  await expect(page.getByTestId('outpost-resource-structural-panel')).toHaveCount(0);
+  await expect(page.locator('.outpost-panel > .section-title > span')).toContainText('/ 400 仓储');
+  await expect(facilityCard).toContainText('已建成');
+  await saveNow(page);
+
+  await page.reload();
+  await page.getByRole('tab', { name: '成长', exact: true }).click();
+  await expect(page.getByRole('button', { name: '设施已建成', exact: true })).toBeDisabled();
+  await expect(page.getByTestId('outpost-resource-structural-panel')).toHaveCount(0);
+});
+
+test('engineering crafts a rescue support kit that reinforces the anchor and survives reload', async ({
+  page,
+}) => {
+  await importFixture(page, createAnchorSupportFixture());
+  await expect(page.getByTestId('anchor-stability')).toContainText('56 / 100');
+  await page.getByRole('tab', { name: '驻地', exact: true }).click();
+  const panelRecipe = page.getByRole('button', { name: '制作精制结构板1批', exact: true });
+  await expect(panelRecipe).toBeEnabled();
+  await panelRecipe.click();
+  await page.clock.runFor(180_000);
+  await panelRecipe.click();
+  await page.clock.runFor(180_000);
+  await expect(page.getByTestId('outpost-resource-structural-panel')).toHaveText('2 / 80 块');
+  const barrierRecipe = page.getByRole('button', { name: '制作组装屏障组件1批', exact: true });
+  await expect(barrierRecipe).toBeEnabled();
+  await barrierRecipe.click();
+  await page.clock.runFor(240_000);
+  await expect(page.getByTestId('outpost-resource-barrier-kit')).toHaveText('1 / 40 套');
+  await page.getByRole('tab', { name: '行动', exact: true }).click();
+  const reinforce = page.getByTestId('reinforce-anchor');
+  await expect(reinforce).toHaveText('消耗屏障组件 × 1 · 稳定度 +18');
+  await expect(reinforce).toBeEnabled();
+  for (const viewport of [
+    { width: 420, height: 600 },
+    { width: 360, height: 480 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await reinforce.scrollIntoViewIfNeeded();
+    const bounds = await reinforce.boundingBox();
+    expect(bounds).not.toBeNull();
+    if (bounds === null) throw new Error('The anchor support action is not laid out.');
+    expect(bounds.x).toBeGreaterThanOrEqual(0);
+    expect(bounds.x + bounds.width).toBeLessThanOrEqual(viewport.width);
+  }
+  await page.setViewportSize({ width: 420, height: 600 });
+  await reinforce.click();
+  await expect(page.getByTestId('anchor-stability')).toContainText('74 / 100');
+  await expect(reinforce).toHaveText('需要屏障组件 × 1');
+  await expect(reinforce).toBeDisabled();
+  await saveNow(page);
+  await page.reload();
+  await expect(page.getByTestId('anchor-stability')).toContainText('74 / 100');
+  await expect(page.getByTestId('reinforce-anchor')).toBeDisabled();
+});
+
+test('outpost crafting is queued, saved, and completed by background progression', async ({
+  page,
+}) => {
+  await importFixture(page, createExpandedWarehouseFixture());
+  await page.getByRole('tab', { name: '成长', exact: true }).click();
+  const visitSummary = page.getByLabel('驻地回访摘要');
+  await expect(visitSummary).toBeVisible();
+  await expect(visitSummary).toContainText('工程 +');
+  await expect(visitSummary).toContainText('升至等级 4');
+  await page.getByRole('button', { name: '标记已读', exact: true }).click();
+  await expect(visitSummary).toContainText('暂无新产出');
   const start = page.getByRole('button', { name: '制作精制结构板5批', exact: true });
   await expect(start).toBeEnabled();
   await start.click();
@@ -157,16 +302,36 @@ test('outpost crafting is queued, saved, and completed by background progression
 
   await page.reload();
   await page.getByRole('tab', { name: '成长', exact: true }).click();
-  await expect(page.getByText('14 / 400 仓储')).toBeVisible();
+  await expect(page.locator('.outpost-panel > .section-title > span')).toContainText('/ 400 仓储');
   await expect(page.locator('[aria-label="当前制作任务"]')).toContainText('剩余 5 批');
   await expect(page.getByLabel('回收金属库存目标')).toHaveValue('20');
   await page.clock.runFor(180_000);
   await expect(page.getByTestId('outpost-resource-structural-panel')).toHaveText('1 / 120 块');
-  await expect(page.getByRole('region', { name: '驻地回访摘要' })).toContainText(
-    /回收金属 \+0\.[3-9] 块/,
-  );
+  await expect(visitSummary).toContainText('培育生物纤维 +0.2 束');
+  await expect(visitSummary).toContainText('精制结构板 完成 1 批');
   await page.getByRole('button', { name: '标记已读', exact: true }).click();
-  await expect(page.getByRole('region', { name: '驻地回访摘要' })).toContainText('暂无新产出');
+  await expect(visitSummary).toContainText('暂无新产出');
+});
+
+test('legacy stock targets remain visible until expansion and a full expanded warehouse can keep producing', async ({
+  page,
+}) => {
+  await importFixture(page, createOverCapOutpostTarget());
+  await page.getByRole('tab', { name: '成长', exact: true }).click();
+  const target = page.getByLabel('培育生物纤维库存目标');
+  await expect(target).toHaveValue('100');
+  await expect(target.locator('option:checked')).toContainText('当前上限 80');
+  await expect(page.locator('.outpost-target-warning')).toContainText('已保留原有目标');
+  await page.getByRole('button', { name: '建造扩容回收货栈', exact: true }).click();
+  await expect(page.locator('.outpost-target-warning')).toHaveCount(0);
+
+  await importFixture(page, createExpandedWarehouseFixture());
+  await page.getByRole('tab', { name: '成长', exact: true }).click();
+  const storageLabel = await page.locator('.outpost-panel > .section-title > span').innerText();
+  expect(storageLabel).toMatch(/3\d{2} \/ 400 仓储/);
+  const alloyJob = page.locator('.outpost-job-card').filter({ hasText: '回收金属' });
+  await expect(alloyJob).toContainText('自动作业中');
+  await expect(alloyJob).not.toContainText('仓储已满');
 });
 
 test('the first rescue returns its clue and opens the fixed story review', async ({ page }) => {
@@ -209,6 +374,34 @@ test('early battle forecasts the actual damage and exposes its extra anchor cost
 
   await expect(page.locator('.battle-report')).toContainText('提前 18 秒');
   await expect(page.getByTestId('anchor-stability')).toContainText('78 / 100');
+});
+
+test('the primary expedition action keeps its position across tabs at compact sizes', async ({
+  page,
+}) => {
+  await enterRecommendedWorld(page);
+  await page.clock.runFor(72_000);
+  await buildShelter(page);
+  const action = page.getByRole('button', { name: /提前压线 · 第 1 次界潮/ });
+  const viewports = [
+    { width: 420, height: 600 },
+    { width: 360, height: 480 },
+  ];
+  for (const viewport of viewports) {
+    await page.setViewportSize(viewport);
+    const positions: number[] = [];
+    for (const tabName of [/^行动/, /^任务/, /^账目/, /^驻地/]) {
+      await page.getByRole('tab', { name: tabName }).click();
+      await page.evaluate('window.scrollTo(0, 0)');
+      const bounds = await action.boundingBox();
+      expect(bounds).not.toBeNull();
+      if (bounds === null) throw new Error('The early-action control is not laid out.');
+      expect(bounds.x).toBeGreaterThanOrEqual(0);
+      expect(bounds.x + bounds.width).toBeLessThanOrEqual(viewport.width);
+      positions.push(bounds.y);
+    }
+    expect(Math.max(...positions) - Math.min(...positions)).toBeLessThanOrEqual(1);
+  }
 });
 
 test('the audit contract can finish its random side project and archive its evidence', async ({

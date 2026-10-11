@@ -102,7 +102,7 @@ export const OUTPOST_V14_DEFINITION: OutpostDefinition = {
   facilities: [
     {
       id: 'production-hangar',
-      cost: { 'reclaimed-alloy': 8, 'charge-cell': 4 },
+      cost: { 'reclaimed-alloy': 8, 'charge-cell': 4, 'structural-panel': 1 },
       maxCount: 1,
       storageCapacityBonus: 100,
       resourceCapacityBonus: 40,
@@ -110,4 +110,5 @@ export const OUTPOST_V14_DEFINITION: OutpostDefinition = {
   ],
   professionLevelExperience: [0, 8, 24, 48],
   experiencePerBatch: 2,
+  anchorSupport: { resourceId: 'barrier-kit', stability: 18 },
 };

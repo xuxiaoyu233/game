@@ -498,6 +498,7 @@ export type ExpeditionCommand =
   | { readonly kind: 'choose-beacon'; readonly optionId: 'salvage' | 'restore' }
   | { readonly kind: 'set-final-boost'; readonly enabled: boolean }
   | { readonly kind: 'repair' }
+  | { readonly kind: 'reinforce-anchor' }
   | { readonly kind: 'brace' }
   | { readonly kind: 'stoke-furnace' }
   | { readonly kind: 'repair-generator' }
@@ -526,6 +527,7 @@ export type ExpeditionErrorCode =
   | 'ALREADY_COMPLETED'
   | 'WORKER_UNAVAILABLE'
   | 'EVENT_REQUIRED'
+  | 'ANCHOR_STABLE'
   | 'NUMERIC_LIMIT'
   | OutpostErrorCode;
 

@@ -62,6 +62,11 @@ export interface OutpostFacilityDefinition {
   readonly resourceCapacityBonus: number;
 }
 
+export interface OutpostAnchorSupportDefinition {
+  readonly resourceId: OutpostResourceId;
+  readonly stability: number;
+}
+
 export interface OutpostDefinition {
   readonly population: number;
   readonly storageCapacity: number;
@@ -72,6 +77,7 @@ export interface OutpostDefinition {
   readonly facilities: readonly OutpostFacilityDefinition[];
   readonly professionLevelExperience: readonly number[];
   readonly experiencePerBatch: number;
+  readonly anchorSupport?: OutpostAnchorSupportDefinition;
 }
 
 export interface OutpostState {
@@ -116,6 +122,7 @@ export type OutpostErrorCode =
   | 'OUTPOST_RECIPE_LOCKED'
   | 'OUTPOST_RECIPE_UNKNOWN'
   | 'OUTPOST_RECIPE_TARGET'
+  | 'OUTPOST_TARGET_CAPACITY'
   | 'OUTPOST_RESOURCES'
   | 'OUTPOST_STORAGE'
   | 'OUTPOST_FACILITY_UNKNOWN'

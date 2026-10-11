@@ -91,6 +91,15 @@ export function validateOutpostDefinition(
       amount(cost ?? 0, `${facility.id}.cost.${resourceId}`, true);
     }
   }
+  if (definition.anchorSupport !== undefined) {
+    if (!RESOURCE_IDS.includes(definition.anchorSupport.resourceId))
+      throw new Error('Outpost anchor support references an unknown resource');
+    amount(definition.anchorSupport.stability, 'anchorSupport.stability', true);
+    if (!Number.isSafeInteger(definition.anchorSupport.stability))
+      throw new Error('Outpost anchor support must restore an integer amount');
+    if (!expedition.worlds.some((world) => world.mode?.kind === 'anchor-city'))
+      throw new Error('Outpost anchor support requires an anchor-city world');
+  }
   if (
     definition.professionLevelExperience.length === 0 ||
     definition.professionLevelExperience[0] !== 0

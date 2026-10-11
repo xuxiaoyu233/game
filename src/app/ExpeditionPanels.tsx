@@ -39,6 +39,7 @@ import type { StoryArchiveUiEntry } from './story-archive-types';
 import { ResourceDashboard } from './ResourceDashboard';
 import { CampStrategyPanel } from './CampStrategyPanel';
 import { OutpostPanel } from './OutpostPanel';
+import { OUTPOST_RESOURCE_COPY } from '../themes/outpost-copy-v14';
 import { DifficultyModifierSelector } from './DifficultyModifierSelector';
 import { getResourceName, getResourcePairText } from './resource-copy';
 
@@ -746,6 +747,18 @@ export function ExpeditionPanels({
   const snowMode = world.mode?.kind === 'snow-observatory' ? world.mode : null;
   const snowEnvironment = summary.snowEnvironment;
   const anchorStability = summary.anchorStability;
+  const anchorSupport = definition.outpost?.anchorSupport;
+  const anchorSupportStock =
+    anchorSupport === undefined || state.outpost === null
+      ? 0
+      : state.outpost.resources[anchorSupport.resourceId];
+  const anchorSupportGain =
+    anchorSupport === undefined || anchorStability === null
+      ? 0
+      : Math.max(
+          0,
+          Math.min(anchorSupport.stability, anchorStability.capacity - anchorStability.current),
+        );
   const isAnchorCity = anchorStability !== null;
   const isSnow = snowMode !== null;
   const optionalSnowReward = summary.objectives
@@ -865,6 +878,20 @@ export function ExpeditionPanels({
             {anchorStability.earlyPressureLoss}。稳定度达到 {anchorStability.optionalRouteThreshold}{' '}
             可进入现场复核区域；低于门槛仍可完成基础救援。
           </p>
+          {anchorSupport !== undefined && !eventPending && !finished && (
+            <button
+              className="secondary full-width"
+              data-testid="reinforce-anchor"
+              disabled={busy || anchorSupportStock < 1 || anchorSupportGain <= 0}
+              onClick={() => onCommand({ kind: 'reinforce-anchor' })}
+            >
+              {anchorSupportGain <= 0
+                ? '界锚稳定度已满'
+                : anchorSupportStock < 1
+                  ? `需要${OUTPOST_RESOURCE_COPY[anchorSupport.resourceId].name} × 1`
+                  : `消耗${OUTPOST_RESOURCE_COPY[anchorSupport.resourceId].name} × 1 · 稳定度 +${anchorSupportGain}`}
+            </button>
+          )}
         </section>
       )}
       {eventPending && (
@@ -892,20 +919,6 @@ export function ExpeditionPanels({
           </button>
         ))}
       </nav>
-      {hasTaskAttention && !finished && activeTab !== 'tasks' && (
-        <button className="task-alert" onClick={() => setActiveTab('tasks')}>
-          {hasPendingTaskNode ? TASK_NAV_COPY.pending : TASK_NAV_COPY.optional}
-        </button>
-      )}
-      {activeTab === 'outpost' && (
-        <OutpostPanel
-          definition={definition}
-          state={state.outpost}
-          profile={state.profile}
-          busy={busy}
-          onCommand={onCommand}
-        />
-      )}
       {isSnow && snowEnvironment !== null && snowMode !== null && (
         <section className="panel snow-environment-panel" aria-label="雪站环境与发电机">
           <div className="section-title">
@@ -1222,6 +1235,20 @@ export function ExpeditionPanels({
             </>
           )}
         </section>
+      )}
+      {activeTab === 'outpost' && (
+        <OutpostPanel
+          definition={definition}
+          state={state.outpost}
+          profile={state.profile}
+          busy={busy}
+          onCommand={onCommand}
+        />
+      )}
+      {hasTaskAttention && !finished && activeTab !== 'tasks' && (
+        <button className="task-alert" onClick={() => setActiveTab('tasks')}>
+          {hasPendingTaskNode ? TASK_NAV_COPY.pending : TASK_NAV_COPY.optional}
+        </button>
       )}
       {activeTab === 'operations' && (
         <>

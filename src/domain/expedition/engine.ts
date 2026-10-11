@@ -23,7 +23,12 @@ import type {
   WorldDefinition,
   WorldVariantDefinition,
 } from './types';
-import { advanceOutpost, applyOutpostCommand, createOutpost } from '../outpost/engine';
+import {
+  advanceOutpost,
+  applyOutpostCommand,
+  consumeOutpostResource,
+  createOutpost,
+} from '../outpost/engine';
 import { validateExpeditionDefinition } from './validation';
 
 const BUILDING_IDS: readonly BuildingId[] = [
@@ -1719,6 +1724,29 @@ export function applyExpeditionCommand(
           ...run,
           hp: run.hp + Math.min(definition.repairHp, run.maxHp - run.hp),
           repairUsed: true,
+        },
+      });
+    }
+    case 'reinforce-anchor': {
+      if (!run || !isPlayable(run) || run.anchorCityState === null)
+        return reject(state, 'WRONG_PHASE');
+      const support = definition.outpost?.anchorSupport;
+      const anchorMode = getAnchorCityMode(getWorld(run, definition));
+      if (support === undefined || anchorMode === null || state.outpost === null)
+        return reject(state, 'LOCKED');
+      const stabilityGain = Math.min(
+        support.stability,
+        anchorMode.stabilityCapacity - run.anchorCityState.stability,
+      );
+      if (stabilityGain <= 0) return reject(state, 'ANCHOR_STABLE');
+      const outpost = consumeOutpostResource(state.outpost, support.resourceId, 1);
+      if (outpost === null) return reject(state, 'OUTPOST_RESOURCES');
+      return success({
+        ...state,
+        outpost,
+        activeRun: {
+          ...run,
+          anchorCityState: { stability: run.anchorCityState.stability + stabilityGain },
         },
       });
     }

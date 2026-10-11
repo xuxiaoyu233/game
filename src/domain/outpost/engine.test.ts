@@ -5,8 +5,12 @@ import {
   advanceOutpost,
   createOutpost,
   getOutpostProfessionLevel,
+  getOutpostProfessionExperienceSinceReview,
+  getOutpostProfessionProgress,
+  getOutpostResourceCapacity,
   getOutpostStorageCapacity,
   OUTPOST_RESOURCE_IDS,
+  validateOutpostState,
 } from './engine';
 import type { OutpostCommand } from './types';
 import type { OutpostDefinition } from './types';
@@ -72,16 +76,101 @@ describe('outpost economy', () => {
     expect(state.resources['reclaimed-alloy']).toBe(26);
   });
 
-  it('builds the first production facility from starting resources and expands usable stock capacity', () => {
+  it('rejects unreachable new stock targets and permits them after storage expansion', () => {
     const initial = createOutpost(definition);
-    const built = act(initial, {
+    expect(getOutpostResourceCapacity(initial, definition, 'biofiber')).toBe(80);
+    expect(
+      applyOutpostCommand(
+        initial,
+        definition,
+        { kind: 'set-outpost-job-target', jobId: 'cultivate-biofiber', target: 100 },
+        [],
+      ),
+    ).toMatchObject({ ok: false, error: 'OUTPOST_TARGET_CAPACITY', state: initial });
+
+    const expanded = buildFirstHangarFromStartingEconomy(initial);
+    expect(getOutpostResourceCapacity(expanded, definition, 'biofiber')).toBe(120);
+    expect(
+      applyOutpostCommand(
+        expanded,
+        definition,
+        { kind: 'set-outpost-job-target', jobId: 'cultivate-biofiber', target: 100 },
+        [],
+      ),
+    ).toMatchObject({ ok: true, state: { jobTargets: { 'cultivate-biofiber': 100 } } });
+
+    const legacyTarget = {
+      ...initial,
+      jobTargets: { ...initial.jobTargets, 'cultivate-biofiber': 100 },
+    };
+    expect(() => validateOutpostState(legacyTarget, definition)).not.toThrow();
+    expect(
+      act(legacyTarget, {
+        kind: 'set-outpost-job-target',
+        jobId: 'cultivate-biofiber',
+        target: 60,
+      }).jobTargets['cultivate-biofiber'],
+    ).toBe(60);
+  });
+
+  it('can recover a full warehouse by atomically reserving recipe inputs before output space', () => {
+    const expanded = buildFirstHangarFromStartingEconomy(createOutpost(definition));
+    const full = {
+      ...expanded,
+      resources: {
+        ...expanded.resources,
+        'reclaimed-alloy': 140,
+        'charge-cell': 140,
+        biofiber: 120,
+      },
+      professionExperience: { ...expanded.professionExperience, engineering: 1 },
+    };
+    expect(OUTPOST_RESOURCE_IDS.reduce((total, id) => total + full.resources[id], 0)).toBe(400);
+    const started = applyOutpostCommand(
+      full,
+      definition,
+      { kind: 'start-outpost-recipe', recipeId: 'refine-structural-panel', batches: 1 },
+      [],
+    );
+    expect(started).toMatchObject({
+      ok: true,
+      state: {
+        resources: { 'reclaimed-alloy': 137, 'charge-cell': 139 },
+        reservedOutput: 'structural-panel',
+        pausedReason: null,
+      },
+    });
+  });
+
+  it('crafts and spends a structural panel to build the first production facility', () => {
+    const initial = createOutpost(definition);
+    expect(
+      applyOutpostCommand(
+        initial,
+        definition,
+        { kind: 'build-outpost-facility', facilityId: 'production-hangar' },
+        [],
+      ),
+    ).toMatchObject({ ok: false, error: 'OUTPOST_RESOURCES', state: initial });
+
+    const queued = act(initial, {
+      kind: 'start-outpost-recipe',
+      recipeId: 'refine-structural-panel',
+      batches: 1,
+    });
+    const crafted = advanceOutpost(queued, definition, 0, 180_000);
+    expect(crafted.resources['structural-panel']).toBe(1);
+    expect(crafted.craftedByRecipe['refine-structural-panel']).toBe(1);
+
+    const built = act(crafted, {
       kind: 'build-outpost-facility',
       facilityId: 'production-hangar',
     });
     expect(built).toMatchObject({
       facilities: { 'production-hangar': 1 },
-      resources: { 'reclaimed-alloy': 4, 'charge-cell': 6 },
+      resources: { 'charge-cell': 5, 'structural-panel': 0 },
     });
+    expect(built.resources['reclaimed-alloy']).toBeCloseTo(1.3);
     expect(getOutpostStorageCapacity(built, definition)).toBe(400);
     const duplicate = applyOutpostCommand(
       built,
@@ -109,10 +198,20 @@ describe('outpost economy', () => {
 
   it('keeps a review boundary so a return summary can be acknowledged without changing inventory', () => {
     const produced = advanceOutpost(createOutpost(definition), definition, 0, 3_600_000);
+    expect(getOutpostProfessionExperienceSinceReview(produced, definition)).toEqual({
+      salvage: 6,
+      engineering: 6,
+      medical: 6,
+    });
     const acknowledged = act(produced, { kind: 'acknowledge-outpost-report' });
     expect(acknowledged.resources).toEqual(produced.resources);
     expect(acknowledged.reviewedProductionByJob).toEqual(produced.producedByJob);
     expect(acknowledged.reviewedCraftedByRecipe).toEqual(produced.craftedByRecipe);
+    expect(getOutpostProfessionExperienceSinceReview(acknowledged, definition)).toEqual({
+      salvage: 0,
+      engineering: 0,
+      medical: 0,
+    });
   });
 
   it('reserves ingredients atomically, completes a batch, and preserves it across state snapshots', () => {
@@ -208,4 +307,25 @@ describe('outpost economy', () => {
     expect(unlocked.ok).toBe(true);
     if (unlocked.ok) expect(unlocked.state.pausedReason).toBe('ingredients');
   });
+
+  it('shows engineering progress toward the next recipe after offline production', () => {
+    const state = advanceOutpost(createOutpost(definition), definition, 0, 80 * 60_000);
+    expect(getOutpostProfessionProgress(state, definition, 'engineering')).toEqual({
+      level: 2,
+      experience: 8,
+      currentLevelExperience: 8,
+      nextLevelExperience: 24,
+    });
+    expect(state.professionExperience.engineering).toBe(8);
+  });
 });
+
+function buildFirstHangarFromStartingEconomy(state: ReturnType<typeof createOutpost>) {
+  const queued = act(state, {
+    kind: 'start-outpost-recipe',
+    recipeId: 'refine-structural-panel',
+    batches: 1,
+  });
+  const crafted = advanceOutpost(queued, definition, 0, 180_000);
+  return act(crafted, { kind: 'build-outpost-facility', facilityId: 'production-hangar' });
+}

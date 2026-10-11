@@ -6,7 +6,10 @@ import {
   getOutpostResourceCapacity,
   getOutpostStorageCapacity,
   getOutpostProfessionLevel,
+  getOutpostProfessionExperienceSinceReview,
+  getOutpostProfessionProgress,
   OUTPOST_JOB_IDS,
+  OUTPOST_PROFESSION_IDS,
   OUTPOST_RESOURCE_IDS,
 } from '../domain/outpost/engine';
 import type { OutpostState } from '../domain/outpost/types';
@@ -59,6 +62,14 @@ export function OutpostPanel({
     0,
   );
   const storageCapacity = getOutpostStorageCapacity(state, outpostDefinition);
+  const engineeringProgress = getOutpostProfessionProgress(state, outpostDefinition, 'engineering');
+  const nextEngineeringRecipe = outpostDefinition.recipes
+    .filter(
+      (item) =>
+        item.professionId === 'engineering' &&
+        item.minimumProfessionLevel > engineeringProgress.level,
+    )
+    .sort((left, right) => left.minimumProfessionLevel - right.minimumProfessionLevel)[0];
   const productionSinceReview = OUTPOST_JOB_IDS.map((jobId) => ({
     jobId,
     amount: Math.max(0, state.producedByJob[jobId] - state.reviewedProductionByJob[jobId]),
@@ -69,7 +80,31 @@ export function OutpostPanel({
       batches: Math.max(0, state.craftedByRecipe[item.id] - state.reviewedCraftedByRecipe[item.id]),
     }))
     .filter((entry) => entry.batches > 0);
-  const hasNewActivity = productionSinceReview.length > 0 || craftsSinceReview.length > 0;
+  const professionExperienceSinceReview = getOutpostProfessionExperienceSinceReview(
+    state,
+    outpostDefinition,
+  );
+  const professionGrowthSinceReview = OUTPOST_PROFESSION_IDS.flatMap((professionId) => {
+    const experience = professionExperienceSinceReview[professionId];
+    if (experience <= 0) return [];
+    const previousExperience = Math.max(0, state.professionExperience[professionId] - experience);
+    const previousLevel = getOutpostProfessionLevel(
+      {
+        ...state,
+        professionExperience: { ...state.professionExperience, [professionId]: previousExperience },
+      },
+      outpostDefinition,
+      professionId,
+    );
+    const currentLevel = getOutpostProfessionLevel(state, outpostDefinition, professionId);
+    return [
+      { professionId, experience, levelUp: currentLevel > previousLevel ? currentLevel : null },
+    ];
+  });
+  const hasNewActivity =
+    productionSinceReview.length > 0 ||
+    craftsSinceReview.length > 0 ||
+    professionGrowthSinceReview.length > 0;
 
   return (
     <section
@@ -115,6 +150,12 @@ export function OutpostPanel({
                 {OUTPOST_RECIPE_COPY[recipeId].name} 完成 {batches} 批
               </span>
             ))}
+            {professionGrowthSinceReview.map(({ professionId, experience, levelUp }) => (
+              <span key={professionId}>
+                {OUTPOST_PROFESSION_COPY[professionId]} +{formatAmount(experience)} XP
+                {levelUp === null ? '' : ` · 升至等级 ${levelUp}`}
+              </span>
+            ))}
           </div>
         ) : (
           <small>暂无新产出或完成的制作。</small>
@@ -138,6 +179,34 @@ export function OutpostPanel({
           );
         })}
       </div>
+      <section className="outpost-profession" aria-label="工程专业成长">
+        <div className="section-title">
+          <strong>工程专业 · 等级 {engineeringProgress.level}</strong>
+          <span>
+            {formatAmount(engineeringProgress.experience)} XP
+            {engineeringProgress.nextLevelExperience === null
+              ? ' · 当前上限'
+              : ` / ${formatAmount(engineeringProgress.nextLevelExperience)} XP`}
+          </span>
+        </div>
+        {engineeringProgress.nextLevelExperience !== null && (
+          <progress
+            data-testid="outpost-engineering-progress"
+            max={
+              engineeringProgress.nextLevelExperience - engineeringProgress.currentLevelExperience
+            }
+            value={engineeringProgress.experience - engineeringProgress.currentLevelExperience}
+            aria-label="工程经验进度"
+          />
+        )}
+        <small>
+          {nextEngineeringRecipe === undefined
+            ? '已解锁当前版本的工程配方。'
+            : `工程等级 ${nextEngineeringRecipe.minimumProfessionLevel} 解锁${OUTPOST_RECIPE_COPY[nextEngineeringRecipe.id].name}${
+                nextEngineeringRecipe.requiredClueIds.length > 0 ? '，还需归档对应记录' : ''
+              }。`}
+        </small>
+      </section>
 
       <details className="outpost-facilities" open>
         <summary>驻地设施</summary>
@@ -193,12 +262,16 @@ export function OutpostPanel({
                 ? '无人执行'
                 : workingOnRecipe
                   ? '正在承担制作'
-                  : target !== null && currentStock >= target
-                    ? '已达到库存目标'
-                    : currentStock >= stockCap || storedTotal >= outpostDefinition.storageCapacity
-                      ? '仓储已满'
-                      : '自动作业中';
-            const effectiveRate = target !== null && currentStock >= target ? 0 : rate;
+                  : target !== null && target > stockCap
+                    ? '库存目标高于当前上限'
+                    : target !== null && currentStock >= target
+                      ? '已达到库存目标'
+                      : currentStock >= stockCap || storedTotal >= storageCapacity
+                        ? '仓储已满'
+                        : '自动作业中';
+            const isStoppedByCapacity = currentStock >= stockCap || storedTotal >= storageCapacity;
+            const effectiveRate =
+              (target !== null && currentStock >= target) || isStoppedByCapacity ? 0 : rate;
             return (
               <div className="outpost-job-card" key={jobId}>
                 <div className="outpost-job-row">
@@ -244,13 +317,25 @@ export function OutpostPanel({
                     }
                   >
                     <option value="none">持续补满</option>
-                    {[20, 40, 60, 100].map((value) => (
-                      <option key={value} value={value}>
-                        达到 {value} 后暂停
+                    {[20, 40, 60, 100]
+                      .filter((value) => value <= stockCap)
+                      .map((value) => (
+                        <option key={value} value={value}>
+                          达到 {value} 后暂停
+                        </option>
+                      ))}
+                    {target !== null && target > stockCap && (
+                      <option value={String(target)} disabled>
+                        原有目标 {target}（当前上限 {stockCap}，扩容后可用）
                       </option>
-                    ))}
+                    )}
                   </select>
                 </label>
+                {target !== null && target > stockCap && (
+                  <small className="outpost-target-warning" role="note">
+                    已保留原有目标；扩建驻地仓储后才可达到，也可改选当前可用目标。
+                  </small>
+                )}
               </div>
             );
           })}
@@ -324,7 +409,7 @@ export function OutpostPanel({
                 )}
                 {unlocked && (
                   <div className="outpost-recipe-actions">
-                    {[5, 20].map((batches) => (
+                    {[1, 5, 20].map((batches) => (
                       <button
                         className="secondary"
                         key={batches}

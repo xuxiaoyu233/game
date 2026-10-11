@@ -115,6 +115,70 @@ export function getOutpostProfessionLevel(
   return level;
 }
 
+export interface OutpostProfessionProgress {
+  readonly level: number;
+  readonly experience: number;
+  readonly currentLevelExperience: number;
+  readonly nextLevelExperience: number | null;
+}
+
+export function getOutpostProfessionProgress(
+  state: OutpostState,
+  definition: OutpostDefinition,
+  professionId: OutpostProfessionId,
+): OutpostProfessionProgress {
+  const level = getOutpostProfessionLevel(state, definition, professionId);
+  return {
+    level,
+    experience: state.professionExperience[professionId],
+    currentLevelExperience: definition.professionLevelExperience[level - 1] ?? 0,
+    nextLevelExperience: definition.professionLevelExperience[level] ?? null,
+  };
+}
+
+export function getOutpostProfessionExperienceSinceReview(
+  state: OutpostState,
+  definition: OutpostDefinition,
+): Readonly<Record<OutpostProfessionId, number>> {
+  const experience: Record<OutpostProfessionId, number> = {
+    salvage: 0,
+    engineering: 0,
+    medical: 0,
+  };
+  for (const job of definition.jobs) {
+    const produced = Math.max(
+      0,
+      state.producedByJob[job.id] - state.reviewedProductionByJob[job.id],
+    );
+    experience[job.professionId] +=
+      (produced * job.experiencePerWorkerHour) / job.amountPerWorkerHour;
+  }
+  for (const recipe of definition.recipes) {
+    const batches = Math.max(
+      0,
+      state.craftedByRecipe[recipe.id] - state.reviewedCraftedByRecipe[recipe.id],
+    );
+    experience[recipe.professionId] += batches * definition.experiencePerBatch;
+  }
+  for (const professionId of OUTPOST_PROFESSION_IDS)
+    experience[professionId] = Math.round(experience[professionId] * 1_000_000) / 1_000_000;
+  return experience;
+}
+
+export function consumeOutpostResource(
+  state: OutpostState,
+  resourceId: OutpostResourceId,
+  amount: number,
+): OutpostState | null {
+  if (!Number.isSafeInteger(amount) || amount <= 0)
+    throw new RangeError('Outpost resource consumption must be a positive safe integer');
+  if (state.resources[resourceId] < amount) return null;
+  return {
+    ...state,
+    resources: { ...state.resources, [resourceId]: state.resources[resourceId] - amount },
+  };
+}
+
 function findRecipe(
   definition: OutpostDefinition,
   recipeId: string,
@@ -217,19 +281,6 @@ function startBatch(
       reservedOutput: null,
       pausedReason: 'workers',
     };
-  if (
-    state.resources[recipe.output] + recipe.outputAmount >
-      getOutpostResourceCapacity(state, definition, recipe.output) ||
-    storedTotal(state.resources) + recipe.outputAmount >
-      getOutpostStorageCapacity(state, definition)
-  ) {
-    return {
-      resources: state.resources,
-      reservedInputs: emptyResources(),
-      reservedOutput: null,
-      pausedReason: 'storage',
-    };
-  }
   if (!hasInputs(state, recipe))
     return {
       resources: state.resources,
@@ -244,6 +295,18 @@ function startBatch(
     const value = amount ?? 0;
     nextResources[resourceId] -= value;
     reservedInputs[resourceId] = value;
+  }
+  if (
+    nextResources[recipe.output] + recipe.outputAmount >
+      getOutpostResourceCapacity(state, definition, recipe.output) ||
+    storedTotal(nextResources) + recipe.outputAmount > getOutpostStorageCapacity(state, definition)
+  ) {
+    return {
+      resources: state.resources,
+      reservedInputs: emptyResources(),
+      reservedOutput: null,
+      pausedReason: 'storage',
+    };
   }
   return {
     resources: nextResources,
@@ -286,6 +349,13 @@ export function applyOutpostCommand(
         (command.target !== null && (!Number.isSafeInteger(command.target) || command.target < 1))
       )
         return { ok: false, state, error: 'OUTPOST_RECIPE_TARGET' };
+      const job = definition.jobs.find((item) => item.id === command.jobId);
+      if (
+        command.target !== null &&
+        job !== undefined &&
+        command.target > getOutpostResourceCapacity(state, definition, job.output)
+      )
+        return { ok: false, state, error: 'OUTPOST_TARGET_CAPACITY' };
       return {
         ok: true,
         state: {
@@ -409,7 +479,7 @@ function addProduction(
     const gainedExperience = (gained * job.experiencePerWorkerHour) / job.amountPerWorkerHour;
     experience[job.professionId] = Math.min(
       Number.MAX_SAFE_INTEGER,
-      experience[job.professionId] + gainedExperience,
+      Math.round((experience[job.professionId] + gainedExperience) * 1_000_000) / 1_000_000,
     );
   }
   return { ...state, resources, professionExperience: experience, producedByJob };
