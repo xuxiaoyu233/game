@@ -1,0 +1,16 @@
+node_modules/
+dist/
+dist-desktop/
+artifacts/
+coverage/
+.cache/
+.tools/
+.local-data/
+src-tauri/target/
+src-tauri/gen/
+*.log
+*.tmp
+*.save.json
+.env.local
+.env.*.local
+!.env.example

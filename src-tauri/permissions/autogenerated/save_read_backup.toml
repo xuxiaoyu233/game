@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-save-read-backup"
+description = "Enables the save_read_backup command without any pre-configured scope."
+commands.allow = ["save_read_backup"]
+
+[[permission]]
+identifier = "deny-save-read-backup"
+description = "Denies the save_read_backup command without any pre-configured scope."
+commands.deny = ["save_read_backup"]
