@@ -202,15 +202,17 @@ function addDefinitions(definitions, namespace, ids) {
 
 async function checkCoreIds(markdownFiles, contents) {
   const definitions = new Map();
-  const library = path.join(root, 'docs', '副本资料库');
-  const sourcePath = path.join(root, 'docs', '规划', '故事背景与素材管理.md');
+  const library = path.join(root, 'docs', '历史资料', '失落航标-v12', '副本资料库');
+  const sourcePath = path.join(root, 'docs', '历史资料', '失落航标-v12', '资料来源与阅读范围.md');
   const crossIndexPath = path.join(library, '交叉索引.md');
   const characterPath = path.join(library, '群像角色卡与成长弧.md');
   const crossScenesPath = path.join(library, '四路径交叉场景.md');
 
   const sourceText = contents.get(sourcePath);
   if (!sourceText) {
-    errors.push('missing canonical source registry: docs/规划/故事背景与素材管理.md');
+    errors.push(
+      'missing archived source registry: docs/历史资料/失落航标-v12/资料来源与阅读范围.md',
+    );
   } else {
     addDefinitions(
       definitions,
@@ -244,7 +246,7 @@ async function checkCoreIds(markdownFiles, contents) {
 
   const indexText = contents.get(crossIndexPath);
   if (!indexText) {
-    errors.push('missing canonical cross index: docs/副本资料库/交叉索引.md');
+    errors.push('missing archived cross index: docs/历史资料/失落航标-v12/副本资料库/交叉索引.md');
   } else {
     addDefinitions(
       definitions,
@@ -268,7 +270,9 @@ async function checkCoreIds(markdownFiles, contents) {
 
   const characterText = contents.get(characterPath);
   if (!characterText) {
-    errors.push('missing canonical character cards: docs/副本资料库/群像角色卡与成长弧.md');
+    errors.push(
+      'missing archived character cards: docs/历史资料/失落航标-v12/副本资料库/群像角色卡与成长弧.md',
+    );
   } else {
     addDefinitions(
       definitions,
@@ -279,7 +283,9 @@ async function checkCoreIds(markdownFiles, contents) {
 
   const crossScenesText = contents.get(crossScenesPath);
   if (!crossScenesText) {
-    errors.push('missing canonical cross-path scenes: docs/副本资料库/四路径交叉场景.md');
+    errors.push(
+      'missing archived cross-path scenes: docs/历史资料/失落航标-v12/副本资料库/四路径交叉场景.md',
+    );
   } else {
     const firstTable = crossScenesText.split(/\r?\n(?=## )/)[0];
     addDefinitions(
@@ -388,20 +394,59 @@ async function checkImplementationPaths(indexText) {
   }
 }
 
+function checkStoryLibraryBoundary(contents) {
+  const requirements = [
+    ['docs/故事资料库.md', ['当前批准正史', '历史资料']],
+    ['docs/故事线设定集.md', ['状态：当前正史']],
+    ['docs/历史资料/失落航标-v12/README.md', ['历史归档', '不属于当前正史']],
+    ['docs/副本资料库/README.md', ['兼容旧链接', '历史资料库']],
+  ];
+  for (const [relativePath, phrases] of requirements) {
+    const text = contents.get(path.resolve(root, relativePath.replaceAll('/', path.sep)));
+    if (!text) {
+      errors.push('missing story library boundary document: ' + relativePath);
+      continue;
+    }
+    for (const phrase of phrases) {
+      if (!text.includes(phrase)) {
+        errors.push(relativePath + ': missing required boundary marker ' + phrase);
+      }
+    }
+  }
+}
+
 const markdownFiles = await collectProjectMarkdown();
 const contents = new Map();
 for (const file of markdownFiles) contents.set(file, await readFile(file, 'utf8'));
 
 await checkMarkdownLinks(markdownFiles, contents);
 await checkCoreIds(markdownFiles, contents);
+checkStoryLibraryBoundary(contents);
 
-const governancePath = path.join(root, 'docs', '副本资料库', '交叉记录与资料治理规范.md');
-const crossIndexPath = path.join(root, 'docs', '副本资料库', '交叉索引.md');
+const governancePath = path.join(
+  root,
+  'docs',
+  '历史资料',
+  '失落航标-v12',
+  '副本资料库',
+  '交叉记录与资料治理规范.md',
+);
+const crossIndexPath = path.join(
+  root,
+  'docs',
+  '历史资料',
+  '失落航标-v12',
+  '副本资料库',
+  '交叉索引.md',
+);
 const governanceText = contents.get(governancePath);
 const crossIndexText = contents.get(crossIndexPath);
 if (!governanceText)
-  errors.push('missing governance spec: docs/副本资料库/交叉记录与资料治理规范.md');
-if (!crossIndexText) errors.push('missing cross index: docs/副本资料库/交叉索引.md');
+  errors.push(
+    'missing governance spec: docs/历史资料/失落航标-v12/副本资料库/交叉记录与资料治理规范.md',
+  );
+if (!crossIndexText)
+  errors.push('missing cross index: docs/历史资料/失落航标-v12/副本资料库/交叉索引.md');
 if (governanceText && crossIndexText) {
   checkRelationshipTerms(crossIndexText, readRelationshipVocabulary(governanceText));
   await checkImplementationPaths(crossIndexText);
