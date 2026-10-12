@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "诸界救援局",
+  "productName": "技能放置原型",
   "version": "0.8.0",
   "identifier": "org.zhujie.rescuebureau",
   "build": {
@@ -13,7 +13,7 @@
     "windows": [
       {
         "label": "main",
-        "title": "诸界救援局 · 寰门总台",
+        "title": "技能放置原型",
         "width": 420,
         "height": 600,
         "minWidth": 360,

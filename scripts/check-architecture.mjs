@@ -67,6 +67,7 @@ async function visit(directory) {
           dependency === 'domain' &&
           ![
             'domain/types',
+            'domain/skill-loop/types',
             'domain/expedition/types',
             'domain/expedition/v2-types',
             'domain/outpost/types',

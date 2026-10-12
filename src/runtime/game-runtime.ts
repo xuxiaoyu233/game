@@ -1,8 +1,8 @@
 import { advanceTime, applyCommand, createNewGame, getGameSummary } from '../domain/engine';
 import type {
-  ActionResult,
   GameCommand,
   GameDefinition,
+  GameErrorCode,
   GameState,
   GameSummary,
 } from '../domain/types';
@@ -10,14 +10,59 @@ import { validateGameDefinition } from '../domain/validation';
 import { decodeSave, encodeSave } from '../persistence/save-codec';
 import type { InstanceLease, SaveStorage } from '../platform/ports';
 
-export interface RuntimeSnapshot {
+export interface RuntimeSnapshot<State = GameState, Summary = GameSummary> {
   readonly status: 'loading' | 'ready' | 'error';
-  readonly state: GameState | null;
-  readonly summary: GameSummary | null;
+  readonly state: State | null;
+  readonly summary: Summary | null;
   readonly isDirty: boolean;
   readonly error: string | null;
   readonly revision: number;
 }
+
+export type RuntimeActionResult<State, ErrorCode extends string> =
+  | { readonly ok: true; readonly state: State }
+  | { readonly ok: false; readonly state: State; readonly error: ErrorCode };
+
+/** Domain rules plug into the one lifecycle, action queue, save queue, and recovery barrier. */
+export interface RuntimeDomain<Definition, State, Command, Summary, ErrorCode extends string> {
+  readonly validateDefinition: (definition: Definition) => void;
+  readonly createNewState: (definition: Definition, now: number) => State;
+  readonly advanceTime: (
+    state: State,
+    definition: Definition,
+    now: number,
+  ) => { readonly state: State; readonly error?: ErrorCode };
+  readonly applyCommand: (
+    state: State,
+    definition: Definition,
+    command: Command,
+  ) => RuntimeActionResult<State, ErrorCode>;
+  readonly getSummary: (state: State, definition: Definition) => Summary;
+  readonly decodeSave: (contents: string, definition: Definition) => State;
+  readonly encodeSave: (state: State) => string;
+  readonly isNumericLimit: (error: ErrorCode) => boolean;
+  readonly numericLimitError: ErrorCode;
+  readonly isImmediateCommand: (command: Command) => boolean;
+}
+
+const LEGACY_GAME_RUNTIME_DOMAIN: RuntimeDomain<
+  GameDefinition,
+  GameState,
+  GameCommand,
+  GameSummary,
+  GameErrorCode
+> = {
+  validateDefinition: validateGameDefinition,
+  createNewState: createNewGame,
+  advanceTime,
+  applyCommand,
+  getSummary: getGameSummary,
+  decodeSave,
+  encodeSave,
+  isNumericLimit: (error) => error === 'NUMERIC_LIMIT',
+  numericLimitError: 'NUMERIC_LIMIT',
+  isImmediateCommand: (command) => command.kind !== 'tick' && command.kind !== 'collect',
+};
 
 const AUTOSAVE_INTERVAL_MS = 5_000;
 const NUMERIC_LIMIT_MESSAGE = '生产数值已达安全上限，本次额外收益未发放；请导出存档保留当前进度。';
@@ -26,8 +71,14 @@ function errorMessage(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
 }
 
-export class GameRuntime {
-  private snapshot: RuntimeSnapshot = {
+export class GameRuntime<
+  Definition = GameDefinition,
+  State = GameState,
+  Command = GameCommand,
+  Summary = GameSummary,
+  ErrorCode extends string = GameErrorCode,
+> {
+  private snapshot: RuntimeSnapshot<State, Summary> = {
     status: 'loading',
     state: null,
     summary: null,
@@ -42,7 +93,7 @@ export class GameRuntime {
   private saveGeneration = 0;
   private lastSaveScheduledAt = 0;
   private lastSaveRequestedRevision = -1;
-  private startupCandidate: GameState | null = null;
+  private startupCandidate: State | null = null;
   private startupRevision: number | null = null;
   private startupPreserveBackup = false;
   private startupWarning: string | null = null;
@@ -52,20 +103,21 @@ export class GameRuntime {
   private disposed = false;
 
   constructor(
-    private readonly definition: GameDefinition,
+    private readonly definition: Definition,
     private readonly storage: SaveStorage,
     private readonly lease: InstanceLease,
     private readonly clock: () => number,
+    private readonly domain: RuntimeDomain<Definition, State, Command, Summary, ErrorCode>,
   ) {}
 
-  readonly getSnapshot = (): RuntimeSnapshot => this.snapshot;
+  readonly getSnapshot = (): RuntimeSnapshot<State, Summary> => this.snapshot;
 
   readonly subscribe = (listener: () => void): (() => void) => {
     this.listeners.add(listener);
     return () => this.listeners.delete(listener);
   };
 
-  private publish(patch: Partial<RuntimeSnapshot> = {}): void {
+  private publish(patch: Partial<RuntimeSnapshot<State, Summary>> = {}): void {
     const updated = { ...this.snapshot, ...patch };
     this.snapshot = {
       ...updated,
@@ -74,14 +126,14 @@ export class GameRuntime {
     for (const listener of this.listeners) listener();
   }
 
-  private commit(state: GameState, error: string | null = this.snapshot.error): void {
+  private commit(state: State, error: string | null = this.snapshot.error): void {
     if (state === this.snapshot.state) {
       if (error !== this.snapshot.error) this.publish({ error });
       return;
     }
     this.publish({
       state,
-      summary: getGameSummary(state, this.definition),
+      summary: this.domain.getSummary(state, this.definition),
       revision: this.snapshot.revision + 1,
       error,
     });
@@ -100,7 +152,7 @@ export class GameRuntime {
     if (this.disposed) throw new Error('游戏运行器已关闭。');
   }
 
-  private requireReady(): GameState {
+  private requireReady(): State {
     this.ensureActive();
     if (this.snapshot.status !== 'ready' || this.snapshot.state === null)
       throw new Error('游戏尚未完成存档恢复，请先重试加载。');
@@ -109,12 +161,14 @@ export class GameRuntime {
 
   private advanceCurrent(): boolean {
     const state = this.requireReady();
-    const advanced = advanceTime(state, this.definition, this.clock());
+    const advanced = this.domain.advanceTime(state, this.definition, this.clock());
     this.commit(
       advanced.state,
-      advanced.error === 'NUMERIC_LIMIT' ? NUMERIC_LIMIT_MESSAGE : this.snapshot.error,
+      advanced.error !== undefined && this.domain.isNumericLimit(advanced.error)
+        ? NUMERIC_LIMIT_MESSAGE
+        : this.snapshot.error,
     );
-    return advanced.error !== 'NUMERIC_LIMIT';
+    return advanced.error === undefined || !this.domain.isNumericLimit(advanced.error);
   }
 
   start(): Promise<void> {
@@ -123,7 +177,7 @@ export class GameRuntime {
       if (this.snapshot.status === 'ready') return;
       this.publish({ status: 'loading', error: null });
       try {
-        validateGameDefinition(this.definition);
+        this.domain.validateDefinition(this.definition);
         if (!this.leaseAcquired) {
           await this.lease.acquire();
           this.leaseAcquired = true;
@@ -132,20 +186,23 @@ export class GameRuntime {
         if (this.startupCandidate === null) {
           const contents = await this.storage.read();
           this.ensureActive();
-          let state: GameState;
+          let state: State;
           try {
             state =
               contents === null
-                ? createNewGame(this.definition, this.clock())
-                : decodeSave(contents, this.definition);
+                ? this.domain.createNewState(this.definition, this.clock())
+                : this.domain.decodeSave(contents, this.definition);
             this.mainIsInvalid = false;
           } catch (error) {
             this.mainIsInvalid = true;
             throw error;
           }
-          const advanced = advanceTime(state, this.definition, this.clock());
+          const advanced = this.domain.advanceTime(state, this.definition, this.clock());
           this.startupCandidate = advanced.state;
-          this.startupWarning = advanced.error === 'NUMERIC_LIMIT' ? NUMERIC_LIMIT_MESSAGE : null;
+          this.startupWarning =
+            advanced.error !== undefined && this.domain.isNumericLimit(advanced.error)
+              ? NUMERIC_LIMIT_MESSAGE
+              : null;
           this.commit(this.startupCandidate, this.startupWarning);
           this.startupRevision = this.snapshot.revision;
         }
@@ -162,7 +219,7 @@ export class GameRuntime {
         this.publish({
           status: 'ready',
           state: candidate,
-          summary: getGameSummary(candidate, this.definition),
+          summary: this.domain.getSummary(candidate, this.definition),
           revision,
           error: this.startupWarning,
         });
@@ -173,18 +230,18 @@ export class GameRuntime {
     });
   }
 
-  dispatch(command: GameCommand): Promise<ActionResult> {
+  dispatch(command: Command): Promise<RuntimeActionResult<State, ErrorCode>> {
     if (this.paused) return Promise.reject(new Error('正在保存或导入存档，请稍后操作。'));
-    return this.enqueue((): ActionResult => {
+    return this.enqueue((): RuntimeActionResult<State, ErrorCode> => {
       this.requireReady();
       if (!this.advanceCurrent()) {
         const state = this.requireReady();
-        this.maybeSave(command.kind !== 'tick' && command.kind !== 'collect');
-        return { ok: false, state, error: 'NUMERIC_LIMIT' };
+        this.maybeSave(this.domain.isImmediateCommand(command));
+        return { ok: false, state, error: this.domain.numericLimitError };
       }
-      const result = applyCommand(this.requireReady(), this.definition, command);
+      const result = this.domain.applyCommand(this.requireReady(), this.definition, command);
       this.commit(result.state);
-      const important = result.ok && command.kind !== 'tick' && command.kind !== 'collect';
+      const important = result.ok && this.domain.isImmediateCommand(command);
       this.maybeSave(important);
       return result;
     });
@@ -200,14 +257,14 @@ export class GameRuntime {
     }
   }
 
-  private saveSnapshot(state: GameState, revision: number, preserveBackup = false): Promise<void> {
+  private saveSnapshot(state: State, revision: number, preserveBackup = false): Promise<void> {
     const generation = this.saveGeneration;
     this.lastSaveRequestedRevision = revision;
     const result = this.saveQueue.then(async () => {
       this.ensureActive();
       if (generation !== this.saveGeneration) return;
       try {
-        await this.storage.write(encodeSave(state), { preserveBackup });
+        await this.storage.write(this.domain.encodeSave(state), { preserveBackup });
         this.savedRevision = revision;
         if (!this.disposed)
           this.publish({
@@ -278,7 +335,7 @@ export class GameRuntime {
       const state = this.snapshot.state;
       if (state === null) throw new Error('没有经过校验的游戏进度可导出。');
       // A manual backup must remain available even when the main-save device is full or unavailable.
-      return this.storage.exportFile(encodeSave(state));
+      return this.storage.exportFile(this.domain.encodeSave(state));
     }, true);
   }
 
@@ -306,9 +363,10 @@ export class GameRuntime {
       if (!selected.ok) throw selected.error;
       const contents = selected.contents;
       if (contents === null) return false;
-      const decoded = decodeSave(contents, this.definition);
-      const advanced = advanceTime(decoded, this.definition, this.clock());
-      if (advanced.error === 'NUMERIC_LIMIT') throw new Error(NUMERIC_LIMIT_MESSAGE);
+      const decoded = this.domain.decodeSave(contents, this.definition);
+      const advanced = this.domain.advanceTime(decoded, this.definition, this.clock());
+      if (advanced.error !== undefined && this.domain.isNumericLimit(advanced.error))
+        throw new Error(NUMERIC_LIMIT_MESSAGE);
       await this.replaceFromSave(advanced.state);
       return true;
     }, true);
@@ -318,16 +376,17 @@ export class GameRuntime {
     return this.runBarrier(async () => {
       const contents = await this.storage.readBackup();
       if (contents === null) throw new Error('没有可恢复的备份存档。原存档已保留。');
-      const decoded = decodeSave(contents, this.definition);
-      const advanced = advanceTime(decoded, this.definition, this.clock());
-      if (advanced.error === 'NUMERIC_LIMIT') throw new Error(NUMERIC_LIMIT_MESSAGE);
+      const decoded = this.domain.decodeSave(contents, this.definition);
+      const advanced = this.domain.advanceTime(decoded, this.definition, this.clock());
+      if (advanced.error !== undefined && this.domain.isNumericLimit(advanced.error))
+        throw new Error(NUMERIC_LIMIT_MESSAGE);
       if (this.snapshot.status === 'ready') this.advanceCurrent();
       await this.replaceFromSave(advanced.state);
       return true;
     }, true);
   }
 
-  private async replaceFromSave(candidate: GameState): Promise<void> {
+  private async replaceFromSave(candidate: State): Promise<void> {
     const previousState = this.snapshot.state;
     if (previousState !== null) await this.saveSnapshot(previousState, this.snapshot.revision);
     this.ensureActive();
@@ -341,7 +400,7 @@ export class GameRuntime {
       this.startupWarning = null;
     }
     // Storage.write atomically backs up its prior main save and commits the candidate.
-    await this.storage.write(encodeSave(candidate), { preserveBackup });
+    await this.storage.write(this.domain.encodeSave(candidate), { preserveBackup });
     this.ensureActive();
     this.savedRevision = revision;
     this.startupCandidate = null;
@@ -354,7 +413,7 @@ export class GameRuntime {
     this.publish({
       status: 'ready',
       state: candidate,
-      summary: getGameSummary(candidate, this.definition),
+      summary: this.domain.getSummary(candidate, this.definition),
       revision,
       error: null,
     });
@@ -377,5 +436,21 @@ export function createGameRuntime(
   lease: InstanceLease,
   clock: () => number = Date.now,
 ): GameRuntime {
-  return new GameRuntime(definition, storage, lease, clock);
+  return new GameRuntime(definition, storage, lease, clock, LEGACY_GAME_RUNTIME_DOMAIN);
+}
+
+export function createConfiguredGameRuntime<
+  Definition,
+  State,
+  Command,
+  Summary,
+  ErrorCode extends string,
+>(
+  definition: Definition,
+  storage: SaveStorage,
+  lease: InstanceLease,
+  domain: RuntimeDomain<Definition, State, Command, Summary, ErrorCode>,
+  clock: () => number = Date.now,
+): GameRuntime<Definition, State, Command, Summary, ErrorCode> {
+  return new GameRuntime(definition, storage, lease, clock, domain);
 }

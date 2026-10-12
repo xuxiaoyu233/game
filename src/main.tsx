@@ -1,56 +1,36 @@
 import { createRoot } from 'react-dom/client';
-import { ExpeditionApp } from './app/ExpeditionApp';
+import { SkillPrototypeApp } from './app/SkillPrototypeApp';
 import './app/styles.css';
-import './app/expedition.css';
-import { BASE_GAME_DEFINITION } from './content/base-game';
-import { EXPEDITION_V13_DEFINITION } from './content/expedition-v13';
-import { EXPEDITION_V14_DEFINITION } from './content/expedition-v14';
-import {
-  STORY_ARCHIVE_V13_PROJECTION,
-  validateStoryArchiveProjection,
-} from './content/narrative/story-archive';
+import { createSkillPrototypeV1Definition } from './content/skill-prototype-v1';
+import { validateSkillLoopDefinition } from './domain/skill-loop/validation';
 import { createPlatform } from './platform/create-platform';
-import { createExpeditionRuntime } from './runtime/expedition-runtime';
-import { GAME_THEMES } from './themes';
-import { CLUE_COPY } from './themes/story-copy-v13';
-import { validateTheme } from './themes/validation';
+import { SKILL_LOOP_RUNTIME_DOMAIN } from './runtime/skill-loop-runtime-domain';
+import { createConfiguredGameRuntime } from './runtime/game-runtime';
+import {
+  SKILL_PROTOTYPE_V1_THEME,
+  validateSkillPrototypeV1Theme,
+} from './themes/skill-prototype-v1';
 
 async function bootstrap(): Promise<void> {
   const container = document.getElementById('root');
   if (container === null) throw new Error('Application root is missing');
-  for (const theme of GAME_THEMES) validateTheme(theme, BASE_GAME_DEFINITION);
-  const storyArchiveEntries = validateStoryArchiveProjection(
-    EXPEDITION_V14_DEFINITION,
-    STORY_ARCHIVE_V13_PROJECTION,
-    Object.keys(CLUE_COPY),
-  );
+
+  const definition = createSkillPrototypeV1Definition('level-threshold');
+  const content = { definition, theme: SKILL_PROTOTYPE_V1_THEME } as const;
+  validateSkillLoopDefinition(definition);
+  validateSkillPrototypeV1Theme(definition, SKILL_PROTOTYPE_V1_THEME);
+
   const platform = await createPlatform();
-  const runtime = createExpeditionRuntime(
-    EXPEDITION_V14_DEFINITION,
+  const runtime = createConfiguredGameRuntime(
+    definition,
     platform.storage,
     platform.instanceLease,
-    Date.now,
-    BASE_GAME_DEFINITION,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    EXPEDITION_V13_DEFINITION,
+    SKILL_LOOP_RUNTIME_DOMAIN,
   );
   createRoot(container).render(
-    <ExpeditionApp
-      runtime={runtime}
-      definition={EXPEDITION_V14_DEFINITION}
-      windowPort={platform.window}
-      storyArchiveEntries={storyArchiveEntries}
-    />,
+    <SkillPrototypeApp runtime={runtime} content={content} windowPort={platform.window} />,
   );
+
   if (platform.window.isDesktop) {
     await platform.window.onCloseRequested(() => {
       const snapshot = runtime.getSnapshot();
@@ -59,6 +39,7 @@ async function bootstrap(): Promise<void> {
       return runtime.withSaveBarrier(() => platform.window.hide());
     });
   }
+
   // Runtime publishes a recoverable error to the already-mounted UI.
   await runtime.start().catch(() => undefined);
 }

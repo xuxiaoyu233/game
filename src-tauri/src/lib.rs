@@ -60,17 +60,19 @@ pub fn run() {
             let directory = if storage_location::portable_requested(std::env::args_os().skip(1)) {
                 storage_location::save_directory(
                     storage_location::StorageLocation::PortableExecutable(&std::env::current_exe()?),
+                    storage_location::SaveProfile::SkillPrototypeV1,
                     cfg!(debug_assertions),
                 )?
             } else {
                 storage_location::save_directory(
                     storage_location::StorageLocation::AppData(&app.path().app_data_dir()?),
+                    storage_location::SaveProfile::SkillPrototypeV1,
                     cfg!(debug_assertions),
                 )?
             };
             app.manage(Arc::new(save_repository::SaveRepository::new(directory)));
 
-            let show = MenuItem::with_id(app, "show", "显示诸界救援局", true, None::<&str>)?;
+            let show = MenuItem::with_id(app, "show", "显示技能放置原型", true, None::<&str>)?;
             let exit = MenuItem::with_id(app, "exit", "保存并退出", true, None::<&str>)?;
             let menu = Menu::with_items(app, &[&show, &exit])?;
             let icon = app
@@ -79,7 +81,7 @@ pub fn run() {
                 .unwrap_or_else(fallback_tray_icon);
             TrayIconBuilder::with_id("main-tray")
                 .icon(icon)
-                .tooltip("诸界救援局 · 寰门总台")
+                .tooltip("技能放置原型")
                 .menu(&menu)
                 .show_menu_on_left_click(false)
                 .on_menu_event(|app, event| match event.id.as_ref() {
@@ -119,5 +121,5 @@ pub fn run() {
             exit_app,
         ])
         .run(tauri::generate_context!())
-        .expect("failed to run 诸界救援局 desktop application");
+        .expect("failed to run 技能放置原型 desktop application");
 }

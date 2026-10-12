@@ -6,6 +6,41 @@ beforeEach(() => vi.stubGlobal('indexedDB', new IDBFactory()));
 afterEach(() => vi.unstubAllGlobals());
 
 describe('browser transaction storage', () => {
+  it('writes the prototype profile without reading or replacing the previous browser save', async () => {
+    const legacyFactory = indexedDB;
+    const legacyOpen = legacyFactory.open('outpost-web-development-v1', 1);
+    legacyOpen.onupgradeneeded = () => legacyOpen.result.createObjectStore('snapshots');
+    const legacyDatabase = await new Promise<IDBDatabase>((resolve, reject) => {
+      legacyOpen.onsuccess = () => resolve(legacyOpen.result);
+      legacyOpen.onerror = () =>
+        reject(legacyOpen.error ?? new Error('Cannot open legacy database'));
+    });
+    await new Promise<void>((resolve, reject) => {
+      const transaction = legacyDatabase.transaction('snapshots', 'readwrite');
+      transaction.objectStore('snapshots').put('legacy-save', 'main');
+      transaction.oncomplete = () => resolve();
+      transaction.onerror = () =>
+        reject(transaction.error ?? new Error('Cannot write legacy database'));
+    });
+
+    const storage = new BrowserSaveStorage();
+    expect(await storage.read()).toBeNull();
+    await storage.write('prototype-save');
+    expect(await storage.read()).toBe('prototype-save');
+
+    const oldRead = legacyDatabase
+      .transaction('snapshots', 'readonly')
+      .objectStore('snapshots')
+      .get('main');
+    expect(
+      await new Promise<unknown>((resolve, reject) => {
+        oldRead.onsuccess = () => resolve(oldRead.result);
+        oldRead.onerror = () => reject(oldRead.error ?? new Error('Cannot read legacy save'));
+      }),
+    ).toBe('legacy-save');
+    legacyDatabase.close();
+  });
+
   it('commits main and the immediately preceding save together', async () => {
     const storage = new BrowserSaveStorage('transaction-test');
     expect(await storage.read()).toBeNull();

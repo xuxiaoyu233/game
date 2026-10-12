@@ -1,493 +1,80 @@
 import { expect, test, type Page } from '@playwright/test';
-import { EXPEDITION_V13_DEFINITION } from '../../src/content/expedition-v13';
-import { EXPEDITION_V14_DEFINITION } from '../../src/content/expedition-v14';
-import {
-  advanceExpedition,
-  applyExpeditionCommand,
-  createExpedition,
-} from '../../src/domain/expedition/engine';
-import type { ExpeditionCommand, SaveBundle } from '../../src/domain/expedition/types';
-import { encodeExpeditionSave } from '../../src/persistence/expedition-codec';
 
-const definition = EXPEDITION_V13_DEFINITION;
-const outpostDefinition = EXPEDITION_V14_DEFINITION;
-const worldId = 'world-unlisted-city';
-const fixtureTime = Date.UTC(2026, 9, 7, 12, 0, 0);
+const START_TIME = new Date(Date.UTC(2026, 9, 12, 0, 0, 0));
 
-function command(state: SaveBundle, value: ExpeditionCommand): SaveBundle {
-  const result = applyExpeditionCommand(state, definition, value);
-  if (!result.ok) throw new Error(`Browser fixture rejected ${value.kind}: ${result.error}`);
-  return result.state;
-}
-
-function createCoreReturn(): SaveBundle {
-  let state = createExpedition(definition, fixtureTime);
-  state = command(state, { kind: 'enter-world', worldId, seed: 18 });
-  state = advanceExpedition(state, definition, fixtureTime + 90_000);
-  state = command(state, { kind: 'build', buildingId: 'shelter' });
-  state = command(state, { kind: 'fight-wave' });
-  state = command(state, {
-    kind: 'choose-event',
-    eventId: 'event-anchor-tower-failure',
-    optionId: 'option-repair-main-anchor',
-  });
-  state = advanceExpedition(state, definition, fixtureTime + 210_000);
-  state = command(state, { kind: 'fight-wave' });
-  return command(state, { kind: 'return' });
-}
-
-function createActiveRun(): SaveBundle {
-  return command(createExpedition(definition, fixtureTime), {
-    kind: 'enter-world',
-    worldId,
-    seed: 18,
-  });
-}
-
-function createOverCapOutpostTarget(): SaveBundle {
-  const initial = createExpedition(outpostDefinition, fixtureTime);
-  const queued = applyExpeditionCommand(initial, outpostDefinition, {
-    kind: 'start-outpost-recipe',
-    recipeId: 'refine-structural-panel',
-    batches: 1,
-  });
-  if (!queued.ok) throw new Error(`Could not queue fixture panel: ${queued.error}`);
-  const state = advanceExpedition(queued.state, outpostDefinition, fixtureTime + 180_000);
-  if (state.outpost === null) throw new Error('Expected a v14 outpost fixture');
-  return {
-    ...state,
-    outpost: {
-      ...state.outpost,
-      jobTargets: { ...state.outpost.jobTargets, 'cultivate-biofiber': 100 },
-    },
-  };
-}
-
-function createExpandedWarehouseFixture(): SaveBundle {
-  const initial = createExpedition(outpostDefinition, fixtureTime);
-  const queued = applyExpeditionCommand(initial, outpostDefinition, {
-    kind: 'start-outpost-recipe',
-    recipeId: 'refine-structural-panel',
-    batches: 1,
-  });
-  if (!queued.ok) throw new Error(`Could not queue fixture panel: ${queued.error}`);
-  const crafted = advanceExpedition(queued.state, outpostDefinition, fixtureTime + 180_000);
-  const built = applyExpeditionCommand(crafted, outpostDefinition, {
-    kind: 'build-outpost-facility',
-    facilityId: 'production-hangar',
-  });
-  if (!built.ok) throw new Error(`Could not build fixture hangar: ${built.error}`);
-  return advanceExpedition(built.state, outpostDefinition, fixtureTime + 16 * 60 * 60 * 1000);
-}
-
-function createAnchorSupportFixture(): SaveBundle {
-  const state = createExpedition(outpostDefinition, fixtureTime);
-  if (state.activeRun !== null || state.outpost === null)
-    throw new Error('Expected a fresh v14 expedition fixture');
-  const entered = applyExpeditionCommand(state, outpostDefinition, {
-    kind: 'enter-world',
-    worldId,
-    seed: 18,
-  });
-  if (!entered.ok || entered.state.activeRun === null || entered.state.outpost === null)
-    throw new Error('Could not enter the anchor-city fixture');
-  return {
-    ...entered.state,
-    activeRun: {
-      ...entered.state.activeRun,
-      phase: 'preparing',
-      clearedWaves: 0,
-      anchorCityState: { stability: 56 },
-      randomEventsEnabled: false,
-      randomEventId: null,
-    },
-    outpost: {
-      ...entered.state.outpost,
-      professionExperience: { ...entered.state.outpost.professionExperience, engineering: 8 },
-    },
-  };
-}
-
-async function openSaveMenu(page: Page): Promise<void> {
-  const menu = page.locator('.save-menu');
-  if ((await menu.getAttribute('open')) === null) await menu.locator('summary').click();
-}
-
-async function importContents(page: Page, contents: string): Promise<void> {
-  await openSaveMenu(page);
-  const chooser = page.waitForEvent('filechooser');
-  await page.getByRole('button', { name: '导入存档', exact: true }).click();
-  await (
-    await chooser
-  ).setFiles({
-    name: 'v13-fixture.json',
-    mimeType: 'application/json',
-    buffer: Buffer.from(contents),
-  });
-}
-
-async function importFixture(page: Page, state: SaveBundle): Promise<void> {
-  await page.clock.setSystemTime(new Date(state.lastSimulatedAt));
-  await importContents(page, encodeExpeditionSave(state));
-  await expect(page.locator('.notice[role="status"]')).toHaveText('存档已导入。');
-}
-
-async function saveNow(page: Page): Promise<void> {
-  await openSaveMenu(page);
-  await page.getByRole('button', { name: '立即保存', exact: true }).click();
-  await expect(page.locator('.notice[role="status"]')).toHaveText('进度已保存。');
-}
-
-async function enterRecommendedWorld(page: Page): Promise<void> {
-  await page
-    .locator('.recommended-world')
-    .getByRole('button', { name: '进入失籍城·第七避难环', exact: true })
-    .click();
-  await expect(
-    page.locator('.run-heading').getByRole('heading', { name: '失籍城·第七避难环' }),
-  ).toBeVisible();
-}
-
-async function buildShelter(page: Page): Promise<void> {
-  const build = page.getByRole('button', { name: '建造临时避难所', exact: true });
-  await expect(build).toBeEnabled();
-  await build.click();
-  await expect(build).toHaveText('已建满');
-}
-
-async function chooseDifficulty(page: Page, name: string): Promise<void> {
-  const selector = page.locator('.recommended-world .difficulty-selector');
-  if ((await selector.getAttribute('open')) === null) await selector.locator('summary').click();
-  const option = page.locator('.difficulty-option').filter({ hasText: name });
-  const checkbox = option.locator('input');
-  if (!(await checkbox.isChecked())) await option.click();
-  await expect(checkbox).toBeChecked();
-}
-
-test.beforeEach(async ({ page }) => {
-  await page.clock.install({ time: new Date(fixtureTime - 60_000) });
+async function openPrototype(page: Page): Promise<void> {
+  await page.clock.install({ time: START_TIME });
   await page.goto('/');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('诸界救援局');
-  await expect(
-    page
-      .locator('.recommended-world')
-      .getByRole('button', { name: '进入失籍城·第七避难环', exact: true }),
-  ).toBeEnabled();
-  await page.clock.pauseAt(new Date(fixtureTime));
-});
+  await expect(page.getByRole('heading', { name: '技能工坊原型' })).toBeVisible();
+  await expect(page.getByTestId('start-first-activity')).toBeVisible();
+}
 
-test('the compact hub keeps the next action visible at both target window sizes', async ({
+test('the first activity is discoverable in both supported compact window sizes', async ({
   page,
 }) => {
-  const action = page
-    .locator('.recommended-world')
-    .getByRole('button', { name: '进入失籍城·第七避难环', exact: true });
-  const box = await action.boundingBox();
-  expect(box).not.toBeNull();
-  expect(box!.y + box!.height).toBeLessThanOrEqual(600);
-  await expect(page.locator('.recommended-world')).toContainText('稳住第七环');
-
-  await page.setViewportSize({ width: 360, height: 480 });
-  expect(await page.evaluate('document.documentElement.scrollWidth <= window.innerWidth')).toBe(
-    true,
-  );
-  await expect(action).toBeVisible();
-});
-
-test('engineering turns recovered materials into a storage expansion', async ({ page }) => {
-  await page.getByRole('tab', { name: '成长', exact: true }).click();
-  await expect(page.getByLabel('工程专业成长')).toContainText('工程专业 · 等级 1');
-  await expect(page.getByLabel('工程专业成长')).toContainText('/ 8 XP');
-  await expect(page.getByLabel('工程专业成长')).toContainText('组装屏障组件');
-  const facilityCard = page.locator('.outpost-facilities article');
-  const buildFacility = facilityCard.getByRole('button');
-  await expect(buildFacility).toHaveText('资源不足');
-  await expect(buildFacility).toBeDisabled();
-  await expect(facilityCard).toContainText('结构板 × 1');
-  const startOnePanel = page.getByRole('button', { name: '制作精制结构板1批', exact: true });
-  await expect(startOnePanel).toBeEnabled();
-  for (const viewport of [
-    { width: 420, height: 600 },
-    { width: 360, height: 480 },
-  ]) {
-    await page.setViewportSize(viewport);
-    await buildFacility.scrollIntoViewIfNeeded();
-    const bounds = await buildFacility.boundingBox();
-    expect(bounds).not.toBeNull();
-    if (bounds === null) throw new Error('Outpost facility action is not laid out.');
-    expect(bounds.x).toBeGreaterThanOrEqual(0);
-    expect(bounds.x + bounds.width).toBeLessThanOrEqual(viewport.width);
-  }
-
-  await page.setViewportSize({ width: 420, height: 600 });
-  await startOnePanel.click();
-  await page.clock.runFor(180_000);
-  await expect(page.getByTestId('outpost-resource-structural-panel')).toHaveText('1 / 80 块');
-  await expect(buildFacility).toHaveText('建造扩容回收货栈');
-  await expect(buildFacility).toBeEnabled();
-  await buildFacility.click();
-  await expect(page.getByTestId('outpost-resource-structural-panel')).toHaveCount(0);
-  await expect(page.locator('.outpost-panel > .section-title > span')).toContainText('/ 400 仓储');
-  await expect(facilityCard).toContainText('已建成');
-  await saveNow(page);
-
-  await page.reload();
-  await page.getByRole('tab', { name: '成长', exact: true }).click();
-  await expect(page.getByRole('button', { name: '设施已建成', exact: true })).toBeDisabled();
-  await expect(page.getByTestId('outpost-resource-structural-panel')).toHaveCount(0);
-});
-
-test('engineering crafts a rescue support kit that reinforces the anchor and survives reload', async ({
-  page,
-}) => {
-  await importFixture(page, createAnchorSupportFixture());
-  await expect(page.getByTestId('anchor-stability')).toContainText('56 / 100');
-  await page.getByRole('tab', { name: '驻地', exact: true }).click();
-  const panelRecipe = page.getByRole('button', { name: '制作精制结构板1批', exact: true });
-  await expect(panelRecipe).toBeEnabled();
-  await panelRecipe.click();
-  await page.clock.runFor(180_000);
-  await panelRecipe.click();
-  await page.clock.runFor(180_000);
-  await expect(page.getByTestId('outpost-resource-structural-panel')).toHaveText('2 / 80 块');
-  const barrierRecipe = page.getByRole('button', { name: '制作组装屏障组件1批', exact: true });
-  await expect(barrierRecipe).toBeEnabled();
-  await barrierRecipe.click();
-  await page.clock.runFor(240_000);
-  await expect(page.getByTestId('outpost-resource-barrier-kit')).toHaveText('1 / 40 套');
-  await page.getByRole('tab', { name: '行动', exact: true }).click();
-  const reinforce = page.getByTestId('reinforce-anchor');
-  await expect(reinforce).toHaveText('消耗屏障组件 × 1 · 稳定度 +18');
-  await expect(reinforce).toBeEnabled();
-  for (const viewport of [
-    { width: 420, height: 600 },
-    { width: 360, height: 480 },
-  ]) {
-    await page.setViewportSize(viewport);
-    await reinforce.scrollIntoViewIfNeeded();
-    const bounds = await reinforce.boundingBox();
-    expect(bounds).not.toBeNull();
-    if (bounds === null) throw new Error('The anchor support action is not laid out.');
-    expect(bounds.x).toBeGreaterThanOrEqual(0);
-    expect(bounds.x + bounds.width).toBeLessThanOrEqual(viewport.width);
-  }
-  await page.setViewportSize({ width: 420, height: 600 });
-  await reinforce.click();
-  await expect(page.getByTestId('anchor-stability')).toContainText('74 / 100');
-  await expect(reinforce).toHaveText('需要屏障组件 × 1');
-  await expect(reinforce).toBeDisabled();
-  await saveNow(page);
-  await page.reload();
-  await expect(page.getByTestId('anchor-stability')).toContainText('74 / 100');
-  await expect(page.getByTestId('reinforce-anchor')).toBeDisabled();
-});
-
-test('outpost crafting is queued, saved, and completed by background progression', async ({
-  page,
-}) => {
-  await importFixture(page, createExpandedWarehouseFixture());
-  await page.getByRole('tab', { name: '成长', exact: true }).click();
-  const visitSummary = page.getByLabel('驻地回访摘要');
-  await expect(visitSummary).toBeVisible();
-  await expect(visitSummary).toContainText('工程 +');
-  await expect(visitSummary).toContainText('升至等级 4');
-  await page.getByRole('button', { name: '标记已读', exact: true }).click();
-  await expect(visitSummary).toContainText('暂无新产出');
-  const start = page.getByRole('button', { name: '制作精制结构板5批', exact: true });
-  await expect(start).toBeEnabled();
-  await start.click();
-  await expect(page.locator('[aria-label="当前制作任务"]')).toContainText('剩余 5 批');
-  await page.getByLabel('回收金属库存目标').selectOption('20');
-  await saveNow(page);
-
-  await page.reload();
-  await page.getByRole('tab', { name: '成长', exact: true }).click();
-  await expect(page.locator('.outpost-panel > .section-title > span')).toContainText('/ 400 仓储');
-  await expect(page.locator('[aria-label="当前制作任务"]')).toContainText('剩余 5 批');
-  await expect(page.getByLabel('回收金属库存目标')).toHaveValue('20');
-  await page.clock.runFor(180_000);
-  await expect(page.getByTestId('outpost-resource-structural-panel')).toHaveText('1 / 120 块');
-  await expect(visitSummary).toContainText('培育生物纤维 +0.2 束');
-  await expect(visitSummary).toContainText('精制结构板 完成 1 批');
-  await page.getByRole('button', { name: '标记已读', exact: true }).click();
-  await expect(visitSummary).toContainText('暂无新产出');
-});
-
-test('legacy stock targets remain visible until expansion and a full expanded warehouse can keep producing', async ({
-  page,
-}) => {
-  await importFixture(page, createOverCapOutpostTarget());
-  await page.getByRole('tab', { name: '成长', exact: true }).click();
-  const target = page.getByLabel('培育生物纤维库存目标');
-  await expect(target).toHaveValue('100');
-  await expect(target.locator('option:checked')).toContainText('当前上限 80');
-  await expect(page.locator('.outpost-target-warning')).toContainText('已保留原有目标');
-  await page.getByRole('button', { name: '建造扩容回收货栈', exact: true }).click();
-  await expect(page.locator('.outpost-target-warning')).toHaveCount(0);
-
-  await importFixture(page, createExpandedWarehouseFixture());
-  await page.getByRole('tab', { name: '成长', exact: true }).click();
-  const storageLabel = await page.locator('.outpost-panel > .section-title > span').innerText();
-  expect(storageLabel).toMatch(/3\d{2} \/ 400 仓储/);
-  const alloyJob = page.locator('.outpost-job-card').filter({ hasText: '回收金属' });
-  await expect(alloyJob).toContainText('自动作业中');
-  await expect(alloyJob).not.toContainText('仓储已满');
-});
-
-test('the first rescue returns its clue and opens the fixed story review', async ({ page }) => {
-  await enterRecommendedWorld(page);
-  await expect(page.getByTestId('anchor-stability')).toContainText('100 / 100');
-  await page.clock.runFor(90_000);
-  await buildShelter(page);
-  await page.getByRole('button', { name: '确认迎战第 1 次界潮', exact: true }).click();
-
-  await page.locator('.task-alert').click();
-  await expect(page.getByRole('heading', { name: '第七环锚塔失稳' })).toBeVisible();
-  await expect(page.locator('.event-panel').filter({ hasText: '第七环求援' })).toBeVisible();
-  await expect(page.getByRole('button', { name: /优先抢修锚塔.*锚材 1/ })).toBeVisible();
-  await page.getByRole('button', { name: /优先抢修锚塔/ }).click();
-
-  await page.getByRole('tab', { name: '行动', exact: true }).click();
-  await page.clock.runFor(120_000);
-  await page.getByRole('button', { name: '确认迎战第 2 次界潮', exact: true }).click();
-  const returnButton = page.getByRole('button', { name: /回归寰门总台/ });
-  await expect(returnButton).toBeEnabled();
-  await returnButton.click();
-
-  await page.getByRole('tab', { name: '档案', exact: true }).click();
-  await expect(page.locator('.settlement-story-response')).toContainText('第七环回执已归档');
-  await page.getByRole('tab', { name: '出发', exact: true }).click();
-  await expect(page.getByRole('heading', { name: '系统记录先于派遣' })).toBeVisible();
-  await expect(page.getByRole('button', { name: '重开救援委托' })).toBeVisible();
-});
-
-test('early battle forecasts the actual damage and exposes its extra anchor cost', async ({
-  page,
-}) => {
-  await enterRecommendedWorld(page);
-  await page.clock.runFor(72_000);
-  await buildShelter(page);
-  const earlyBattle = page.getByRole('button', { name: /提前压线 · 第 1 次界潮/ });
-  await expect(earlyBattle).toBeEnabled();
-  await expect(page.locator('.early-yield-cost')).toContainText('放弃这段产出');
-  await earlyBattle.click();
-
-  await expect(page.locator('.battle-report')).toContainText('提前 18 秒');
-  await expect(page.getByTestId('anchor-stability')).toContainText('78 / 100');
-});
-
-test('the primary expedition action keeps its position across tabs at compact sizes', async ({
-  page,
-}) => {
-  await enterRecommendedWorld(page);
-  await page.clock.runFor(72_000);
-  await buildShelter(page);
-  const action = page.getByRole('button', { name: /提前压线 · 第 1 次界潮/ });
+  await page.goto('/');
+  await expect(page.getByRole('heading', { name: '技能工坊原型' })).toBeVisible();
+  const start = page.getByTestId('start-first-activity');
   const viewports = [
     { width: 420, height: 600 },
     { width: 360, height: 480 },
   ];
+
   for (const viewport of viewports) {
     await page.setViewportSize(viewport);
-    const positions: number[] = [];
-    for (const tabName of [/^行动/, /^任务/, /^账目/, /^驻地/]) {
-      await page.getByRole('tab', { name: tabName }).click();
-      await page.evaluate('window.scrollTo(0, 0)');
-      const bounds = await action.boundingBox();
-      expect(bounds).not.toBeNull();
-      if (bounds === null) throw new Error('The early-action control is not laid out.');
-      expect(bounds.x).toBeGreaterThanOrEqual(0);
-      expect(bounds.x + bounds.width).toBeLessThanOrEqual(viewport.width);
-      positions.push(bounds.y);
-    }
-    expect(Math.max(...positions) - Math.min(...positions)).toBeLessThanOrEqual(1);
+    await page.evaluate('window.scrollTo(0, 0)');
+    const bounds = await start.boundingBox();
+    expect(bounds).not.toBeNull();
+    if (bounds === null) throw new Error('The first mining action has no visible layout.');
+    expect(bounds.x).toBeGreaterThanOrEqual(0);
+    expect(bounds.x + bounds.width).toBeLessThanOrEqual(viewport.width);
+    expect(bounds.y).toBeGreaterThanOrEqual(0);
+    expect(bounds.y + bounds.height).toBeLessThanOrEqual(viewport.height);
   }
 });
 
-test('the audit contract can finish its random side project and archive its evidence', async ({
+test('a zero-material save reaches Tool II, saves, and restores through the prototype profile', async ({
   page,
 }) => {
-  await importFixture(page, createCoreReturn());
-  await expect(page.getByRole('button', { name: '重开救援委托' })).toBeVisible();
-  await page.getByRole('button', { name: '重开救援委托' }).click();
-  const contractSelector = page.locator(
-    '.recommended-world select[aria-label="失籍城·第七避难环本次契约"]',
+  await openPrototype(page);
+  await page.getByTestId('start-first-activity').click();
+  await page.clock.runFor(32_000);
+  await expect(page.getByTestId('inventory-common-ore')).toContainText('4');
+
+  await page.getByTestId('activity-action-smelt-common-ingot').click();
+  await page.clock.runFor(12_000);
+  await expect(page.getByTestId('inventory-common-ingot')).toContainText('2');
+  await expect(page.getByTestId('skill-progress-metalworking')).toContainText('10 XP');
+
+  await page.getByTestId('activity-action-forge-common-tool-blank').click();
+  await page.clock.runFor(10_000);
+  await expect(page.getByTestId('inventory-common-tool-blank')).toContainText('1');
+  await expect(page.getByTestId('skill-progress-metalworking')).toContainText('10 XP');
+
+  await page.getByTestId('upgrade-mining-tool-ii').click();
+  await expect(page.getByTestId('upgrade-complete-mining-tool-ii')).toBeVisible();
+  await page.locator('.skill-prototype-save-menu > summary').click();
+  await page.getByRole('button', { name: '立即保存' }).click();
+  await expect(page.getByText('存档已保存。')).toBeVisible();
+
+  const databases = await page.evaluate<string[]>(
+    `indexedDB.databases().then((entries) => entries.map((database) => database.name))`,
   );
-  await expect(contractSelector).toBeEnabled();
-  await contractSelector.selectOption('contract-audit-missing-district');
-  await enterRecommendedWorld(page);
-  await expect(page.getByTestId('wood')).toHaveText('14');
-  await saveNow(page);
+  expect(databases).toContain('skill-prototype-v1-development');
+  expect(databases).not.toContain('outpost-web-development-v1');
+
   await page.reload();
-  await expect(
-    page.locator('.run-heading').getByRole('heading', { name: '失籍城·第七避难环' }),
-  ).toBeVisible();
+  await expect(page.getByTestId('upgrade-complete-mining-tool-ii')).toBeVisible();
+  await expect(page.getByTestId('inventory-common-tool-blank')).toContainText('0');
+  await expect(page.getByTestId('inventory-common-ingot')).toContainText('0');
 
-  await page.clock.runFor(90_000);
-  await buildShelter(page);
-  await page.getByRole('button', { name: '确认迎战第 1 次界潮', exact: true }).click();
-  await page.locator('.task-alert').click();
-  await expect(page.getByRole('heading', { name: '空屋里的求援灯' })).toBeVisible();
-  await expect(
-    page.locator('.event-panel').filter({ hasText: '被登记为空屋的街区' }),
-  ).toBeVisible();
-  await page.getByRole('button', { name: /启用备用锚/ }).click();
-  await page.getByRole('button', { name: /派队核查/ }).click();
+  await page.getByTestId('activity-action-mine-common-ore').click();
+  await page.clock.runFor(25_600);
+  await expect(page.getByTestId('skill-progress-mining')).toContainText('16 XP');
+  await expect(page.getByTestId('inventory-common-ore')).toContainText('4');
 
-  const project = page.locator('.project-panel').filter({
-    has: page.getByRole('heading', { name: '空屋灯号复核' }),
-  });
-  await expect(project).toBeVisible();
-  await project.getByRole('button').first().click();
-  await page.clock.runFor(45_000);
-  await expect(page.getByRole('heading', { name: '空屋灯号复核' })).toBeVisible();
-  await expect(
-    page.locator('.resolved-event').filter({
-      has: page.getByRole('heading', { name: '空屋灯号复核' }),
-    }),
-  ).toContainText('记录已经装入临时行李');
-
-  await page.getByRole('tab', { name: '行动', exact: true }).click();
-  await page.clock.runFor(75_000);
-  await page.getByRole('button', { name: '确认迎战第 2 次界潮', exact: true }).click();
-  await page.getByRole('button', { name: /回归寰门总台/ }).click();
-  await page.getByRole('tab', { name: '档案', exact: true }).click();
-  await expect(page.locator('.settlement')).toContainText('+20 界点');
-  await expect(page.locator('.journal-panel')).toContainText('住户灯号记录');
-});
-
-test('difficulty clauses show their story source, combined score, and reward before departure', async ({
-  page,
-}) => {
-  await chooseDifficulty(page, '临时拨款冻结');
-  await chooseDifficulty(page, '界潮提前');
-  await chooseDifficulty(page, '锚点暴露');
-  await expect(page.locator('.difficulty-selector summary')).toContainText('难度 5');
-  await expect(page.locator('.difficulty-selector')).toContainText('基础契约额外 +12 界点');
-  await expect(page.locator('.difficulty-selector')).toContainText('来源：第七环求援');
-
-  await enterRecommendedWorld(page);
-  await expect(page.getByTestId('wood')).toHaveText('6');
-  await expect(page.getByTestId('stone')).toHaveText('3');
-  await expect(page.locator('.wave-heading')).toContainText('1:12');
-  await expect(page.locator('.run-difficulty-summary')).toContainText('+12 界点');
-});
-
-test('the new app refuses an old v0.7.1 save without replacing the active journey', async ({
-  page,
-}) => {
-  await importFixture(page, createActiveRun());
-  await expect(
-    page.locator('.run-heading').getByRole('heading', { name: '失籍城·第七避难环' }),
-  ).toBeVisible();
-  await importContents(
-    page,
-    JSON.stringify({ schemaVersion: 7, contentVersion: '12.0.0', profile: {} }),
-  );
-
-  await expect(page.locator('.notice[role="status"]')).toContainText('请使用旧版 v0.7.1 打开');
-  await expect(
-    page.locator('.run-heading').getByRole('heading', { name: '失籍城·第七避难环' }),
-  ).toBeVisible();
-  await expect(page.getByTestId('anchor-stability')).toContainText('100 / 100');
+  await page.clock.runFor(6_400);
+  await expect(page.getByTestId('skill-progress-mining')).toContainText('16 XP');
+  await expect(page.getByTestId('inventory-common-ore')).toContainText('5');
+  await expect(page.getByText(/当前原型切片已到已定义的技能与工具上限/)).toBeVisible();
 });

@@ -9,7 +9,7 @@ const MAX_IMPORT_BYTES = 1_048_576;
 export class BrowserSaveStorage implements SaveStorage {
   private databasePromise: Promise<IDBDatabase> | null = null;
 
-  constructor(private readonly databaseName = 'outpost-web-development-v1') {}
+  constructor(private readonly databaseName = 'skill-prototype-v1-development') {}
 
   private open(): Promise<IDBDatabase> {
     if (this.databasePromise !== null) return this.databasePromise;
@@ -97,7 +97,7 @@ export class BrowserSaveStorage implements SaveStorage {
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement('a');
     anchor.href = url;
-    anchor.download = `前哨站存档-${new Date().toISOString().replace(/[:.]/g, '-')}.json`;
+    anchor.download = `技能放置原型存档-${new Date().toISOString().replace(/[:.]/g, '-')}.json`;
     document.body.append(anchor);
     anchor.click();
     anchor.remove();

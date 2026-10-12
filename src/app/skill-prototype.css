@@ -1,0 +1,407 @@
+.skill-prototype-loading {
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  color: #edf5f2;
+  background: #101820;
+  font:
+    15px/1.5 system-ui,
+    sans-serif;
+}
+
+.skill-prototype {
+  --background: #101820;
+  --surface: #192630;
+  --surface-raised: #22343f;
+  --text: #edf5f2;
+  --muted: #a3b6b5;
+  --accent: #82d8b7;
+  --accent-soft: #294e48;
+  --border: #38505a;
+  box-sizing: border-box;
+  width: min(100%, 760px);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 0.7rem 0.9rem 2rem;
+  color: var(--text);
+  background: var(--background);
+  font:
+    14px/1.4 system-ui,
+    'Microsoft YaHei',
+    sans-serif;
+}
+
+.skill-prototype * {
+  box-sizing: border-box;
+}
+
+.skill-prototype button,
+.skill-prototype-loading button {
+  min-height: 2.4rem;
+  border: 1px solid var(--border, #38505a);
+  border-radius: 0.65rem;
+  padding: 0.45rem 0.75rem;
+  color: var(--text, #edf5f2);
+  background: var(--surface-raised, #22343f);
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.skill-prototype button:hover:not(:disabled),
+.skill-prototype-loading button:hover:not(:disabled) {
+  border-color: var(--accent, #82d8b7);
+}
+
+.skill-prototype button:focus-visible,
+.skill-prototype-loading button:focus-visible {
+  outline: 2px solid var(--accent, #82d8b7);
+  outline-offset: 2px;
+}
+
+.skill-prototype button:disabled,
+.skill-prototype-loading button:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+.skill-prototype-header {
+  display: flex;
+  min-height: 3.8rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.55rem;
+}
+
+.skill-prototype-header h1,
+.skill-prototype-header p,
+.skill-prototype h2,
+.skill-prototype h3,
+.skill-prototype p {
+  margin: 0;
+}
+
+.skill-prototype-header h1 {
+  font-size: 1.05rem;
+  line-height: 1.2;
+}
+
+.skill-prototype-kicker {
+  color: var(--muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.skill-prototype-window-actions,
+.skill-prototype-primary-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.skill-prototype .quiet-button {
+  min-height: 2.15rem;
+  padding: 0.32rem 0.58rem;
+  color: var(--muted);
+  background: transparent;
+  font-size: 0.78rem;
+}
+
+.skill-prototype-primary {
+  display: grid;
+  gap: 0.55rem;
+  min-height: 7.4rem;
+  margin-bottom: 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  padding: 0.8rem;
+  background: linear-gradient(135deg, var(--surface-raised), var(--surface));
+}
+
+.skill-prototype-primary h2 {
+  margin-top: 0.12rem;
+  font-size: 1rem;
+}
+
+.skill-prototype-primary > div > p:last-child,
+.skill-prototype-active-copy {
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.skill-prototype .primary-button {
+  width: 100%;
+  min-height: 2.7rem;
+  border-color: var(--accent);
+  color: #10231c;
+  background: var(--accent);
+}
+
+.skill-prototype-active-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.skill-prototype-active-heading > strong {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.skill-prototype-progress,
+.skill-prototype-skill progress {
+  display: block;
+  width: 100%;
+  height: 0.5rem;
+  accent-color: var(--accent);
+}
+
+.skill-prototype-notice,
+.skill-prototype-save-warning {
+  margin: 0.5rem 0;
+  border-radius: 0.6rem;
+  padding: 0.55rem 0.7rem;
+  color: var(--text);
+  background: var(--accent-soft);
+  font-size: 0.8rem;
+}
+
+.skill-prototype-save-warning {
+  color: #ffd2a6;
+  background: #493528;
+}
+
+.skill-prototype-section {
+  margin-top: 0.85rem;
+}
+
+.skill-prototype-section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.skill-prototype-section-heading h2 {
+  font-size: 0.88rem;
+}
+
+.skill-prototype-section-heading > span {
+  color: var(--muted);
+  font-size: 0.68rem;
+  text-align: right;
+}
+
+.skill-prototype-skill-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.skill-prototype-skill,
+.skill-prototype-activity,
+.skill-prototype-item,
+.skill-prototype-upgrade {
+  border: 1px solid var(--border);
+  border-radius: 0.7rem;
+  padding: 0.58rem;
+  background: var(--surface);
+}
+
+.skill-prototype-skill-heading,
+.skill-prototype-activity-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.3rem;
+}
+
+.skill-prototype-skill h3,
+.skill-prototype-activity h3 {
+  font-size: 0.81rem;
+}
+
+.skill-prototype-skill-heading span,
+.skill-prototype-activity-title > span {
+  color: var(--accent);
+  font-size: 0.68rem;
+  white-space: nowrap;
+}
+
+.skill-prototype-skill > p,
+.skill-prototype-skill > small,
+.skill-prototype-activity p,
+.skill-prototype-activity small,
+.skill-prototype-upgrade p {
+  display: block;
+  margin-top: 0.26rem;
+  color: var(--muted);
+  font-size: 0.67rem;
+}
+
+.skill-prototype-skill progress {
+  height: 0.36rem;
+  margin-top: 0.45rem;
+}
+
+.skill-prototype-activity-list {
+  display: grid;
+  gap: 0.42rem;
+}
+
+.skill-prototype-activity {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.skill-prototype-activity.locked {
+  opacity: 0.76;
+}
+
+.skill-prototype-activity-copy {
+  min-width: 0;
+}
+
+.skill-prototype-activity-copy > p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.skill-prototype-activity-copy > small {
+  line-height: 1.3;
+}
+
+.skill-prototype .secondary-button {
+  min-height: 2.15rem;
+  padding: 0.35rem 0.52rem;
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.skill-prototype-missing {
+  color: #ffcb9d !important;
+}
+
+.skill-prototype-cap-tag {
+  grid-column: 1 / -1;
+  color: var(--accent);
+  font-size: 0.65rem;
+}
+
+.skill-prototype-inventory {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+
+.skill-prototype-item {
+  display: grid;
+  gap: 0.12rem;
+}
+
+.skill-prototype-item > span {
+  color: var(--muted);
+  font-size: 0.62rem;
+}
+
+.skill-prototype-item > strong {
+  font-size: 0.7rem;
+}
+
+.skill-prototype-item > output {
+  color: var(--accent);
+  font-size: 1rem;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+.skill-prototype-upgrade {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.skill-prototype-upgrade > div {
+  min-width: 0;
+}
+
+.skill-prototype-upgrade-complete {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.skill-prototype-route-note,
+.skill-prototype-unlocks,
+.skill-prototype-stage-end {
+  margin-top: 0.45rem !important;
+  color: var(--muted);
+  font-size: 0.73rem;
+}
+
+.skill-prototype-unlocks {
+  padding-left: 1.1rem;
+}
+
+.skill-prototype-stage-end {
+  border-left: 2px solid var(--accent);
+  padding: 0.35rem 0 0.35rem 0.55rem;
+  color: var(--text);
+}
+
+.skill-prototype-save-menu {
+  margin-top: 1rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.65rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.skill-prototype-save-menu > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+}
+
+.skill-prototype.compact .skill-prototype-activity-copy > p,
+.skill-prototype.compact .skill-prototype-skill > p {
+  display: none;
+}
+
+@media (max-width: 380px) {
+  .skill-prototype {
+    padding-right: 0.65rem;
+    padding-left: 0.65rem;
+  }
+
+  .skill-prototype .quiet-button {
+    min-height: 1.95rem;
+    padding: 0.25rem 0.4rem;
+  }
+
+  .skill-prototype-activity {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.35rem;
+    padding: 0.48rem;
+  }
+
+  .skill-prototype-activity h3 {
+    font-size: 0.74rem;
+  }
+
+  .skill-prototype .secondary-button {
+    max-width: 5.8rem;
+    white-space: normal;
+  }
+}

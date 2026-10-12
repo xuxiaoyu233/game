@@ -5,7 +5,7 @@ export class BrowserInstanceLease implements InstanceLease {
   private acquiring: Promise<void> | null = null;
   private releaseLock: (() => void) | null = null;
 
-  constructor(private readonly name = 'outpost:web-save:v1') {}
+  constructor(private readonly name = 'skill-prototype-v1:development:save') {}
 
   acquire(): Promise<void> {
     if (this.releaseLock !== null) return Promise.resolve();

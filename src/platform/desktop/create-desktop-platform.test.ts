@@ -100,7 +100,7 @@ describe('desktop save and exit barrier', () => {
     tray();
     await vi.waitFor(() =>
       expect(reportError).toHaveBeenCalledWith(
-        '保存并退出失败，诸界救援局仍在运行。',
+        '保存并退出失败，技能放置原型仍在运行。',
         expect.objectContaining({ message: 'disk full' }),
       ),
     );

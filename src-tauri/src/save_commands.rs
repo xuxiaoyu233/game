@@ -54,8 +54,8 @@ pub async fn save_export_file(app: AppHandle, contents: String) -> CommandResult
         let selected = app
             .dialog()
             .file()
-            .set_title("导出诸界救援局存档")
-            .set_file_name("zhujie-rescue-bureau-save.json")
+            .set_title("导出技能放置原型存档")
+            .set_file_name("skill-prototype-v1-save.json")
             .add_filter("JSON 存档", &["json"])
             .blocking_save_file();
         let Some(selected) = selected else {
@@ -74,7 +74,7 @@ pub async fn save_import_file(app: AppHandle) -> CommandResult<Option<String>> {
         let selected = app
             .dialog()
             .file()
-            .set_title("导入诸界救援局存档")
+            .set_title("导入技能放置原型存档")
             .add_filter("JSON 存档", &["json"])
             .blocking_pick_file();
         let Some(selected) = selected else {

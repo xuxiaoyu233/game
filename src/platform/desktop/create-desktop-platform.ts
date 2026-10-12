@@ -68,7 +68,7 @@ export async function createDesktopPlatform(): Promise<PlatformPorts> {
             void runBarrier(true).catch((error: unknown) => {
               // The lifecycle callback reports save failures in the UI. This
               // void native event also needs a rejection handler of its own.
-              console.error('保存并退出失败，诸界救援局仍在运行。', error);
+              console.error('保存并退出失败，技能放置原型仍在运行。', error);
             });
           });
         } catch (error) {

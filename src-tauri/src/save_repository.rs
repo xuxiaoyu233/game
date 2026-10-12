@@ -6,8 +6,8 @@ use std::{
 };
 
 pub const MAX_SAVE_BYTES: u64 = 8 * 1024 * 1024;
-const MAIN_FILE: &str = "zhujie-rescue-bureau-save.json";
-const BACKUP_FILE: &str = "zhujie-rescue-bureau-save.backup.json";
+const MAIN_FILE: &str = "save.json";
+const BACKUP_FILE: &str = "save.backup.json";
 
 pub struct SaveRepository {
     directory: PathBuf,
@@ -58,8 +58,8 @@ impl SaveRepository {
         let directory = fs::canonicalize(&self.directory)?;
         let main_path = directory.join(MAIN_FILE);
         let backup_path = directory.join(BACKUP_FILE);
-        let main_temp = directory.join("zhujie-rescue-bureau-save.tmp.json");
-        let backup_temp = directory.join("zhujie-rescue-bureau-save.backup.tmp.json");
+        let main_temp = directory.join("save.tmp.json");
+        let backup_temp = directory.join("save.backup.tmp.json");
 
         write_verified(&main_temp, contents)?;
 
