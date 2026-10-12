@@ -1,19 +1,15 @@
-import type { SkillCapBehavior, SkillLoopDefinition } from '../domain/skill-loop/types';
+import type { SkillLoopDefinition } from '../domain/skill-loop/types';
 
-/** P1 content only; the future advanced ore/ingot/composite recipe is kept in the library. */
-export function createSkillPrototypeV1Definition(
-  capBehavior: SkillCapBehavior,
-): SkillLoopDefinition {
+/** Frozen P1 content snapshot used only to validate and migrate existing prototype saves. */
+export function createSkillPrototypeV1Definition(): SkillLoopDefinition {
   const definition: SkillLoopDefinition = {
     profileId: 'skill-prototype-v1',
     schemaVersion: 1,
     contentVersion: '1.0.0',
     maxOfflineMs: 8 * 60 * 60 * 1_000,
-    capBehavior,
     skills: [
       {
         id: 'mining',
-        firstTierXpCap: 16,
         levels: [
           { level: 1, xpRequired: 0 },
           { level: 2, xpRequired: 16 },
@@ -21,7 +17,6 @@ export function createSkillPrototypeV1Definition(
       },
       {
         id: 'metalworking',
-        firstTierXpCap: 16,
         levels: [
           { level: 1, xpRequired: 0 },
           { level: 2, xpRequired: 10 },

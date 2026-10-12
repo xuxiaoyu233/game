@@ -32,6 +32,8 @@ export interface RuntimeDomain<Definition, State, Command, Summary, ErrorCode ex
     definition: Definition,
     now: number,
   ) => { readonly state: State; readonly error?: ErrorCode };
+  /** Capture domain-specific, acknowledgement-only facts around startup/offline settlement. */
+  readonly prepareStartupState?: (before: State, advanced: State, definition: Definition) => State;
   readonly applyCommand: (
     state: State,
     definition: Definition,
@@ -198,7 +200,11 @@ export class GameRuntime<
             throw error;
           }
           const advanced = this.domain.advanceTime(state, this.definition, this.clock());
-          this.startupCandidate = advanced.state;
+          this.startupCandidate =
+            advanced.error === undefined
+              ? (this.domain.prepareStartupState?.(state, advanced.state, this.definition) ??
+                advanced.state)
+              : advanced.state;
           this.startupWarning =
             advanced.error !== undefined && this.domain.isNumericLimit(advanced.error)
               ? NUMERIC_LIMIT_MESSAGE
@@ -367,7 +373,10 @@ export class GameRuntime<
       const advanced = this.domain.advanceTime(decoded, this.definition, this.clock());
       if (advanced.error !== undefined && this.domain.isNumericLimit(advanced.error))
         throw new Error(NUMERIC_LIMIT_MESSAGE);
-      await this.replaceFromSave(advanced.state);
+      const candidate =
+        this.domain.prepareStartupState?.(decoded, advanced.state, this.definition) ??
+        advanced.state;
+      await this.replaceFromSave(candidate);
       return true;
     }, true);
   }
@@ -381,7 +390,10 @@ export class GameRuntime<
       if (advanced.error !== undefined && this.domain.isNumericLimit(advanced.error))
         throw new Error(NUMERIC_LIMIT_MESSAGE);
       if (this.snapshot.status === 'ready') this.advanceCurrent();
-      await this.replaceFromSave(advanced.state);
+      const candidate =
+        this.domain.prepareStartupState?.(decoded, advanced.state, this.definition) ??
+        advanced.state;
+      await this.replaceFromSave(candidate);
       return true;
     }, true);
   }

@@ -1,7 +1,5 @@
 export type SkillLoopId = string;
 
-export type SkillCapBehavior = 'level-threshold' | 'first-tier-xp-cap' | 'retain-overflow-xp';
-
 export interface SkillLevelThreshold {
   readonly level: number;
   readonly xpRequired: number;
@@ -9,7 +7,6 @@ export interface SkillLevelThreshold {
 
 export interface SkillDefinition {
   readonly id: SkillLoopId;
-  readonly firstTierXpCap: number;
   readonly levels: readonly SkillLevelThreshold[];
 }
 
@@ -71,10 +68,9 @@ export interface ToolUpgradeDefinition {
 
 export interface SkillLoopDefinition {
   readonly profileId: 'skill-prototype-v1';
-  readonly schemaVersion: 1;
+  readonly schemaVersion: 1 | 2;
   readonly contentVersion: string;
   readonly maxOfflineMs: number;
-  readonly capBehavior: SkillCapBehavior;
   readonly skills: readonly SkillDefinition[];
   readonly itemCategories: readonly ItemCategoryDefinition[];
   readonly items: readonly ItemDefinition[];
@@ -99,7 +95,7 @@ export interface CurrentActivity {
 }
 
 export interface SkillLoopState {
-  readonly schemaVersion: 1;
+  readonly schemaVersion: 1 | 2;
   readonly profileId: 'skill-prototype-v1';
   readonly contentVersion: string;
   readonly inventory: Readonly<Record<SkillLoopId, number>>;
@@ -107,6 +103,18 @@ export interface SkillLoopState {
   readonly toolLevels: Readonly<Record<SkillLoopId, number>>;
   readonly currentActivity: CurrentActivity | null;
   readonly lastSimulatedAt: number;
+  readonly returnReport: SkillLoopReturnReport | null;
+}
+
+export interface SkillLoopReturnReport {
+  readonly elapsedMs: number;
+  readonly settlementWindowMs: number;
+  readonly offlineCapReached: boolean;
+  readonly activityId: SkillLoopId | null;
+  readonly reason: 'continuing' | 'insufficient-materials' | 'paused' | 'no-activity';
+  readonly inventoryDelta: Readonly<Record<SkillLoopId, number>>;
+  readonly skillXpDelta: Readonly<Record<SkillLoopId, number>>;
+  readonly unlockedActivityIds: readonly SkillLoopId[];
 }
 
 export type SkillLoopCommand =
@@ -115,7 +123,8 @@ export type SkillLoopCommand =
   | { readonly kind: 'switch-activity'; readonly activityId: SkillLoopId }
   | { readonly kind: 'pause-activity' }
   | { readonly kind: 'resume-activity' }
-  | { readonly kind: 'buy-tool-upgrade'; readonly upgradeId: SkillLoopId };
+  | { readonly kind: 'buy-tool-upgrade'; readonly upgradeId: SkillLoopId }
+  | { readonly kind: 'acknowledge-return-report' };
 
 export type SkillLoopErrorCode =
   | 'UNKNOWN_ACTIVITY'
@@ -132,10 +141,9 @@ export interface SkillProgressSummary {
   readonly level: number;
   readonly xp: number;
   readonly xpForNextLevel: number | null;
-  readonly xpCeiling: number | null;
+  readonly xpCeiling: number;
   readonly maximumLevel: number;
   readonly atPrototypeCap: boolean;
-  readonly atExperienceCeiling: boolean;
 }
 
 export interface SkillLoopSummary {

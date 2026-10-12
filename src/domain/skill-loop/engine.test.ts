@@ -3,29 +3,18 @@ import { createSkillPrototypeV1Definition } from '../../content/skill-prototype-
 import { decodeSkillLoopSave, encodeSkillLoopSave } from '../../persistence/skill-loop-codec';
 import { advanceSkillLoop, applySkillLoopCommand, createNewSkillLoop } from './engine';
 import { validateSkillLoopDefinition } from './validation';
-import type { SkillCapBehavior, SkillLoopDefinition, SkillLoopState } from './types';
-import {
-  SKILL_PROTOTYPE_V1_THEME,
-  validateSkillPrototypeV1Theme,
-} from '../../themes/skill-prototype-v1';
+import type { SkillLoopDefinition, SkillLoopState } from './types';
 
 const START = 1_000;
-const CAP_BEHAVIORS: readonly SkillCapBehavior[] = [
-  'level-threshold',
-  'first-tier-xp-cap',
-  'retain-overflow-xp',
-];
 
-function setup(capBehavior: SkillCapBehavior = 'level-threshold') {
-  const definition = createSkillPrototypeV1Definition(capBehavior);
+function setup() {
+  const definition = createSkillPrototypeV1Definition();
   validateSkillLoopDefinition(definition);
-  validateSkillPrototypeV1Theme(definition, SKILL_PROTOTYPE_V1_THEME);
-  expect(SKILL_PROTOTYPE_V1_THEME.id).toBe(definition.profileId);
   return { definition, state: createNewSkillLoop(definition, START) };
 }
 
-function completeFirstTier(capBehavior: SkillCapBehavior): SkillLoopState {
-  const { definition, state: initial } = setup(capBehavior);
+function completeFirstTier(): SkillLoopState {
+  const { definition, state: initial } = setup();
   const mining = applySkillLoopCommand(initial, definition, {
     kind: 'start-activity',
     activityId: 'mine-common-ore',
@@ -53,18 +42,15 @@ function completeFirstTier(capBehavior: SkillCapBehavior): SkillLoopState {
 }
 
 describe('skill-loop P1 rules', () => {
-  it.each(CAP_BEHAVIORS)(
-    'validates the finite first-tier package with %s XP handling',
-    (behavior) => {
-      const { definition } = setup(behavior);
-      expect(definition.activities.map((activity) => activity.id)).toEqual([
-        'mine-common-ore',
-        'mine-rich-common-ore',
-        'smelt-common-ingot',
-        'forge-common-tool-blank',
-      ]);
-    },
-  );
+  it('validates the frozen finite first-tier content snapshot', () => {
+    const { definition } = setup();
+    expect(definition.activities.map((activity) => activity.id)).toEqual([
+      'mine-common-ore',
+      'mine-rich-common-ore',
+      'smelt-common-ingot',
+      'forge-common-tool-blank',
+    ]);
+  });
 
   it('rejects a tool level without an upgrade route', () => {
     const { definition } = setup();
@@ -82,20 +68,17 @@ describe('skill-loop P1 rules', () => {
     );
   });
 
-  it.each(CAP_BEHAVIORS)(
-    'reaches Mining Tool II from a true zero-material save (%s)',
-    (behavior) => {
-      const state = completeFirstTier(behavior);
-      expect(state.inventory).toEqual({
-        'common-ore': 0,
-        'common-ingot': 0,
-        'common-tool-blank': 0,
-      });
-      expect(state.toolLevels['mining-tool']).toBe(2);
-      expect(state.skillXp.mining).toBe(8);
-      expect(state.skillXp.metalworking).toBe(behavior === 'level-threshold' ? 10 : 16);
-    },
-  );
+  it('reaches Mining Tool II from a true zero-material save', () => {
+    const state = completeFirstTier();
+    expect(state.inventory).toEqual({
+      'common-ore': 0,
+      'common-ingot': 0,
+      'common-tool-blank': 0,
+    });
+    expect(state.toolLevels['mining-tool']).toBe(2);
+    expect(state.skillXp.mining).toBe(8);
+    expect(state.skillXp.metalworking).toBe(10);
+  });
 
   it('keeps the valid activity and all materials when a switch lacks inputs', () => {
     const { definition, state: initial } = setup();
@@ -126,7 +109,7 @@ describe('skill-loop P1 rules', () => {
   });
 
   it('applies Tool II only to the next complete mining cycle', () => {
-    const { definition } = setup('retain-overflow-xp');
+    const { definition } = setup();
     let state = createNewSkillLoop(definition, START);
     state = { ...state, inventory: { ...state.inventory, 'common-tool-blank': 1 } };
     const started = applySkillLoopCommand(state, definition, {
@@ -149,7 +132,7 @@ describe('skill-loop P1 rules', () => {
   });
 
   it('uses Tool II when the upgrade lands exactly at a cycle boundary', () => {
-    const { definition } = setup('retain-overflow-xp');
+    const { definition } = setup();
     let state = createNewSkillLoop(definition, START);
     state = { ...state, inventory: { ...state.inventory, 'common-tool-blank': 1 } };
     const started = applySkillLoopCommand(state, definition, {
@@ -234,7 +217,7 @@ describe('skill-loop P1 rules', () => {
     const { definition } = setup();
     const legacy = JSON.stringify({ schemaVersion: 9, contentVersion: '14.0.0', worldId: 'old' });
     expect(() => decodeSkillLoopSave(legacy, definition)).toThrow('profile 或格式版本不兼容');
-    const current = completeFirstTier('level-threshold');
+    const current = completeFirstTier();
     expect(() =>
       decodeSkillLoopSave(encodeSkillLoopSave(current), {
         ...definition,

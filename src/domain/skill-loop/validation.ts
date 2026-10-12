@@ -110,7 +110,10 @@ function validateInitialRecord(
 }
 
 export function validateSkillLoopDefinition(definition: SkillLoopDefinition): void {
-  if (definition.profileId !== 'skill-prototype-v1' || definition.schemaVersion !== 1)
+  if (
+    definition.profileId !== 'skill-prototype-v1' ||
+    (definition.schemaVersion !== 1 && definition.schemaVersion !== 2)
+  )
     throw new Error('Invalid skill-loop profile or schema version');
   if (definition.contentVersion.length === 0) throw new Error('Missing skill-loop content version');
   if (
@@ -120,14 +123,6 @@ export function validateSkillLoopDefinition(definition: SkillLoopDefinition): vo
   )
     throw new Error('Skill-loop content requires skills, items, and activities');
   requirePositiveInteger(definition.maxOfflineMs, 'offline limit');
-  if (
-    definition.capBehavior !== 'level-threshold' &&
-    definition.capBehavior !== 'first-tier-xp-cap' &&
-    definition.capBehavior !== 'retain-overflow-xp'
-  ) {
-    throw new Error('Invalid skill cap behavior');
-  }
-
   const allIds = new Set<string>();
   const skillIds = new Set<string>();
   const levelCounts = new Map<string, number>();
@@ -145,9 +140,6 @@ export function validateSkillLoopDefinition(definition: SkillLoopDefinition): vo
         throw new Error(`Skill XP thresholds must rise from zero: ${skill.id}`);
       }
     });
-    requirePositiveInteger(skill.firstTierXpCap, `first-tier XP cap/${skill.id}`);
-    if (skill.firstTierXpCap < (skill.levels.at(-1)?.xpRequired ?? 0))
-      throw new Error(`First-tier XP cap is below a defined level: ${skill.id}`);
     skillIds.add(skill.id);
     levelCounts.set(skill.id, skill.levels.length);
   }
@@ -224,14 +216,8 @@ export function validateSkillLoopDefinition(definition: SkillLoopDefinition): vo
   validateInitialRecord(definition.initialToolLevels, new Set(tools.keys()), 'initial tool levels');
   for (const skill of definition.skills) {
     const initialXp = definition.initialSkillXp[skill.id] ?? 0;
-    const xpCeiling =
-      definition.capBehavior === 'retain-overflow-xp'
-        ? null
-        : definition.capBehavior === 'first-tier-xp-cap'
-          ? skill.firstTierXpCap
-          : (skill.levels.at(-1)?.xpRequired ?? 0);
-    if (xpCeiling !== null && initialXp > xpCeiling)
-      throw new Error(`Initial XP exceeds the prototype cap: ${skill.id}`);
+    const xpCeiling = skill.levels.at(-1)?.xpRequired ?? 0;
+    if (initialXp > xpCeiling) throw new Error(`Initial XP exceeds the prototype cap: ${skill.id}`);
   }
   for (const tool of definition.tools) {
     const initialLevel = definition.initialToolLevels[tool.id] ?? 0;

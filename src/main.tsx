@@ -1,11 +1,13 @@
 import { createRoot } from 'react-dom/client';
 import { SkillPrototypeApp } from './app/SkillPrototypeApp';
 import './app/styles.css';
+import { createSkillPrototypeV2Definition } from './content/skill-prototype-v2';
 import { createSkillPrototypeV1Definition } from './content/skill-prototype-v1';
 import { validateSkillLoopDefinition } from './domain/skill-loop/validation';
 import { createPlatform } from './platform/create-platform';
-import { SKILL_LOOP_RUNTIME_DOMAIN } from './runtime/skill-loop-runtime-domain';
+import { createSkillLoopRuntimeDomain } from './runtime/skill-loop-runtime-domain';
 import { createConfiguredGameRuntime } from './runtime/game-runtime';
+import { migrateSkillPrototypeSave } from './persistence/skill-prototype-save-migrations';
 import {
   SKILL_PROTOTYPE_V1_THEME,
   validateSkillPrototypeV1Theme,
@@ -15,7 +17,10 @@ async function bootstrap(): Promise<void> {
   const container = document.getElementById('root');
   if (container === null) throw new Error('Application root is missing');
 
-  const definition = createSkillPrototypeV1Definition('level-threshold');
+  const definition = createSkillPrototypeV2Definition();
+  const runtimeDomain = createSkillLoopRuntimeDomain((source, targetDefinition) =>
+    migrateSkillPrototypeSave(source, createSkillPrototypeV1Definition(), targetDefinition),
+  );
   const content = { definition, theme: SKILL_PROTOTYPE_V1_THEME } as const;
   validateSkillLoopDefinition(definition);
   validateSkillPrototypeV1Theme(definition, SKILL_PROTOTYPE_V1_THEME);
@@ -25,7 +30,7 @@ async function bootstrap(): Promise<void> {
     definition,
     platform.storage,
     platform.instanceLease,
-    SKILL_LOOP_RUNTIME_DOMAIN,
+    runtimeDomain,
   );
   createRoot(container).render(
     <SkillPrototypeApp runtime={runtime} content={content} windowPort={platform.window} />,

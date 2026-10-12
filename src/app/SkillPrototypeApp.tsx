@@ -48,6 +48,14 @@ function formatSeconds(milliseconds: number): string {
   return `${Number.isInteger(seconds) ? seconds : seconds.toFixed(1)} 秒`;
 }
 
+function formatElapsed(milliseconds: number): string {
+  const minutes = Math.floor(milliseconds / 60_000);
+  if (minutes < 1) return '不足 1 分钟';
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+  return hours === 0 ? `${minutes} 分钟` : `${hours} 小时 ${remainingMinutes} 分钟`;
+}
+
 function getRecipeInputs(
   activityId: string,
   content: SkillPrototypeV1Package,
@@ -93,6 +101,7 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
   const state = snapshot.state;
   const summary = snapshot.summary;
   const current = state?.currentActivity ?? null;
+  const returnReport = state?.returnReport ?? null;
   const currentDefinition =
     current === null
       ? undefined
@@ -178,7 +187,7 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
     <main className={`skill-prototype ${preferences.compact ? 'compact' : ''}`} style={themeStyle}>
       <header className="skill-prototype-header">
         <div>
-          <p className="skill-prototype-kicker">本地技能放置切片 · P1</p>
+          <p className="skill-prototype-kicker">本地技能放置切片 · P3</p>
           <h1>{theme.title}</h1>
         </div>
         <div className="skill-prototype-window-actions">
@@ -215,6 +224,68 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
           )}
         </div>
       </header>
+
+      {returnReport !== null && (
+        <section
+          className="skill-prototype-return-report"
+          aria-label="回访结算"
+          data-testid="return-report"
+        >
+          <div className="skill-prototype-section-heading">
+            <h2>离线进展</h2>
+            <span>本次结算已写入存档</span>
+          </div>
+          <p>
+            离开 {formatElapsed(returnReport.elapsedMs)}；结算窗口{' '}
+            {formatElapsed(returnReport.settlementWindowMs)}
+            {returnReport.offlineCapReached && '，已达到离线时长上限'}。
+            {returnReport.offlineCapReached && '剩余时间不会自动切换到其他活动。'}
+          </p>
+          <ul className="skill-prototype-return-deltas">
+            {definition.items.flatMap((item) => {
+              const delta = returnReport.inventoryDelta[item.id] ?? 0;
+              return delta === 0
+                ? []
+                : [
+                    <li key={`item-${item.id}`}>
+                      库存 · {theme.itemCopy[item.id]?.label ?? item.id} {delta > 0 ? '+' : ''}
+                      {formatCount(delta)}
+                    </li>,
+                  ];
+            })}
+            {definition.skills.flatMap((skill) => {
+              const delta = returnReport.skillXpDelta[skill.id] ?? 0;
+              return delta === 0
+                ? []
+                : [
+                    <li key={`xp-${skill.id}`}>
+                      经验 · {theme.skillCopy[skill.id]?.label ?? skill.id} +{formatCount(delta)} XP
+                    </li>,
+                  ];
+            })}
+            {returnReport.unlockedActivityIds.map((activityId) => (
+              <li key={`unlock-${activityId}`}>
+                已解锁 · {theme.activityCopy[activityId]?.label ?? activityId}
+              </li>
+            ))}
+          </ul>
+          <p className="skill-prototype-return-continuation">
+            {returnReport.reason === 'continuing' && '原活动仍在进行，可继续当前作业。'}
+            {returnReport.reason === 'insufficient-materials' &&
+              '制作材料耗尽后活动已停止；补齐材料或选择其他活动即可继续。'}
+            {returnReport.reason === 'paused' && '活动保持暂停，本次离开期间没有生产。'}
+            {returnReport.reason === 'no-activity' && '返回时没有正在运行的活动。'}
+          </p>
+          <button
+            className="primary-button"
+            data-testid="acknowledge-return-report"
+            disabled={busy}
+            onClick={() => dispatch({ kind: 'acknowledge-return-report' })}
+          >
+            继续游戏
+          </button>
+        </section>
+      )}
 
       <section className="skill-prototype-primary" aria-label="当前活动">
         {current === null ? (
@@ -363,15 +434,7 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
                   {threshold === null
                     ? ` · 当前等级上限 Lv ${progress.maximumLevel}`
                     : ` / ${formatCount(threshold)} XP`}
-                  {progress.atExperienceCeiling &&
-                    ` · ${
-                      definition.capBehavior === 'level-threshold'
-                        ? '已达当前等级经验上限'
-                        : '已达第一档经验上限'
-                    }`}
-                  {definition.capBehavior === 'retain-overflow-xp' &&
-                    progress.atPrototypeCap &&
-                    ' · 溢出经验会保留，当前等级仍封顶'}
+                  {progress.atPrototypeCap && ' · 已达当前原型经验上限'}
                 </small>
               </article>
             );

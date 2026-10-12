@@ -5,6 +5,7 @@ import {
   getSkillLoopSummary,
 } from '../domain/skill-loop/engine';
 import { validateSkillLoopDefinition } from '../domain/skill-loop/validation';
+import { captureSkillLoopReturnReport } from '../domain/skill-loop/return-report';
 import type {
   SkillLoopCommand,
   SkillLoopDefinition,
@@ -12,24 +13,34 @@ import type {
   SkillLoopState,
   SkillLoopSummary,
 } from '../domain/skill-loop/types';
-import { decodeSkillLoopSave, encodeSkillLoopSave } from '../persistence/skill-loop-codec';
+import {
+  decodeSkillLoopSave,
+  encodeSkillLoopSave,
+  type SkillLoopSaveMigration,
+} from '../persistence/skill-loop-codec';
 import type { RuntimeDomain } from './game-runtime';
 
-export const SKILL_LOOP_RUNTIME_DOMAIN: RuntimeDomain<
+export function createSkillLoopRuntimeDomain(
+  migrateSave?: SkillLoopSaveMigration,
+): RuntimeDomain<
   SkillLoopDefinition,
   SkillLoopState,
   SkillLoopCommand,
   SkillLoopSummary,
   SkillLoopErrorCode
-> = {
-  validateDefinition: validateSkillLoopDefinition,
-  createNewState: createNewSkillLoop,
-  advanceTime: advanceSkillLoop,
-  applyCommand: applySkillLoopCommand,
-  getSummary: getSkillLoopSummary,
-  decodeSave: decodeSkillLoopSave,
-  encodeSave: encodeSkillLoopSave,
-  isNumericLimit: (error) => error === 'NUMERIC_LIMIT',
-  numericLimitError: 'NUMERIC_LIMIT',
-  isImmediateCommand: (command) => command.kind !== 'tick',
-};
+> {
+  return {
+    validateDefinition: validateSkillLoopDefinition,
+    createNewState: createNewSkillLoop,
+    advanceTime: advanceSkillLoop,
+    prepareStartupState: (before, advanced, definition) =>
+      captureSkillLoopReturnReport(before, advanced, definition),
+    applyCommand: applySkillLoopCommand,
+    getSummary: getSkillLoopSummary,
+    decodeSave: (contents, definition) => decodeSkillLoopSave(contents, definition, migrateSave),
+    encodeSave: encodeSkillLoopSave,
+    isNumericLimit: (error) => error === 'NUMERIC_LIMIT',
+    numericLimitError: 'NUMERIC_LIMIT',
+    isImmediateCommand: (command) => command.kind !== 'tick',
+  };
+}

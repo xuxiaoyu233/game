@@ -2,6 +2,7 @@ import type {
   ActivityDefinition,
   CurrentActivity,
   SkillLoopDefinition,
+  SkillLoopReturnReport,
   SkillLoopState,
   ToolDefinition,
 } from '../domain/skill-loop/types';
@@ -17,6 +18,8 @@ export class SkillSaveValidationError extends Error {
     this.name = 'SkillSaveValidationError';
   }
 }
+
+export type SkillLoopSaveMigration = (source: unknown, definition: SkillLoopDefinition) => unknown;
 
 function invalid(message: string): never {
   throw new SkillSaveValidationError('INVALID_STATE', `技能原型存档校验失败：${message}`);
@@ -40,6 +43,12 @@ function safeInteger(value: unknown, field: string, minimum = 0): number {
   return value;
 }
 
+function signedSafeInteger(value: unknown, field: string): number {
+  if (typeof value !== 'number' || !Number.isSafeInteger(value))
+    invalid(`${field} 必须是安全范围内的整数。`);
+  return value;
+}
+
 function exactRecord(
   value: unknown,
   expectedIds: ReadonlySet<string>,
@@ -51,6 +60,24 @@ function exactRecord(
   for (const [id, raw] of Object.entries(source)) {
     if (!expectedIds.has(id)) invalid(`${field} 含未知 ID：${id}。`);
     result[id] = safeInteger(raw, `${field}.${id}`);
+  }
+  for (const id of expectedIds) {
+    if (!Object.hasOwn(result, id)) invalid(`${field} 缺少 ID：${id}。`);
+  }
+  return result;
+}
+
+function exactDeltaRecord(
+  value: unknown,
+  expectedIds: ReadonlySet<string>,
+  field: string,
+): Record<string, number> {
+  const source = record(value, field);
+  if (Object.keys(source).length !== expectedIds.size) invalid(`${field} 未完整匹配当前内容。`);
+  const result: Record<string, number> = Object.create(null) as Record<string, number>;
+  for (const [id, raw] of Object.entries(source)) {
+    if (!expectedIds.has(id)) invalid(`${field} 含未知 ID：${id}。`);
+    result[id] = signedSafeInteger(raw, `${field}.${id}`);
   }
   for (const id of expectedIds) {
     if (!Object.hasOwn(result, id)) invalid(`${field} 缺少 ID：${id}。`);
@@ -147,9 +174,70 @@ function validateCurrentActivity(
   };
 }
 
+function validateReturnReport(
+  value: unknown,
+  definition: SkillLoopDefinition,
+): SkillLoopReturnReport | null {
+  if (value === null) return null;
+  const source = record(value, 'returnReport');
+  const elapsedMs = safeInteger(source.elapsedMs, 'returnReport.elapsedMs', 1);
+  const settlementWindowMs = safeInteger(
+    source.settlementWindowMs,
+    'returnReport.settlementWindowMs',
+    1,
+  );
+  if (settlementWindowMs > elapsedMs) invalid('returnReport.settlementWindowMs 不能超过离开时长。');
+  if (typeof source.offlineCapReached !== 'boolean')
+    invalid('returnReport.offlineCapReached 必须是布尔值。');
+  const activityId = source.activityId;
+  if (
+    activityId !== null &&
+    (typeof activityId !== 'string' || getActivity(definition, activityId) === undefined)
+  )
+    invalid('returnReport.activityId 必须为空或当前已知活动 ID。');
+  const reason = source.reason;
+  if (
+    reason !== 'continuing' &&
+    reason !== 'insufficient-materials' &&
+    reason !== 'paused' &&
+    reason !== 'no-activity'
+  ) {
+    invalid('returnReport.reason 无效。');
+  }
+  const validActivities = new Set(definition.activities.map((activity) => activity.id));
+  if (!Array.isArray(source.unlockedActivityIds))
+    invalid('returnReport.unlockedActivityIds 必须是数组。');
+  const unlockedActivityIds = source.unlockedActivityIds.map((id, index) => {
+    if (typeof id !== 'string' || !validActivities.has(id))
+      invalid(`returnReport.unlockedActivityIds[${index}] 含未知活动 ID。`);
+    return id;
+  });
+  if (new Set(unlockedActivityIds).size !== unlockedActivityIds.length)
+    invalid('returnReport.unlockedActivityIds 不能重复。');
+  return {
+    elapsedMs,
+    settlementWindowMs,
+    offlineCapReached: source.offlineCapReached,
+    activityId,
+    reason,
+    inventoryDelta: exactDeltaRecord(
+      source.inventoryDelta,
+      new Set(definition.items.map((item) => item.id)),
+      'returnReport.inventoryDelta',
+    ),
+    skillXpDelta: exactDeltaRecord(
+      source.skillXpDelta,
+      new Set(definition.skills.map((skill) => skill.id)),
+      'returnReport.skillXpDelta',
+    ),
+    unlockedActivityIds,
+  };
+}
+
 export function decodeSkillLoopSave(
   contents: string,
   definition: SkillLoopDefinition,
+  migrateSave?: SkillLoopSaveMigration,
 ): SkillLoopState {
   let parsed: unknown;
   try {
@@ -157,7 +245,14 @@ export function decodeSkillLoopSave(
   } catch {
     throw new SkillSaveValidationError('INVALID_JSON', '存档不是有效 JSON，原存档未被覆盖。');
   }
-  return validateSkillLoopSave(parsed, definition);
+  const source = record(parsed, '存档');
+  const candidate =
+    (source.schemaVersion === definition.schemaVersion &&
+      source.contentVersion === definition.contentVersion) ||
+    migrateSave === undefined
+      ? parsed
+      : migrateSave(parsed, definition);
+  return validateSkillLoopSave(candidate, definition);
 }
 
 export function validateSkillLoopSave(
@@ -197,13 +292,8 @@ export function validateSkillLoopSave(
   );
   for (const skill of definition.skills) {
     const xp = skillXp[skill.id] ?? 0;
-    const xpCeiling =
-      definition.capBehavior === 'retain-overflow-xp'
-        ? null
-        : definition.capBehavior === 'first-tier-xp-cap'
-          ? skill.firstTierXpCap
-          : (skill.levels.at(-1)?.xpRequired ?? 0);
-    if (xpCeiling !== null && xp > xpCeiling) invalid(`技能经验超过当前原型上限：${skill.id}。`);
+    const xpCeiling = skill.levels.at(-1)?.xpRequired ?? 0;
+    if (xp > xpCeiling) invalid(`技能经验超过当前原型上限：${skill.id}。`);
   }
   for (const tool of definition.tools) {
     const level = toolLevels[tool.id] ?? 0;
@@ -212,6 +302,13 @@ export function validateSkillLoopSave(
   const lastSimulatedAt = safeInteger(source.lastSimulatedAt, 'lastSimulatedAt');
   const stateParts = { inventory, skillXp, toolLevels };
   const currentActivity = validateCurrentActivity(source.currentActivity, stateParts, definition);
+  let returnReport: SkillLoopReturnReport | null = null;
+  if (definition.schemaVersion === 2) {
+    if (!Object.hasOwn(source, 'returnReport')) invalid('returnReport 字段缺失。');
+    returnReport = validateReturnReport(source.returnReport, definition);
+  } else if (source.returnReport !== undefined && source.returnReport !== null) {
+    invalid('旧 schema 不支持 returnReport。');
+  }
   return {
     schemaVersion: definition.schemaVersion,
     profileId: definition.profileId,
@@ -219,6 +316,7 @@ export function validateSkillLoopSave(
     ...stateParts,
     currentActivity,
     lastSimulatedAt,
+    returnReport,
   };
 }
 

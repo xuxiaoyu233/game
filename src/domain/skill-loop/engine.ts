@@ -61,11 +61,8 @@ export function getSkillLevel(
   return Math.min(level, getHighestLevel(skill));
 }
 
-function getXpCeiling(skill: SkillDefinition, definition: SkillLoopDefinition): number | null {
-  if (definition.capBehavior === 'retain-overflow-xp') return null;
-  return definition.capBehavior === 'first-tier-xp-cap'
-    ? skill.firstTierXpCap
-    : (skill.levels.at(-1)?.xpRequired ?? 0);
+function getXpCeiling(skill: SkillDefinition): number {
+  return skill.levels.at(-1)?.xpRequired ?? 0;
 }
 
 function getRequiredMaterials(
@@ -174,10 +171,10 @@ function completedCycle(
 
   const skill = getSkill(definition, activity.skillId);
   const xpBefore = getSkillXp(state, skill.id);
-  const xpLimit = getXpCeiling(skill, definition);
+  const xpLimit = getXpCeiling(skill);
   const xpTotal = xpBefore + activity.xpPerCycle;
   if (!Number.isSafeInteger(xpTotal) || xpTotal > MAXIMUM) return { state, error: 'NUMERIC_LIMIT' };
-  const xpAfter = xpLimit === null ? xpTotal : Math.min(xpLimit, xpTotal);
+  const xpAfter = Math.min(xpLimit, xpTotal);
   const nextState: SkillLoopState = {
     ...state,
     inventory,
@@ -215,6 +212,7 @@ export function createNewSkillLoop(definition: SkillLoopDefinition, now: number)
     toolLevels: { ...definition.initialToolLevels },
     currentActivity: null,
     lastSimulatedAt: now,
+    returnReport: null,
   };
 }
 
@@ -383,13 +381,14 @@ export function applySkillLoopCommand(
         currentActivity,
       });
     }
+    case 'acknowledge-return-report':
+      return state.returnReport === null ? accept(state) : accept({ ...state, returnReport: null });
   }
 }
 
 function skillSummary(
   state: SkillLoopState,
   skill: SkillDefinition,
-  definition: SkillLoopDefinition,
 ): SkillLoopSummary['skills'][string] {
   const xp = getSkillXp(state, skill.id);
   let level = 1;
@@ -402,7 +401,7 @@ function skillSummary(
     level = threshold.level;
   }
   const maximumLevel = getHighestLevel(skill);
-  const xpCeiling = getXpCeiling(skill, definition);
+  const xpCeiling = getXpCeiling(skill);
   return {
     level: Math.min(level, maximumLevel),
     xp,
@@ -410,7 +409,6 @@ function skillSummary(
     xpCeiling,
     maximumLevel,
     atPrototypeCap: level >= maximumLevel,
-    atExperienceCeiling: xpCeiling !== null && xp >= xpCeiling,
   };
 }
 
@@ -419,7 +417,7 @@ export function getSkillLoopSummary(
   definition: SkillLoopDefinition,
 ): SkillLoopSummary {
   const skills = Object.fromEntries(
-    definition.skills.map((skill) => [skill.id, skillSummary(state, skill, definition)]),
+    definition.skills.map((skill) => [skill.id, skillSummary(state, skill)]),
   );
   const lockedActivities = definition.activities
     .filter((activity) => !unlocked(state, definition, activity))
@@ -441,7 +439,7 @@ export function getSkillLoopSummary(
     .filter((upgrade) => canPurchaseUpgrade(state, upgrade.id, definition))
     .map((upgrade) => upgrade.id);
   const prototypeComplete =
-    definition.skills.every((skill) => skillSummary(state, skill, definition).atPrototypeCap) &&
+    definition.skills.every((skill) => skillSummary(state, skill).atPrototypeCap) &&
     definition.tools.every(
       (tool) => (state.toolLevels[tool.id] ?? 0) === (tool.levels.at(-1)?.level ?? 1),
     );

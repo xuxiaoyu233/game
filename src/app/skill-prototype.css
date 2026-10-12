@@ -120,6 +120,37 @@
   background: linear-gradient(135deg, var(--surface-raised), var(--surface));
 }
 
+.skill-prototype-return-report {
+  display: grid;
+  gap: 0.42rem;
+  margin-bottom: 0.65rem;
+  border: 1px solid var(--accent);
+  border-radius: 0.85rem;
+  padding: 0.7rem;
+  background: var(--accent-soft);
+}
+
+.skill-prototype-return-report h2 {
+  font-size: 0.9rem;
+}
+
+.skill-prototype-return-report > p,
+.skill-prototype-return-deltas {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.skill-prototype-return-deltas {
+  display: grid;
+  gap: 0.12rem;
+  padding-left: 1.1rem;
+}
+
+.skill-prototype .skill-prototype-return-report .primary-button {
+  min-height: 2.3rem;
+}
+
 .skill-prototype-primary h2 {
   margin-top: 0.12rem;
   font-size: 1rem;

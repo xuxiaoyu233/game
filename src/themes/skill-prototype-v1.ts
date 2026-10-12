@@ -53,6 +53,9 @@ export const SKILL_PROTOTYPE_V1_THEME: SkillLoopTheme = {
     'common-ore': { label: '基础矿料' },
     'common-ingot': { label: '基础金属锭' },
     'common-tool-blank': { label: '基础工具坯' },
+    'advanced-ore': { label: '进阶矿料' },
+    'advanced-ingot': { label: '进阶金属锭' },
+    'composite-tool-blank': { label: '复合工具坯' },
   },
   activityCopy: {
     'mine-common-ore': { label: '采集基础矿料', description: '无材料消耗，稳定获得基础矿料。' },
@@ -65,14 +68,29 @@ export const SKILL_PROTOTYPE_V1_THEME: SkillLoopTheme = {
       label: '锻造基础工具坯',
       description: '消耗两份基础金属锭，制成工具坯。',
     },
+    'mine-advanced-ore': {
+      label: '采集进阶矿层',
+      description: '采掘达到 Lv 3 后开放；每周期获得一份进阶矿料。',
+    },
+    'smelt-advanced-ingot': {
+      label: '冶炼进阶金属锭',
+      description: '消耗两份进阶矿料，产出一份进阶金属锭。',
+    },
+    'forge-composite-tool-blank': {
+      label: '锻造复合工具坯',
+      description: '将基础与进阶金属锭组合成工具 III 的部件。',
+    },
   },
   recipeCopy: {
     'recipe-common-ingot': { label: '基础金属锭配方' },
     'recipe-common-tool-blank': { label: '基础工具坯配方' },
+    'recipe-advanced-ingot': { label: '进阶金属锭配方' },
+    'recipe-composite-tool-blank': { label: '复合工具坯配方' },
   },
   toolCopy: {
     'mining-tool': { label: '采掘工具', effect: '缩短采掘周期' },
     'mining-tool-ii': { label: '采掘工具 II', effect: '采掘周期缩短至基础周期的 80%' },
+    'mining-tool-iii': { label: '采掘工具 III', effect: '采掘周期缩短至基础周期的 65%' },
   },
 };
 
