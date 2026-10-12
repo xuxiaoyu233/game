@@ -12,6 +12,13 @@ const allowed = {
   platform: new Set(['platform']),
   app: new Set(['app', 'domain', 'runtime', 'themes', 'platform']),
 };
+
+// legacy 分区边界：2a/2b 建立各层 legacy/ 分区后，现行生产代码不得依赖其中的冻结实现。
+// 放行：legacy/ 分区内部互相引用、`*.test.ts`，以及下列白名单（登记时必须注明理由）。
+const LEGACY = 'legacy';
+const legacyImportWhitelist = new Set([
+  // 迁移/归档类生产路径如确需读取旧定义，在此登记并注明理由；不得把现行功能路径加入本白名单。
+]);
 const errors = [];
 
 async function visit(directory) {
@@ -74,6 +81,16 @@ async function visit(directory) {
           ].includes(destination)
         )
           errors.push(`${relative}: mechanical content can import domain types only`);
+        const importerInLegacy = relative.split('/').includes(LEGACY);
+        const destinationInLegacy = destination.split('/').includes(LEGACY);
+        if (
+          destinationInLegacy &&
+          !importerInLegacy &&
+          !legacyImportWhitelist.has(relative.replace(/\.tsx?$/, ''))
+        )
+          errors.push(
+            `${relative}: 现行代码不得依赖 legacy 分区（导入 ${destination}）。修复：改为依赖现行模块；若属迁移/归档必需，先说明理由再把它加入 check-architecture.mjs 的 legacyImportWhitelist，不要绕过检查。`,
+          );
       } else if (
         specifier &&
         ['domain', 'content', 'themes', 'persistence', 'runtime'].includes(layer)
