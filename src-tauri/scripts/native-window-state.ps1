@@ -15,25 +15,27 @@ if ($null -eq $gameProcess) {
     [pscustomobject]@{ processId = $ProcessId; alive = $false; windows = @() } | ConvertTo-Json
     exit 0
 }
-if ($gameProcess.ProcessName -notmatch '^(idle-forge-desktop|IdleForge(-v\d+\.\d+\.\d+)?)$') {
-    throw 'The requested process is not an Idle Forge executable.'
+$expectedTitle = switch -Regex ($gameProcess.ProcessName) {
+    '^(idle-forge-desktop|IdleForge(-v\d+\.\d+\.\d+)?)$' { 'Idle Forge'; break }
+    '^(zhujie-rescue-bureau-desktop|ZhuJieRescueBureau(-v\d+\.\d+\.\d+)?)$' { '技能放置原型'; break }
+    default { throw 'The requested process is not a supported game executable.' }
 }
 if ($Expect -eq 'exited') { throw 'The game process is still running.' }
 
-if ($null -eq ('IdleForgeWindowState' -as [type])) {
+if ($null -eq ('NativeWindowState' -as [type])) {
     Add-Type -TypeDefinition @'
 using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-public class IdleForgeWindowInfo {
+public class NativeWindowInfo {
     public string Handle { get; set; }
     public string Title { get; set; }
     public bool Visible { get; set; }
     public bool Topmost { get; set; }
 }
-public static class IdleForgeWindowState {
+public static class NativeWindowState {
     private delegate bool WindowCallback(IntPtr window, IntPtr parameter);
     [DllImport("user32.dll")]
     private static extern bool EnumWindows(WindowCallback callback, IntPtr parameter);
@@ -46,16 +48,16 @@ public static class IdleForgeWindowState {
     [DllImport("user32.dll")]
     private static extern bool IsWindowVisible(IntPtr window);
 
-    public static IdleForgeWindowInfo[] Read(uint processId) {
-        var windows = new List<IdleForgeWindowInfo>();
+    public static NativeWindowInfo[] Read(uint processId, string expectedTitle) {
+        var windows = new List<NativeWindowInfo>();
         EnumWindows((window, parameter) => {
             uint owner;
             GetWindowThreadProcessId(window, out owner);
             if (owner != processId) return true;
             var title = new StringBuilder(512);
             GetWindowText(window, title, title.Capacity);
-            if (!title.ToString().StartsWith("Idle Forge", StringComparison.Ordinal)) return true;
-            windows.Add(new IdleForgeWindowInfo {
+            if (!title.ToString().StartsWith(expectedTitle, StringComparison.Ordinal)) return true;
+            windows.Add(new NativeWindowInfo {
                 Handle = "0x" + window.ToInt64().ToString("x"),
                 Title = title.ToString(),
                 Visible = IsWindowVisible(window),
@@ -69,8 +71,8 @@ public static class IdleForgeWindowState {
 '@
 }
 
-$windows = @([IdleForgeWindowState]::Read([uint32]$ProcessId))
-if ($windows.Count -eq 0) { throw 'The native Idle Forge window was not found.' }
+$windows = @([NativeWindowState]::Read([uint32]$ProcessId, [string]$expectedTitle))
+if ($windows.Count -eq 0) { throw 'The native game window was not found.' }
 if ($Expect -eq 'visible' -and -not ($windows | Where-Object Visible)) {
     throw 'The native window is hidden.'
 }
