@@ -10,7 +10,7 @@
 - 非组件源码文件使用 `kebab-case.ts`，React 组件使用 `PascalCase.tsx`。类型 PascalCase，变量/函数 camelCase，模块常量 UPPER_SNAKE_CASE，内容 ID 用稳定英文 kebab-case。
 - 保持严格 TypeScript，不使用 `any` 绕过错误，不关闭严格模式。Promise 必须 await、返回或显式捕获失败。
 - 新依赖锁定版本、更新锁文件。禁止提交存档、缓存、依赖、编译产物、密钥。
-- 提交前运行 `./scripts/project.ps1 check`；影响 UI 运行 `e2e`；影响 Rust/桌面运行 `native-check` 和 `native-build`。
+- 阶段内小改只跑定向检查：`npm run test:area -- <区域>`（区域 `skill-loop`/`legacy`/`platform`/`all`）或 `npm run check:fast`；阶段末/批次提交前运行 `./scripts/project.ps1 check`；影响 UI 运行 `e2e`；影响 Rust/桌面运行 `native-check` 和 `native-build`。
 - 文档中的“已实现”“已验证”“待验收”必须与实际结果对应。不得把浏览器验证写成 Windows 托盘/置顶验收。
 
 不要自行发布 Sites、启用账号云同步、自动开机运行或推送 Git；这些都不属于当前工程搭建。
