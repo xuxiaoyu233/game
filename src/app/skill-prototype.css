@@ -147,6 +147,18 @@
   padding-left: 1.1rem;
 }
 
+.skill-prototype-return-guidance {
+  color: var(--text);
+  font-size: 0.75rem;
+}
+
+.skill-prototype-return-guidance a,
+.skill-prototype-next-step a {
+  color: var(--accent);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+}
+
 .skill-prototype .skill-prototype-return-report .primary-button {
   min-height: 2.3rem;
 }
@@ -161,6 +173,11 @@
   margin-top: 0.25rem;
   color: var(--muted);
   font-size: 0.78rem;
+}
+
+.skill-prototype-cycle-warning {
+  color: var(--muted);
+  font-size: 0.68rem;
 }
 
 .skill-prototype .primary-button {
@@ -201,6 +218,41 @@
   color: var(--text);
   background: var(--accent-soft);
   font-size: 0.8rem;
+}
+
+.skill-prototype-next-step {
+  display: grid;
+  gap: 0.25rem;
+  margin-bottom: 0.55rem;
+  border-left: 3px solid var(--accent);
+  border-radius: 0.2rem 0.65rem 0.65rem 0.2rem;
+  padding: 0.45rem 0.6rem;
+  background: var(--surface);
+}
+
+.skill-prototype-next-step-heading h2 {
+  color: var(--accent);
+  font-size: 0.78rem;
+}
+
+.skill-prototype-next-step-body {
+  display: grid;
+  justify-items: start;
+  gap: 0.25rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.skill-prototype-next-step-targets {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0;
+  padding-left: 0.95rem;
+  font-size: 0.72rem;
+}
+
+.skill-prototype-next-step-body > small {
+  color: var(--muted);
 }
 
 .skill-prototype-save-warning {

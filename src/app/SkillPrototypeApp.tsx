@@ -1,6 +1,8 @@
 import { useEffect, useState, useSyncExternalStore, type CSSProperties } from 'react';
 import type { SkillPrototypeV1Package } from './skill-prototype-types';
 import type {
+  ActivityDefinition,
+  CurrentActivity,
   SkillLoopCommand,
   SkillLoopErrorCode,
   SkillLoopState,
@@ -75,6 +77,48 @@ function missingMaterials(
     if (missing <= 0) return [];
     return [`${content.theme.itemCopy[input.itemId]?.label ?? input.itemId} × ${missing}`];
   });
+}
+
+function getGatherSuggestion(
+  state: SkillLoopState,
+  current: CurrentActivity | null,
+  summary: SkillLoopSummary,
+  content: SkillPrototypeV1Package,
+): { readonly itemId: string; readonly amount: number; readonly activityId: string | null } | null {
+  if (current === null) return null;
+  const activity = content.definition.activities.find((entry) => entry.id === current.activityId);
+  if (activity?.kind !== 'craft') return null;
+  const inputs = content.definition.recipes.find(
+    (recipe) => recipe.id === activity.recipeId,
+  )?.inputs;
+  if (inputs === undefined) return null;
+
+  for (const input of inputs) {
+    const missing = input.amount - (state.inventory[input.itemId] ?? 0);
+    if (missing <= 0) continue;
+
+    let selected: {
+      readonly activity: Extract<ActivityDefinition, { kind: 'gather' }>;
+      readonly rate: number;
+    } | null = null;
+    for (const candidate of content.definition.activities) {
+      if (candidate.kind !== 'gather' || !summary.availableActivityIds.includes(candidate.id))
+        continue;
+      const output = candidate.outputs.find((entry) => entry.itemId === input.itemId);
+      if (output === undefined) continue;
+      const tool = content.definition.tools.find((entry) => entry.skillId === candidate.skillId);
+      const toolLevel = tool?.levels.find((entry) => entry.level === state.toolLevels[tool.id]);
+      const durationMs = Math.ceil(
+        (candidate.durationMs * (toolLevel?.durationMultiplierPermille ?? 1_000)) / 1_000,
+      );
+      const rate = output.amount / durationMs;
+      if (selected === null || rate > selected.rate) selected = { activity: candidate, rate };
+    }
+
+    return { itemId: input.itemId, amount: missing, activityId: selected?.activity.id ?? null };
+  }
+
+  return null;
 }
 
 export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototypeAppProps) {
@@ -181,13 +225,14 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
 
   if (state === null || summary === null) return <p role="alert">原型状态不可用。</p>;
   const atStageEnd = summary.prototypeComplete;
+  const gatherSuggestion = getGatherSuggestion(state, current, summary, content);
   const themeStyle = style;
 
   return (
     <main className={`skill-prototype ${preferences.compact ? 'compact' : ''}`} style={themeStyle}>
       <header className="skill-prototype-header">
         <div>
-          <p className="skill-prototype-kicker">本地技能放置切片 · P3</p>
+          <p className="skill-prototype-kicker">{theme.uiCopy.productKicker}</p>
           <h1>{theme.title}</h1>
         </div>
         <div className="skill-prototype-window-actions">
@@ -269,6 +314,39 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
               </li>
             ))}
           </ul>
+          <p className="skill-prototype-return-guidance" data-testid="return-guidance">
+            {returnReport.unlockedActivityIds.length > 0 ? (
+              <>
+                {theme.uiCopy.returnUnlockedPrefix}：{' '}
+                {returnReport.unlockedActivityIds.map((activityId, index) => (
+                  <span key={activityId}>
+                    {index > 0 && '、'}
+                    <a href={`#activity-${activityId}`}>
+                      {theme.activityCopy[activityId]?.label ?? activityId}
+                    </a>
+                  </span>
+                ))}
+              </>
+            ) : summary.availableToolUpgradeIds[0] !== undefined ? (
+              <>
+                {theme.uiCopy.availableUpgradePrefix}：{' '}
+                <a href={`#upgrade-${summary.availableToolUpgradeIds[0]}`}>
+                  {theme.toolCopy[summary.availableToolUpgradeIds[0]]?.label ??
+                    summary.availableToolUpgradeIds[0]}
+                </a>
+              </>
+            ) : summary.nextUnlocks[0] !== undefined ? (
+              <>
+                {theme.uiCopy.nextUnlockPrefix} {summary.nextUnlocks[0].level}：{' '}
+                <a href={`#skill-progress-${summary.nextUnlocks[0].skillId}`}>
+                  {theme.activityCopy[summary.nextUnlocks[0].activityId]?.label ??
+                    summary.nextUnlocks[0].activityId}
+                </a>
+              </>
+            ) : (
+              theme.uiCopy.returnCurrentGoal
+            )}
+          </p>
           <p className="skill-prototype-return-continuation">
             {returnReport.reason === 'continuing' && '原活动仍在进行，可继续当前作业。'}
             {returnReport.reason === 'insufficient-materials' &&
@@ -291,9 +369,9 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
         {current === null ? (
           <>
             <div>
-              <p className="skill-prototype-kicker">从零开始</p>
-              <h2>先采集基础矿料</h2>
-              <p>采掘不消耗材料；之后可冶炼金属锭并锻造工具坯。</p>
+              <p className="skill-prototype-kicker">{theme.uiCopy.startKicker}</p>
+              <h2>{theme.uiCopy.startHeading}</h2>
+              <p>{theme.uiCopy.startDescription}</p>
             </div>
             <button
               className="primary-button"
@@ -304,7 +382,8 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
                   dispatch({ kind: 'start-activity', activityId: nextActivity.id });
               }}
             >
-              开始采集基础矿料
+              {theme.uiCopy.startActionPrefix}{' '}
+              {nextActivity === undefined ? '' : theme.activityCopy[nextActivity.id]?.label}
             </button>
           </>
         ) : (
@@ -341,6 +420,11 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
                   ? ''
                   : theme.activityCopy[currentDefinition.id]?.description}
             </p>
+            {current.progressMs > 0 && (
+              <small className="skill-prototype-cycle-warning">
+                {theme.uiCopy.cycleDiscardWarning}
+              </small>
+            )}
             <div className="skill-prototype-primary-actions">
               {current.status === 'running' ? (
                 <button
@@ -366,19 +450,6 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
                   恢复活动
                 </button>
               )}
-              {state.currentActivity !== null &&
-                nextActivity !== undefined &&
-                nextActivity.id !== current.activityId && (
-                  <button
-                    className="quiet-button"
-                    disabled={busy}
-                    onClick={() =>
-                      dispatch({ kind: 'switch-activity', activityId: nextActivity.id })
-                    }
-                  >
-                    切换到采集基础矿料
-                  </button>
-                )}
             </div>
           </>
         )}
@@ -394,6 +465,76 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
           {snapshot.error}
         </p>
       )}
+
+      <section className="skill-prototype-next-step" aria-label="下一步" data-testid="next-step">
+        <div className="skill-prototype-next-step-heading">
+          <h2>{theme.uiCopy.nextStepHeading}</h2>
+        </div>
+        {gatherSuggestion !== null ? (
+          <div className="skill-prototype-next-step-body">
+            {gatherSuggestion.activityId === null ? (
+              <p>
+                {theme.uiCopy.replenishPrefix}：
+                {theme.itemCopy[gatherSuggestion.itemId]?.label ?? gatherSuggestion.itemId} ×{' '}
+                {formatCount(gatherSuggestion.amount)}。{theme.uiCopy.noDirectGather}
+              </p>
+            ) : (
+              <>
+                <p>
+                  {theme.uiCopy.replenishPrefix}：
+                  {theme.itemCopy[gatherSuggestion.itemId]?.label ?? gatherSuggestion.itemId} ×{' '}
+                  {formatCount(gatherSuggestion.amount)}。
+                </p>
+                <button
+                  className="secondary-button"
+                  data-testid="next-step-replenish"
+                  disabled={busy}
+                  onClick={() => {
+                    const activityId = gatherSuggestion.activityId;
+                    if (activityId !== null) dispatch({ kind: 'switch-activity', activityId });
+                  }}
+                >
+                  {theme.uiCopy.switchToActivityPrefix}
+                  {theme.activityCopy[gatherSuggestion.activityId]?.label ??
+                    gatherSuggestion.activityId}
+                </button>
+                {current?.status === 'running' && current.progressMs > 0 && (
+                  <small>{theme.uiCopy.cycleDiscardWarning}</small>
+                )}
+              </>
+            )}
+          </div>
+        ) : (
+          <ul className="skill-prototype-next-step-targets">
+            {summary.availableToolUpgradeIds.map((upgradeId) => {
+              const upgrade = definition.toolUpgrades.find((entry) => entry.id === upgradeId);
+              if (upgrade === undefined) return null;
+              return (
+                <li key={upgrade.id}>
+                  <a href={`#upgrade-${upgrade.id}`}>
+                    {theme.uiCopy.availableUpgradePrefix}{' '}
+                    {theme.toolCopy[upgrade.id]?.label ?? upgrade.id}
+                  </a>
+                </li>
+              );
+            })}
+            {summary.nextUnlocks.map((unlock) => (
+              <li key={unlock.activityId}>
+                <a href={`#skill-progress-${unlock.skillId}`}>
+                  {theme.skillCopy[unlock.skillId]?.label ?? unlock.skillId} ·{' '}
+                  {theme.uiCopy.nextUnlockPrefix} {unlock.level}：
+                  {theme.activityCopy[unlock.activityId]?.label ?? unlock.activityId}
+                </a>
+              </li>
+            ))}
+            {summary.availableToolUpgradeIds.length === 0 && summary.nextUnlocks.length === 0 && (
+              <li>
+                {atStageEnd ? theme.uiCopy.allContentAvailable : theme.uiCopy.returnCurrentGoal}
+              </li>
+            )}
+          </ul>
+        )}
+      </section>
 
       <section className="skill-prototype-section" aria-labelledby="skill-progress-title">
         <div className="skill-prototype-section-heading">
@@ -416,6 +557,7 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
             return (
               <article
                 className="skill-prototype-skill"
+                id={`skill-progress-${skill.id}`}
                 data-testid={`skill-progress-${skill.id}`}
                 key={skill.id}
               >
@@ -472,6 +614,7 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
             return (
               <article
                 className={`skill-prototype-activity ${!unlocked ? 'locked' : ''}`}
+                id={`activity-${activity.id}`}
                 key={activity.id}
               >
                 <div className="skill-prototype-activity-copy">
@@ -555,7 +698,11 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
           const available = summary.availableToolUpgradeIds.includes(upgrade.id);
           const quantity = state.inventory[upgrade.requiredItemId] ?? 0;
           return (
-            <article className="skill-prototype-upgrade" key={upgrade.id}>
+            <article
+              className="skill-prototype-upgrade"
+              id={`upgrade-${upgrade.id}`}
+              key={upgrade.id}
+            >
               <div>
                 <strong>{copy?.label ?? upgrade.id}</strong>
                 <p>

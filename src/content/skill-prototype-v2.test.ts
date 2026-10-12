@@ -27,4 +27,16 @@ describe('skill prototype P2 content', () => {
       'mining-tool-iii',
     ]);
   });
+
+  it('requires nonempty app guidance before the prototype can be assembled', () => {
+    const definition = createSkillPrototypeV2Definition();
+    const theme = {
+      ...SKILL_PROTOTYPE_V1_THEME,
+      uiCopy: { ...SKILL_PROTOTYPE_V1_THEME.uiCopy, nextStepHeading: '  ' },
+    };
+
+    expect(() => validateSkillPrototypeV1Theme(definition, theme)).toThrow(
+      /Empty skill-loop theme text: app\/nextStepHeading/,
+    );
+  });
 });

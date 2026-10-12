@@ -3,6 +3,23 @@ import type { SkillLoopDefinition, SkillLoopId } from '../domain/skill-loop/type
 export interface SkillLoopTheme {
   readonly id: 'skill-prototype-v1';
   readonly title: string;
+  readonly uiCopy: {
+    readonly productKicker: string;
+    readonly startKicker: string;
+    readonly startHeading: string;
+    readonly startDescription: string;
+    readonly startActionPrefix: string;
+    readonly nextStepHeading: string;
+    readonly nextUnlockPrefix: string;
+    readonly availableUpgradePrefix: string;
+    readonly replenishPrefix: string;
+    readonly noDirectGather: string;
+    readonly switchToActivityPrefix: string;
+    readonly cycleDiscardWarning: string;
+    readonly returnUnlockedPrefix: string;
+    readonly returnCurrentGoal: string;
+    readonly allContentAvailable: string;
+  };
   readonly colors: {
     readonly background: string;
     readonly surface: string;
@@ -30,6 +47,23 @@ export interface SkillLoopTheme {
 export const SKILL_PROTOTYPE_V1_THEME: SkillLoopTheme = {
   id: 'skill-prototype-v1',
   title: '技能工坊原型',
+  uiCopy: {
+    productKicker: '本地技能放置',
+    startKicker: '从零开始',
+    startHeading: '先采集基础矿料',
+    startDescription: '采掘不消耗材料；之后可冶炼金属锭并锻造工具坯。',
+    startActionPrefix: '开始',
+    nextStepHeading: '下一步',
+    nextUnlockPrefix: '继续训练，达到 Lv',
+    availableUpgradePrefix: '材料已备齐，可完成',
+    replenishPrefix: '缺少以下材料，可采集补充',
+    noDirectGather: '此材料没有直接采集来源，请在活动列表查看可继续的生产步骤。',
+    switchToActivityPrefix: '切换到',
+    cycleDiscardWarning: '切换会放弃未完成周期。',
+    returnUnlockedPrefix: '可在活动列表查看新开放活动',
+    returnCurrentGoal: '继续游戏后，可查看上方的下一步目标。',
+    allContentAvailable: '当前已开放全部技能活动；可查看工具提升。',
+  },
   colors: {
     background: '#101820',
     surface: '#192630',
@@ -118,6 +152,10 @@ export function validateSkillPrototypeV1Theme(
   theme: SkillLoopTheme,
 ): void {
   if (theme.id !== definition.profileId) throw new Error('Skill-loop theme/profile mismatch');
+  for (const [key, text] of Object.entries(theme.uiCopy)) {
+    if (typeof text !== 'string' || text.trim().length === 0)
+      throw new Error(`Empty skill-loop theme text: app/${key}`);
+  }
   for (const value of Object.values(theme.colors)) {
     if (!/^#[0-9a-f]{6}$/i.test(value)) throw new Error('Invalid skill-loop theme color');
   }
