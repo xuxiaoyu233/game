@@ -34,7 +34,11 @@ async function collectProjectMarkdown() {
   const rootFiles = (await readdir(root, { withFileTypes: true }))
     .filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith('.md'))
     .map((entry) => path.join(root, entry.name));
-  return [...rootFiles, ...(await collectMarkdown(path.join(root, 'docs')))];
+  const projectDirectories = ['docs', 'story-library'];
+  const projectFiles = await Promise.all(
+    projectDirectories.map((directory) => collectMarkdown(path.join(root, directory))),
+  );
+  return [...rootFiles, ...projectFiles.flat()];
 }
 
 function maskCode(text) {
