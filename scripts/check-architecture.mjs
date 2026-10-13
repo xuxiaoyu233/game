@@ -13,7 +13,7 @@ const allowed = {
   app: new Set(['app', 'domain', 'runtime', 'themes', 'platform']),
 };
 
-// legacy 分区边界：2a/2b 建立各层 legacy/ 分区后，现行生产代码不得依赖其中的冻结实现。
+// legacy 分区边界：core-partition / ui-content-partition 建立各层 legacy/ 分区后，现行生产代码不得依赖其中的冻结实现。
 // 放行：legacy/ 分区内部互相引用、`*.test.ts`，以及下列白名单（登记时必须注明理由）。
 const LEGACY = 'legacy';
 const legacyImportWhitelist = new Set([
