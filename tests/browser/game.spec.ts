@@ -9,14 +9,23 @@ async function openPrototype(page: Page): Promise<void> {
   await expect(page.getByTestId('start-first-activity')).toBeVisible();
 }
 
-async function selectTab(page: Page, tab: 'training' | 'warehouse' | 'growth'): Promise<void> {
+async function selectTab(page: Page, tab: 'skill' | 'bank' | 'shop'): Promise<void> {
   await page.getByTestId(`tab-${tab}`).click();
 }
 
+async function selectSkill(page: Page, skillId: string): Promise<void> {
+  await page.getByTestId(`skill-chip-${skillId}`).click();
+}
+
+async function runActivity(page: Page, skillId: string, activityId: string): Promise<void> {
+  await selectSkill(page, skillId);
+  await page.getByTestId(`activity-action-${activityId}`).click();
+}
+
 async function expectInventory(page: Page, itemId: string, quantity: string): Promise<void> {
-  await selectTab(page, 'warehouse');
+  await selectTab(page, 'bank');
   await expect(page.getByTestId(`inventory-${itemId}`).locator('output')).toHaveText(quantity);
-  await selectTab(page, 'training');
+  await selectTab(page, 'skill');
 }
 
 async function expectFullyInViewport(element: Locator, viewportHeight: number): Promise<void> {
@@ -69,7 +78,7 @@ test('the first activity is discoverable in both supported compact window sizes'
     await page.evaluate('window.scrollTo(0, 0)');
     await page.evaluate('document.querySelector(".skill-prototype-tab-panel").scrollTop = 0');
     await expect(nextStep).toBeInViewport();
-    await expect(page.getByTestId('tab-training')).toBeInViewport();
+    await expect(page.getByTestId('tab-skill')).toBeInViewport();
     await expect(page.getByTestId('skill-progress-mining')).toBeInViewport();
     await expect(page.locator('#activity-mine-common-ore')).toBeInViewport();
     await expectFullyInViewport(page.getByTestId('skill-progress-mining'), viewport.height);
@@ -123,18 +132,18 @@ test('the first activity is discoverable in both supported compact window sizes'
       await page.evaluate<number>('document.documentElement.scrollHeight'),
     ).toBeLessThanOrEqual(viewport.height);
 
-    await selectTab(page, 'warehouse');
+    await selectTab(page, 'bank');
     for (let index = 0; index < 3; index += 1) {
       const row = page.locator('.skill-prototype-inventory tbody tr').nth(index);
       await expect(row).toBeInViewport();
       await expectFullyInViewport(row, viewport.height);
     }
-    await selectTab(page, 'growth');
+    await selectTab(page, 'shop');
     const firstUpgrade = page.locator('.skill-prototype-upgrade').first();
     await expect(firstUpgrade).toBeInViewport();
     await expect(firstUpgrade).toContainText('采掘工具 II');
     await expect(firstUpgrade).toContainText('尚需');
-    await selectTab(page, 'training');
+    await selectTab(page, 'skill');
   }
 });
 
@@ -142,7 +151,7 @@ test('the warehouse explains resource sources, uses, and current availability', 
   page,
 }) => {
   await openPrototype(page);
-  await selectTab(page, 'warehouse');
+  await selectTab(page, 'bank');
 
   const oreRow = page.getByTestId('inventory-common-ore');
   await expect(oreRow.locator('output')).toHaveText('0');
@@ -163,7 +172,7 @@ test('a material shortage suggests a gather activity that produces the missing i
   await openPrototype(page);
   await page.getByTestId('start-first-activity').click();
   await page.clock.runFor(64_000);
-  await page.getByTestId('activity-action-smelt-common-ingot').click();
+  await runActivity(page, 'metalworking', 'smelt-common-ingot');
   await page.clock.runFor(24_000);
 
   const suggestion = page.getByTestId('next-step');
@@ -195,10 +204,10 @@ test('switching activities discards the unfinished cycle and starts a fresh one'
   await page.clock.runFor(64_000);
 
   const currentActivity = page.getByRole('region', { name: '当前活动' });
-  await page.getByTestId('activity-action-mine-rich-common-ore').click();
+  await runActivity(page, 'mining', 'mine-rich-common-ore');
   await page.clock.runFor(5_000);
   await expect(currentActivity).toContainText('切换会放弃未完成周期');
-  await page.getByTestId('activity-action-mine-common-ore').click();
+  await runActivity(page, 'mining', 'mine-common-ore');
   await expectInventory(page, 'common-ore', '8');
 
   await page.clock.runFor(6_000);
@@ -254,8 +263,12 @@ test('offline return shows a persistent settlement receipt that can be confirmed
     'href',
     '#activity-mine-rich-common-ore',
   );
+  // 技能页只渲染选中技能的活动，跨技能锚点必须先切换浏览的技能再定位。
+  await page.getByTestId('skill-chip-metalworking').click();
+  await expect(page.getByTestId('skill-chip-metalworking')).toHaveAttribute('aria-pressed', 'true');
   await report.getByRole('link', { name: '采集富集矿层' }).click();
   await expect(page.locator('#activity-mine-rich-common-ore')).toBeInViewport();
+  await expect(page.getByTestId('skill-chip-mining')).toHaveAttribute('aria-pressed', 'true');
   await expectInventory(page, 'common-ore', '76');
 
   await page.getByTestId('acknowledge-return-report').click();
@@ -293,36 +306,36 @@ test('a zero-material save reaches Tool III, stops XP at the new cap, and restor
   await page.clock.runFor(64_000);
   await expect(page.getByTestId('skill-progress-mining')).toContainText('16 XP');
 
-  await page.getByTestId('activity-action-mine-rich-common-ore').click();
+  await runActivity(page, 'mining', 'mine-rich-common-ore');
   await page.clock.runFor(70_000);
   await expect(page.getByTestId('skill-progress-mining')).toContainText('44 XP');
 
-  await page.getByTestId('activity-action-smelt-common-ingot').click();
+  await runActivity(page, 'metalworking', 'smelt-common-ingot');
   await page.clock.runFor(12_000);
   await expectInventory(page, 'common-ingot', '2');
   await expect(page.getByTestId('skill-progress-metalworking')).toContainText('10 XP');
 
-  await page.getByTestId('activity-action-forge-common-tool-blank').click();
+  await runActivity(page, 'metalworking', 'forge-common-tool-blank');
   await page.clock.runFor(10_000);
   await expectInventory(page, 'common-tool-blank', '1');
   await expect(page.getByTestId('skill-progress-metalworking')).toContainText('16 XP');
 
-  await page.getByTestId('activity-action-mine-rich-common-ore').click();
+  await runActivity(page, 'mining', 'mine-rich-common-ore');
   await page.getByTestId('next-step').getByRole('link').first().click();
   await expect(page.getByTestId('upgrade-mining-tool-ii')).toBeInViewport();
   await page.getByTestId('upgrade-mining-tool-ii').click();
   await expect(page.getByTestId('upgrade-complete-mining-tool-ii')).toBeVisible();
-  await selectTab(page, 'training');
+  await selectTab(page, 'skill');
 
-  await page.getByTestId('activity-action-mine-advanced-ore').click();
+  await runActivity(page, 'mining', 'mine-advanced-ore');
   await page.clock.runFor(19_200);
   await expectInventory(page, 'advanced-ore', '2');
   await expect(page.getByTestId('skill-progress-mining')).toContainText('44 XP');
 
-  await page.getByTestId('activity-action-smelt-common-ingot').click();
+  await runActivity(page, 'metalworking', 'smelt-common-ingot');
   await page.clock.runFor(54_000);
   await expectInventory(page, 'common-ingot', '9');
-  await page.getByTestId('activity-action-smelt-advanced-ingot').click();
+  await runActivity(page, 'metalworking', 'smelt-advanced-ingot');
   await page.clock.runFor(9_000);
   await expect(page.getByTestId('skill-progress-metalworking')).toContainText('70 XP');
   await expect(page.getByTestId('next-step')).toContainText('进阶矿料 × 2');
@@ -330,15 +343,15 @@ test('a zero-material save reaches Tool III, stops XP at the new cap, and restor
   await page.getByTestId('next-step-replenish').click();
   await expect(page.getByRole('region', { name: '当前活动' })).toContainText('采集进阶矿层');
 
-  await page.getByTestId('activity-action-forge-composite-tool-blank').click();
+  await runActivity(page, 'metalworking', 'forge-composite-tool-blank');
   await page.clock.runFor(14_000);
   await expectInventory(page, 'composite-tool-blank', '1');
   await expect(page.getByTestId('skill-progress-metalworking')).toContainText('70 XP');
-  await selectTab(page, 'growth');
+  await selectTab(page, 'shop');
   await page.getByTestId('upgrade-mining-tool-iii').click();
   await expect(page.getByTestId('upgrade-complete-mining-tool-iii')).toBeVisible();
   await expectInventory(page, 'common-ingot', '7');
-  await selectTab(page, 'training');
+  await selectTab(page, 'skill');
   await page.clock.runFor(14_000);
   await expect(
     page.getByRole('region', { name: '当前活动' }).getByText('缺少：进阶金属锭 × 1'),
@@ -355,19 +368,19 @@ test('a zero-material save reaches Tool III, stops XP at the new cap, and restor
   expect(databases).not.toContain('outpost-web-development-v1');
 
   await page.reload();
-  await selectTab(page, 'growth');
+  await selectTab(page, 'shop');
   await expect(page.getByTestId('upgrade-complete-mining-tool-iii')).toBeVisible();
   await expectInventory(page, 'common-ingot', '7');
 
-  await page.getByTestId('activity-action-mine-advanced-ore').click();
+  await runActivity(page, 'mining', 'mine-advanced-ore');
   await page.clock.runFor(15_600);
   await expect(page.getByTestId('skill-progress-mining')).toContainText('44 XP');
   await expectInventory(page, 'advanced-ore', '2');
 
-  await page.getByTestId('activity-action-forge-common-tool-blank').click();
+  await runActivity(page, 'metalworking', 'forge-common-tool-blank');
   await page.clock.runFor(30_000);
   await expect(page.getByTestId('skill-progress-metalworking')).toContainText('70 XP');
   await expectInventory(page, 'common-tool-blank', '3');
-  await selectTab(page, 'growth');
+  await selectTab(page, 'shop');
   await expect(page.getByText(/当前原型切片已到已定义的技能与工具上限/)).toBeVisible();
 });

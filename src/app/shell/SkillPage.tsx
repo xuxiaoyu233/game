@@ -1,11 +1,12 @@
 import type {
   CurrentActivity,
   SkillLoopCommand,
+  SkillLoopId,
   SkillLoopState,
+  SkillLoopSummary,
 } from '../../domain/skill-loop/types';
 import type { SkillLoopTheme } from '../../themes/skill-prototype-v1';
 import type { SkillPrototypeV1Package } from '../skill-prototype-types';
-import type { SkillLoopSummary } from '../../domain/skill-loop/types';
 import { formatCount, formatSeconds } from '../format';
 import { getRecipeInputs, missingMaterials } from '../skill-derivations';
 
@@ -15,12 +16,16 @@ interface SkillPageProps {
   readonly state: SkillLoopState;
   readonly summary: SkillLoopSummary;
   readonly current: CurrentActivity | null;
+  readonly activeSkillId: SkillLoopId;
   readonly busy: boolean;
   readonly actionFor: (activityId: string) => SkillLoopCommand;
   readonly onDispatch: (command: SkillLoopCommand) => void;
 }
 
-/** 训练页：技能等级卡与活动列表。骨架批次会把活动按技能分组，形态改为 Melvor 式技能页。 */
+/**
+ * 技能页（Melvor 技能页的压缩形态）：顶部该技能经验条 + 该技能的动作瓦片。
+ * 只显示当前选中技能的内容，切换技能由 `SkillStrip` 完成。
+ */
 
 export function SkillPage({
   content,
@@ -28,60 +33,50 @@ export function SkillPage({
   state,
   summary,
   current,
+  activeSkillId,
   busy,
   actionFor,
   onDispatch,
 }: SkillPageProps) {
   const { definition } = content;
+  const progress = summary.skills[activeSkillId];
+  const copy = theme.skillCopy[activeSkillId];
+  const activities = definition.activities.filter((activity) => activity.skillId === activeSkillId);
+
+  const threshold = progress?.xpForNextLevel ?? null;
+  const progressMax = threshold ?? progress?.xpCeiling ?? Math.max(progress?.xp ?? 0, 1);
+  const progressValue =
+    threshold !== null && progress !== undefined
+      ? Math.min(progress.xp, threshold)
+      : progress?.xpCeiling !== null && progress !== undefined
+        ? Math.min(progress.xp, progress.xpCeiling)
+        : 1;
+
   return (
     <>
-      <section className="skill-prototype-section" aria-labelledby="skill-progress-title">
-        <div className="skill-prototype-section-heading">
-          <h2 id="skill-progress-title">技能</h2>
-          <span>技能等级开放活动；浏览不会改变当前作业</span>
-        </div>
-        <div className="skill-prototype-skill-grid">
-          {definition.skills.map((skill) => {
-            const progress = summary.skills[skill.id];
-            const copy = theme.skillCopy[skill.id];
-            if (progress === undefined || copy === undefined) return null;
-            const threshold = progress.xpForNextLevel;
-            const progressMax = threshold ?? progress.xpCeiling ?? Math.max(progress.xp, 1);
-            const progressValue =
-              threshold !== null
-                ? Math.min(progress.xp, threshold)
-                : progress.xpCeiling !== null
-                  ? Math.min(progress.xp, progress.xpCeiling)
-                  : 1;
-            return (
-              <article
-                className="skill-prototype-skill"
-                id={`skill-progress-${skill.id}`}
-                data-testid={`skill-progress-${skill.id}`}
-                key={skill.id}
-              >
-                <div className="skill-prototype-skill-heading">
-                  <h3>{copy.label}</h3>
-                  <span>Lv {progress.level}</span>
-                </div>
-                <p>{copy.description}</p>
-                <progress
-                  max={progressMax}
-                  value={progressValue}
-                  aria-label={`${copy.label}经验`}
-                />
-                <small>
-                  {formatCount(progress.xp)} XP
-                  {threshold === null
-                    ? ` · 当前等级上限 Lv ${progress.maximumLevel}`
-                    : ` / ${formatCount(threshold)} XP`}
-                  {progress.atPrototypeCap && ' · 已达当前原型经验上限'}
-                </small>
-              </article>
-            );
-          })}
-        </div>
-      </section>
+      {progress !== undefined && copy !== undefined && (
+        <section className="skill-prototype-section" aria-labelledby="skill-progress-title">
+          <div className="skill-prototype-section-heading">
+            <h2 id="skill-progress-title">{copy.label}</h2>
+            <span>Lv {progress.level}</span>
+          </div>
+          <article
+            className="skill-prototype-skill"
+            id={`skill-progress-${activeSkillId}`}
+            data-testid={`skill-progress-${activeSkillId}`}
+          >
+            <p>{copy.description}</p>
+            <progress max={progressMax} value={progressValue} aria-label={`${copy.label}经验`} />
+            <small>
+              {formatCount(progress.xp)} XP
+              {threshold === null
+                ? ` · 当前等级上限 Lv ${progress.maximumLevel}`
+                : ` / ${formatCount(threshold)} XP`}
+              {progress.atPrototypeCap && ' · 已达当前原型经验上限'}
+            </small>
+          </article>
+        </section>
+      )}
 
       <section className="skill-prototype-section" aria-labelledby="activity-list-title">
         <div className="skill-prototype-section-heading">
@@ -89,20 +84,18 @@ export function SkillPage({
           <span>一次只运行一项；切换会放弃未完成周期</span>
         </div>
         <div className="skill-prototype-activity-list">
-          {definition.activities.map((activity) => {
+          {activities.map((activity) => {
             const active = current?.activityId === activity.id;
             const unlocked = summary.availableActivityIds.includes(activity.id);
             const requirements = getRecipeInputs(activity.id, content);
             const missing = missingMaterials(state.inventory, requirements, theme);
-            const skill = summary.skills[activity.skillId];
-            const skillCopy = theme.skillCopy[activity.skillId];
             const itemOutputs =
               activity.kind === 'gather'
                 ? activity.outputs
                 : (definition.recipes.find((recipe) => recipe.id === activity.recipeId)?.outputs ??
                   []);
             const actionLabel = !unlocked
-              ? `需要${skillCopy?.label ?? activity.skillId} Lv ${activity.requiredLevel}`
+              ? `需要${copy?.label ?? activity.skillId} Lv ${activity.requiredLevel}`
               : active
                 ? current?.status === 'running'
                   ? '正在运行'
@@ -120,13 +113,12 @@ export function SkillPage({
                   <div className="skill-prototype-activity-title">
                     <h3>{theme.activityCopy[activity.id]?.label ?? activity.id}</h3>
                     <span>
-                      {skillCopy?.label ?? activity.skillId} · Lv {activity.requiredLevel}
+                      {copy?.label ?? activity.skillId} · Lv {activity.requiredLevel}
                     </span>
                   </div>
                   <p>{theme.activityCopy[activity.id]?.description}</p>
                   <small>
                     {formatSeconds(activity.durationMs)} · {activity.xpPerCycle} XP
-                    {skillCopy?.label ?? activity.skillId}
                     {requirements.length > 0 &&
                       ` · 消耗 ${requirements.map((entry) => `${theme.itemCopy[entry.itemId]?.label} × ${entry.amount}`).join('、')}`}
                     {` · 产出 ${itemOutputs.map((entry) => `${theme.itemCopy[entry.itemId]?.label} × ${entry.amount}`).join('、')}`}
@@ -151,7 +143,7 @@ export function SkillPage({
                 >
                   {actionLabel}
                 </button>
-                {skill?.atPrototypeCap && unlocked && (
+                {progress?.atPrototypeCap && unlocked && (
                   <span className="skill-prototype-cap-tag">本原型最高等级</span>
                 )}
               </article>

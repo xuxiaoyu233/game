@@ -8,19 +8,19 @@ import {
   type MouseEvent,
 } from 'react';
 import type { PrototypeRuntime, SkillPrototypeV1Package } from './skill-prototype-types';
-import type { SkillLoopCommand } from '../domain/skill-loop/types';
+import type { SkillLoopCommand, SkillLoopId } from '../domain/skill-loop/types';
 import type { WindowPort } from '../platform/ports';
 import { readPreferences, writePreferences } from './preferences';
 import { ACTION_ERRORS } from './action-errors';
-import { PROTOTYPE_TABS, tabForAnchor, type PrototypeTabId } from './shell/tabs';
+import { NAV_TABS, tabForAnchor, type PrototypeTabId } from './shell/tabs';
 import { BankPage } from './shell/BankPage';
 import { CurrentActivityBar } from './shell/CurrentActivityBar';
-import { GrowthPage } from './shell/GrowthPage';
 import { NextStepPanel } from './shell/NextStepPanel';
 import { ReturnReportPanel } from './shell/ReturnReportPanel';
 import { SaveMenu } from './shell/SaveMenu';
-import { SkillMenu } from './shell/SkillMenu';
+import { SkillMenu, SkillStrip } from './shell/SkillMenu';
 import { SkillPage } from './shell/SkillPage';
+import { ShopPage } from './shell/ShopPage';
 import { WindowActions } from './shell/WindowActions';
 import './skill-prototype.css';
 
@@ -42,15 +42,19 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
   const [notice, setNotice] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [pinned, setPinned] = useState(false);
-  const [activeTab, setActiveTab] = useState<PrototypeTabId>('training');
+  const [activeTab, setActiveTab] = useState<PrototypeTabId>('skill');
   const [anchorVersion, setAnchorVersion] = useState(0);
   const tabPanelRef = useRef<HTMLDivElement | null>(null);
   const tabButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const pendingTabFocusRef = useRef<number | null>(null);
   const pendingAnchorId = useRef<string | null>(null);
   const [preferences, setPreferences] = useState(() =>
     readPreferences(content.theme.id, PREFERENCES_KEY),
   );
   const { definition, theme } = content;
+  const [activeSkillId, setActiveSkillId] = useState<SkillLoopId>(
+    () => definition.skills[0]?.id ?? 'mining',
+  );
   const colors = theme.colors;
   const style = {
     '--background': colors.background,
@@ -121,6 +125,13 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
     panel.scrollTop = 0;
   }, [activeTab, anchorVersion]);
 
+  useEffect(() => {
+    const index = pendingTabFocusRef.current;
+    if (index === null) return;
+    pendingTabFocusRef.current = null;
+    tabButtonRefs.current[index]?.focus();
+  }, [activeTab]);
+
   function operate(operation: () => Promise<unknown>, success?: string): void {
     setBusy(true);
     setNotice(null);
@@ -147,9 +158,24 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
   }
 
   function navigateToAnchor(targetId: string): void {
+    const skillId = skillForAnchor(targetId);
+    if (skillId !== null) setActiveSkillId(skillId);
     pendingAnchorId.current = targetId;
     setActiveTab(tabForAnchor(targetId));
     setAnchorVersion((version) => version + 1);
+  }
+
+  /** 技能页只渲染当前选中技能的内容，跨技能锚点在跳转前必须先把所属技能选中。 */
+  function skillForAnchor(anchorId: string): SkillLoopId | null {
+    if (anchorId.startsWith('skill-progress-')) {
+      const candidate = anchorId.slice('skill-progress-'.length);
+      return definition.skills.some((skill) => skill.id === candidate) ? candidate : null;
+    }
+    if (anchorId.startsWith('activity-')) {
+      const candidate = anchorId.slice('activity-'.length);
+      return definition.activities.find((activity) => activity.id === candidate)?.skillId ?? null;
+    }
+    return null;
   }
 
   function handleAnchorClick(event: MouseEvent<HTMLAnchorElement>, targetId: string): void {
@@ -158,14 +184,14 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
   }
 
   function focusTab(index: number): void {
-    const tab = PROTOTYPE_TABS[index];
+    const tab = NAV_TABS[index];
     if (tab === undefined) return;
+    pendingTabFocusRef.current = index;
     setActiveTab(tab.id);
-    tabButtonRefs.current[index]?.focus();
   }
 
   function handleTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number): void {
-    const lastIndex = PROTOTYPE_TABS.length - 1;
+    const lastIndex = NAV_TABS.length - 1;
     if (event.key === 'ArrowRight') focusTab(index === lastIndex ? 0 : index + 1);
     else if (event.key === 'ArrowLeft') focusTab(index === 0 ? lastIndex : index - 1);
     else if (event.key === 'Home') focusTab(0);
@@ -263,6 +289,18 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
         onKeyDown={handleTabKeyDown}
       />
 
+      {activeTab === 'skill' && (
+        <SkillStrip
+          skills={definition.skills.map((skill) => ({
+            id: skill.id,
+            level: summary.skills[skill.id]?.level ?? 1,
+          }))}
+          activeSkillId={activeSkillId}
+          theme={theme}
+          onSelectSkill={setActiveSkillId}
+        />
+      )}
+
       <div
         className="skill-prototype-tab-panel"
         id="skill-prototype-tab-panel"
@@ -271,7 +309,7 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
         data-testid="tab-panel"
         ref={tabPanelRef}
       >
-        {activeTab === 'training' && (
+        {activeTab === 'skill' && (
           <>
             {returnReport !== null && (
               <ReturnReportPanel
@@ -291,6 +329,7 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
               state={state}
               summary={summary}
               current={current}
+              activeSkillId={activeSkillId}
               busy={busy}
               actionFor={actionFor}
               onDispatch={dispatch}
@@ -298,12 +337,12 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
           </>
         )}
 
-        {activeTab === 'warehouse' && (
+        {activeTab === 'bank' && (
           <BankPage content={content} theme={theme} state={state} summary={summary} />
         )}
 
-        {activeTab === 'growth' && (
-          <GrowthPage
+        {activeTab === 'shop' && (
+          <ShopPage
             content={content}
             theme={theme}
             state={state}
@@ -312,6 +351,21 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
             busy={busy}
             onDispatch={dispatch}
           />
+        )}
+
+        {(activeTab === 'equipment' || activeTab === 'mastery') && (
+          <section
+            className="skill-prototype-section"
+            aria-label={activeTab === 'equipment' ? '装备' : '熟练'}
+          >
+            <div className="skill-prototype-section-heading">
+              <h2>{activeTab === 'equipment' ? '装备' : '熟练'}</h2>
+              <span>尚未接入</span>
+            </div>
+            <p className="skill-prototype-route-note" data-testid={`placeholder-${activeTab}`}>
+              该页面为前端骨架占位：交互外壳已就位，游戏内容与规则尚未接入，也不写入存档。
+            </p>
+          </section>
         )}
 
         <SaveMenu runtime={runtime} busy={busy} ready={ready} operate={operate} />

@@ -6,7 +6,7 @@ import type {
 import type { SkillLoopTheme } from '../../themes/skill-prototype-v1';
 import type { SkillPrototypeV1Package } from '../skill-prototype-types';
 
-interface GrowthPageProps {
+interface ShopPageProps {
   readonly content: SkillPrototypeV1Package;
   readonly theme: SkillLoopTheme;
   readonly state: SkillLoopState;
@@ -16,9 +16,12 @@ interface GrowthPageProps {
   readonly onDispatch: (command: SkillLoopCommand) => void;
 }
 
-/** 成长页：工具提升与后续解锁。Melvor 里对应商店购买与装备，骨架阶段保持物品消耗形态。 */
+/**
+ * 商店页：工具提升与后续解锁。Melvor 里对应商店购买（更好的镐/斧）。
+ * `shell-placeholders` 批次会在此追加金币类商品的占位区（标注未接入）。
+ */
 
-export function GrowthPage({
+export function ShopPage({
   content,
   theme,
   state,
@@ -26,7 +29,7 @@ export function GrowthPage({
   atStageEnd,
   busy,
   onDispatch,
-}: GrowthPageProps) {
+}: ShopPageProps) {
   const { definition } = content;
   return (
     <section className="skill-prototype-section skill-prototype-next" aria-labelledby="next-title">
