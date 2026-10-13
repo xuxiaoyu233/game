@@ -4,6 +4,7 @@ import {
   useState,
   useSyncExternalStore,
   type CSSProperties,
+  type KeyboardEvent,
   type MouseEvent,
 } from 'react';
 import type { SkillPrototypeV1Package } from './skill-prototype-types';
@@ -42,6 +43,26 @@ const PROTOTYPE_TABS = [
 ] as const;
 
 type PrototypeTabId = (typeof PROTOTYPE_TABS)[number]['id'];
+
+// 锚点 id → 所在页签。集中登记，避免在各处用前缀判断散落推导；新增锚点类型必须在此登记。
+const ANCHOR_PREFIX_TABS: readonly (readonly [string, PrototypeTabId])[] = [
+  ['upgrade-', 'growth'],
+  ['activity-', 'training'],
+  ['skill-progress-', 'training'],
+];
+
+const ANCHOR_EXACT_TABS: Readonly<Record<string, PrototypeTabId>> = {
+  'return-report': 'training',
+};
+
+function tabForAnchor(anchorId: string): PrototypeTabId {
+  const exact = ANCHOR_EXACT_TABS[anchorId];
+  if (exact !== undefined) return exact;
+  for (const [prefix, tabId] of ANCHOR_PREFIX_TABS) {
+    if (anchorId.startsWith(prefix)) return tabId;
+  }
+  return 'training';
+}
 
 const PREFERENCES_KEY = `skill-prototype-v1:${import.meta.env.DEV ? 'development' : 'release'}:preferences`;
 
@@ -145,6 +166,7 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
   const [activeTab, setActiveTab] = useState<PrototypeTabId>('training');
   const [anchorVersion, setAnchorVersion] = useState(0);
   const tabPanelRef = useRef<HTMLDivElement | null>(null);
+  const tabButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const pendingAnchorId = useRef<string | null>(null);
   const [preferences, setPreferences] = useState(() =>
     readPreferences(content.theme.id, PREFERENCES_KEY),
@@ -247,13 +269,30 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
 
   function navigateToAnchor(targetId: string): void {
     pendingAnchorId.current = targetId;
-    setActiveTab(targetId.startsWith('upgrade-') ? 'growth' : 'training');
+    setActiveTab(tabForAnchor(targetId));
     setAnchorVersion((version) => version + 1);
   }
 
   function handleAnchorClick(event: MouseEvent<HTMLAnchorElement>, targetId: string): void {
     event.preventDefault();
     navigateToAnchor(targetId);
+  }
+
+  function focusTab(index: number): void {
+    const tab = PROTOTYPE_TABS[index];
+    if (tab === undefined) return;
+    setActiveTab(tab.id);
+    tabButtonRefs.current[index]?.focus();
+  }
+
+  function handleTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number): void {
+    const lastIndex = PROTOTYPE_TABS.length - 1;
+    if (event.key === 'ArrowRight') focusTab(index === lastIndex ? 0 : index + 1);
+    else if (event.key === 'ArrowLeft') focusTab(index === 0 ? lastIndex : index - 1);
+    else if (event.key === 'Home') focusTab(0);
+    else if (event.key === 'End') focusTab(lastIndex);
+    else return;
+    event.preventDefault();
   }
 
   if (snapshot.status === 'loading')
@@ -506,27 +545,42 @@ export function SkillPrototypeApp({ runtime, content, windowPort }: SkillPrototy
         )}
       </section>
 
-      <nav className="skill-prototype-tabs" aria-label="游戏页面">
-        {PROTOTYPE_TABS.map((tab) => (
-          <button
-            className="skill-prototype-tab"
-            type="button"
-            key={tab.id}
-            aria-pressed={activeTab === tab.id}
-            aria-controls="skill-prototype-tab-panel"
-            data-testid={`tab-${tab.id}`}
-            onClick={() => setActiveTab(tab.id)}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </nav>
+      <div
+        className="skill-prototype-tabs"
+        role="tablist"
+        aria-label="游戏页面"
+        data-testid="tab-list"
+      >
+        {PROTOTYPE_TABS.map((tab, index) => {
+          const selected = activeTab === tab.id;
+          return (
+            <button
+              className="skill-prototype-tab"
+              type="button"
+              key={tab.id}
+              id={`prototype-tab-${tab.id}`}
+              role="tab"
+              aria-selected={selected}
+              aria-controls="skill-prototype-tab-panel"
+              tabIndex={selected ? 0 : -1}
+              data-testid={`tab-${tab.id}`}
+              ref={(element) => {
+                tabButtonRefs.current[index] = element;
+              }}
+              onClick={() => setActiveTab(tab.id)}
+              onKeyDown={(event) => handleTabKeyDown(event, index)}
+            >
+              {tab.label}
+            </button>
+          );
+        })}
+      </div>
 
       <div
         className="skill-prototype-tab-panel"
         id="skill-prototype-tab-panel"
-        role="region"
-        aria-label={`${PROTOTYPE_TABS.find((tab) => tab.id === activeTab)?.label ?? '页面'}内容`}
+        role="tabpanel"
+        aria-labelledby={`prototype-tab-${activeTab}`}
         data-testid="tab-panel"
         ref={tabPanelRef}
       >
