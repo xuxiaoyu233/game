@@ -1,6 +1,9 @@
 import { EXPEDITION_DEFINITION } from '../../src/content/expedition';
-import { applyExpeditionCommand, createExpedition } from '../../src/domain/expedition/engine';
-import type { SaveBundle as Version2Save } from '../../src/domain/expedition/v2-types';
+import {
+  applyExpeditionCommand,
+  createExpedition,
+} from '../../src/domain/legacy/expedition/engine';
+import type { SaveBundle as Version2Save } from '../../src/domain/legacy/expedition/v2-types';
 
 /** A v2 first journey, with no v3 strategy or ledger fields. */
 export function version2Starting(): Version2Save {

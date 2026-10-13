@@ -3,9 +3,9 @@ import type {
   ExpeditionCommand,
   ExpeditionDefinition,
   ExpeditionErrorCode,
-} from '../domain/expedition/types';
+} from '../domain/legacy/expedition/types';
 import type { WindowPort } from '../platform/ports';
-import type { ExpeditionRuntime } from '../runtime/expedition-runtime';
+import type { ExpeditionRuntime } from '../runtime/legacy/expedition-runtime';
 import { DEFAULT_THEME_ID, GAME_THEMES } from '../themes';
 import { ExpeditionPanels } from './ExpeditionPanels';
 import { formatAmount } from './format';

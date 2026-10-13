@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { BASE_GAME_DEFINITION } from '../content/base-game';
-import { EXPEDITION_DEFINITION } from '../content/expedition';
-import { EXPEDITION_V13_DEFINITION } from '../content/expedition-v13';
-import { EXPEDITION_V14_DEFINITION } from '../content/expedition-v14';
-import { applyExpeditionCommand, createExpedition } from '../domain/expedition/engine';
+import { BASE_GAME_DEFINITION } from '../../content/base-game';
+import { EXPEDITION_DEFINITION } from '../../content/expedition';
+import { EXPEDITION_V13_DEFINITION } from '../../content/expedition-v13';
+import { EXPEDITION_V14_DEFINITION } from '../../content/expedition-v14';
+import { applyExpeditionCommand, createExpedition } from '../../domain/legacy/expedition/engine';
 import { decodeExpeditionSave, encodeExpeditionSave } from './expedition-codec';
 
 describe('v0.8 save boundary', () => {

@@ -1,7 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { EXPEDITION_DEFINITION } from '../../content/expedition';
-import { BASE_GAME_DEFINITION } from '../../content/base-game';
-import { decodeExpeditionSave, encodeExpeditionSave } from '../../persistence/expedition-codec';
+import { EXPEDITION_DEFINITION } from '../../../content/expedition';
+import { BASE_GAME_DEFINITION } from '../../../content/base-game';
+import {
+  decodeExpeditionSave,
+  encodeExpeditionSave,
+} from '../../../persistence/legacy/expedition-codec';
 import {
   applyExpeditionCommand,
   createExpedition,
@@ -12,7 +15,7 @@ import type { ExpeditionCommand, SaveBundle } from './types';
 import {
   advanceAfterResolvingEvents,
   commandAfterResolvingEvents,
-} from '../../../tests/support/expedition-test-events';
+} from '../../../../tests/support/expedition-test-events';
 
 const DEFINITION = EXPEDITION_DEFINITION;
 const advanceExpedition = advanceAfterResolvingEvents;

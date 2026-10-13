@@ -1,4 +1,4 @@
-import type { ExpeditionDefinition } from '../domain/expedition/types';
+import type { ExpeditionDefinition } from '../domain/legacy/expedition/types';
 import { EXPEDITION_V13_DEFINITION } from './expedition-v13';
 import { OUTPOST_V14_DEFINITION } from './outpost-v14';
 

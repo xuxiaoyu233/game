@@ -5,7 +5,7 @@ import type {
   ExpeditionDefinition,
   ExpeditionSummary,
   SaveBundle,
-} from '../domain/expedition/types';
+} from '../domain/legacy/expedition/types';
 import type { StoryArchiveUiEntry } from './story-archive-types';
 
 export interface ExpeditionPanelsProps {

@@ -1,4 +1,4 @@
-import { type WorldVariantDefinition } from '../domain/expedition/types';
+import { type WorldVariantDefinition } from '../domain/legacy/expedition/types';
 import {
   CONTRACT_COPY,
   OBJECTIVE_COPY,

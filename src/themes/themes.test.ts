@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { BASE_GAME_DEFINITION } from '../content/base-game';
-import { advanceTime, applyCommand, createNewGame, getGameSummary } from '../domain/engine';
-import type { GameCommand } from '../domain/types';
+import { advanceTime, applyCommand, createNewGame, getGameSummary } from '../domain/legacy/engine';
+import type { GameCommand } from '../domain/legacy/types';
 import { DEFAULT_THEME_ID, GAME_THEMES, validateTheme } from './index';
 import { OUTPOST_THEME } from './outpost-theme';
 

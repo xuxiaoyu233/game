@@ -1,4 +1,4 @@
-import type { BuildingDefinition, ExpeditionDefinition } from '../domain/expedition/types';
+import type { BuildingDefinition, ExpeditionDefinition } from '../domain/legacy/expedition/types';
 import { STORY_V13_DEFINITION } from './story-v13';
 
 const WORLD_ID = 'world-unlisted-city';

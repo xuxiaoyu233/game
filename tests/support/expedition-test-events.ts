@@ -2,12 +2,12 @@ import {
   advanceExpedition,
   applyExpeditionCommand,
   getExpeditionSummary,
-} from '../../src/domain/expedition/engine';
+} from '../../src/domain/legacy/expedition/engine';
 import type {
   ExpeditionDefinition,
   ExpeditionCommand,
   SaveBundle,
-} from '../../src/domain/expedition/types';
+} from '../../src/domain/legacy/expedition/types';
 
 export function resolvePendingEvents(
   state: SaveBundle,

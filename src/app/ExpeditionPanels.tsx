@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { BuildingId } from '../domain/expedition/types';
+import type { BuildingId } from '../domain/legacy/expedition/types';
 import type {
   ExpeditionHubTab,
   ExpeditionPanelsProps,

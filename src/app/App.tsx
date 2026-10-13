@@ -5,7 +5,7 @@ import type {
   GameErrorCode,
   GameState,
   GameSummary,
-} from '../domain/types';
+} from '../domain/legacy/types';
 import type { WindowPort } from '../platform/ports';
 import type { GameRuntime } from '../runtime/game-runtime';
 import { DEFAULT_THEME_ID, GAME_THEMES } from '../themes';

@@ -1,4 +1,4 @@
-import type { StoryClueDefinition, StoryDefinition } from '../domain/expedition/types';
+import type { StoryClueDefinition, StoryDefinition } from '../domain/legacy/expedition/types';
 
 const WORLD_ID = 'world-unlisted-city';
 const EMPTY_COST = { wood: 0, stone: 0 };

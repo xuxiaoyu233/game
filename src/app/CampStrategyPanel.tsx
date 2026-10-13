@@ -3,7 +3,7 @@ import type {
   ExpeditionDefinition,
   ExpeditionSummary,
   SaveBundle,
-} from '../domain/expedition/types';
+} from '../domain/legacy/expedition/types';
 import { STANCE_COPY, WORKER_COPY } from '../themes/expedition-copy';
 import { getResourceName } from './resource-copy';
 

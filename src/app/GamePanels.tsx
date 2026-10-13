@@ -1,4 +1,4 @@
-import type { GameCommand, GameDefinition, GameState, GameSummary } from '../domain/types';
+import type { GameCommand, GameDefinition, GameState, GameSummary } from '../domain/legacy/types';
 import type { GameTheme } from '../themes/types';
 import { formatAmount } from './format';
 

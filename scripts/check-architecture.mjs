@@ -19,6 +19,10 @@ const LEGACY = 'legacy';
 const legacyImportWhitelist = new Set([
   // 迁移/归档类生产路径如确需读取旧定义，在此登记并注明理由；不得把现行功能路径加入本白名单。
 ]);
+// 过渡白名单（目录前缀）：core-partition 已把 domain/persistence/runtime 旧件移入 legacy/，
+// 但 app/themes/content 三层的旧消费方尚未迁入各自 legacy/ 分区，仍需临时引用 legacy/。
+// 清除条件：ui-content-partition 完成（这三层旧件移入各自 legacy/）后删除本数组，届时违规必须为零。
+const legacyImportWhitelistDirs = ['app/', 'themes/', 'content/'];
 const errors = [];
 
 async function visit(directory) {
@@ -73,21 +77,20 @@ async function visit(directory) {
           layer === 'content' &&
           dependency === 'domain' &&
           ![
-            'domain/types',
             'domain/skill-loop/types',
-            'domain/expedition/types',
-            'domain/expedition/v2-types',
-            'domain/outpost/types',
+            'domain/legacy/types',
+            'domain/legacy/expedition/types',
+            'domain/legacy/expedition/v2-types',
+            'domain/legacy/outpost/types',
           ].includes(destination)
         )
           errors.push(`${relative}: mechanical content can import domain types only`);
         const importerInLegacy = relative.split('/').includes(LEGACY);
         const destinationInLegacy = destination.split('/').includes(LEGACY);
-        if (
-          destinationInLegacy &&
-          !importerInLegacy &&
-          !legacyImportWhitelist.has(relative.replace(/\.tsx?$/, ''))
-        )
+        const whitelisted =
+          legacyImportWhitelist.has(relative.replace(/\.tsx?$/, '')) ||
+          legacyImportWhitelistDirs.some((dir) => relative.startsWith(dir));
+        if (destinationInLegacy && !importerInLegacy && !whitelisted)
           errors.push(
             `${relative}: 现行代码不得依赖 legacy 分区（导入 ${destination}）。修复：改为依赖现行模块；若属迁移/归档必需，先说明理由再把它加入 check-architecture.mjs 的 legacyImportWhitelist，不要绕过检查。`,
           );

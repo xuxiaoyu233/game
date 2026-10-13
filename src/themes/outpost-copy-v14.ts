@@ -4,7 +4,7 @@ import type {
   OutpostProfessionId,
   OutpostRecipeId,
   OutpostResourceId,
-} from '../domain/outpost/types';
+} from '../domain/legacy/outpost/types';
 
 export const OUTPOST_RESOURCE_COPY: Readonly<
   Record<OutpostResourceId, { readonly name: string; readonly unit: string }>

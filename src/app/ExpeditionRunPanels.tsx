@@ -1,4 +1,4 @@
-import type { BuildingId } from '../domain/expedition/types';
+import type { BuildingId } from '../domain/legacy/expedition/types';
 import {
   BEACON_OPTIONS,
   BUILDING_COPY,

@@ -1,4 +1,4 @@
-import { getRunMaxHp } from '../domain/expedition/engine';
+import { getRunMaxHp } from '../../domain/legacy/expedition/engine';
 import type {
   BattleReport,
   BuildingId,
@@ -10,8 +10,8 @@ import type {
   SaveBundle,
   Settlement,
   WorldDefinition,
-} from '../domain/expedition/v2-types';
-import type { GameDefinition } from '../domain/types';
+} from '../../domain/legacy/expedition/v2-types';
+import type { GameDefinition } from '../../domain/legacy/types';
 import { SaveValidationError, validateSaveState } from './save-codec';
 
 function invalid(message: string): never {

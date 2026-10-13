@@ -1,15 +1,18 @@
 import { describe, expect, it } from 'vitest';
-import { BASE_GAME_DEFINITION } from '../content/base-game';
-import { EXPEDITION_DEFINITION } from '../content/expedition';
-import { createExpedition, createResourceLedger } from '../domain/expedition/engine';
-import type { ExpeditionCommand, SaveBundle } from '../domain/expedition/types';
-import { decodeExpeditionSave, encodeExpeditionSave } from '../persistence/expedition-codec';
-import type { InstanceLease, SaveStorage } from '../platform/ports';
+import { BASE_GAME_DEFINITION } from '../../content/base-game';
+import { EXPEDITION_DEFINITION } from '../../content/expedition';
+import { createExpedition, createResourceLedger } from '../../domain/legacy/expedition/engine';
+import type { ExpeditionCommand, SaveBundle } from '../../domain/legacy/expedition/types';
+import {
+  decodeExpeditionSave,
+  encodeExpeditionSave,
+} from '../../persistence/legacy/expedition-codec';
+import type { InstanceLease, SaveStorage } from '../../platform/ports';
 import { createExpeditionRuntime } from './expedition-runtime';
 import {
   advanceAfterResolvingEvents,
   commandAfterResolvingEvents,
-} from '../../tests/support/expedition-test-events';
+} from '../../../tests/support/expedition-test-events';
 
 const definition = EXPEDITION_DEFINITION;
 const advanceExpedition = advanceAfterResolvingEvents;

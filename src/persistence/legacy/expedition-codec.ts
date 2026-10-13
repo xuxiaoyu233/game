@@ -5,9 +5,9 @@ import {
   getRandomEventId,
   isContractAvailable,
   isWorldVariantAvailable,
-} from '../domain/expedition/engine';
-import { migrateVersion2Save } from '../domain/expedition/migrate-v2';
-import type { ExpeditionDefinition as Version2Definition } from '../domain/expedition/v2-types';
+} from '../../domain/legacy/expedition/engine';
+import { migrateVersion2Save } from '../../domain/legacy/expedition/migrate-v2';
+import type { ExpeditionDefinition as Version2Definition } from '../../domain/legacy/expedition/v2-types';
 import type {
   BattleReport,
   BuildingId,
@@ -22,17 +22,21 @@ import type {
   DifficultyModifierId,
   WorldDefinition,
   WorldVariantId,
-} from '../domain/expedition/types';
-import type { GameDefinition } from '../domain/types';
+} from '../../domain/legacy/expedition/types';
+import type { GameDefinition } from '../../domain/legacy/types';
 import { SaveValidationError, validateSaveState } from './save-codec';
 import { validateVersion2Save } from './expedition-v2-codec';
-import { createOutpost, validateOutpostState } from '../domain/outpost/engine';
+import { createOutpost, validateOutpostState } from '../../domain/legacy/outpost/engine';
 import {
   OUTPOST_FACILITY_IDS,
   OUTPOST_JOB_IDS,
   OUTPOST_PROFESSION_IDS,
-} from '../domain/outpost/engine';
-import type { OutpostRecipeId, OutpostResourceId, OutpostState } from '../domain/outpost/types';
+} from '../../domain/legacy/outpost/engine';
+import type {
+  OutpostRecipeId,
+  OutpostResourceId,
+  OutpostState,
+} from '../../domain/legacy/outpost/types';
 
 const OUTPOST_RESOURCE_IDS: readonly OutpostResourceId[] = [
   'reclaimed-alloy',

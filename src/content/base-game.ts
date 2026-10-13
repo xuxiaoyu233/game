@@ -1,4 +1,4 @@
-import type { GameDefinition } from '../domain/types';
+import type { GameDefinition } from '../domain/legacy/types';
 
 /** Mechanics are independent of the selected theme and its translated labels. */
 export const BASE_GAME_DEFINITION: GameDefinition = {

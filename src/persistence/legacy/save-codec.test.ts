@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { createNewGame } from '../domain/engine';
-import type { GameDefinition } from '../domain/types';
+import { createNewGame } from '../../domain/legacy/engine';
+import type { GameDefinition } from '../../domain/legacy/types';
 import { decodeSave, encodeSave, validateSaveState } from './save-codec';
 
 const definition: GameDefinition = {

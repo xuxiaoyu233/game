@@ -5,7 +5,7 @@ import type {
   Resources,
   SaveBundle,
   WorldVariantDefinition,
-} from '../domain/expedition/types';
+} from '../domain/legacy/expedition/types';
 import { OBJECTIVE_COPY, PROJECT_COPY, REWARD_COPY } from '../themes/expedition-copy';
 import {
   SETTLEMENT_STORY_COPY,

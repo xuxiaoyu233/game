@@ -1,4 +1,4 @@
-import type { OutpostDefinition, OutpostResources } from '../domain/outpost/types';
+import type { OutpostDefinition, OutpostResources } from '../domain/legacy/outpost/types';
 
 const ZERO_RESOURCES: OutpostResources = {
   'reclaimed-alloy': 0,

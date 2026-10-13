@@ -1,4 +1,4 @@
-import type { ExpeditionDefinition } from '../../domain/expedition/types';
+import type { ExpeditionDefinition } from '../../domain/legacy/expedition/types';
 
 export type StoryArchiveReferenceKind = 'clue' | 'world' | 'dialogue' | 'theme-copy';
 

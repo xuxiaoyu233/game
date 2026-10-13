@@ -1,13 +1,18 @@
-import { advanceTime, applyCommand, createNewGame, getGameSummary } from '../../domain/engine';
+import {
+  advanceTime,
+  applyCommand,
+  createNewGame,
+  getGameSummary,
+} from '../../domain/legacy/engine';
 import type {
   GameCommand,
   GameDefinition,
   GameErrorCode,
   GameState,
   GameSummary,
-} from '../../domain/types';
-import { validateGameDefinition } from '../../domain/validation';
-import { decodeSave, encodeSave } from '../../persistence/save-codec';
+} from '../../domain/legacy/types';
+import { validateGameDefinition } from '../../domain/legacy/validation';
+import { decodeSave, encodeSave } from '../../persistence/legacy/save-codec';
 import type { InstanceLease, SaveStorage } from '../../platform/ports';
 import { createConfiguredGameRuntime, type GameRuntime, type RuntimeDomain } from '../game-runtime';
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { EXPEDITION_V14_DEFINITION } from '../../content/expedition-v14';
+import { EXPEDITION_V14_DEFINITION } from '../../../content/expedition-v14';
 import {
   applyOutpostCommand,
   advanceOutpost,

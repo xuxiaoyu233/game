@@ -1,7 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { BASE_GAME_DEFINITION } from '../../content/base-game';
-import { EXPEDITION_V14_DEFINITION } from '../../content/expedition-v14';
-import { decodeExpeditionSave, encodeExpeditionSave } from '../../persistence/expedition-codec';
+import { BASE_GAME_DEFINITION } from '../../../content/base-game';
+import { EXPEDITION_V14_DEFINITION } from '../../../content/expedition-v14';
+import {
+  decodeExpeditionSave,
+  encodeExpeditionSave,
+} from '../../../persistence/legacy/expedition-codec';
 import {
   advanceExpedition,
   applyExpeditionCommand,

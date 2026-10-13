@@ -4,7 +4,7 @@ import type {
   ExpeditionCommand,
   ExpeditionDefinition,
   WorldDefinition,
-} from '../domain/expedition/types';
+} from '../domain/legacy/expedition/types';
 import { DIFFICULTY_MODIFIER_COPY } from '../themes/expedition-copy';
 
 interface DifficultyModifierSelectorProps {

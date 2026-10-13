@@ -3,7 +3,7 @@ import type {
   ExpeditionDefinition,
   ExpeditionSummary,
   SaveBundle,
-} from '../domain/expedition/types';
+} from '../domain/legacy/expedition/types';
 import { formatAmount, formatRate } from './format';
 import { getResourceName } from './resource-copy';
 

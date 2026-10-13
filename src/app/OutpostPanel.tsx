@@ -1,7 +1,11 @@
 import { useState } from 'react';
-import type { ExpeditionCommand, ExpeditionDefinition, Profile } from '../domain/expedition/types';
-import type { OutpostJobId } from '../domain/outpost/types';
-import type { OutpostAmounts } from '../domain/outpost/types';
+import type {
+  ExpeditionCommand,
+  ExpeditionDefinition,
+  Profile,
+} from '../domain/legacy/expedition/types';
+import type { OutpostJobId } from '../domain/legacy/outpost/types';
+import type { OutpostAmounts } from '../domain/legacy/outpost/types';
 import {
   getOutpostResourceCapacity,
   getOutpostStorageCapacity,
@@ -11,8 +15,8 @@ import {
   OUTPOST_JOB_IDS,
   OUTPOST_PROFESSION_IDS,
   OUTPOST_RESOURCE_IDS,
-} from '../domain/outpost/engine';
-import type { OutpostState } from '../domain/outpost/types';
+} from '../domain/legacy/outpost/engine';
+import type { OutpostState } from '../domain/legacy/outpost/types';
 import {
   OUTPOST_JOB_COPY,
   OUTPOST_FACILITY_COPY,

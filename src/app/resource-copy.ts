@@ -1,4 +1,4 @@
-import type { ResourceId, Resources, WorldDefinition } from '../domain/expedition/types';
+import type { ResourceId, Resources, WorldDefinition } from '../domain/legacy/expedition/types';
 import { RESOURCE_COPY } from '../themes/expedition-copy';
 import { formatAmount } from './format';
 

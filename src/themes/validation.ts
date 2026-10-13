@@ -1,4 +1,4 @@
-import type { GameDefinition } from '../domain/types';
+import type { GameDefinition } from '../domain/legacy/types';
 import type { GameTheme, ThemeText } from './types';
 
 const THEME_ID_PATTERN = /^[a-z][a-z0-9]*(?:[-_][a-z0-9]+)*$/;

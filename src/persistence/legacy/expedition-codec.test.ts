@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { BASE_GAME_DEFINITION } from '../content/base-game';
-import { EXPEDITION_DEFINITION } from '../content/expedition';
+import { BASE_GAME_DEFINITION } from '../../content/base-game';
+import { EXPEDITION_DEFINITION } from '../../content/expedition';
 import {
   advanceAfterResolvingEvents,
   commandAfterResolvingEvents,
-} from '../../tests/support/expedition-test-events';
-import { createExpedition, createResourceLedger } from '../domain/expedition/engine';
-import type { ExpeditionCommand, SaveBundle } from '../domain/expedition/types';
+} from '../../../tests/support/expedition-test-events';
+import { createExpedition, createResourceLedger } from '../../domain/legacy/expedition/engine';
+import type { ExpeditionCommand, SaveBundle } from '../../domain/legacy/expedition/types';
 import {
   decodeExpeditionSave,
   encodeExpeditionSave,

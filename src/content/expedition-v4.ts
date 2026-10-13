@@ -1,4 +1,4 @@
-import type { BuildingDefinition, ExpeditionDefinition } from '../domain/expedition/types';
+import type { BuildingDefinition, ExpeditionDefinition } from '../domain/legacy/expedition/types';
 import { STORY_V4_DEFINITION } from './story-v4';
 
 const BUILDINGS: readonly BuildingDefinition[] = [

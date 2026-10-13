@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { EXPEDITION_DEFINITION } from '../../content/expedition';
+import { EXPEDITION_DEFINITION } from '../../../content/expedition';
 import {
   advanceExpedition,
   applyExpeditionCommand,
@@ -22,7 +22,7 @@ import {
   advanceAfterResolvingEvents,
   commandAfterResolvingEvents,
   resolvePendingEvents,
-} from '../../../tests/support/expedition-test-events';
+} from '../../../../tests/support/expedition-test-events';
 
 const DEFINITION = EXPEDITION_DEFINITION;
 

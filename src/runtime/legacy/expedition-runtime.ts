@@ -3,19 +3,22 @@ import {
   applyExpeditionCommand,
   createExpedition,
   getExpeditionSummary,
-} from '../domain/expedition/engine';
+} from '../../domain/legacy/expedition/engine';
 import type {
   ExpeditionActionResult,
   ExpeditionCommand,
   ExpeditionDefinition,
   SaveBundle,
   ExpeditionSummary,
-} from '../domain/expedition/types';
-import { validateExpeditionDefinition } from '../domain/expedition/validation';
-import type { GameDefinition } from '../domain/types';
-import type { ExpeditionDefinition as Version2Definition } from '../domain/expedition/v2-types';
-import { decodeExpeditionSave, encodeExpeditionSave } from '../persistence/expedition-codec';
-import type { InstanceLease, SaveStorage } from '../platform/ports';
+} from '../../domain/legacy/expedition/types';
+import { validateExpeditionDefinition } from '../../domain/legacy/expedition/validation';
+import type { GameDefinition } from '../../domain/legacy/types';
+import type { ExpeditionDefinition as Version2Definition } from '../../domain/legacy/expedition/v2-types';
+import {
+  decodeExpeditionSave,
+  encodeExpeditionSave,
+} from '../../persistence/legacy/expedition-codec';
+import type { InstanceLease, SaveStorage } from '../../platform/ports';
 
 export interface ExpeditionRuntimeSnapshot {
   readonly status: 'loading' | 'ready' | 'error';

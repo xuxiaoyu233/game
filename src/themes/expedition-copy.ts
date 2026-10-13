@@ -6,7 +6,7 @@ import type {
   WorkerPresetId,
   WorkerRole,
   WorldVariantId,
-} from '../domain/expedition/types';
+} from '../domain/legacy/expedition/types';
 
 /** Presentation only. Costs, production, defense, and rewards come from the definition. */
 export const WORLD_COPY: Record<

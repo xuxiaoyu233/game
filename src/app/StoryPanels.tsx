@@ -3,7 +3,7 @@ import type {
   ExpeditionDefinition,
   ExpeditionSummary,
   SaveBundle,
-} from '../domain/expedition/types';
+} from '../domain/legacy/expedition/types';
 import {
   CLUE_COPY,
   DIALOGUE_COPY,

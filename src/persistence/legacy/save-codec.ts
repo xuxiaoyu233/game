@@ -1,4 +1,4 @@
-import type { GameDefinition, GameState } from '../domain/types';
+import type { GameDefinition, GameState } from '../../domain/legacy/types';
 
 export type SaveErrorCode = 'INVALID_JSON' | 'INVALID_STATE' | 'UNSUPPORTED_VERSION';
 

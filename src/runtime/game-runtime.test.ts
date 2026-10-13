@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { createNewGame } from '../domain/engine';
-import type { GameDefinition, GameState } from '../domain/types';
-import { decodeSave, encodeSave } from '../persistence/save-codec';
+import { createNewGame } from '../domain/legacy/engine';
+import type { GameDefinition, GameState } from '../domain/legacy/types';
+import { decodeSave, encodeSave } from '../persistence/legacy/save-codec';
 import type { InstanceLease, SaveStorage } from '../platform/ports';
 import { createGameRuntime } from './legacy/legacy-game-domain';
 

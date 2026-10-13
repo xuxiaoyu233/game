@@ -10,10 +10,13 @@ import {
   applyExpeditionCommand,
   createExpedition,
   getExpeditionSummary,
-} from '../../domain/expedition/engine';
-import type { ExpeditionCommand, SaveBundle } from '../../domain/expedition/types';
-import { validateExpeditionDefinition } from '../../domain/expedition/validation';
-import { decodeExpeditionSave, encodeExpeditionSave } from '../../persistence/expedition-codec';
+} from '../../domain/legacy/expedition/engine';
+import type { ExpeditionCommand, SaveBundle } from '../../domain/legacy/expedition/types';
+import { validateExpeditionDefinition } from '../../domain/legacy/expedition/validation';
+import {
+  decodeExpeditionSave,
+  encodeExpeditionSave,
+} from '../../persistence/legacy/expedition-codec';
 import {
   STORY_ARCHIVE_PROJECTION,
   STORY_ARCHIVE_V13_PROJECTION,
