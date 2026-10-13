@@ -1,5 +1,11 @@
 import { useEffect, useState, useSyncExternalStore, type CSSProperties } from 'react';
-import type { GameCommand, GameDefinition, GameErrorCode } from '../domain/types';
+import type {
+  GameCommand,
+  GameDefinition,
+  GameErrorCode,
+  GameState,
+  GameSummary,
+} from '../domain/types';
 import type { WindowPort } from '../platform/ports';
 import type { GameRuntime } from '../runtime/game-runtime';
 import { DEFAULT_THEME_ID, GAME_THEMES } from '../themes';
@@ -19,7 +25,7 @@ const ACTION_ERRORS: Record<GameErrorCode, string> = {
 };
 
 interface AppProps {
-  readonly runtime: GameRuntime;
+  readonly runtime: GameRuntime<GameDefinition, GameState, GameCommand, GameSummary, GameErrorCode>;
   readonly definition: GameDefinition;
   readonly windowPort: WindowPort;
 }

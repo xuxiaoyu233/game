@@ -3,7 +3,7 @@ import { createNewGame } from '../domain/engine';
 import type { GameDefinition, GameState } from '../domain/types';
 import { decodeSave, encodeSave } from '../persistence/save-codec';
 import type { InstanceLease, SaveStorage } from '../platform/ports';
-import { createGameRuntime } from './game-runtime';
+import { createGameRuntime } from './legacy/legacy-game-domain';
 
 const definition: GameDefinition = {
   contentVersion: 'test-1',

@@ -1,16 +1,6 @@
-import { advanceTime, applyCommand, createNewGame, getGameSummary } from '../domain/engine';
-import type {
-  GameCommand,
-  GameDefinition,
-  GameErrorCode,
-  GameState,
-  GameSummary,
-} from '../domain/types';
-import { validateGameDefinition } from '../domain/validation';
-import { decodeSave, encodeSave } from '../persistence/save-codec';
 import type { InstanceLease, SaveStorage } from '../platform/ports';
 
-export interface RuntimeSnapshot<State = GameState, Summary = GameSummary> {
+export interface RuntimeSnapshot<State, Summary> {
   readonly status: 'loading' | 'ready' | 'error';
   readonly state: State | null;
   readonly summary: Summary | null;
@@ -47,25 +37,7 @@ export interface RuntimeDomain<Definition, State, Command, Summary, ErrorCode ex
   readonly isImmediateCommand: (command: Command) => boolean;
 }
 
-const LEGACY_GAME_RUNTIME_DOMAIN: RuntimeDomain<
-  GameDefinition,
-  GameState,
-  GameCommand,
-  GameSummary,
-  GameErrorCode
-> = {
-  validateDefinition: validateGameDefinition,
-  createNewState: createNewGame,
-  advanceTime,
-  applyCommand,
-  getSummary: getGameSummary,
-  decodeSave,
-  encodeSave,
-  isNumericLimit: (error) => error === 'NUMERIC_LIMIT',
-  numericLimitError: 'NUMERIC_LIMIT',
-  isImmediateCommand: (command) => command.kind !== 'tick' && command.kind !== 'collect',
-};
-
+/** 通用 Runtime：不带默认域类型参数。旧域接线见 `runtime/legacy/legacy-game-domain.ts`。 */
 const AUTOSAVE_INTERVAL_MS = 5_000;
 const NUMERIC_LIMIT_MESSAGE = '生产数值已达安全上限，本次额外收益未发放；请导出存档保留当前进度。';
 
@@ -73,13 +45,7 @@ function errorMessage(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
 }
 
-export class GameRuntime<
-  Definition = GameDefinition,
-  State = GameState,
-  Command = GameCommand,
-  Summary = GameSummary,
-  ErrorCode extends string = GameErrorCode,
-> {
+export class GameRuntime<Definition, State, Command, Summary, ErrorCode extends string> {
   private snapshot: RuntimeSnapshot<State, Summary> = {
     status: 'loading',
     state: null,
@@ -440,15 +406,6 @@ export class GameRuntime<
     // Do not release exclusivity while a previously started write can still commit.
     void Promise.all([this.actionQueue, this.saveQueue]).then(() => this.lease.release());
   }
-}
-
-export function createGameRuntime(
-  definition: GameDefinition,
-  storage: SaveStorage,
-  lease: InstanceLease,
-  clock: () => number = Date.now,
-): GameRuntime {
-  return new GameRuntime(definition, storage, lease, clock, LEGACY_GAME_RUNTIME_DOMAIN);
 }
 
 export function createConfiguredGameRuntime<
