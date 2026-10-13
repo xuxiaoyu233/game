@@ -1,4 +1,9 @@
 name: Quality
+# 门禁分级（S1 批 ci-tiering，2026-10-13 用户批准）：
+#   push           -> 只跑 npm run check（格式/类型/Lint/架构/文档/单测，几分钟）
+#   pull_request   -> 全集结：check + web 构建 + e2e + Windows 原生（Rust 与桌面）
+# 合并前的全量把关没有取消，只是从“每次推送”收敛到“合并那一次”。
+# 由此产生一条硬约定：合回集成分支必须走 PR，不能直接推。
 on:
   push:
   pull_request:
@@ -15,10 +20,17 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run check
-      - run: npm run build:web
-      - run: npx playwright install --with-deps chromium
-      - run: npm run test:e2e
+      - name: Build web
+        if: github.event_name == 'pull_request'
+        run: npm run build:web
+      - name: Install Playwright
+        if: github.event_name == 'pull_request'
+        run: npx playwright install --with-deps chromium
+      - name: E2E
+        if: github.event_name == 'pull_request'
+        run: npm run test:e2e
   windows:
+    if: github.event_name == 'pull_request'
     runs-on: windows-latest
     env:
       RUSTUP_TOOLCHAIN: '1.99.0'
