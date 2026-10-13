@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { BASE_GAME_DEFINITION } from '../../../content/base-game';
-import { EXPEDITION_V14_DEFINITION } from '../../../content/expedition-v14';
+import { BASE_GAME_DEFINITION } from '../../../content/legacy/base-game';
+import { EXPEDITION_V14_DEFINITION } from '../../../content/legacy/expedition-v14';
 import {
   decodeExpeditionSave,
   encodeExpeditionSave,

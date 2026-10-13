@@ -386,15 +386,33 @@ function checkRelationshipTerms(indexText, vocabulary) {
   }
 }
 
+// 归档交叉索引记录的是当时的源码映射；S1 把旧件迁入各层 legacy/ 分区后，
+// 旧路径的“对应位置”变为 legacy/ 下同名文件，视为仍然有效（文件未丢失，只是已归档）。
+// 路径彻底消失或拼错仍然报错，不放宽检查。
+function legacyVariantOf(target) {
+  const relative = toPosix(path.relative(root, target));
+  const match = /^src\/(domain|content|themes|persistence|runtime|app)\/([^/].*)$/.exec(relative);
+  if (match === null) return null;
+  return path.resolve(root, 'src', match[1], 'legacy', match[2].replaceAll('/', path.sep));
+}
+
+async function exists(target) {
+  try {
+    await access(target);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 async function checkImplementationPaths(indexText) {
   const pattern = /\x60((?:src|docs|scripts|tests)\/[^\x60\s]+)\x60/g;
   for (const match of indexText.matchAll(pattern)) {
     const target = path.resolve(root, match[1].replaceAll('/', path.sep));
-    try {
-      await access(target);
-    } catch {
-      errors.push('交叉索引.md: missing referenced project path ' + match[1]);
-    }
+    if (await exists(target)) continue;
+    const legacyTarget = legacyVariantOf(target);
+    if (legacyTarget !== null && (await exists(legacyTarget))) continue;
+    errors.push('交叉索引.md: missing referenced project path ' + match[1]);
   }
 }
 

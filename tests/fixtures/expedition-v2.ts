@@ -1,4 +1,4 @@
-import { EXPEDITION_DEFINITION } from '../../src/content/expedition';
+import { EXPEDITION_DEFINITION } from '../../src/content/legacy/expedition';
 import {
   applyExpeditionCommand,
   createExpedition,

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { BASE_GAME_DEFINITION } from '../../content/base-game';
+import { BASE_GAME_DEFINITION } from '../../content/legacy/base-game';
 import { advanceTime, applyCommand, createNewGame, getGameSummary } from './engine';
 import type { GameCommand, GameDefinition, GameState } from './types';
 import { validateGameDefinition } from './validation';
