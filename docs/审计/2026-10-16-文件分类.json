@@ -1,0 +1,4009 @@
+{
+  "schema_version": 1,
+  "status": "frozen audit evidence, not a live catalog",
+  "input_commit": "82c3275188102a152512470ed19256c599937dcf",
+  "coverage": {
+    "markdown": 84,
+    "governance_scripts_and_workflow_or_lock": 10,
+    "total": 94
+  },
+  "reference_method": "resolved standard Markdown relative links plus exact full-path literals across all 268 text blobs; excludes external unknown links, unqualified basename mentions, and dynamically constructed paths. CI dependencies are additionally inspected manually. A zero count is not proof of no consumers.",
+  "allowed_actions": [
+    "KEEP",
+    "KEEP + SLIM",
+    "REWRITE",
+    "MERGE",
+    "MOVE",
+    "ARCHIVE",
+    "GIT-HISTORY-ONLY",
+    "DELETE",
+    "SPLIT",
+    "DEFER"
+  ],
+  "action_counts": {
+    "KEEP + SLIM": 11,
+    "REWRITE": 4,
+    "ARCHIVE": 5,
+    "SPLIT": 6,
+    "DEFER": 12,
+    "KEEP": 49,
+    "MERGE": 1,
+    "GIT-HISTORY-ONLY": 6
+  },
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "kind": "Reference Architecture",
+      "scope": "project",
+      "authority": "execution constraints",
+      "lifecycle": "active",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/2026-10-12--工程重整方案.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/交接/GPT-工程执行提示词.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/工程规范.md",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": ["phase progress (candidate; scoped historical repetition can be valid)"],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "硬约束有效；只同步 PLAN/docs 指针，去掉固定 S1 批次入口，不扩充方法正文。",
+      "recommended action": "KEEP + SLIM",
+      "implemented this round": "entry/state boundary corrected; full recommended action only if explicitly described in report",
+      "read coverage": "full current text / logic review",
+      "input blob sha": "c58727ed1ebbd54f418eaabee6a742ae988a8323",
+      "input bytes": 2119
+    },
+    {
+      "path": "PLAN.md",
+      "kind": "Execution",
+      "scope": "project",
+      "authority": "current roadmap",
+      "lifecycle": "active",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "AGENTS.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/2026-10-03--工程基础搭建验收.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/2026-10-03--工程基础搭建验收.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/2026-10-12--工程重整方案.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/2026-10-12--工程重整方案.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/交接/GPT-工程执行提示词.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/交接/WorkBuddy-故事与命名调研提示词.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/内容资料库/README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/内容资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/内容资料库/成长与科技.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/内容资料库/成长与科技.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/内容资料库/资源与生产链.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/内容资料库/资源与生产链.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/副本资料库/README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/CHANGELOG.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/W-03-暴雪观测站.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/W-03-暴雪观测站.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/大背景与副本总框架.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/大背景与副本总框架.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/工程文档/无限流主线与世界包契约.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/工程文档/无限流主线与世界包契约.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/工程文档/经营策略与提前迎战.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/工程文档/经营策略与提前迎战.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/工程记录/2026-10-11-v0.8.0实施与验收记录.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/工程记录/2026-10-11-v0.8.0实施与验收记录.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/规划快照/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/产品打磨总计划.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/规划快照/产品打磨总计划.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/玩法原子能力与验收.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/规划快照/玩法原子能力与验收.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/界面信息架构与交互计划.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/规划快照/界面信息架构与交互计划.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/联合评审走查.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/规划快照/联合评审走查.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/诸界救援局-命名与故事提案.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/规划快照/轻量放置原型-深度研究提示词.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/规划快照/进度审查与可玩性演进.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/规划快照/进度审查与可玩性演进.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/驻地经济与副本循环合同.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/规划快照/驻地经济与副本循环合同.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/工程规范.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/故事线设定集.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/故事线设定集.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/故事资料库.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/架构说明.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/架构说明.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/规划/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/产品打磨总计划.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/规划/产品打磨总计划.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/游玩体验自检与改进.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/规划/游玩体验自检与改进.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/玩法原子能力与验收.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/规划/玩法原子能力与验收.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/界面信息架构与交互计划.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/规划/界面信息架构与交互计划.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/联合评审走查.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/规划/联合评审走查.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/诸界救援局-命名与故事提案.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/规划/诸界救援局-命名与故事提案.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/诸界救援局-故事命名评审-v2.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/规划/诸界救援局-故事命名评审-v2.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/诸界救援局-故事命名评审-v3.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/规划/诸界救援局-故事命名评审-v3.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/轻量放置原型-深度研究提示词.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/规划/轻量放置原型-深度研究提示词.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/轻量放置核心合同.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/规划/轻量放置核心合同.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/进度审查与可玩性演进.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/规划/进度审查与可玩性演进.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/驻地经济与副本循环合同.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/规划/驻地经济与副本循环合同.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "story-library/README.md",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": [
+        "phase progress (candidate; scoped historical repetition can be valid)",
+        "runtime version (candidate; scoped historical repetition can be valid)",
+        "temporary executor (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "把 S0–P4/S1/S2 的历史、机制、证据和临时分工混入当前路线；重置为当前/下一阶段，旧正文按输入 commit 追溯。",
+      "recommended action": "REWRITE",
+      "implemented this round": "entry/state boundary corrected; full recommended action only if explicitly described in report",
+      "read coverage": "full current text / logic review",
+      "input blob sha": "24117bfcadf5ed3875944cda6b10f3db498b9881",
+      "input bytes": 101183
+    },
+    {
+      "path": "README.md",
+      "kind": "Reference Architecture",
+      "scope": "project",
+      "authority": "discovery only",
+      "lifecycle": "active",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "PLAN.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/2026-10-03--电脑基础版实施计划.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/2026-10-12--工程重整方案.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/交接/README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/交接/WorkBuddy-故事与命名调研提示词.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/内容资料库/README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/内容资料库/成长与科技.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/内容资料库/类目与命名台账.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/内容资料库/资源与生产链.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/副本资料库/README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本交叉索引-v12.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/大背景与副本总框架.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/工程文档/无限流主线与世界包契约.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/资料来源与阅读范围.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/规划快照/README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/工程规范.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/故事线设定集.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/故事资料库.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/架构说明.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/规划/README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/规划/轻量放置核心合同.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/诸界救援局/内容索引.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "scripts/check-narrative-library.mjs",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": [
+        "phase progress (candidate; scoped historical repetition can be valid)",
+        "runtime version (candidate; scoped historical repetition can be valid)",
+        "temporary executor (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "入口重复阶段表、数值与临时 AI 写入者，且 U3 状态落后；改为产品、基线、命令与 docs 路径。",
+      "recommended action": "KEEP + SLIM",
+      "implemented this round": "entry/state boundary corrected; full recommended action only if explicitly described in report",
+      "read coverage": "full current text / logic review",
+      "input blob sha": "c7759dc09f0ce241a0da52e9bc66dbcc82946ced",
+      "input bytes": 4518
+    },
+    {
+      "path": "docs/2026-10-03--前期调研与选型.md",
+      "kind": "Evidence + History / Archive",
+      "scope": "legacy",
+      "authority": "historical technical research",
+      "lifecycle": "historical",
+      "current consumer": "historical research / engineering readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": ".prettierignore",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/2026-10-03--电脑基础版实施计划.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《桌面无限流增量游戏：前期调研与选型》显式基于早期产品，来源/实测边界仍有价值；G2 只在核对并修当前入链后归历史证据，不以日期旧为删除理由。",
+      "recommended action": "ARCHIVE",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "7a75262329ff5ee0d91018ce4e677595361acf20",
+      "input bytes": 20692
+    },
+    {
+      "path": "docs/2026-10-03--可玩性扩展调研.md",
+      "kind": "Evidence + History / Archive",
+      "scope": "legacy",
+      "authority": "historical technical research",
+      "lifecycle": "historical",
+      "current consumer": "historical research / engineering readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/工程记录/2026-10-11-v0.8.0实施与验收记录.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《可玩性扩展：调研与落地》显式基于早期产品，来源/实测边界仍有价值；G2 只在核对并修当前入链后归历史证据，不以日期旧为删除理由。",
+      "recommended action": "ARCHIVE",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "d7fc755f20990f0e355c0aaec29ca7406acccb47",
+      "input bytes": 5150
+    },
+    {
+      "path": "docs/2026-10-03--基础架构与原子能力.md",
+      "kind": "Evidence + History / Archive",
+      "scope": "legacy",
+      "authority": "historical technical research",
+      "lifecycle": "historical",
+      "current consumer": "historical research / engineering readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": ".prettierignore",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/2026-10-03--工程基础搭建验收.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/2026-10-03--电脑基础版实施计划.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [
+        "phase progress (candidate; scoped historical repetition can be valid)",
+        "temporary executor (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《基础架构与原子能力》显式基于早期产品，来源/实测边界仍有价值；G2 只在核对并修当前入链后归历史证据，不以日期旧为删除理由。",
+      "recommended action": "ARCHIVE",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "92f4b1e06a4bb7ac372049a694278c63b8482b25",
+      "input bytes": 21628
+    },
+    {
+      "path": "docs/2026-10-03--工程基础搭建验收.md",
+      "kind": "Evidence + History / Archive",
+      "scope": "legacy",
+      "authority": "historical technical research",
+      "lifecycle": "historical",
+      "current consumer": "historical research / engineering readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/2026-10-03--前期调研与选型.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/2026-10-03--基础架构与原子能力.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/2026-10-03--电脑基础版实施计划.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/工程文档/主空间与生存副本设计.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/工程记录/2026-10-11-v0.8.0实施与验收记录.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [
+        "phase progress (candidate; scoped historical repetition can be valid)",
+        "runtime version (candidate; scoped historical repetition can be valid)",
+        "temporary executor (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《本地工程与桌面验收记录》显式基于早期产品，来源/实测边界仍有价值；G2 只在核对并修当前入链后归历史证据，不以日期旧为删除理由。",
+      "recommended action": "ARCHIVE",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "75f3f166cb1ebfeaf90bcdae7a67c8d51221b2bf",
+      "input bytes": 10468
+    },
+    {
+      "path": "docs/2026-10-03--电脑基础版实施计划.md",
+      "kind": "Evidence + History / Archive",
+      "scope": "legacy",
+      "authority": "historical technical research",
+      "lifecycle": "historical",
+      "current consumer": "historical research / engineering readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": ".prettierignore",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/2026-10-03--基础架构与原子能力.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [
+        "phase progress (candidate; scoped historical repetition can be valid)",
+        "temporary executor (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《Windows 电脑基础版实施计划》显式基于早期产品，来源/实测边界仍有价值；G2 只在核对并修当前入链后归历史证据，不以日期旧为删除理由。",
+      "recommended action": "ARCHIVE",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "0b7c9286feb1cc6a82f5f2f2ec0a7e8be8317604",
+      "input bytes": 17782
+    },
+    {
+      "path": "docs/2026-10-12--工程重整方案.md",
+      "kind": "Execution + Decision + Evidence",
+      "scope": "project",
+      "authority": "historical approved work package",
+      "lifecycle": "superseded execution",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "AGENTS.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "PLAN.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "PLAN.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/工程规范.md",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": [
+        "phase progress (candidate; scoped historical repetition can be valid)",
+        "temporary executor (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "顶部 core-partition 待评审与后文已执行冲突，待办表和 PLAN 双写；保留已批准决策与证据，旧批次退出执行。",
+      "recommended action": "SPLIT",
+      "implemented this round": false,
+      "read coverage": "full current text / logic review",
+      "input blob sha": "2c418625443dc25eb81e96ebb356ceffd4c1089d",
+      "input bytes": 30210
+    },
+    {
+      "path": "docs/2026-10-13--前端骨架方案.md",
+      "kind": "Execution + Decision + Instance",
+      "scope": "project",
+      "authority": "historical UI proposal",
+      "lifecycle": "superseded execution",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "PLAN.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "PLAN.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": ["phase progress (candidate; scoped historical repetition can be valid)"],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "已完成 shell-split/melvor-ia 与待办混排；自动统计为 7 活动，文中 6 过期；保留用户约束，未完成 UI 延后。",
+      "recommended action": "SPLIT",
+      "implemented this round": false,
+      "read coverage": "full current text / logic review",
+      "input blob sha": "bcfac1fe574b29773b639a073940bdd11e976f9a",
+      "input bytes": 9854
+    },
+    {
+      "path": "docs/交接/GPT-工程执行提示词.md",
+      "kind": "Execution",
+      "scope": "task",
+      "authority": "historical task template",
+      "lifecycle": "superseded execution",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "PLAN.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "PLAN.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/交接/README.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [
+        "phase progress (candidate; scoped historical repetition can be valid)",
+        "temporary executor (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "P0 待验收/P1 未实现、甚至首次执行 S0 与当前冲突；本轮只加停用执行声明，G1 再以任务模板替换。",
+      "recommended action": "REWRITE",
+      "implemented this round": false,
+      "read coverage": "full current text / logic review",
+      "input blob sha": "62096c4ea0ad6fa1dd5f9d052c8e46e9b95ef647",
+      "input bytes": 11324
+    },
+    {
+      "path": "docs/交接/README.md",
+      "kind": "Execution + Evidence",
+      "scope": "task",
+      "authority": "handoff protocol and input provenance",
+      "lifecycle": "superseded execution",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "PLAN.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "PLAN.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/内容资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/工程规范.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [
+        "phase progress (candidate; scoped historical repetition can be valid)",
+        "temporary executor (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "ZIP 指纹/交付边界仍有价值；固定执行者、旧主线/P0 状态已过期，退为来源与交接说明。",
+      "recommended action": "KEEP + SLIM",
+      "implemented this round": "entry/state boundary corrected; full recommended action only if explicitly described in report",
+      "read coverage": "full current text / logic review",
+      "input blob sha": "08cb76f0127a24e5f1f13263aaafcf4d67a2db38",
+      "input bytes": 7100
+    },
+    {
+      "path": "docs/交接/WorkBuddy-故事与命名调研提示词.md",
+      "kind": "Execution",
+      "scope": "task",
+      "authority": "historical research brief",
+      "lifecycle": "superseded execution",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "PLAN.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "PLAN.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/交接/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/轻量放置原型-深度研究提示词.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/故事资料库.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [
+        "phase progress (candidate; scoped historical repetition can be valid)",
+        "temporary executor (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "来源/候选/叙事边界有价值；P0 与工具分工旧状态不得继续指挥当前工程，保留为历史研究输入。",
+      "recommended action": "KEEP + SLIM",
+      "implemented this round": false,
+      "read coverage": "full current text / logic review",
+      "input blob sha": "b82cc1351edf7d4563e2068a705e15ba9b88f099",
+      "input bytes": 13917
+    },
+    {
+      "path": "docs/内容资料库/README.md",
+      "kind": "Reference Architecture + Evidence",
+      "scope": "project",
+      "authority": "editorial ownership and source record",
+      "lifecycle": "active",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "PLAN.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "PLAN.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/内容资料库/成长与科技.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/内容资料库/类目与命名台账.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/内容资料库/资源与生产链.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/工程规范.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/故事资料库.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/诸界救援局/内容索引.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [
+        "phase progress (candidate; scoped historical repetition can be valid)",
+        "temporary executor (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "顶部尚未实现与后文 P1/P2 已验证矛盾；保留编辑职责，源阅读日志后续归 Evidence。",
+      "recommended action": "KEEP + SLIM",
+      "implemented this round": "entry/state boundary corrected; full recommended action only if explicitly described in report",
+      "read coverage": "full current text / logic review",
+      "input blob sha": "aba2b7ab5a1ae1e9ce32df60f65545fc1ce365ab",
+      "input bytes": 10558
+    },
+    {
+      "path": "docs/内容资料库/成长与科技.md",
+      "kind": "Durable Knowledge + Instance",
+      "scope": "project",
+      "authority": "growth design reference",
+      "lifecycle": "active",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "PLAN.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "PLAN.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/2026-10-12--工程重整方案.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/内容资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/内容资料库/资源与生产链.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/轻量放置核心合同.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [
+        "phase progress (candidate; scoped historical repetition can be valid)",
+        "runtime version (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "解锁/物料/知识三图分类合理；XP、旧研究、P4 已批准映射与新版未定混排，分离方法和版本实例。",
+      "recommended action": "SPLIT",
+      "implemented this round": false,
+      "read coverage": "full current text / logic review",
+      "input blob sha": "cf7e997944ed8dd16c6ca42aa0f69779aa4e6ad6",
+      "input bytes": 9036
+    },
+    {
+      "path": "docs/内容资料库/类目与命名台账.md",
+      "kind": "Durable Knowledge + Instance",
+      "scope": "project",
+      "authority": "identity and naming reference",
+      "lifecycle": "active",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "PLAN.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "PLAN.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/内容资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/轻量放置核心合同.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [
+        "phase progress (candidate; scoped historical repetition can be valid)",
+        "runtime version (candidate; scoped historical repetition can be valid)",
+        "temporary executor (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "稳定 ID/显示名原则有效；当前 ID 表、旧故事槽位和候选混排，保留映射责任，抽象原则与实例分离。",
+      "recommended action": "SPLIT",
+      "implemented this round": false,
+      "read coverage": "full current text / logic review",
+      "input blob sha": "f53a37b0183c1fce06da21a89c50309843b60caf",
+      "input bytes": 6802
+    },
+    {
+      "path": "docs/内容资料库/资源与生产链.md",
+      "kind": "Durable Knowledge + Instance + Evidence",
+      "scope": "project",
+      "authority": "versioned resource design evidence",
+      "lifecycle": "active",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "PLAN.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "PLAN.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/内容资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/内容资料库/成长与科技.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/内容资料库/类目与命名台账.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/轻量放置核心合同.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [
+        "phase progress (candidate; scoped historical repetition can be valid)",
+        "runtime version (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "Source/Transform/Sink 原则、已实现数值、P0 推演和撤回样例共页；数值表有复现价值，须按版本引用而非第二可编辑配置。",
+      "recommended action": "SPLIT",
+      "implemented this round": false,
+      "read coverage": "full current text / logic review",
+      "input blob sha": "9ac4a26b98cdce6d5af3226ffe9bfb73402b9337",
+      "input bytes": 18334
+    },
+    {
+      "path": "docs/副本资料库/README.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "compatibility navigation",
+      "lifecycle": "frozen legacy",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: checkStoryLibraryBoundary required marker"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/工程规范.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "scripts/check-narrative-library.mjs",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "脚本 checkStoryLibraryBoundary 硬要求此路径和标记；先解除合理性不明的 current CI 耦合再决定删导航。",
+      "recommended action": "DEFER",
+      "implemented this round": false,
+      "read coverage": "full current text / logic review",
+      "input blob sha": "295aba9dd3a6368ae3ed663f1a47a7bb5b39d9de",
+      "input bytes": 547
+    },
+    {
+      "path": "docs/历史资料/CHANGELOG.md",
+      "kind": "History / Archive",
+      "scope": "legacy releases",
+      "authority": "historical release summary",
+      "lifecycle": "historical",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [],
+      "duplicate facts": ["runtime version (candidate; scoped historical repetition can be valid)"],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "版本摘要可直接查询，未证明 Git 能同样表达这些人工验收边界；不能只因无代码引用删除。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "01ea707135fca95ce22a9fbf33ed58491cbe0e65",
+      "input bytes": 11793
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/README.md",
+      "kind": "Evidence + History / Archive",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: checkStoryLibraryBoundary required marker"
+      ],
+      "incoming references": [
+        {
+          "path": "README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/故事线设定集.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/故事资料库.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/诸界救援局/内容索引.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "scripts/check-narrative-library.mjs",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": ["runtime version (candidate; scoped historical repetition can be valid)"],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《《失落航标》v12 历史资料库》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "2d79f2af6e7605d4dfcf6b56de02cf1c5c0b0adb",
+      "input bytes": 2199
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本交叉索引-v12.md",
+      "kind": "History / Archive",
+      "scope": "legacy v12",
+      "authority": "snapshot",
+      "lifecycle": "historical",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/README.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": ["runtime version (candidate; scoped historical repetition can be valid)"],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "与归档子目录交叉索引主体同源，差异主要是历史注和导航链接；需先修入链、核对语义独有项，G2 合并，本轮不删。",
+      "recommended action": "MERGE",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "78d159fb3defc51411c1cd46c1d3e9dd48a5b2cb",
+      "input bytes": 30893
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/PATH-02-神学共同体与合法性.md",
+      "kind": "Instance",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: archive namespace definition discovery"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/交叉索引.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《PATH-02 神学共同体与合法性》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "fab2bf2240ca48cdbd7679154bd6e44b6cdf743e",
+      "input bytes": 4055
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/PATH-03-灵异记录与异常治理.md",
+      "kind": "Instance",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: archive namespace definition discovery"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/交叉索引.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《PATH-03 灵异记录与异常治理》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "21a24af09c250068f4bd17a84bd0f5f0d546c1b4",
+      "input bytes": 4064
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/PATH-04-修习与身心传承.md",
+      "kind": "Instance",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: archive namespace definition discovery"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/交叉索引.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《PATH-04 修习与身心传承》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "eafe4760644f57ac6441ffc3093a580849c50b7f",
+      "input bytes": 4330
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+      "kind": "Evidence + History / Archive",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/内容资料库/成长与科技.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本交叉索引-v12.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/大背景与副本总框架.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/工程文档/无限流主线与世界包契约.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/资料来源与阅读范围.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": ["runtime version (candidate; scoped historical repetition can be valid)"],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《副本资料库》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "f33dc1a32691939a77106fe3c37f8f75c1462052",
+      "input bytes": 21030
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/W-01-迷雾森林.md",
+      "kind": "Instance",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: archive namespace definition discovery"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《W-01 迷雾森林：回声边界》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "5ab0414e4ce5460ca1ac6bd45217e6df6069f765",
+      "input bytes": 6287
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/W-02-古城遗迹.md",
+      "kind": "Instance",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: archive namespace definition discovery"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《W-02 古城遗迹：迟到的建站记录》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "e6ccf10f540d2dec2ef4869a95f05d5b1df1f429",
+      "input bytes": 6302
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/W-03-暴雪观测站.md",
+      "kind": "Instance",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: archive namespace definition discovery"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/资料来源与阅读范围.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": ["runtime version (candidate; scoped historical repetition can be valid)"],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《W-03 雪线观测站：白昼刻度》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "3710bf904a94ff950b513b0dc1d83d1321b02060",
+      "input bytes": 6696
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/W-04-多站列车.md",
+      "kind": "Instance",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: archive namespace definition discovery"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《W-04 多站列车：未登记的乘客》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "410d661a60d3ca5ba7c1193a96bfa4be0b0997a2",
+      "input bytes": 2959
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/W-05-镜像城区.md",
+      "kind": "Instance",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: archive namespace definition discovery"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《W-05 镜像城区：路牌的背面》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "9eed60309ee60c842d94c6def152e704c337400d",
+      "input bytes": 3028
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/W-06-重复的一日.md",
+      "kind": "Instance",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: archive namespace definition discovery"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《W-06 重复的一日：未归档的清晨》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "6000aa3f8303d235530c022cd17f1e1d0fa4287f",
+      "input bytes": 1918
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/W-07-漂流设施.md",
+      "kind": "Instance",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: archive namespace definition discovery"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《W-07 漂流设施：谁来维持航线》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "80ab87d64951ea96944101790b24a9c07a34787c",
+      "input bytes": 2085
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/W-08-异常研究所.md",
+      "kind": "Instance",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: archive namespace definition discovery"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《W-08 异常研究所：样本不是身份》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "3b62506e02740d9f30f6ae8bbfd7d511e27a6956",
+      "input bytes": 2152
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/交叉索引.md",
+      "kind": "Evidence + History / Archive",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: hard-coded archive registry / vocabulary / relation check"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/W-01-迷雾森林.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/W-02-古城遗迹.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/交叉记录与资料治理规范.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/大背景与副本总框架.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/科技文明路径调研与故事蓝图.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/资料来源与阅读范围.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "scripts/check-narrative-library.mjs",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": ["runtime version (candidate; scoped historical repetition can be valid)"],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《副本资料库交叉索引》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "ae038bc471c4a2c24621090534c75f7549d9aa9c",
+      "input bytes": 31405
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/交叉记录与资料治理规范.md",
+      "kind": "Evidence + History / Archive",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: hard-coded archive registry / vocabulary / relation check"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/交叉索引.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/副本资料卡模板.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/大背景与副本总框架.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/文明交织的长弧与可扩展故事架构.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "scripts/check-narrative-library.mjs",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": ["phase progress (candidate; scoped historical repetition can be valid)"],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《交叉记录与资料治理规范》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "cfa13b92c756cbd22f42948dcf6d8354e02d20b1",
+      "input bytes": 22716
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/候选世界种子池.md",
+      "kind": "Instance",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/工程文档/无限流主线与世界包契约.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《候选世界种子池》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "73c8fa4e8f0aade5ef919f4214149c6a80b4cad1",
+      "input bytes": 7325
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/副本资料卡模板.md",
+      "kind": "Evidence + History / Archive",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《副本资料卡模板》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "889b85c35ec44d2103302af23ec81d669bee5c13",
+      "input bytes": 4263
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/命名台账.md",
+      "kind": "Evidence + History / Archive",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《命名台账》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "9ff0aad7f7c80df2c203371479aceab4145d1634",
+      "input bytes": 4329
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/四路径交叉场景.md",
+      "kind": "Instance",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: hard-coded archive registry / vocabulary / relation check"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/交叉索引.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "scripts/check-narrative-library.mjs",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《四路径交叉场景》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "51985585f18c4169dc143e51338435920e9eac3e",
+      "input bytes": 3133
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/大背景与副本总框架.md",
+      "kind": "Evidence + History / Archive",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/交叉索引.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/文明交织的长弧与可扩展故事架构.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/无限副本生成与LLM事件契约.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《《失落航标》大背景与副本总框架》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "48a4e6e26898c6924fdb14d4bad63849cebf86f7",
+      "input bytes": 40435
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/文明交织的长弧与可扩展故事架构.md",
+      "kind": "Evidence + History / Archive",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/交叉索引.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/大背景与副本总框架.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": ["phase progress (candidate; scoped historical repetition can be valid)"],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《文明交织的长弧与可扩展故事架构》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "53b26eed1806e96b7c8da1e17d3c4a96d8177f3e",
+      "input bytes": 26466
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/无限副本生成与LLM事件契约.md",
+      "kind": "Evidence + History / Archive",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/科技文明路径调研与故事蓝图.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/工程文档/无限流主线与世界包契约.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [
+        "temporary executor (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《无限副本生成与 LLM 事件契约》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "cf9a33e982792d7f32b6bbe95a8211bc73ceac6b",
+      "input bytes": 12231
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/机器可读内容桥接方案.md",
+      "kind": "Evidence + History / Archive",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/交叉记录与资料治理规范.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/大背景与副本总框架.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《机器可读内容与游戏资料库桥接方案》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "8551b3b42a71a7bd4b5fdf06e61a95b9f8de00ee",
+      "input bytes": 12924
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/科技文明路径调研与故事蓝图.md",
+      "kind": "Evidence + History / Archive",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: archive namespace definition discovery"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/交叉索引.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/大背景与副本总框架.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/文明交织的长弧与可扩展故事架构.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《科技文明路径调研与故事蓝图》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "2e22fb6a3e1088f42a146045bedc41ddb13b6883",
+      "input bytes": 19943
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/科技树与游戏成长并行方案.md",
+      "kind": "Instance",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/交叉索引.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/科技文明路径调研与故事蓝图.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/工程文档/主空间与生存副本设计.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": ["runtime version (candidate; scoped historical repetition can be valid)"],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《科技树与游戏成长并行方案》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "d7dc8a299cd34413946922dcebc930f56ff4962a",
+      "input bytes": 19557
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/副本资料库/群像角色卡与成长弧.md",
+      "kind": "Instance",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: hard-coded archive registry / vocabulary / relation check"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/交叉索引.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/大背景与副本总框架.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/科技树与游戏成长并行方案.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "scripts/check-narrative-library.mjs",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《群像角色卡与独立成长弧》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "1b3a49ab3649cd326e4ca9583f05108a66a849d0",
+      "input bytes": 25828
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/工程文档/主空间与生存副本设计.md",
+      "kind": "Evidence + History / Archive",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/2026-10-03--电脑基础版实施计划.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/2026-10-12--工程重整方案.md",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《主空间与生存副本设计》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "f547c7efd8f83ce96f44e64582003df42e6d92f1",
+      "input bytes": 12142
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/工程文档/无限流主线与世界包契约.md",
+      "kind": "Evidence + History / Archive",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/工程文档/主空间与生存副本设计.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/工程记录/2026-10-11-v0.8.0实施与验收记录.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [
+        "runtime version (candidate; scoped historical repetition can be valid)",
+        "temporary executor (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《无限流主线与世界包契约》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "46f97b3cbc2f6034e4e3ecdc211b27cf77ac4f8c",
+      "input bytes": 10018
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/工程文档/经营策略与提前迎战.md",
+      "kind": "Evidence + History / Archive",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/工程文档/无限流主线与世界包契约.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/工程记录/2026-10-11-v0.8.0实施与验收记录.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": ["runtime version (candidate; scoped historical repetition can be valid)"],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《v0.3：经营策略、提前迎战与资源总览》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "8ee7a6618cf813877422669519ae4f09ac16f450",
+      "input bytes": 6532
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/故事线设定集-v12.md",
+      "kind": "Instance",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/交叉索引.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/大背景与副本总框架.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/文明交织的长弧与可扩展故事架构.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/工程文档/无限流主线与世界包契约.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/工程文档/经营策略与提前迎战.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/资料来源与阅读范围.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": ["runtime version (candidate; scoped historical repetition can be valid)"],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《故事线设定集：失落航标》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "bac1ddbf174c3fa347b681cb39b6d8cf3b3afc0f",
+      "input bytes": 21157
+    },
+    {
+      "path": "docs/历史资料/失落航标-v12/资料来源与阅读范围.md",
+      "kind": "Evidence + History / Archive",
+      "scope": "legacy v12",
+      "authority": "frozen source / proposal",
+      "lifecycle": "historical",
+      "current consumer": "legacy research and reference readers",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: hard-coded archive registry / vocabulary / relation check"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/交叉索引.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/文明交织的长弧与可扩展故事架构.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/科技文明路径调研与故事蓝图.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/工程文档/无限流主线与世界包契约.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/工程记录/2026-10-11-v0.8.0实施与验收记录.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/产品打磨总计划.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/进度审查与可玩性演进.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "scripts/check-narrative-library.mjs",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": ["phase progress (candidate; scoped historical repetition can be valid)"],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《《失落航标》v12 故事来源与阅读范围》保留旧版来源、条件或原创候选；未证明被另一原件完整替代，也未排除人工/引用消费者，冻结保存，复用前重新核对。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "fffbac6c6b34fdc26a09a4c556861de6465ea674",
+      "input bytes": 43318
+    },
+    {
+      "path": "docs/历史资料/工程记录/2026-10-11-v0.8.0实施与验收记录.md",
+      "kind": "Evidence",
+      "scope": "legacy 0.8",
+      "authority": "historical acceptance record",
+      "lifecycle": "historical",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "PLAN.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "PLAN.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/2026-10-12--工程重整方案.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/内容资料库/README.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [
+        "phase progress (candidate; scoped historical repetition can be valid)",
+        "runtime version (candidate; scoped historical repetition can be valid)",
+        "temporary executor (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "包含人工结果与失败边界，源码历史不能替代独特验证证据；仅冻结引用，不维护当前进度。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "e4cac64c8dd0f76ef523a7e68775b9aca61cb32c",
+      "input bytes": 38332
+    },
+    {
+      "path": "docs/历史资料/规划快照/README.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "historical navigation",
+      "lifecycle": "historical",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/故事资料库.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/README.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "有明确历史入口用途；将来删具体快照时同步导航，不再扩层创建 archive 的 archive。",
+      "recommended action": "KEEP + SLIM",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "5e1984085faa84521e974c17556885956cfba650",
+      "input bytes": 2462
+    },
+    {
+      "path": "docs/历史资料/规划快照/产品打磨总计划.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "historical proposal",
+      "lifecycle": "historical",
+      "current consumer": "historical design review",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/规划快照/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/联合评审走查.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/产品打磨总计划.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [
+        "phase progress (candidate; scoped historical repetition can be valid)",
+        "runtime version (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《无限流桌面游戏：产品打磨总计划》是已退出方向的计划/候选快照，输入 commit 完整保存，未见运行时或专门注册表消费者；G2 先修 3 处已知入链并复核独有证据后退出 HEAD，本轮不实施。",
+      "recommended action": "GIT-HISTORY-ONLY",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "3df4f100dd3dd9059e1a913fa10f9844e84c3e76",
+      "input bytes": 16861
+    },
+    {
+      "path": "docs/历史资料/规划快照/游玩体验自检与改进.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "historical proposal",
+      "lifecycle": "historical",
+      "current consumer": "historical design review",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/规划快照/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/游玩体验自检与改进.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": ["runtime version (candidate; scoped historical repetition can be valid)"],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《游玩体验自检与改进》含独有验收/推演或已批准旧版合同，Git 中的源码不能代替证据；冻结，不纳入当前待办。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "2c2fb31e30ccb391e9c7851193b88e649b207039",
+      "input bytes": 9004
+    },
+    {
+      "path": "docs/历史资料/规划快照/玩法原子能力与验收.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "historical proposal",
+      "lifecycle": "historical",
+      "current consumer": "historical design review",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/规划快照/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/产品打磨总计划.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/玩法原子能力与验收.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [
+        "phase progress (candidate; scoped historical repetition can be valid)",
+        "runtime version (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《玩法打磨：原子能力、组合与验收》含独有验收/推演或已批准旧版合同，Git 中的源码不能代替证据；冻结，不纳入当前待办。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "7c224b8da438222579d36b5e4b10d56b4fea8ab8",
+      "input bytes": 27170
+    },
+    {
+      "path": "docs/历史资料/规划快照/界面信息架构与交互计划.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "historical proposal",
+      "lifecycle": "historical",
+      "current consumer": "historical design review",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/规划快照/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/产品打磨总计划.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/界面信息架构与交互计划.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《小窗口界面：信息架构与交互 Plan》是已退出方向的计划/候选快照，输入 commit 完整保存，未见运行时或专门注册表消费者；G2 先修 3 处已知入链并复核独有证据后退出 HEAD，本轮不实施。",
+      "recommended action": "GIT-HISTORY-ONLY",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "d178ec9da7a95cb80fe90f5e3d6ffc90e7bb3261",
+      "input bytes": 47264
+    },
+    {
+      "path": "docs/历史资料/规划快照/联合评审走查.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "historical proposal",
+      "lifecycle": "historical",
+      "current consumer": "historical design review",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/规划快照/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/产品打磨总计划.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/玩法原子能力与验收.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/界面信息架构与交互计划.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/联合评审走查.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《故事、玩法与界面的联合评审走查》含独有验收/推演或已批准旧版合同，Git 中的源码不能代替证据；冻结，不纳入当前待办。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "04a0a69a06e98cf3f916cf741c98ee9502672c30",
+      "input bytes": 12979
+    },
+    {
+      "path": "docs/历史资料/规划快照/诸界救援局-命名与故事提案.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "historical proposal",
+      "lifecycle": "historical",
+      "current consumer": "historical design review",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/规划快照/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/诸界救援局-命名与故事提案.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《《诸界救援局》命名与故事提案》是已退出方向的计划/候选快照，输入 commit 完整保存，未见运行时或专门注册表消费者；G2 先修 2 处已知入链并复核独有证据后退出 HEAD，本轮不实施。",
+      "recommended action": "GIT-HISTORY-ONLY",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "0c2a79998b6dbb034114a976999f1bd87b68d38b",
+      "input bytes": 22711
+    },
+    {
+      "path": "docs/历史资料/规划快照/诸界救援局-故事命名评审-v2.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "historical proposal",
+      "lifecycle": "historical",
+      "current consumer": "historical design review",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/规划快照/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/诸界救援局-故事命名评审-v2.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《《诸界救援局》故事与命名评审提案 v2》是已退出方向的计划/候选快照，输入 commit 完整保存，未见运行时或专门注册表消费者；G2 先修 2 处已知入链并复核独有证据后退出 HEAD，本轮不实施。",
+      "recommended action": "GIT-HISTORY-ONLY",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "4bc27b265544cbd8bdd982e0df27fc3b9c8e7904",
+      "input bytes": 18039
+    },
+    {
+      "path": "docs/历史资料/规划快照/诸界救援局-故事命名评审-v3.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "historical proposal",
+      "lifecycle": "historical",
+      "current consumer": "historical design review",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/规划快照/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/故事资料库.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/诸界救援局-故事命名评审-v3.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《《诸界救援局》故事与命名评审提案 v3》含独有验收/推演或已批准旧版合同，Git 中的源码不能代替证据；冻结，不纳入当前待办。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "f625d8945b340bc1c25674409cc4a44059fb1c37",
+      "input bytes": 17639
+    },
+    {
+      "path": "docs/历史资料/规划快照/轻量放置原型-深度研究提示词.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "historical proposal",
+      "lifecycle": "historical",
+      "current consumer": "historical design review",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/规划快照/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/轻量放置原型-深度研究提示词.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [
+        "temporary executor (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《轻量放置原型：网页版 ChatGPT 深度研究提示词》是已退出方向的计划/候选快照，输入 commit 完整保存，未见运行时或专门注册表消费者；G2 先修 2 处已知入链并复核独有证据后退出 HEAD，本轮不实施。",
+      "recommended action": "GIT-HISTORY-ONLY",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "b022e80dec66ca9811a9995cc513ea9d893fc316",
+      "input bytes": 14093
+    },
+    {
+      "path": "docs/历史资料/规划快照/进度审查与可玩性演进.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "historical proposal",
+      "lifecycle": "historical",
+      "current consumer": "historical design review",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/规划快照/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/玩法原子能力与验收.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/界面信息架构与交互计划.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/联合评审走查.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/进度审查与可玩性演进.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": ["runtime version (candidate; scoped historical repetition can be valid)"],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《进度审查与可玩性演进》含独有验收/推演或已批准旧版合同，Git 中的源码不能代替证据；冻结，不纳入当前待办。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "f8397358bd34d77a5d5bdb9f49fb1ea2779f05f5",
+      "input bytes": 28561
+    },
+    {
+      "path": "docs/历史资料/规划快照/驻地经济与副本循环合同.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "historical proposal",
+      "lifecycle": "historical",
+      "current consumer": "historical design review",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/规划快照/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/驻地经济与副本循环合同.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "《放置成长核心循环合同》是已退出方向的计划/候选快照，输入 commit 完整保存，未见运行时或专门注册表消费者；G2 先修 2 处已知入链并复核独有证据后退出 HEAD，本轮不实施。",
+      "recommended action": "GIT-HISTORY-ONLY",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "7d9c64bca2e584072fafc7d2544637e8bfe4bdbe",
+      "input bytes": 6159
+    },
+    {
+      "path": "docs/工程规范.md",
+      "kind": "Reference Architecture",
+      "scope": "project",
+      "authority": "engineering rules",
+      "lifecycle": "active",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "AGENTS.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "AGENTS.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "PLAN.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "PLAN.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/2026-10-12--工程重整方案.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/2026-10-12--工程重整方案.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/交接/GPT-工程执行提示词.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/工程记录/2026-10-11-v0.8.0实施与验收记录.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/故事资料库.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/架构说明.md",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": [
+        "phase progress (candidate; scoped historical repetition can be valid)",
+        "temporary executor (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "命名/边界/检查有效；S0 排序、故事状态和 .cache 唯一证据约定混入长期规范，去除当前状态权限。",
+      "recommended action": "KEEP + SLIM",
+      "implemented this round": "entry/state boundary corrected; full recommended action only if explicitly described in report",
+      "read coverage": "full current text / logic review",
+      "input blob sha": "1a1549addd848840a6d791895f849cdd5b95fcf2",
+      "input bytes": 9799
+    },
+    {
+      "path": "docs/故事线设定集.md",
+      "kind": "Instance",
+      "scope": "legacy 0.8",
+      "authority": "frozen 0.8 canon only",
+      "lifecycle": "frozen legacy",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: checkStoryLibraryBoundary required marker"
+      ],
+      "incoming references": [
+        {
+          "path": "README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/内容资料库/类目与命名台账.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/故事线设定集-v12.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/工程记录/2026-10-11-v0.8.0实施与验收记录.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/产品打磨总计划.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/工程规范.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/故事资料库.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/诸界救援局/内容索引.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/诸界救援局/失籍城-第七避难环.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "scripts/check-narrative-library.mjs",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "保存已批准旧版事实与稳定 ID，仍被故事门禁定位；不属于当前技能入口或新版题材。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "fbc8a6a49c3830da1cd1c2ba233a7cc9a99592a6",
+      "input bytes": 17606
+    },
+    {
+      "path": "docs/故事资料库.md",
+      "kind": "Reference Architecture",
+      "scope": "project",
+      "authority": "story ownership navigation",
+      "lifecycle": "active",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks",
+        "scripts/check-narrative-library.mjs: checkStoryLibraryBoundary required marker"
+      ],
+      "incoming references": [
+        {
+          "path": "README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/内容资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/工程记录/2026-10-11-v0.8.0实施与验收记录.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/工程规范.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "scripts/check-narrative-library.mjs",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": [
+        "temporary executor (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "编辑状态与可见性区分合理；仍运行 0.8 和临时执行者不应描述候选主入口，限定为冻结版本。",
+      "recommended action": "KEEP + SLIM",
+      "implemented this round": "entry/state boundary corrected; full recommended action only if explicitly described in report",
+      "read coverage": "full current text / logic review",
+      "input blob sha": "f586bc316e69591e08e879d375771ccfeb948a72",
+      "input bytes": 7193
+    },
+    {
+      "path": "docs/架构说明.md",
+      "kind": "Reference Architecture",
+      "scope": "project",
+      "authority": "architecture and data paths",
+      "lifecycle": "active",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "AGENTS.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "PLAN.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "PLAN.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/2026-10-03--基础架构与原子能力.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/2026-10-03--工程基础搭建验收.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/2026-10-12--工程重整方案.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/2026-10-12--工程重整方案.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/交接/GPT-工程执行提示词.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/交接/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/内容资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/工程记录/2026-10-11-v0.8.0实施与验收记录.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/工程规范.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/工程规范.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/产品打磨总计划.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/游玩体验自检与改进.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/玩法原子能力与验收.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/界面信息架构与交互计划.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/联合评审走查.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/诸界救援局-命名与故事提案.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/诸界救援局-故事命名评审-v2.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/诸界救援局-故事命名评审-v3.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/轻量放置原型-深度研究提示词.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/轻量放置核心合同.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/进度审查与可玩性演进.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/驻地经济与副本循环合同.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [
+        "phase progress (candidate; scoped historical repetition can be valid)",
+        "runtime version (candidate; scoped historical repetition can be valid)",
+        "temporary executor (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "七层与数据路径有消费者；S0 过程、批次、XP 和 Windows 签收多处重复或冲突，先撤当前状态权限，后按职责凝练。",
+      "recommended action": "KEEP + SLIM",
+      "implemented this round": "entry/state boundary corrected; full recommended action only if explicitly described in report",
+      "read coverage": "full current text / logic review",
+      "input blob sha": "9363592a406e63691bbbdcfde41f0c4ca521cf5b",
+      "input bytes": 27630
+    },
+    {
+      "path": "docs/规划/README.md",
+      "kind": "Reference Architecture",
+      "scope": "project",
+      "authority": "planning navigation",
+      "lifecycle": "active",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/架构说明.md",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "已有 PLAN/合同/历史导航有价值；把当前阶段和验收正文归 PLAN，历史只作按需追溯。",
+      "recommended action": "KEEP + SLIM",
+      "implemented this round": false,
+      "read coverage": "full current text / logic review",
+      "input blob sha": "63bc1abc57e5ce0aafceee803430c95355625faf",
+      "input bytes": 821
+    },
+    {
+      "path": "docs/规划/产品打磨总计划.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "compatibility navigation",
+      "lifecycle": "historical",
+      "current consumer": "old Markdown links",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/CHANGELOG.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/工程文档/无限流主线与世界包契约.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/工程记录/2026-10-11-v0.8.0实施与验收记录.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "薄导航指向同名规划快照；保留理由须由入链和外部兼容证明。当前入链 3 处，G2 先转入链再核对是否可只由 Git 承担；本轮保留。",
+      "recommended action": "DEFER",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "0ce2662b8441f20a5c2f1326d81abe8affd8900f",
+      "input bytes": 398
+    },
+    {
+      "path": "docs/规划/游玩体验自检与改进.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "compatibility navigation",
+      "lifecycle": "historical",
+      "current consumer": "old Markdown links",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "薄导航指向同名规划快照；保留理由须由入链和外部兼容证明。当前入链 0 处，G2 先转入链再核对是否可只由 Git 承担；本轮保留。",
+      "recommended action": "DEFER",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "0c44b24cd5bb5bd6c67f1f9771b360e5b00d2f46",
+      "input bytes": 410
+    },
+    {
+      "path": "docs/规划/玩法原子能力与验收.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "compatibility navigation",
+      "lifecycle": "historical",
+      "current consumer": "old Markdown links",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/工程文档/经营策略与提前迎战.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/资料来源与阅读范围.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/工程记录/2026-10-11-v0.8.0实施与验收记录.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "薄导航指向同名规划快照；保留理由须由入链和外部兼容证明。当前入链 3 处，G2 先转入链再核对是否可只由 Git 承担；本轮保留。",
+      "recommended action": "DEFER",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "12ba341d5d5e49826f61f0753c7a888b27c96d53",
+      "input bytes": 404
+    },
+    {
+      "path": "docs/规划/界面信息架构与交互计划.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "compatibility navigation",
+      "lifecycle": "historical",
+      "current consumer": "old Markdown links",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/资料来源与阅读范围.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/工程记录/2026-10-11-v0.8.0实施与验收记录.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "薄导航指向同名规划快照；保留理由须由入链和外部兼容证明。当前入链 2 处，G2 先转入链再核对是否可只由 Git 承担；本轮保留。",
+      "recommended action": "DEFER",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "76ef1acbaa649209b0f9b3618f860d86de9c88e2",
+      "input bytes": 410
+    },
+    {
+      "path": "docs/规划/联合评审走查.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "compatibility navigation",
+      "lifecycle": "historical",
+      "current consumer": "old Markdown links",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/工程记录/2026-10-11-v0.8.0实施与验收记录.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "薄导航指向同名规划快照；保留理由须由入链和外部兼容证明。当前入链 1 处，G2 先转入链再核对是否可只由 Git 承担；本轮保留。",
+      "recommended action": "DEFER",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "602aa07d9bd2ac6d21acb4064d19512955128e36",
+      "input bytes": 401
+    },
+    {
+      "path": "docs/规划/诸界救援局-命名与故事提案.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "compatibility navigation",
+      "lifecycle": "historical",
+      "current consumer": "old Markdown links",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/工程记录/2026-10-11-v0.8.0实施与验收记录.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "薄导航指向同名规划快照；保留理由须由入链和外部兼容证明。当前入链 1 处，G2 先转入链再核对是否可只由 Git 承担；本轮保留。",
+      "recommended action": "DEFER",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "69cc6968df93865b1cfb10975608da6e5e79c866",
+      "input bytes": 417
+    },
+    {
+      "path": "docs/规划/诸界救援局-故事命名评审-v2.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "compatibility navigation",
+      "lifecycle": "historical",
+      "current consumer": "old Markdown links",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "薄导航指向同名规划快照；保留理由须由入链和外部兼容证明。当前入链 0 处，G2 先转入链再核对是否可只由 Git 承担；本轮保留。",
+      "recommended action": "DEFER",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "42d62feec8051f07d0a4c430174863fb5fb18d35",
+      "input bytes": 420
+    },
+    {
+      "path": "docs/规划/诸界救援局-故事命名评审-v3.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "compatibility navigation",
+      "lifecycle": "historical",
+      "current consumer": "old Markdown links",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/工程记录/2026-10-11-v0.8.0实施与验收记录.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "薄导航指向同名规划快照；保留理由须由入链和外部兼容证明。当前入链 1 处，G2 先转入链再核对是否可只由 Git 承担；本轮保留。",
+      "recommended action": "DEFER",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "a6e5da61e9506058f92901401b9bf41eabb74bce",
+      "input bytes": 442
+    },
+    {
+      "path": "docs/规划/轻量放置原型-深度研究提示词.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "compatibility navigation",
+      "lifecycle": "historical",
+      "current consumer": "old Markdown links",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "薄导航指向同名规划快照；保留理由须由入链和外部兼容证明。当前入链 0 处，G2 先转入链再核对是否可只由 Git 承担；本轮保留。",
+      "recommended action": "DEFER",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "f001b030a951cd0bd9082190acd120ac10b61b76",
+      "input bytes": 420
+    },
+    {
+      "path": "docs/规划/轻量放置核心合同.md",
+      "kind": "Durable Knowledge + Instance",
+      "scope": "project",
+      "authority": "current game behavior contract",
+      "lifecycle": "active",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "AGENTS.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "PLAN.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "PLAN.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/2026-10-12--工程重整方案.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/交接/GPT-工程执行提示词.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/内容资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/内容资料库/资源与生产链.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/界面信息架构与交互计划.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/规划快照/驻地经济与副本循环合同.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/工程规范.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/工程规范.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/架构说明.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/规划/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/产品打磨总计划.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/游玩体验自检与改进.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/玩法原子能力与验收.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/界面信息架构与交互计划.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/联合评审走查.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/诸界救援局-命名与故事提案.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/诸界救援局-故事命名评审-v2.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/诸界救援局-故事命名评审-v3.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/轻量放置原型-深度研究提示词.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/进度审查与可玩性演进.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/规划/驻地经济与副本循环合同.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [
+        "phase progress (candidate; scoped historical repetition can be valid)",
+        "runtime version (candidate; scoped historical repetition can be valid)",
+        "temporary executor (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "暂停/切换/消费等语义应保留；XP、资源、工具倍率和阶段验收属于实例/证据，全局单活动只约束当前游戏。",
+      "recommended action": "SPLIT",
+      "implemented this round": "entry/state boundary corrected; full recommended action only if explicitly described in report",
+      "read coverage": "full current text / logic review",
+      "input blob sha": "fd26ab682d7170308f7dd739c3f0fc7163a6a858",
+      "input bytes": 10528
+    },
+    {
+      "path": "docs/规划/进度审查与可玩性演进.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "compatibility navigation",
+      "lifecycle": "historical",
+      "current consumer": "old Markdown links",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "docs/历史资料/失落航标-v12/工程文档/无限流主线与世界包契约.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/历史资料/工程记录/2026-10-11-v0.8.0实施与验收记录.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "薄导航指向同名规划快照；保留理由须由入链和外部兼容证明。当前入链 2 处，G2 先转入链再核对是否可只由 Git 承担；本轮保留。",
+      "recommended action": "DEFER",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "e25e2f97fb760f0db23d98cd4b9bdd9883d0c59a",
+      "input bytes": 422
+    },
+    {
+      "path": "docs/规划/驻地经济与副本循环合同.md",
+      "kind": "History / Archive",
+      "scope": "legacy",
+      "authority": "compatibility navigation",
+      "lifecycle": "historical",
+      "current consumer": "old Markdown links",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "薄导航指向同名规划快照；保留理由须由入链和外部兼容证明。当前入链 0 处，G2 先转入链再核对是否可只由 Git 承担；本轮保留。",
+      "recommended action": "DEFER",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "f52989dbb15d84e7c471983863520fb5a1861299",
+      "input bytes": 423
+    },
+    {
+      "path": "docs/诸界救援局/内容索引.md",
+      "kind": "Instance + Evidence",
+      "scope": "legacy 0.8",
+      "authority": "legacy mapping only",
+      "lifecycle": "frozen legacy",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/2026-10-12--工程重整方案.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/工程规范.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/故事资料库.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "旧 ID 到 legacy 代码映射有追溯/测试消费者；仍运行措辞待 G1 限定，本轮不改故事。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "d8a18e68adfe6f2e13844185126559f3a9b079b8",
+      "input bytes": 3759
+    },
+    {
+      "path": "docs/诸界救援局/失籍城-第七避难环.md",
+      "kind": "Instance",
+      "scope": "legacy 0.8",
+      "authority": "legacy world contract",
+      "lifecycle": "frozen legacy",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [],
+      "duplicate facts": [],
+      "historical value": "旧版来源、批准或验证边界，按输入 commit 冻结",
+      "reason to exist": "世界卡保存旧版条件与验收边界，不能提升为通用方法；保留已批准原件。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "6665c234ddaa122fce008de265bf2b557713f569",
+      "input bytes": 2343
+    },
+    {
+      "path": "story-library/README.md",
+      "kind": "Reference Architecture",
+      "scope": "story package",
+      "authority": "new story package boundary",
+      "lifecycle": "active",
+      "current consumer": "repository reader / editor",
+      "runtime dependency": false,
+      "ci consumer": [
+        "scripts/check-narrative-library.mjs: collectProjectMarkdown → checkMarkdownLinks"
+      ],
+      "incoming references": [
+        {
+          "path": "PLAN.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "PLAN.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/交接/README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/交接/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/内容资料库/README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/内容资料库/README.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/内容资料库/资源与生产链.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/内容资料库/资源与生产链.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/故事资料库.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/故事资料库.md",
+          "kind": "markdown-link"
+        },
+        {
+          "path": "docs/架构说明.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/规划/轻量放置核心合同.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/规划/轻量放置核心合同.md",
+          "kind": "markdown-link"
+        }
+      ],
+      "duplicate facts": [
+        "temporary executor (candidate; scoped historical repetition can be valid)"
+      ],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "只有入口、无候选正文，是实际边界；移除固定工具作者分工，保留来源事实在 Evidence。",
+      "recommended action": "KEEP + SLIM",
+      "implemented this round": "entry/state boundary corrected; full recommended action only if explicitly described in report",
+      "read coverage": "full current text / logic review",
+      "input blob sha": "186ff13d5b0180b4fb4395172ee80a2fa804628a",
+      "input bytes": 2693
+    },
+    {
+      "path": ".github/workflows/quality.yml",
+      "kind": "Reference Architecture",
+      "scope": "project",
+      "authority": "executable check / build helper",
+      "lifecycle": "active",
+      "current consumer": "GitHub Actions",
+      "runtime dependency": false,
+      "ci consumer": [],
+      "incoming references": [
+        {
+          "path": "docs/2026-10-12--工程重整方案.md",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": ["phase progress (candidate; scoped historical repetition can be valid)"],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "push 分级已工作，PR full 尚需真实触发；没有 branch protection 不能成为强制门禁，本轮不改 workflow，G2 调整 scope 后验证。",
+      "recommended action": "REWRITE",
+      "implemented this round": false,
+      "read coverage": "full current text / logic review",
+      "input blob sha": "e81e0f6ed338a432b1ab7c06f64605a2754b77f3",
+      "input bytes": 1835
+    },
+    {
+      "path": "scripts/bootstrap.ps1",
+      "kind": "Reference Architecture",
+      "scope": "project",
+      "authority": "executable check / build helper",
+      "lifecycle": "active",
+      "current consumer": "manual environment bootstrap",
+      "runtime dependency": false,
+      "ci consumer": [],
+      "incoming references": [
+        {
+          "path": "docs/2026-10-12--工程重整方案.md",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": ["phase progress (candidate; scoped historical repetition can be valid)"],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "提供隔离工具链来源与指纹检查；全仓无静态入链不能证明无人手工调用，G4 补 How-to。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "full current text / logic review",
+      "input blob sha": "7ff9afaaa9ed68855c0517b116496dcffb639531",
+      "input bytes": 5182
+    },
+    {
+      "path": "scripts/project.ps1",
+      "kind": "Reference Architecture",
+      "scope": "project",
+      "authority": "executable check / build helper",
+      "lifecycle": "active",
+      "current consumer": "README / developer CLI",
+      "runtime dependency": false,
+      "ci consumer": [],
+      "incoming references": [
+        {
+          "path": "AGENTS.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "PLAN.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/2026-10-03--工程基础搭建验收.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/交接/GPT-工程执行提示词.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/CHANGELOG.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/工程记录/2026-10-11-v0.8.0实施与验收记录.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/规划快照/进度审查与可玩性演进.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/故事资料库.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "scripts/bootstrap.ps1",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "Windows 隔离工具链和检查分派仍由 README 消费，当前 Linux 不运行 PowerShell 原生验收。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "full current text / logic review",
+      "input blob sha": "8bb42b4f5d1a73954af9f70cc7fbd82a72a71e90",
+      "input bytes": 11081
+    },
+    {
+      "path": "scripts/check-architecture.mjs",
+      "kind": "Reference Architecture",
+      "scope": "project",
+      "authority": "executable check / build helper",
+      "lifecycle": "active",
+      "current consumer": "npm check / CI",
+      "runtime dependency": false,
+      "ci consumer": [],
+      "incoming references": [
+        {
+          "path": "package.json",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "层依赖与 current→legacy 规则实测通过；保留护栏，不把测试豁免误报成生产依赖。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "full current text / logic review",
+      "input blob sha": "9e9beba8f537bc47c3b026cedba76ada30f86831",
+      "input bytes": 5064
+    },
+    {
+      "path": "scripts/check-narrative-library.mjs",
+      "kind": "Reference Architecture",
+      "scope": "project",
+      "authority": "executable check / build helper",
+      "lifecycle": "active",
+      "current consumer": "npm check / CI",
+      "runtime dependency": false,
+      "ci consumer": [],
+      "incoming references": [
+        {
+          "path": "PLAN.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/CHANGELOG.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "docs/历史资料/失落航标-v12/副本资料库/README.md",
+          "kind": "literal-path"
+        },
+        {
+          "path": "package.json",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": ["phase progress (candidate; scoped historical repetition can be valid)"],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "全仓链接检查有效；强制历史注册表/正史文字/旧源码路径成为 current dependency，G2 拆链接、现行和冻结历史校验。",
+      "recommended action": "REWRITE",
+      "implemented this round": false,
+      "read coverage": "full current text / logic review",
+      "input blob sha": "a7d77dda0a4ff06d0cfb86f410a82ecbe86a834c",
+      "input bytes": 15955
+    },
+    {
+      "path": "scripts/test-area.mjs",
+      "kind": "Reference Architecture",
+      "scope": "project",
+      "authority": "executable check / build helper",
+      "lifecycle": "active",
+      "current consumer": "npm test:area",
+      "runtime dependency": false,
+      "ci consumer": [],
+      "incoming references": [
+        {
+          "path": "package.json",
+          "kind": "literal-path"
+        }
+      ],
+      "duplicate facts": [],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "显式测试区域与登记漂移校验有效；共用 game-runtime 测试跨 current/legacy 合理，未证明需重写。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "full current text / logic review",
+      "input blob sha": "39e83df301fc2fea1539fb381259d83fef9b81b7",
+      "input bytes": 4640
+    },
+    {
+      "path": "src-tauri/scripts/generate-icons.mjs",
+      "kind": "Reference Architecture",
+      "scope": "project",
+      "authority": "executable check / build helper",
+      "lifecycle": "active",
+      "current consumer": "manual asset generation",
+      "runtime dependency": false,
+      "ci consumer": [],
+      "incoming references": [],
+      "duplicate facts": [],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "生成原生图标的明确工具用途；不在游戏状态推进链，本轮未生成或改素材。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "fdf98d8887221fcda3cf2c10e11d96b1a7892de5",
+      "input bytes": 3395
+    },
+    {
+      "path": "src-tauri/scripts/native-smoke.mjs",
+      "kind": "Reference Architecture",
+      "scope": "project",
+      "authority": "executable check / build helper",
+      "lifecycle": "active",
+      "current consumer": "manual native diagnostics",
+      "runtime dependency": false,
+      "ci consumer": [],
+      "incoming references": [],
+      "duplicate facts": [],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "只读原生数据摘要辅助脚本，不能声称完成窗口交互验收；本轮不读取玩家存档。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "9b4ab3c7acfc9f91d425c81fa9fbebc62b6e16f9",
+      "input bytes": 2932
+    },
+    {
+      "path": "src-tauri/scripts/native-window-state.ps1",
+      "kind": "Reference Architecture",
+      "scope": "project",
+      "authority": "executable check / build helper",
+      "lifecycle": "active",
+      "current consumer": "manual Windows diagnostics",
+      "runtime dependency": false,
+      "ci consumer": [],
+      "incoming references": [],
+      "duplicate facts": [],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "只读窗口可见/置顶状态辅助，旧/新标题兼容有明确理由；不是托盘操作自动验收。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "4f5d87b963ff1c1544b9845193a3f1466d6e5821",
+      "input bytes": 3608
+    },
+    {
+      "path": "scripts/windows-sdk-lock.json",
+      "kind": "Reference Architecture",
+      "scope": "project",
+      "authority": "executable check / build helper",
+      "lifecycle": "active",
+      "current consumer": "scripts/bootstrap.ps1",
+      "runtime dependency": false,
+      "ci consumer": [],
+      "incoming references": [],
+      "duplicate facts": [],
+      "historical value": "input blob 可恢复改前正文；独有证据按版本引用",
+      "reason to exist": "为 Windows bootstrap 固定下载版本/指纹；构建环境证据不能靠 Git 历史替代当前输入。",
+      "recommended action": "KEEP",
+      "implemented this round": false,
+      "read coverage": "whole-file status, section and reference scan; governance-focused reading; no literary/source-content revalidation",
+      "input blob sha": "b7503946c882f527d44121ad24eb46e8158f332f",
+      "input bytes": 424
+    }
+  ],
+  "new_deliverables": [
+    {
+      "path": "docs/README.md",
+      "kind": "Reference Architecture",
+      "authority": "navigation only",
+      "lifecycle": "active",
+      "reason": "task-to-responsibility map without copied progress"
+    },
+    {
+      "path": "docs/审计/2026-10-16-治理审计.md",
+      "kind": "Evidence + Decision",
+      "authority": "frozen audit of input commit",
+      "lifecycle": "frozen",
+      "reason": "traceable baseline, findings, research and verification limits"
+    },
+    {
+      "path": "docs/审计/2026-10-16-文件分类.json",
+      "kind": "Evidence",
+      "authority": "input-bound classification evidence, not live catalog",
+      "lifecycle": "frozen",
+      "reason": "complete per-file audit required by current task"
+    }
+  ],
+  "consumer_note": "current consumer 的角色描述是预期用途；可观测消费者以 ci consumer 和 incoming references 为准，不推定当前存在某个人工任务。",
+  "verification": {
+    "local_command": "npm run check",
+    "exit_code": 0,
+    "markdown_files_checked": 86,
+    "unit_files": 21,
+    "unit_tests": 281,
+    "source_or_workflow_changed": false,
+    "e2e": "not run locally: docs-only change",
+    "native": "not run locally",
+    "windows_live": "not run",
+    "human_playtest": "not run"
+  }
+}
