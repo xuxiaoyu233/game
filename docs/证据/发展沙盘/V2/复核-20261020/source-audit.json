@@ -1,0 +1,155 @@
+{
+  "changedManifest": {
+    "count": 14,
+    "mismatches": [],
+    "entries": [
+      {
+        "path": "d:/小游戏/next/civ-idle/src/scripts/art/sandbox-art-catalog.json",
+        "recorded": "db93d08fac9f4346fccadcf96e930ae52d784956d10790fa1b4b6e33038d1bee",
+        "actual": "db93d08fac9f4346fccadcf96e930ae52d784956d10790fa1b4b6e33038d1bee",
+        "matches": true
+      },
+      {
+        "path": "d:/小游戏/next/civ-idle/src/scripts/art/town-landscape.ts",
+        "recorded": "3093ff6cc4418d7b4d15cf1fc49dbacc8320cbd7995ccf9301099c2e6af391c2",
+        "actual": "3093ff6cc4418d7b4d15cf1fc49dbacc8320cbd7995ccf9301099c2e6af391c2",
+        "matches": true
+      },
+      {
+        "path": "d:/小游戏/next/civ-idle/src/scripts/art/camp-tile-art.ts",
+        "recorded": "752d807dd8263f81d124cc4cbf8d5a7da6ab243e36fea6aaf5ca6c34d07529ac",
+        "actual": "752d807dd8263f81d124cc4cbf8d5a7da6ab243e36fea6aaf5ca6c34d07529ac",
+        "matches": true
+      },
+      {
+        "path": "d:/小游戏/next/civ-idle/src/scripts/art/camp-assets.ts",
+        "recorded": "0d7d8a8fc10c814ab22ad9cd34715393d2f4922520b94a66c89186ce1f385157",
+        "actual": "0d7d8a8fc10c814ab22ad9cd34715393d2f4922520b94a66c89186ce1f385157",
+        "matches": true
+      },
+      {
+        "path": "d:/小游戏/next/civ-idle/src/scripts/scenes/WorldScene.ts",
+        "recorded": "94733ed0f75ce66d66b12329b1f0c6bc31d7c99c609ad0ac0f2e2a4185af3645",
+        "actual": "94733ed0f75ce66d66b12329b1f0c6bc31d7c99c609ad0ac0f2e2a4185af3645",
+        "matches": true
+      },
+      {
+        "path": "d:/小游戏/next/civ-idle/src/scripts/ui/sandbox/CampHud.tsx",
+        "recorded": "508374a6e787a1f8c24a54efb9110c037959b83a8c7a4904fedc7f13209ad312",
+        "actual": "508374a6e787a1f8c24a54efb9110c037959b83a8c7a4904fedc7f13209ad312",
+        "matches": true
+      },
+      {
+        "path": "d:/小游戏/next/civ-idle/src/scripts/ui/sandbox/CampTilePage.tsx",
+        "recorded": "c10213e1831a8e47f7d52ad3b9a01d4201e2591eab8bac4a41c6abf83bea55b1",
+        "actual": "c10213e1831a8e47f7d52ad3b9a01d4201e2591eab8bac4a41c6abf83bea55b1",
+        "matches": true
+      },
+      {
+        "path": "d:/小游戏/next/civ-idle/src/scripts/ui/sandbox/CampArtIcon.tsx",
+        "recorded": "974ab6953bc04c6fafe43923eee000cbadcf39b0e44beb35a3d913fc90488108",
+        "actual": "974ab6953bc04c6fafe43923eee000cbadcf39b0e44beb35a3d913fc90488108",
+        "matches": true
+      },
+      {
+        "path": "d:/小游戏/next/civ-idle/src/scripts/ui/sandbox/CampSkillsPage.tsx",
+        "recorded": "8f4ca428317b96f77c2d69ba027e5f7a9c87a9e9f02c334c11aa4a8131a9667c",
+        "actual": "8f4ca428317b96f77c2d69ba027e5f7a9c87a9e9f02c334c11aa4a8131a9667c",
+        "matches": true
+      },
+      {
+        "path": "d:/小游戏/next/civ-idle/shared/sandbox/camp-goals.ts",
+        "recorded": "e3dee8f7a3ac9c028dcaaafc0509b2f38003fec8470ebff4f621fc14346f4c78",
+        "actual": "e3dee8f7a3ac9c028dcaaafc0509b2f38003fec8470ebff4f621fc14346f4c78",
+        "matches": true
+      },
+      {
+        "path": "d:/小游戏/next/civ-idle/shared/logic/BuildingLogic.ts",
+        "recorded": "a3d44ac92f90e730b32a172d4c480a2949b35fa638eb619605f6e31d387e68d1",
+        "actual": "a3d44ac92f90e730b32a172d4c480a2949b35fa638eb619605f6e31d387e68d1",
+        "matches": true
+      },
+      {
+        "path": "d:/小游戏/next/civ-idle/src/css/camp-shell.css",
+        "recorded": "6fbb1e952054a324be587017d749163a3dd933ec29077fe271b2cae838d3a6fb",
+        "actual": "6fbb1e952054a324be587017d749163a3dd933ec29077fe271b2cae838d3a6fb",
+        "matches": true
+      },
+      {
+        "path": "d:/小游戏/next/civ-idle/src/css/sandbox-tokens.css",
+        "recorded": "3071647b4ff8ecf1387f04fcdbe18b828983ba9153223882929aceeef4d6ea3b",
+        "actual": "3071647b4ff8ecf1387f04fcdbe18b828983ba9153223882929aceeef4d6ea3b",
+        "matches": true
+      },
+      {
+        "path": "d:/小游戏/next/civ-idle/src/textures/sandbox/town-environment.png",
+        "recorded": "97c59fee184b3ef9a60b1869bd3a083d866dcb8b3ec2c9e1537febc6b5b72f99",
+        "actual": "97c59fee184b3ef9a60b1869bd3a083d866dcb8b3ec2c9e1537febc6b5b72f99",
+        "matches": true
+      }
+    ]
+  },
+  "inputManifest": {
+    "count": 30,
+    "unchanged": 21,
+    "changed": [
+      "d:/小游戏/next/civ-idle/src/scripts/art/sandbox-art-catalog.json",
+      "d:/小游戏/next/civ-idle/src/scripts/art/camp-tile-art.ts",
+      "d:/小游戏/next/civ-idle/src/scripts/art/town-landscape.ts",
+      "d:/小游戏/next/civ-idle/src/scripts/art/camp-assets.ts",
+      "d:/小游戏/next/civ-idle/src/scripts/scenes/WorldScene.ts",
+      "d:/小游戏/next/civ-idle/src/scripts/ui/sandbox/CampHud.tsx",
+      "d:/小游戏/next/civ-idle/src/scripts/ui/sandbox/CampTilePage.tsx",
+      "d:/小游戏/next/civ-idle/src/css/camp-shell.css",
+      "d:/小游戏/next/civ-idle/src/css/sandbox-tokens.css"
+    ]
+  },
+  "comparisonBaseline": "D1-C dedicated Sites source snapshot, not V2 start; only matching hashes establish unchanged content",
+  "sharedFiles": 102,
+  "sharedDelta": [
+    "shared/logic/BuildingLogic.ts",
+    "shared/sandbox/camp-goals.ts"
+  ],
+  "protectedComparison": [
+    {
+      "path": "src/scripts/Global.tsx",
+      "baselineExists": true,
+      "matches": true
+    },
+    {
+      "path": "src/scripts/Bootstrap.tsx",
+      "baselineExists": true,
+      "matches": true
+    },
+    {
+      "path": "src/scripts/logic/ClientUpdate.tsx",
+      "baselineExists": true,
+      "matches": true
+    },
+    {
+      "path": "src/scripts/utilities/BrowserStorage.ts",
+      "baselineExists": true,
+      "matches": true
+    },
+    {
+      "path": "src/scripts/sandbox/camp-commands.ts",
+      "baselineExists": true,
+      "matches": false
+    },
+    {
+      "path": "package.json",
+      "baselineExists": true,
+      "matches": false
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "baselineExists": true,
+      "matches": true
+    },
+    {
+      "path": "tsconfig.json",
+      "baselineExists": true,
+      "matches": true
+    }
+  ]
+}

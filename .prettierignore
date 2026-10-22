@@ -1,0 +1,17 @@
+node_modules/
+dist/
+dist-desktop/
+artifacts/
+coverage/
+.cache/
+next/profectus/
+// D0-R: 新底座 next/civ-idle 不进入根 prettier 检查/写入范围（该工程用 biome 自管格式）。
+next/civ-idle/
+.tools/
+.local-data/
+src-tauri/target/
+src-tauri/gen/
+src-tauri/Cargo.lock
+package-lock.json
+*.rs
+.codebuddy/

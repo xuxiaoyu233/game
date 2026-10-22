@@ -1,0 +1,23 @@
+S1 build clicked: true
+S1 hut completed: true
+S1 before reload: tick=25 savedAt=1792240750282
+S1 after reload: tick=29 (delta 4) buildings=["Hut:completed"]
+S2 valid save bytes: 119651
+S2 SaveCorruptedPage shown: true
+S2 raw preserved after hidden event: true
+S2 after close/reopen: corrupted page=true, raw preserved=true
+S3 SaveCorruptedPage shown for missing HQ: true
+S3 raw preserved after hidden: true
+S4 incompatible page: true; recovery actions present: true
+S4 raw preserved after hidden: true
+S5 before injection: tick=6 savedAt=1792240797413 snapshotBytes=119621
+S5 after injected failure: snapshotUnchanged=true savedAtUnchanged=true memoryTickAdvanced=6 saveFailedToast=true
+S5 after recovery save: snapshotUpdated=true savedAtUpdated=true
+S6 short offline: tick 6 -> 40 (delta 34, expect ~30); summary modal shown: false (expect false)
+S6 after reload: tick 40 -> 44 (delta 4, expect ~1, no repeat catch-up)
+S7 background: leaving at tick=6, real wait 20s while hidden (tick frozen)...
+S7 resume catch-up: hidden tick=6 -> resumed tick=33 (delta 27, expect ~20)
+S7 after reload: tick 33 -> 38 (delta 5, expect ~1)
+S8 resources: ["粮食 —","木材 —","石材 —","板材 —"]
+S8 credits summary correct: true; ore not attributed to Lorc: true
+S9 external requests across all scenarios: (none)

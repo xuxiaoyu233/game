@@ -1,0 +1,25 @@
+F1a before hide: tick=124 memAt-diskAt=1000ms
+PASS: F1a failed hide keeps disk boundary unchanged
+F1a resume: tick 124 -> 131 (delta 7, expect ~2-4, not ~122)
+PASS: F1a no replay of 120 online ticks (delta 7)
+PASS: F1a ready after successful resume commit
+F1b catch-up with commit failure: tick 2 -> 15 (delta 13); lifecycle=failed
+PASS: F1b catch-up consumed ~10s (delta 13)
+PASS: F1b lifecycle is failed after commit failure
+PASS: F1b retry modal shown
+PASS: F1b ready after retry commit
+F1b second resume: tick 17 -> 24 (delta 7, expect ~2-4)
+PASS: F1b second resume only counts new time (delta 7)
+F1b total delta for 12s hidden: 22 (expect ~12-18, not ~22)
+PASS: F1b total consumption sane (22; 12s hidden + real wait)
+PASS: F2a normal tick blocked during recovery (146->146)
+PASS: F2a not ready during recovery
+F2a after recovery: tick=14402 ready=true
+PASS: F2a ready after 4h catch-up commit
+PASS: F2a recovering overlay removed after finish
+F2b commit-failed page: true; retry action: true; game UI started: false
+PASS: F2b shows commit-failed page on first-commit failure
+PASS: F2b offers explicit retry
+PASS: F2b does not start the game/ticker after failure
+external requests: (none)
+PASS: no external requests

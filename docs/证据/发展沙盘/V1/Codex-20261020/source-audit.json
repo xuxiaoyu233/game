@@ -1,0 +1,40 @@
+{
+  "baselineFiles": 380,
+  "changedBaselineFiles": [
+    "src/scripts/main.tsx",
+    "src/scripts/Route.ts",
+    "src/scripts/art/camp-assets.ts",
+    "src/scripts/art/camp-tile-art.ts",
+    "src/scripts/art/sandbox-art-catalog.json",
+    "src/scripts/sandbox/camp-commands.ts",
+    "src/scripts/scenes/TileVisual.ts",
+    "src/scripts/scenes/WorldScene.ts",
+    "src/scripts/ui/sandbox/CampHud.tsx",
+    "src/scripts/ui/sandbox/CampPopulationPage.tsx",
+    "src/scripts/ui/sandbox/CampResearchPage.tsx",
+    "src/scripts/ui/sandbox/CampSettingsPage.tsx",
+    "src/scripts/ui/sandbox/CampSkillsPage.tsx",
+    "src/scripts/ui/sandbox/CampTilePage.tsx",
+    "src/scripts/utilities/Camera.ts",
+    "src/css/camp-shell.css",
+    "assets-source/SOURCES.md"
+  ],
+  "unchangedShared": 101,
+  "sharedChanges": [],
+  "protectionUnchanged": {
+    "src/scripts/Global.tsx": true,
+    "src/scripts/Bootstrap.tsx": true,
+    "src/scripts/logic/ClientUpdate.tsx": true,
+    "src/scripts/utilities/BrowserStorage.ts": true
+  },
+  "catalog": {
+    "total": 66,
+    "atlasFrames": 50,
+    "townAssets": 15,
+    "hashFailures": []
+  },
+  "newCodeFiles": [
+    "src/scripts/art/town-landscape.ts",
+    "src/scripts/art/town-scene-layout.ts"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "statement": "用户已确定长期保留进度，又要求肉鸽式爽感时，应先区分随机选择、组合联动和收益跃迁与短局重置、副本、清图。先在已确定的长期结构中比较可行组合，不用类型标签替代产品约束。",
+  "scope": "已有长期建设或放置产品中的玩法重规划；不适用于用户明确要求每局重开的任务",
+  "category": "workflow",
+  "tags": ["game-design", "requirements", "persistent-progression", "scope"],
+  "evidence": [
+    {
+      "source_kind": "user-feedback",
+      "source_reference": "D:/小游戏 当前会话 2026-10-20；docs/设计/长期发展与休闲组合规格.md 第1节",
+      "context": "用户认为当前框架过大并希望休闲肉鸽爽感，助手建议短局后，用户明确撤回该方向；本轮只完成长期发展规划，尚未实现或试玩。",
+      "quote": "我们不要短局经验，要长期的，现在不要副本了，就是一个发展为主"
+    },
+    {
+      "source_kind": "assistant-proposal",
+      "source_reference": "D:/小游戏/docs/设计/长期发展与休闲组合规格.md 第3、4节",
+      "context": "推荐在同一小镇使用有限发展选择、设施联动和真实成长反馈；这是方案，不是已证明有趣的结果。"
+    }
+  ],
+  "outcome": "已修订本地规划和CodeBuddy交接；组合乐趣与长期节奏 not-established。此文件是候选输入，未运行维护库capture，未写入正式Skill或记忆。",
+  "counterexamples": [
+    "用户明确希望短局、赛季重置或副本时，应按其要求比较；长期建设并不自动优于短局。"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-20",
+  "scope": "Desktop ChatGPT Site UI design only; not integrated or deployed",
+  "generation": "built-in image_gen; second image edited from first; original game art preserved",
+  "images": [
+    {
+      "file": "village-concept.png",
+      "role": "visual-concept-reference-only",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "90f19b8ff517e5b7b1afdf1e8cb0157c870bfd32160dea086def98dbb5915822",
+      "bytes": 3557665
+    },
+    {
+      "file": "environment-empty.png",
+      "role": "building-free-environment-candidate",
+      "dimensions": [
+        1586,
+        992
+      ],
+      "sha256": "d5fc848acda18c54cdac49a17d936f0b1f000b8f9d20175832b56d51a0697288",
+      "bytes": 3293198
+    }
+  ],
+  "prompts": [
+    "scene-prompt.txt",
+    "environment-prompt.txt"
+  ]
+}

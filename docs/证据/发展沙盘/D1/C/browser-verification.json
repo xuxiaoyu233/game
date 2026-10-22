@@ -1,0 +1,160 @@
+{
+  "scope": "isolated Edge contexts; real UI commands for build/research/promote/upgrade; explicitly labeled accelerated native ticks for the level grind; synthetic preconditions for era-ready stock and offline clocks; not human balance or Windows acceptance",
+  "checks": [
+    {
+      "name": "new d1-c-1 save opens as pioneer with an executable first goal",
+      "evidence": {
+        "content": "d1-c-1",
+        "goalTitle": "下一步：先建农田",
+        "goalButton": "准备建设农田"
+      }
+    },
+    {
+      "name": "F1: goal navigation focuses the empty plot with a plan hint and places no order",
+      "evidence": {
+        "buildings": [
+          "Headquarter"
+        ]
+      }
+    },
+    {
+      "name": "real early mainline reaches farm, logging camp and quarry with 1-star ranks",
+      "evidence": {
+        "tick": 46,
+        "ranks": [
+          "StoneQuarry:1",
+          "LoggingCamp:1",
+          "Headquarter:undefined",
+          "WheatFarm:1"
+        ]
+      }
+    },
+    {
+      "name": "F2: with wood missing and storage nearly full the only state is 等待原料 on card, HUD and strip",
+      "evidence": {
+        "statusText": "正在专注：手工锯板等待原料（缺木材） · 3/6 秒补足原料后自动继续，未完成进度保留；暂不给出确定倒计时。切换或停止将放弃当前未完成的 3/6 秒进度；已获得的材料与经验保留。停止训练",
+        "hudText": "木工 Lv1 · 手工锯板 等待原料研究 1/6"
+      }
+    },
+    {
+      "name": "F2: the gather card reads the single content table instead of a copy",
+      "evidence": {
+        "reward": 1,
+        "table": 1
+      }
+    },
+    {
+      "name": "six research cards are grouped by era and state their licence effect",
+      "evidence": {
+        "researchCards": 6
+      }
+    },
+    {
+      "name": "F3: camp-to-camp navigation keeps a plan hint and returns to the exact source tile",
+      "evidence": {
+        "goalTitleText": "下一步：口粮储备下降",
+        "goalLabel": "准备建设厨房",
+        "planned": "厨房",
+        "sourceTile": 1507350,
+        "restored": 1507350
+      }
+    },
+    {
+      "name": "F4: the footer action names the concrete step and no longer stretches full width",
+      "evidence": {
+        "label": "前往空地开拓相邻土地",
+        "width": 166
+      }
+    },
+    {
+      "name": "F4: the narrow layout keeps the save/command status visible",
+      "evidence": {
+        "narrowStatus": "营地已保存",
+        "statusVisible": true,
+        "height": 14
+      }
+    },
+    {
+      "name": "workshop era is entered by the player once, with no currency, timer or auto-promotion",
+      "evidence": {
+        "era": "workshop",
+        "buildings": [
+          "StoneQuarry:1:1",
+          "LumberMill:1:1",
+          "Warehouse:5:1",
+          "LoggingCamp:1:1",
+          "Headquarter:1:undefined",
+          "WheatFarm:5:1"
+        ]
+      }
+    },
+    {
+      "name": "three workshop permits are researched and change no output by themselves",
+      "evidence": {
+        "before": 1.25,
+        "after": 1.25
+      }
+    },
+    {
+      "name": "local promotion keeps Lv10 and applies the additive 1.45 output multiplier once",
+      "evidence": {
+        "outputBefore": 2.5,
+        "outputAfter": 2.9,
+        "repeat": "该设施已是2星。"
+      }
+    },
+    {
+      "name": "warehouse promotion adds 100 per completed level on top of the untouched HQ base",
+      "evidence": {
+        "storageBefore": 2200,
+        "storageAfter": 3200
+      }
+    },
+    {
+      "name": "2-star building reaches Lv20 while a 1-star building still caps at Lv10",
+      "evidence": {
+        "farmLevel": 20,
+        "blocked": "当前可升级至Lv10；请先补齐基础木石链、研究前置并恢复设施。"
+      }
+    },
+    {
+      "name": "save/reload preserves era, local rank, Lv20 and the running training",
+      "evidence": {
+        "era": "workshop",
+        "rank": 2,
+        "level": 20
+      }
+    },
+    {
+      "name": "short offline catch-up shows a read-only summary and is not settled twice",
+      "evidence": {
+        "modal": "离线回访摘要离开时长02:01有效推进时长上限 4 小时，超额部分不结算、不转加速02:01项目离线前现在原粮 · 可用",
+        "wheatBefore": 1296.1099999999976,
+        "wheatAfter": 1307.7099999999975
+      }
+    },
+    {
+      "name": "five hours away is capped at four, reports the overflow and adds no Time Warp",
+      "evidence": {
+        "petraBefore": null
+      }
+    },
+    {
+      "name": "960x720 and 420x600 stay stable, tabs are keyboard reachable",
+      "evidence": {
+        "focused": "camp-tab-research",
+        "overflowX": 0
+      }
+    },
+    {
+      "name": "no page errors, external requests or failing HTTP responses",
+      "evidence": {
+        "external": 0,
+        "httpFailures": 0
+      }
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "httpFailures": []
+}

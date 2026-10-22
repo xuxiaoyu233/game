@@ -1,0 +1,42 @@
+{
+  "archivedOn": "2026-10-19",
+  "scope": "root skill prototype only",
+  "transformations": [
+    "history notice",
+    "relative Markdown links rebased; same-library links remain within archive"
+  ],
+  "files": [
+    {
+      "original": "docs/内容资料库/README.md",
+      "archived": "docs/历史资料/技能原型内容库-20261016/README.md",
+      "originalBytes": 6520,
+      "originalSha256": "0e4d1811cbf0deb561a029fbb78b66f33828f428666ef63da9044deb15b704db",
+      "archivedSha256": "bd91329a10517d82406da388d5d8c2edfbc4f1664a4d9e054f1fe67ffeebd6c5",
+      "backupVerified": true
+    },
+    {
+      "original": "docs/内容资料库/类目与命名台账.md",
+      "archived": "docs/历史资料/技能原型内容库-20261016/类目与命名台账.md",
+      "originalBytes": 16209,
+      "originalSha256": "3a6afbfb41dd6d195e98ba5326d7950746c6f13cf7601227064142e1d8b25342",
+      "archivedSha256": "51e824bdbd5af3d9aa2443ea1b337a264059979e749e28f145c00e5243741e27",
+      "backupVerified": true
+    },
+    {
+      "original": "docs/内容资料库/资源与生产链.md",
+      "archived": "docs/历史资料/技能原型内容库-20261016/资源与生产链.md",
+      "originalBytes": 32946,
+      "originalSha256": "b6ea3e8c61d08bddaa5ce200a943a8c23109ddfe5077e12d76e86b373f5f0623",
+      "archivedSha256": "11ceffb48607ab400b36120fe6e36c3515bcf613034871c4a62347ca8f718c19",
+      "backupVerified": true
+    },
+    {
+      "original": "docs/内容资料库/成长与科技.md",
+      "archived": "docs/历史资料/技能原型内容库-20261016/成长与科技.md",
+      "originalBytes": 21544,
+      "originalSha256": "6e49cd20c76a65a20527840b342440f67267f9e044d7d76f6a9e533e09d2f07d",
+      "archivedSha256": "d1daf8cd2de82e1b3c9065937e83581d946a800fe25f4e7fd4e0c8f71785e721",
+      "backupVerified": true
+    }
+  ]
+}

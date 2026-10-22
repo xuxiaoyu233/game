@@ -1,0 +1,276 @@
+{
+  "node": "v24.21.0",
+  "browser": "Edge headless / SwiftShader",
+  "origin": "http://127.0.0.1:1429",
+  "scope": "isolated browser contexts; real UI main flow, targeted injected failure probes; not Windows native or balancing acceptance",
+  "checks": [
+    {
+      "name": "new camp: one HQ, six starter slots, initial materials",
+      "evidence": {
+        "tick": 0,
+        "progress": {
+          "schemaVersion": 2,
+          "contentVersion": "d1-a-2",
+          "manualGatherReadyTick": 0,
+          "offlineRemainderSeconds": 0
+        },
+        "hq": {
+          "Wood": 30,
+          "Stone": 20
+        },
+        "farm": null,
+        "explored": 7,
+        "buildings": 1
+      }
+    },
+    {
+      "name": "rapid refresh does not mint simulation seconds or clear assistance cooldown",
+      "evidence": {
+        "wallMs": 4921,
+        "ticks": 5,
+        "readyTick": 10,
+        "currentTick": 6
+      }
+    },
+    {
+      "name": "UI gather + reload retains shared cooldown; parallel repeat/resource switch rejected",
+      "evidence": {
+        "cooldown": 10,
+        "denied": [
+          {
+            "ok": false,
+            "message": "再等 4 秒即可协助。"
+          },
+          {
+            "ok": false,
+            "message": "再等 4 秒即可协助。"
+          }
+        ]
+      }
+    },
+    {
+      "name": "native transport/construction pays exactly 10 Wood; native automatic grain",
+      "evidence": {
+        "waitMs": 14611,
+        "state": {
+          "tick": 21,
+          "progress": {
+            "schemaVersion": 2,
+            "contentVersion": "d1-a-2",
+            "manualGatherReadyTick": 10,
+            "offlineRemainderSeconds": 0.5230000000000001
+          },
+          "hq": {
+            "Wood": 21,
+            "Stone": 20
+          },
+          "farm": {
+            "tile": 1507350,
+            "level": 1,
+            "desiredLevel": 1,
+            "resources": {
+              "Wheat": 0.6000000000000001
+            },
+            "status": "completed",
+            "capacity": 1,
+            "stockpileCapacity": 1,
+            "stockpileMax": 5,
+            "options": 0,
+            "electrification": 0,
+            "suspendedInput": {},
+            "inputMode": 0,
+            "maxInputDistance": null,
+            "productionPriority": 1,
+            "constructionPriority": 1,
+            "type": "WheatFarm"
+          },
+          "explored": 7,
+          "buildings": 2
+        }
+      }
+    },
+    {
+      "name": "grain assistance and automatic grain persist separately through reload",
+      "evidence": {
+        "before": {
+          "tick": 21,
+          "progress": {
+            "schemaVersion": 2,
+            "contentVersion": "d1-a-2",
+            "manualGatherReadyTick": 31,
+            "offlineRemainderSeconds": 0.5230000000000001
+          },
+          "hq": {
+            "Wood": 21,
+            "Stone": 20,
+            "Wheat": 1
+          },
+          "farm": {
+            "tile": 1507350,
+            "level": 1,
+            "desiredLevel": 1,
+            "resources": {
+              "Wheat": 0.6000000000000001
+            },
+            "status": "completed",
+            "capacity": 1,
+            "stockpileCapacity": 1,
+            "stockpileMax": 5,
+            "options": 0,
+            "electrification": 0,
+            "suspendedInput": {},
+            "inputMode": 0,
+            "maxInputDistance": null,
+            "productionPriority": 1,
+            "constructionPriority": 1,
+            "type": "WheatFarm"
+          },
+          "explored": 7,
+          "buildings": 2
+        },
+        "after": {
+          "tick": 23,
+          "progress": {
+            "schemaVersion": 2,
+            "contentVersion": "d1-a-2",
+            "manualGatherReadyTick": 31,
+            "offlineRemainderSeconds": 0.18700000000000028
+          },
+          "hq": {
+            "Wood": 21,
+            "Stone": 20,
+            "Wheat": 1
+          },
+          "farm": {
+            "tile": 1507350,
+            "level": 1,
+            "desiredLevel": 1,
+            "resources": {
+              "Wheat": 0.8
+            },
+            "status": "completed",
+            "capacity": 1,
+            "stockpileCapacity": 1,
+            "stockpileMax": 5,
+            "options": 0,
+            "electrification": 0,
+            "suspendedInput": {},
+            "inputMode": 0,
+            "maxInputDistance": null,
+            "productionPriority": 1,
+            "constructionPriority": 1,
+            "type": "WheatFarm"
+          },
+          "explored": 7,
+          "buildings": 2
+        }
+      }
+    },
+    {
+      "name": "controlled guards/capacity/recovery and atomic failure preserve paired memory/disk",
+      "evidence": {
+        "guards": [
+          {
+            "ok": false,
+            "message": "当前可在空地建设一座农田。"
+          },
+          {
+            "ok": false,
+            "message": "当前可在空地建设一座农田。"
+          },
+          {
+            "ok": false,
+            "message": "请选择对应资源位或已建成的农田。"
+          },
+          {
+            "ok": false,
+            "message": "这里还不能操作。"
+          }
+        ],
+        "full": {
+          "ok": false,
+          "message": "营地仓储不足，本次没有采集。"
+        },
+        "fullUnchanged": true,
+        "recovering": {
+          "ok": false,
+          "message": "正在加载或恢复，请稍候。"
+        },
+        "failure": {
+          "result": {
+            "ok": true,
+            "message": "+1 木材；保存未成功，内存进度已保留。",
+            "saved": false
+          },
+          "woodBefore": 21,
+          "woodAfter": 22,
+          "ready": 33,
+          "tick": 23,
+          "diskUnchanged": true,
+          "timeUnchanged": true
+        }
+      }
+    },
+    {
+      "name": "420x600 select/gather/build entry accessible, no horizontal overflow",
+      "evidence": {
+        "tick": 0,
+        "progress": {
+          "schemaVersion": 2,
+          "contentVersion": "d1-a-2",
+          "manualGatherReadyTick": 10,
+          "offlineRemainderSeconds": 0
+        },
+        "hq": {
+          "Wood": 31,
+          "Stone": 20
+        },
+        "farm": null,
+        "explored": 7,
+        "buildings": 1
+      }
+    },
+    {
+      "name": "explicit A1 to A2 clock-format migration preserves identity and resources",
+      "evidence": {
+        "progress": {
+          "schemaVersion": 2,
+          "contentVersion": "d1-a-2",
+          "manualGatherReadyTick": 0,
+          "offlineRemainderSeconds": 0.22599999999999998
+        },
+        "wood": 30
+      }
+    },
+    {
+      "name": "legacy fixture rejected and original bytes/time retained",
+      "evidence": {
+        "ready": false,
+        "text": "营地存档需要处理\n\n这是此前的 CivIdle 样机存档。请先导出备份，再明确选择新建营地；原存档尚未改写。\n\nYou can:\n- Export the raw save data (for inspection or backup)\n- Retry loading the game\n- Start a new game (deletes the exis"
+      }
+    },
+    {
+      "name": "future fixture rejected and original bytes/time retained",
+      "evidence": {
+        "ready": false,
+        "text": "营地存档需要处理\n\n存档的营地格式或内容版本不兼容，原数据已保留。请导出备份或重试。\n\nYou can:\n- Export the raw save data (for inspection or backup)\n- Retry loading the game\n- Start a new game (deletes the existing save)"
+      }
+    },
+    {
+      "name": "bad-cooldown fixture rejected and original bytes/time retained",
+      "evidence": {
+        "ready": false,
+        "text": "营地存档需要处理\n\n营地时间或地图结构损坏，原数据已保留。\n\nYou can:\n- Export the raw save data (for inspection or backup)\n- Retry loading the game\n- Start a new game (deletes the existing save)"
+      }
+    },
+    {
+      "name": "bad-json fixture rejected and original bytes/time retained",
+      "evidence": {
+        "ready": false,
+        "text": "Save File Corrupted\nThe save file exists but could not be parsed. Your existing data is left untouched.\nYou can:\n- Export the raw save data (for inspection or backup)\n- Retry loadi"
+      }
+    }
+  ],
+  "errors": [],
+  "external": []
+}

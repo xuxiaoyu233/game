@@ -1,0 +1,8 @@
+[preview] badge="只读外观预览"
+[preview] scene: {"ok":true,"naturalWidth":2024,"naturalHeight":777,"backgroundSize":"cover"}
+[preview] resources: ["粮食 —","木材 —","石材 —","板材 —","矿石 —"]
+[preview] era: "开拓 · 外观预览" -> "工坊 · 外观预览"; overlay bronze: true
+[preview] toast: "「建造」为外观预览：未接入游戏，无实际效果"
+[preview] indexedDB databases: []
+[preview] 420px horizontal overflow px: 0
+[preview] total requests: 16; external: (none); failed: (none)

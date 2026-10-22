@@ -1,0 +1,598 @@
+{
+  "assetHashesVerified": 49,
+  "recipeCount": 25,
+  "externalRequests": [],
+  "pageErrors": [],
+  "failedRequests": [],
+  "gameStarted": false,
+  "images": [
+    {
+      "key": "world.terrain-grass",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.farm-plot",
+      "width": 56,
+      "height": 49
+    },
+    {
+      "key": "world.terrain-grass",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.farm-plot",
+      "width": 56,
+      "height": 49
+    },
+    {
+      "key": "world.farm-plot-empty",
+      "width": 60,
+      "height": 44
+    },
+    {
+      "key": "world.fence",
+      "width": 22,
+      "height": 32
+    },
+    {
+      "key": "world.terrain-stone-border",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.farm-plot",
+      "width": 56,
+      "height": 49
+    },
+    {
+      "key": "world.barn",
+      "width": 50,
+      "height": 56
+    },
+    {
+      "key": "world.terrain-stone-border",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.farm-plot",
+      "width": 56,
+      "height": 49
+    },
+    {
+      "key": "world.farm-plot-empty",
+      "width": 60,
+      "height": 44
+    },
+    {
+      "key": "world.fence",
+      "width": 22,
+      "height": 32
+    },
+    {
+      "key": "world.barn",
+      "width": 50,
+      "height": 56
+    },
+    {
+      "key": "world.terrain-stone-border",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.farm-plot",
+      "width": 56,
+      "height": 49
+    },
+    {
+      "key": "world.farm-plot-empty",
+      "width": 60,
+      "height": 44
+    },
+    {
+      "key": "world.fence",
+      "width": 22,
+      "height": 32
+    },
+    {
+      "key": "world.barn",
+      "width": 50,
+      "height": 56
+    },
+    {
+      "key": "world.pallet-full",
+      "width": 26,
+      "height": 30
+    },
+    {
+      "key": "world.terrain-grass",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.tree-large",
+      "width": 26,
+      "height": 40
+    },
+    {
+      "key": "world.tree-small",
+      "width": 20,
+      "height": 30
+    },
+    {
+      "key": "world.log-pile",
+      "width": 36,
+      "height": 32
+    },
+    {
+      "key": "world.terrain-grass",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.tree-large",
+      "width": 26,
+      "height": 40
+    },
+    {
+      "key": "world.tree-small",
+      "width": 20,
+      "height": 30
+    },
+    {
+      "key": "world.log-pile",
+      "width": 36,
+      "height": 32
+    },
+    {
+      "key": "world.shed-open",
+      "width": 54,
+      "height": 64
+    },
+    {
+      "key": "world.terrain-stone-border",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.tree-large",
+      "width": 26,
+      "height": 40
+    },
+    {
+      "key": "world.tree-small",
+      "width": 20,
+      "height": 30
+    },
+    {
+      "key": "world.log-pile",
+      "width": 36,
+      "height": 32
+    },
+    {
+      "key": "world.pallet",
+      "width": 26,
+      "height": 24
+    },
+    {
+      "key": "world.terrain-stone-border",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.tree-large",
+      "width": 26,
+      "height": 40
+    },
+    {
+      "key": "world.tree-small",
+      "width": 20,
+      "height": 30
+    },
+    {
+      "key": "world.log-pile",
+      "width": 36,
+      "height": 32
+    },
+    {
+      "key": "world.shed-open",
+      "width": 54,
+      "height": 64
+    },
+    {
+      "key": "world.pallet",
+      "width": 26,
+      "height": 24
+    },
+    {
+      "key": "world.terrain-stone-border",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.tree-large",
+      "width": 26,
+      "height": 40
+    },
+    {
+      "key": "world.tree-small",
+      "width": 20,
+      "height": 30
+    },
+    {
+      "key": "world.log-pile",
+      "width": 36,
+      "height": 32
+    },
+    {
+      "key": "world.shed-open",
+      "width": 54,
+      "height": 64
+    },
+    {
+      "key": "world.pallet",
+      "width": 26,
+      "height": 24
+    },
+    {
+      "key": "world.log",
+      "width": 28,
+      "height": 21
+    },
+    {
+      "key": "world.fence",
+      "width": 22,
+      "height": 32
+    },
+    {
+      "key": "world.terrain-grass",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.rock-large",
+      "width": 74,
+      "height": 92
+    },
+    {
+      "key": "world.rock-small",
+      "width": 32,
+      "height": 26
+    },
+    {
+      "key": "world.terrain-grass",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.rock-large",
+      "width": 74,
+      "height": 92
+    },
+    {
+      "key": "world.rock-small",
+      "width": 32,
+      "height": 26
+    },
+    {
+      "key": "world.mine-cart",
+      "width": 44,
+      "height": 55
+    },
+    {
+      "key": "world.terrain-stone-border",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.rock-large",
+      "width": 74,
+      "height": 92
+    },
+    {
+      "key": "world.rock-small",
+      "width": 32,
+      "height": 26
+    },
+    {
+      "key": "world.rock-medium",
+      "width": 40,
+      "height": 51
+    },
+    {
+      "key": "world.terrain-stone-border",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.rock-large",
+      "width": 74,
+      "height": 92
+    },
+    {
+      "key": "world.rock-small",
+      "width": 32,
+      "height": 26
+    },
+    {
+      "key": "world.mine-cart",
+      "width": 44,
+      "height": 55
+    },
+    {
+      "key": "world.rock-medium",
+      "width": 40,
+      "height": 51
+    },
+    {
+      "key": "world.terrain-stone-border",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.rock-large",
+      "width": 74,
+      "height": 92
+    },
+    {
+      "key": "world.rock-small",
+      "width": 32,
+      "height": 26
+    },
+    {
+      "key": "world.mine-cart",
+      "width": 44,
+      "height": 55
+    },
+    {
+      "key": "world.rock-medium",
+      "width": 40,
+      "height": 51
+    },
+    {
+      "key": "world.shed-lodge",
+      "width": 46,
+      "height": 70
+    },
+    {
+      "key": "world.terrain-grass",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.shed-open",
+      "width": 54,
+      "height": 64
+    },
+    {
+      "key": "world.log-pile",
+      "width": 36,
+      "height": 32
+    },
+    {
+      "key": "world.pallet",
+      "width": 26,
+      "height": 24
+    },
+    {
+      "key": "world.terrain-grass",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.shed-open",
+      "width": 54,
+      "height": 64
+    },
+    {
+      "key": "world.log-pile",
+      "width": 36,
+      "height": 32
+    },
+    {
+      "key": "world.pallet",
+      "width": 26,
+      "height": 24
+    },
+    {
+      "key": "world.pallet-full",
+      "width": 26,
+      "height": 30
+    },
+    {
+      "key": "world.terrain-stone-border",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.shed-workshop",
+      "width": 48,
+      "height": 56
+    },
+    {
+      "key": "world.log-pile",
+      "width": 36,
+      "height": 32
+    },
+    {
+      "key": "world.pallet",
+      "width": 26,
+      "height": 24
+    },
+    {
+      "key": "world.terrain-stone-border",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.shed-workshop",
+      "width": 48,
+      "height": 56
+    },
+    {
+      "key": "world.log-pile",
+      "width": 36,
+      "height": 32
+    },
+    {
+      "key": "world.pallet",
+      "width": 26,
+      "height": 24
+    },
+    {
+      "key": "world.pallet-full",
+      "width": 26,
+      "height": 30
+    },
+    {
+      "key": "world.terrain-stone-border",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.shed-workshop",
+      "width": 48,
+      "height": 56
+    },
+    {
+      "key": "world.log-pile",
+      "width": 36,
+      "height": 32
+    },
+    {
+      "key": "world.pallet",
+      "width": 26,
+      "height": 24
+    },
+    {
+      "key": "world.pallet-full",
+      "width": 26,
+      "height": 30
+    },
+    {
+      "key": "world.shed-lodge",
+      "width": 46,
+      "height": 70
+    },
+    {
+      "key": "world.terrain-grass",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.box-one",
+      "width": 18,
+      "height": 23
+    },
+    {
+      "key": "world.pallet-full",
+      "width": 26,
+      "height": 30
+    },
+    {
+      "key": "world.terrain-grass",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.shed-open",
+      "width": 54,
+      "height": 64
+    },
+    {
+      "key": "world.box-one",
+      "width": 18,
+      "height": 23
+    },
+    {
+      "key": "world.pallet-full",
+      "width": 26,
+      "height": 30
+    },
+    {
+      "key": "world.terrain-stone-border",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.box-one",
+      "width": 18,
+      "height": 23
+    },
+    {
+      "key": "world.pallet-full",
+      "width": 26,
+      "height": 30
+    },
+    {
+      "key": "world.box-two",
+      "width": 18,
+      "height": 22
+    },
+    {
+      "key": "world.terrain-stone-border",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.shed-warehouse",
+      "width": 60,
+      "height": 66
+    },
+    {
+      "key": "world.box-one",
+      "width": 18,
+      "height": 23
+    },
+    {
+      "key": "world.pallet-full",
+      "width": 26,
+      "height": 30
+    },
+    {
+      "key": "world.box-two",
+      "width": 18,
+      "height": 22
+    },
+    {
+      "key": "world.terrain-stone-border",
+      "width": 120,
+      "height": 140
+    },
+    {
+      "key": "world.shed-warehouse",
+      "width": 60,
+      "height": 66
+    },
+    {
+      "key": "world.box-one",
+      "width": 18,
+      "height": 23
+    },
+    {
+      "key": "world.pallet-full",
+      "width": 26,
+      "height": 30
+    },
+    {
+      "key": "world.box-two",
+      "width": 18,
+      "height": 22
+    },
+    {
+      "key": "world.fence",
+      "width": 22,
+      "height": 32
+    },
+    {
+      "key": "world.pallet",
+      "width": 26,
+      "height": 24
+    }
+  ],
+  "viewportWidth": 1340,
+  "documentWidth": 1340,
+  "screenshot": "素材组合总览.png"
+}

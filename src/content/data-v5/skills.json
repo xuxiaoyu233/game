@@ -1,0 +1,93 @@
+[
+  {
+    "id": "mining",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 16 },
+      { "level": 3, "xpRequired": 44 }
+    ]
+  },
+  {
+    "id": "metalworking",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 10 },
+      { "level": 3, "xpRequired": 30 },
+      { "level": 4, "xpRequired": 70 }
+    ]
+  },
+  {
+    "id": "woodcutting",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 12 }
+    ]
+  },
+  {
+    "id": "fishing",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 14 }
+    ]
+  },
+  {
+    "id": "firemaking",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 18 }
+    ]
+  },
+  {
+    "id": "cooking",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 20 }
+    ]
+  },
+  {
+    "id": "crafting",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 24 }
+    ]
+  },
+  {
+    "id": "herbalism",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 14 }
+    ]
+  },
+  {
+    "id": "herblore",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 20 },
+      { "level": 3, "xpRequired": 48 }
+    ]
+  },
+  {
+    "id": "farming",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 18 },
+      { "level": 3, "xpRequired": 42 }
+    ]
+  },
+  {
+    "id": "agility",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 22, "effect": { "globalSpeedBonusPermille": 1030 } },
+      { "level": 3, "xpRequired": 52, "effect": { "globalSpeedBonusPermille": 1060 } }
+    ]
+  },
+  {
+    "id": "thieving",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 16 },
+      { "level": 3, "xpRequired": 40 }
+    ]
+  }
+]

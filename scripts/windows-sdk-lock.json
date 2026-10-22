@@ -1,0 +1,16 @@
+{
+  "packageVersion": "10.0.26100.9169",
+  "sdkVersion": "10.0.26100.0",
+  "packages": [
+    {
+      "id": "microsoft.windows.sdk.cpp",
+      "directory": "cpp",
+      "sha256": "475269434dcd808a67853773272f972c3229c0e10c3ddc821290e70cc0f6904d"
+    },
+    {
+      "id": "microsoft.windows.sdk.cpp.x64",
+      "directory": "x64",
+      "sha256": "df6226a051e320942abfbd57848b43d18772996ecd66beadad240f2a56ed2f7b"
+    }
+  ]
+}

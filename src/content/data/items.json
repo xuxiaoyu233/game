@@ -1,0 +1,270 @@
+[
+  {
+    "id": "common-ore",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "common-ingot",
+    "categoryId": "processed-material"
+  },
+  {
+    "id": "common-tool-blank",
+    "categoryId": "tool-component"
+  },
+  {
+    "id": "advanced-ore",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "advanced-ingot",
+    "categoryId": "processed-material"
+  },
+  {
+    "id": "composite-tool-blank",
+    "categoryId": "tool-component"
+  },
+  {
+    "id": "clay",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "wood-log",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "hardwood",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "wood-charcoal",
+    "categoryId": "fuel"
+  },
+  {
+    "id": "raw-fish",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "fish-t2",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "cooked-fish",
+    "categoryId": "consumable",
+    "consumable": {
+      "speedMultiplierPermille": 870,
+      "durationMs": 1800000
+    }
+  },
+  {
+    "id": "meal-t2",
+    "categoryId": "consumable",
+    "consumable": {
+      "speedMultiplierPermille": 833,
+      "durationMs": 2700000
+    }
+  },
+  {
+    "id": "wood-handle",
+    "categoryId": "tool-component"
+  },
+  {
+    "id": "reinforced-handle",
+    "categoryId": "tool-component"
+  },
+  {
+    "id": "clean-herb",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "moon-herb",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "wild-seed",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "field-crop",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "agility-mark",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "vial",
+    "categoryId": "processed-material"
+  },
+  {
+    "id": "coin",
+    "categoryId": "currency"
+  },
+  {
+    "id": "gem",
+    "categoryId": "trade-good"
+  },
+  {
+    "id": "cleansing-potion",
+    "categoryId": "consumable",
+    "consumable": {
+      "speedMultiplierPermille": 870,
+      "durationMs": 1200000
+    }
+  },
+  {
+    "id": "clarity-potion",
+    "categoryId": "consumable",
+    "consumable": {
+      "xpMultiplierPermille": 1200,
+      "durationMs": 1500000
+    }
+  },
+  {
+    "id": "swift-potion",
+    "categoryId": "consumable",
+    "consumable": {
+      "speedMultiplierPermille": 800,
+      "durationMs": 900000
+    }
+  },
+  {
+    "id": "ore-t3",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "wood-t3",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "herb-t3",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "fish-t3",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "coal",
+    "categoryId": "fuel"
+  },
+  {
+    "id": "ingot-t3",
+    "categoryId": "processed-material"
+  },
+  {
+    "id": "casing-t3",
+    "categoryId": "processed-material"
+  },
+  {
+    "id": "crop-t3",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "bait",
+    "categoryId": "processed-material"
+  },
+  {
+    "id": "food-t3",
+    "categoryId": "consumable",
+    "consumable": {
+      "speedMultiplierPermille": 820,
+      "durationMs": 3600000
+    }
+  },
+  {
+    "id": "potion-t3",
+    "categoryId": "consumable",
+    "consumable": {
+      "xpMultiplierPermille": 1250,
+      "durationMs": 3000000
+    }
+  },
+  {
+    "id": "ore-t4",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "wood-t4",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "herb-t4",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "fish-t4",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "ingot-t4",
+    "categoryId": "processed-material"
+  },
+  {
+    "id": "casing-t4",
+    "categoryId": "processed-material"
+  },
+  {
+    "id": "crop-t4",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "food-t4",
+    "categoryId": "consumable",
+    "consumable": {
+      "speedMultiplierPermille": 790,
+      "durationMs": 4500000
+    }
+  },
+  {
+    "id": "potion-t4",
+    "categoryId": "consumable",
+    "consumable": {
+      "xpMultiplierPermille": 1330,
+      "durationMs": 3600000
+    }
+  },
+  {
+    "id": "ore-t5",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "wood-t5",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "herb-t5",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "fish-t5",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "ingot-t5",
+    "categoryId": "processed-material"
+  },
+  {
+    "id": "core-t5",
+    "categoryId": "processed-material"
+  },
+  {
+    "id": "crop-t5",
+    "categoryId": "raw-material"
+  },
+  {
+    "id": "food-t5",
+    "categoryId": "consumable",
+    "consumable": {
+      "speedMultiplierPermille": 770,
+      "durationMs": 5400000
+    }
+  },
+  {
+    "id": "potion-t5",
+    "categoryId": "consumable",
+    "consumable": {
+      "xpMultiplierPermille": 1420,
+      "durationMs": 4500000
+    }
+  }
+]

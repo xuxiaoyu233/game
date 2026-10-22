@@ -1,0 +1,8 @@
+﻿194911ad7a02f7dfbbcdbae7c3c3b3ee97da6e31e657a80c083d4e8198670c25  d:/小游戏/next/civ-idle/shared/sandbox/camp-goal-plan.ts
+e328e626a050721cb0bb1dd6c8315afd64c63fdcb3c54f5941f1e323b4045042  d:/小游戏/next/civ-idle/shared/sandbox/camp-goals.ts
+7d35a9ed2f4c4d1f1c102faf8e3f0540b71e1b8703d65713a07e7e10deeb9c68  d:/小游戏/next/civ-idle/shared/sandbox/camp-economy.ts
+371e180cef1bd66612789a70740cdde24b5e401a974b2a822b1acac258225e01  d:/小游戏/next/civ-idle/src/scripts/ui/sandbox/CampHud.tsx
+32b7ce7f6ecb062bcb3532c8956cc32b4ff679f8e2f38851e94d57915f3abbc4  d:/小游戏/next/civ-idle/src/scripts/ui/sandbox/CampSkillsPage.tsx
+97aefd01e1eb0762a351182321d1814d6e6afd194cfd5f19636f327446be9fe4  d:/小游戏/next/civ-idle/src/scripts/ui/sandbox/camp-navigation.ts
+aa99d14a331647adab9166614f407eb004fb20d0e102a014065680f75faca6c7  d:/小游戏/next/civ-idle/src/scripts/scenes/WorldScene.ts
+a2018cfe90437ec4c99817489cb0e5707879be8cff41992b83d52f882071d9ca  d:/小游戏/next/civ-idle/tests/camp-goals-contract.mjs

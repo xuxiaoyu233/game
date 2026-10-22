@@ -1,0 +1,232 @@
+{
+  "node": "v24.21.0",
+  "browser": "Edge headless / SwiftShader",
+  "checks": [
+    {
+      "name": "real-time focus training produces stock and XP through the native ticker",
+      "evidence": {
+        "wood": 32,
+        "xp": 4,
+        "tick": 8
+      }
+    },
+    {
+      "name": "real UI constructs all three base producers without forced resources",
+      "evidence": {
+        "tick": 21,
+        "wood": 7,
+        "stone": 16.133333333333333,
+        "buildings": [
+          {
+            "type": "StoneQuarry",
+            "level": 1
+          },
+          {
+            "type": "LoggingCamp",
+            "level": 1
+          },
+          {
+            "type": "Headquarter",
+            "level": 1
+          },
+          {
+            "type": "WheatFarm",
+            "level": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "native materials and construction complete a legal level upgrade",
+      "evidence": {
+        "farm": {
+          "tile": 1507350,
+          "type": "WheatFarm",
+          "level": 2,
+          "desired": 2,
+          "status": "completed",
+          "capacity": 1,
+          "priority": 1,
+          "resources": {
+            "Wheat": 0.2,
+            "Wood": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "research unlocks processing and native warehouse completion expands finite storage",
+      "evidence": {
+        "research": {
+          "wood-processing": true,
+          "field-irrigation": true
+        },
+        "capacity": 400,
+        "buildings": [
+          {
+            "type": "StoneQuarry",
+            "level": 1
+          },
+          {
+            "type": "LumberMill",
+            "level": 1
+          },
+          {
+            "type": "Warehouse",
+            "level": 1
+          },
+          {
+            "type": "LoggingCamp",
+            "level": 1
+          },
+          {
+            "type": "Headquarter",
+            "level": 1
+          },
+          {
+            "type": "WheatFarm",
+            "level": 2
+          }
+        ]
+      }
+    },
+    {
+      "name": "skill unlock/switch, real wood processing, three research and batch native upgrade",
+      "evidence": {
+        "xp": {
+          "woodcutting": 443,
+          "mining": 0,
+          "farming": 0,
+          "carpentry": 100
+        },
+        "research": {
+          "wood-processing": true,
+          "field-irrigation": true,
+          "storage-organization": true
+        },
+        "storage": 600,
+        "farm": 7
+      }
+    },
+    {
+      "name": "pause/resume, priority, resources, skill XP, active task, levels and research survive reload",
+      "evidence": {
+        "farm": {
+          "tile": 1507350,
+          "type": "WheatFarm",
+          "level": 7,
+          "desired": 7,
+          "status": "completed",
+          "capacity": 1,
+          "priority": 5,
+          "resources": {
+            "Wheat": 239.80000000000015
+          }
+        },
+        "profile": {
+          "schemaVersion": 3,
+          "contentVersion": "d1-b-1",
+          "manualGatherReadyTick": 0,
+          "offlineRemainderSeconds": 0.16900000000000004,
+          "skillXp": {
+            "woodcutting": 463,
+            "mining": 0,
+            "farming": 0,
+            "carpentry": 100
+          },
+          "training": {
+            "activityId": "fell-timber",
+            "progress": 3
+          }
+        },
+        "research": {
+          "wood-processing": true,
+          "field-irrigation": true,
+          "storage-organization": true
+        }
+      }
+    },
+    {
+      "name": "controlled guards/capacity/input/barrier and atomic save failure",
+      "evidence": {
+        "duplicate": {
+          "ok": false,
+          "message": "已研究"
+        },
+        "over": {
+          "ok": false,
+          "message": "当前可升级至Lv10；请先补齐基础木石链、研究前置并恢复设施。"
+        },
+        "future": {
+          "ok": false,
+          "message": "此研究尚未开放。"
+        },
+        "refusedUnchanged": true,
+        "fullUnchanged": true,
+        "missingUnchanged": true,
+        "recovering": {
+          "ok": false,
+          "message": "正在加载或恢复，请稍候。"
+        },
+        "pair": {
+          "failed": {
+            "ok": true,
+            "message": "开始拾取枯枝，营地设施继续自动生产。；保存未成功，内存进度已保留。",
+            "saved": false
+          },
+          "training": {
+            "activityId": "gather-branches",
+            "progress": 0
+          },
+          "diskUnchanged": true,
+          "timeUnchanged": true
+        }
+      }
+    },
+    {
+      "name": "420x600 training and research accessible without horizontal overflow",
+      "evidence": {}
+    },
+    {
+      "name": "real A2-format fixture migrates without resetting identity/resources/cooldown",
+      "evidence": {
+        "profile": {
+          "schemaVersion": 3,
+          "contentVersion": "d1-b-1",
+          "manualGatherReadyTick": 10,
+          "offlineRemainderSeconds": 0.373,
+          "skillXp": {
+            "woodcutting": 0,
+            "mining": 0,
+            "farming": 0,
+            "carpentry": 0
+          },
+          "training": null
+        },
+        "wood": 31
+      }
+    },
+    {
+      "name": "20s timestamp-simulated offline trains resources/XP once, not on each reload",
+      "evidence": {
+        "xp": 10,
+        "wood": 36
+      }
+    },
+    {
+      "name": "bad-xp fixture rejected with original bytes/time intact",
+      "evidence": {}
+    },
+    {
+      "name": "future fixture rejected with original bytes/time intact",
+      "evidence": {}
+    },
+    {
+      "name": "bad-training fixture rejected with original bytes/time intact",
+      "evidence": {}
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "scope": "isolated contexts; real UI and explicitly accelerated native ticks / injected failures; not human balance or Windows native acceptance"
+}

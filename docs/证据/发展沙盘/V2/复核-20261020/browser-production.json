@@ -1,0 +1,627 @@
+{
+  "environment": "isolated Edge browser; fresh context; portable production build; no real player profile",
+  "url": "http://127.0.0.1:1449/",
+  "checks": [
+    {
+      "step": "1440 new-game layout",
+      "data": {
+        "size": [
+          1440,
+          900
+        ],
+        "overflow": 0,
+        "body": "rgb(58, 84, 72)",
+        "topbar": {
+          "x": 10,
+          "y": 6,
+          "width": 1420,
+          "height": 99.6875,
+          "top": 6,
+          "right": 1430,
+          "bottom": 105.6875,
+          "left": 10
+        },
+        "tabs": {
+          "x": 10,
+          "y": 111.6875,
+          "width": 1420,
+          "height": 54,
+          "top": 111.6875,
+          "right": 1430,
+          "bottom": 165.6875,
+          "left": 10
+        },
+        "canvas": {
+          "x": 10,
+          "y": 171.6875,
+          "width": 1420,
+          "height": 574.3125,
+          "top": 171.6875,
+          "right": 1430,
+          "bottom": 746,
+          "left": 10
+        },
+        "panel": {
+          "x": 10,
+          "y": 752,
+          "width": 1420,
+          "height": 68,
+          "top": 752,
+          "right": 1430,
+          "bottom": 820,
+          "left": 10
+        },
+        "footer": {
+          "x": 10,
+          "y": 849,
+          "width": 1420,
+          "height": 45,
+          "top": 849,
+          "right": 1430,
+          "bottom": 894,
+          "left": 10
+        },
+        "title": {
+          "text": "我的小镇",
+          "color": "rgb(64, 60, 43)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "15px"
+        },
+        "era": {
+          "text": "开拓时代",
+          "color": "rgb(138, 100, 32)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "13px"
+        },
+        "storage": {
+          "text": "仓容 110/200",
+          "color": "rgb(108, 101, 79)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "13px"
+        },
+        "panelMode": "collapsed"
+      }
+    },
+    {
+      "step": "960 new-game layout",
+      "data": {
+        "size": [
+          960,
+          720
+        ],
+        "overflow": 0,
+        "body": "rgb(58, 84, 72)",
+        "topbar": {
+          "x": 10,
+          "y": 6,
+          "width": 940,
+          "height": 99.6875,
+          "top": 6,
+          "right": 950,
+          "bottom": 105.6875,
+          "left": 10
+        },
+        "tabs": {
+          "x": 10,
+          "y": 111.6875,
+          "width": 940,
+          "height": 54,
+          "top": 111.6875,
+          "right": 950,
+          "bottom": 165.6875,
+          "left": 10
+        },
+        "canvas": {
+          "x": 10,
+          "y": 171.6875,
+          "width": 940,
+          "height": 394.3125,
+          "top": 171.6875,
+          "right": 950,
+          "bottom": 566,
+          "left": 10
+        },
+        "panel": {
+          "x": 10,
+          "y": 572,
+          "width": 940,
+          "height": 68,
+          "top": 572,
+          "right": 950,
+          "bottom": 640,
+          "left": 10
+        },
+        "footer": {
+          "x": 10,
+          "y": 669,
+          "width": 940,
+          "height": 45,
+          "top": 669,
+          "right": 950,
+          "bottom": 714,
+          "left": 10
+        },
+        "title": {
+          "text": "我的小镇",
+          "color": "rgb(64, 60, 43)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "15px"
+        },
+        "era": {
+          "text": "开拓时代",
+          "color": "rgb(138, 100, 32)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "13px"
+        },
+        "storage": {
+          "text": "仓容 110/200",
+          "color": "rgb(108, 101, 79)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "13px"
+        },
+        "panelMode": "collapsed"
+      }
+    },
+    {
+      "step": "960 expanded object card",
+      "data": {
+        "size": [
+          960,
+          720
+        ],
+        "overflow": 0,
+        "body": "rgb(58, 84, 72)",
+        "topbar": {
+          "x": 10,
+          "y": 6,
+          "width": 940,
+          "height": 99.6875,
+          "top": 6,
+          "right": 950,
+          "bottom": 105.6875,
+          "left": 10
+        },
+        "tabs": {
+          "x": 10,
+          "y": 111.6875,
+          "width": 940,
+          "height": 54,
+          "top": 111.6875,
+          "right": 950,
+          "bottom": 165.6875,
+          "left": 10
+        },
+        "canvas": {
+          "x": 10,
+          "y": 171.6875,
+          "width": 594,
+          "height": 468.3125,
+          "top": 171.6875,
+          "right": 604,
+          "bottom": 640,
+          "left": 10
+        },
+        "panel": {
+          "x": 610,
+          "y": 171.6875,
+          "width": 340,
+          "height": 468.3125,
+          "top": 171.6875,
+          "right": 950,
+          "bottom": 640,
+          "left": 610
+        },
+        "footer": {
+          "x": 10,
+          "y": 669,
+          "width": 940,
+          "height": 45,
+          "top": 669,
+          "right": 950,
+          "bottom": 714,
+          "left": 10
+        },
+        "title": {
+          "text": "我的小镇",
+          "color": "rgb(64, 60, 43)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "15px"
+        },
+        "era": {
+          "text": "开拓时代",
+          "color": "rgb(138, 100, 32)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "13px"
+        },
+        "storage": {
+          "text": "仓容 110/200",
+          "color": "rgb(108, 101, 79)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "13px"
+        },
+        "panelMode": "expanded"
+      },
+      "choices": [
+        "农田种植原粮木材 10.0建设农田",
+        "仓库扩大仓储木材 15.0 · 石材 10.0建设仓库"
+      ]
+    },
+    {
+      "step": "fresh game build and gather through UI commands",
+      "constructionMs": 11043,
+      "state": "1星 · Lv1",
+      "notice": "+1 原粮",
+      "cooldown": "10秒后"
+    },
+    {
+      "step": "reload retains farm",
+      "save": {
+        "profile": {
+          "schemaVersion": 5,
+          "contentVersion": "d1-c-1",
+          "manualGatherReadyTick": 23,
+          "offlineRemainderSeconds": 0.016000000000000014,
+          "skillXp": {
+            "woodcutting": 0,
+            "mining": 0,
+            "farming": 1,
+            "carpentry": 0
+          },
+          "training": null,
+          "expanded": false,
+          "population": {
+            "adults": 20,
+            "arrivalProgress": 0,
+            "foodRatio": 1,
+            "waterRatio": 1,
+            "foodConsumed": 0.5599999999999999,
+            "waterConsumed": 0.8400000000000003,
+            "arrivals": 0,
+            "reliefReadyTick": 0
+          },
+          "era": "pioneer"
+        },
+        "buildings": [
+          {
+            "xy": 1507350,
+            "type": "WheatFarm",
+            "level": 1,
+            "rank": 1
+          }
+        ]
+      }
+    },
+    {
+      "step": "functional tab 技能",
+      "geometry": {
+        "size": [
+          960,
+          720
+        ],
+        "overflow": 0,
+        "body": "rgb(58, 84, 72)",
+        "topbar": {
+          "x": 10,
+          "y": 6,
+          "width": 940,
+          "height": 99.6875,
+          "top": 6,
+          "right": 950,
+          "bottom": 105.6875,
+          "left": 10
+        },
+        "tabs": {
+          "x": 10,
+          "y": 111.6875,
+          "width": 940,
+          "height": 54,
+          "top": 111.6875,
+          "right": 950,
+          "bottom": 165.6875,
+          "left": 10
+        },
+        "canvas": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "panel": {
+          "x": 10,
+          "y": 171.6875,
+          "width": 940,
+          "height": 468.3125,
+          "top": 171.6875,
+          "right": 950,
+          "bottom": 640,
+          "left": 10
+        },
+        "footer": {
+          "x": 10,
+          "y": 669,
+          "width": 940,
+          "height": 45,
+          "top": 669,
+          "right": 950,
+          "bottom": 714,
+          "left": 10
+        },
+        "title": {
+          "text": "我的小镇",
+          "color": "rgb(64, 60, 43)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "15px"
+        },
+        "era": {
+          "text": "开拓时代",
+          "color": "rgb(138, 100, 32)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "13px"
+        },
+        "storage": {
+          "text": "仓容 100/200",
+          "color": "rgb(108, 101, 79)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "13px"
+        }
+      }
+    },
+    {
+      "step": "functional tab 研究",
+      "geometry": {
+        "size": [
+          960,
+          720
+        ],
+        "overflow": 0,
+        "body": "rgb(58, 84, 72)",
+        "topbar": {
+          "x": 10,
+          "y": 6,
+          "width": 940,
+          "height": 99.6875,
+          "top": 6,
+          "right": 950,
+          "bottom": 105.6875,
+          "left": 10
+        },
+        "tabs": {
+          "x": 10,
+          "y": 111.6875,
+          "width": 940,
+          "height": 54,
+          "top": 111.6875,
+          "right": 950,
+          "bottom": 165.6875,
+          "left": 10
+        },
+        "canvas": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "panel": {
+          "x": 10,
+          "y": 171.6875,
+          "width": 940,
+          "height": 468.3125,
+          "top": 171.6875,
+          "right": 950,
+          "bottom": 640,
+          "left": 10
+        },
+        "footer": {
+          "x": 10,
+          "y": 669,
+          "width": 940,
+          "height": 45,
+          "top": 669,
+          "right": 950,
+          "bottom": 714,
+          "left": 10
+        },
+        "title": {
+          "text": "我的小镇",
+          "color": "rgb(64, 60, 43)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "15px"
+        },
+        "era": {
+          "text": "开拓时代",
+          "color": "rgb(138, 100, 32)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "13px"
+        },
+        "storage": {
+          "text": "仓容 100/200",
+          "color": "rgb(108, 101, 79)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "13px"
+        }
+      }
+    },
+    {
+      "step": "functional tab 民生",
+      "geometry": {
+        "size": [
+          960,
+          720
+        ],
+        "overflow": 0,
+        "body": "rgb(58, 84, 72)",
+        "topbar": {
+          "x": 10,
+          "y": 6,
+          "width": 940,
+          "height": 99.6875,
+          "top": 6,
+          "right": 950,
+          "bottom": 105.6875,
+          "left": 10
+        },
+        "tabs": {
+          "x": 10,
+          "y": 111.6875,
+          "width": 940,
+          "height": 54,
+          "top": 111.6875,
+          "right": 950,
+          "bottom": 165.6875,
+          "left": 10
+        },
+        "canvas": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "panel": {
+          "x": 10,
+          "y": 171.6875,
+          "width": 940,
+          "height": 468.3125,
+          "top": 171.6875,
+          "right": 950,
+          "bottom": 640,
+          "left": 10
+        },
+        "footer": {
+          "x": 10,
+          "y": 669,
+          "width": 940,
+          "height": 45,
+          "top": 669,
+          "right": 950,
+          "bottom": 714,
+          "left": 10
+        },
+        "title": {
+          "text": "我的小镇",
+          "color": "rgb(64, 60, 43)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "15px"
+        },
+        "era": {
+          "text": "开拓时代",
+          "color": "rgb(138, 100, 32)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "13px"
+        },
+        "storage": {
+          "text": "仓容 100/200",
+          "color": "rgb(108, 101, 79)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "13px"
+        }
+      }
+    },
+    {
+      "step": "functional tab 设置",
+      "geometry": {
+        "size": [
+          960,
+          720
+        ],
+        "overflow": 0,
+        "body": "rgb(58, 84, 72)",
+        "topbar": {
+          "x": 10,
+          "y": 6,
+          "width": 940,
+          "height": 99.6875,
+          "top": 6,
+          "right": 950,
+          "bottom": 105.6875,
+          "left": 10
+        },
+        "tabs": {
+          "x": 10,
+          "y": 111.6875,
+          "width": 940,
+          "height": 54,
+          "top": 111.6875,
+          "right": 950,
+          "bottom": 165.6875,
+          "left": 10
+        },
+        "canvas": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "panel": {
+          "x": 10,
+          "y": 171.6875,
+          "width": 940,
+          "height": 468.3125,
+          "top": 171.6875,
+          "right": 950,
+          "bottom": 640,
+          "left": 10
+        },
+        "footer": {
+          "x": 10,
+          "y": 669,
+          "width": 940,
+          "height": 45,
+          "top": 669,
+          "right": 950,
+          "bottom": 714,
+          "left": 10
+        },
+        "title": {
+          "text": "我的小镇",
+          "color": "rgb(64, 60, 43)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "15px"
+        },
+        "era": {
+          "text": "开拓时代",
+          "color": "rgb(138, 100, 32)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "13px"
+        },
+        "storage": {
+          "text": "仓容 100/200",
+          "color": "rgb(108, 101, 79)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontSize": "13px"
+        }
+      }
+    },
+    {
+      "step": "keyboard ArrowRight opens skills",
+      "passed": true
+    },
+    {
+      "step": "resource source locator and return",
+      "title": "建设空地"
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "wood-processing contains unlockBuilding but does not contain tech!",
+    "wood-processing contains unlockBuilding but does not contain tech!"
+  ],
+  "external": [],
+  "failedHttp": []
+}

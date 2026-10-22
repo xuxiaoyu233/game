@@ -1,0 +1,48 @@
+{
+  "environment": {
+    "node": "v24.21.0",
+    "browser": "Edge headless",
+    "origin": "http://127.0.0.1:1428",
+    "isolatedContexts": true,
+    "method": "targeted fault injection, synthetic visibility, frozen normal ticker and controlled Date.now; not real Windows switching"
+  },
+  "cases": [
+    {
+      "name": "failed-hidden-save-recounts-online",
+      "before": {
+        "tick": 121,
+        "onlineTicksApplied": 120
+      },
+      "after": {
+        "tick": 245,
+        "failedHiddenSaves": 1,
+        "diskSavedAt": 1792248209726
+      },
+      "actualResumeTicks": 124,
+      "expectedHiddenSeconds": 2,
+      "errors": [
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure"
+      ]
+    },
+    {
+      "name": "initial-commit-failure-still-opens-ticker",
+      "before": {
+        "ready": true,
+        "tick": 1
+      },
+      "after": {
+        "ready": true,
+        "tick": 2,
+        "persisted": false
+      },
+      "errors": [
+        "saveGame failed QuotaExceededError: review injected initial commit failure",
+        "saveGame failed QuotaExceededError: review injected initial commit failure",
+        "post catch-up commit failed QuotaExceededError: review injected initial commit failure",
+        "saveGame failed QuotaExceededError: review injected initial commit failure",
+        "saveGame failed QuotaExceededError: review injected initial commit failure"
+      ]
+    }
+  ]
+}

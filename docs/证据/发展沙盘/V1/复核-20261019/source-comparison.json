@@ -1,0 +1,28 @@
+{
+  "baseline": "dedicated Sites source checkout from D1-C publication; root Git HEAD is not a V1 baseline",
+  "sharedFilesCompared": 102,
+  "sharedChanged": [],
+  "runtime": [
+    {
+      "file": "src/scripts/Global.tsx",
+      "identical": true
+    },
+    {
+      "file": "src/scripts/logic/ClientUpdate.tsx",
+      "identical": true
+    },
+    {
+      "file": "src/scripts/utilities/BrowserStorage.ts",
+      "identical": true
+    },
+    {
+      "file": "src/scripts/Bootstrap.tsx",
+      "identical": true
+    },
+    {
+      "file": "src/scripts/art/sandbox-art-catalog.json",
+      "identical": true
+    }
+  ],
+  "rankAndEraStructureImplementationIdentical": true
+}

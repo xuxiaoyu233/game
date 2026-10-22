@@ -1,0 +1,110 @@
+{
+  "environment": {
+    "node": "v24.21.0",
+    "browser": "Edge headless",
+    "origin": "http://127.0.0.1:1428",
+    "isolatedContexts": true,
+    "method": "targeted fault injection, synthetic visibility, frozen normal ticker and controlled Date.now; not real Windows switching"
+  },
+  "cases": [
+    {
+      "name": "failed-hidden-save-recounts-online",
+      "before": {
+        "tick": 121,
+        "onlineTicksApplied": 120
+      },
+      "after": {
+        "tick": 244,
+        "failedHiddenSaves": 12,
+        "diskSavedAt": 1792248146643
+      },
+      "actualResumeTicks": 123,
+      "expectedHiddenSeconds": 2,
+      "errors": [
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure"
+      ]
+    },
+    {
+      "name": "failed-resume-commit-recounts-consumed-time",
+      "ticks": [1, 11, 23],
+      "firstCatchUp": 10,
+      "secondCatchUp": 12,
+      "totalCatchUp": 22,
+      "totalHiddenSeconds": 12,
+      "errors": [
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "resume catch-up failed QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure",
+        "saveGame failed QuotaExceededError: review injected savedAt failure"
+      ]
+    },
+    {
+      "name": "empty-existing-string",
+      "rawPreserved": false,
+      "rawLength": 119647,
+      "ready": true,
+      "errorPage": null,
+      "errors": []
+    },
+    {
+      "name": "parseable-missing-structure",
+      "rawPreserved": true,
+      "ready": false,
+      "errorPage": null,
+      "body": "school\nBuild 3 Hut\n0/3\nkid_star\ncelebration\n0\nperson\n0/0\nscience\n0\ndo_not_disturb_on\n0\naccount_balance\n00\nperson_celebrate\n0(0%)\n1x\n2x\nCivIdle 1.5.0 Build 1014\nProudly Presented by Fish Pond Studio\n\n\nLoading Asset\n... Done\nLoading Sound\n... Done\nLoading Save ...\nReport Issues on [D]iscord\nOpen [S]ave Folder, [B]ackup Folder or [L]og Folder",
+      "errors": [
+        "TypeError: Cannot read properties of undefined (reading 'tiles')\n    at findSpecialBuilding (http://127.0.0.1:1428/shared/logic/BuildingLogic.ts:866:27)\n    at findSpecialBuildingCached (http://127.0.0.1:1428/shared/logic/BuildingLogic.ts:863:12)\n    at startGame (http://127.0.0.1:1428/src/scripts/Bootstrap.tsx:63:14)"
+      ]
+    },
+    {
+      "name": "read-failed-guard",
+      "ready": false,
+      "errorPage": "Save File Corrupted\nThe save file could not be read from local storage. Your existing data is left untouched.\nYou can:\n- Export the raw save data (for inspection or backup)\n- Retry loading the game\n- Start a new game (deletes the existing save)",
+      "errors": []
+    },
+    {
+      "name": "tick-gate-during-background-catchup",
+      "scheduleHeld": true,
+      "normalTickAllowed": true,
+      "saveReadyDuringCatchUp": true,
+      "before": 1,
+      "afterNormal": 2,
+      "errors": []
+    }
+  ]
+}

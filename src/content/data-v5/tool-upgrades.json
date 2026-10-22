@@ -1,0 +1,50 @@
+[
+  {
+    "id": "mining-tool-ii",
+    "toolId": "mining-tool",
+    "sourceLevel": 1,
+    "targetLevel": 2,
+    "requiredItemId": "common-tool-blank",
+    "requiredAmount": 1
+  },
+  {
+    "id": "mining-tool-iii",
+    "toolId": "mining-tool",
+    "sourceLevel": 2,
+    "targetLevel": 3,
+    "requiredItemId": "composite-tool-blank",
+    "requiredAmount": 1
+  },
+  {
+    "id": "woodcutting-tool-ii",
+    "toolId": "woodcutting-tool",
+    "sourceLevel": 1,
+    "targetLevel": 2,
+    "requiredItemId": "wood-handle",
+    "requiredAmount": 1
+  },
+  {
+    "id": "woodcutting-tool-iii",
+    "toolId": "woodcutting-tool",
+    "sourceLevel": 2,
+    "targetLevel": 3,
+    "requiredItemId": "reinforced-handle",
+    "requiredAmount": 1
+  },
+  {
+    "id": "fishing-tool-ii",
+    "toolId": "fishing-tool",
+    "sourceLevel": 1,
+    "targetLevel": 2,
+    "requiredItemId": "wood-handle",
+    "requiredAmount": 1
+  },
+  {
+    "id": "fishing-tool-iii",
+    "toolId": "fishing-tool",
+    "sourceLevel": 2,
+    "targetLevel": 3,
+    "requiredItemId": "reinforced-handle",
+    "requiredAmount": 1
+  }
+]

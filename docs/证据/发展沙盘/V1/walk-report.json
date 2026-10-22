@@ -1,0 +1,98 @@
+{
+  "sizes": [
+    {
+      "w": 960,
+      "h": 720,
+      "tag": "desktop-960x720",
+      "canvasHeight": 529,
+      "canvasWidth": 594,
+      "bodyHeight": 720,
+      "gridRows": "47px 38px 529px 17px 53px",
+      "panelDisplay": "block",
+      "dataPanel": "collapsed"
+    },
+    {
+      "w": 420,
+      "h": 600,
+      "tag": "mobile-420x600",
+      "canvasHeight": 289,
+      "canvasWidth": 400,
+      "bodyHeight": 600,
+      "gridRows": "88px 17px 289px 67px 53px 44px",
+      "panelDisplay": "block",
+      "dataPanel": "collapsed"
+    },
+    {
+      "w": 390,
+      "h": 844,
+      "tag": "mobile-390x844",
+      "canvasHeight": 533,
+      "canvasWidth": 370,
+      "bodyHeight": 844,
+      "gridRows": "88px 17px 533px 67px 53px 44px",
+      "panelDisplay": "block",
+      "dataPanel": "collapsed"
+    },
+    {
+      "w": 320,
+      "h": 600,
+      "tag": "narrow-320x600",
+      "canvasHeight": 289,
+      "canvasWidth": 300,
+      "bodyHeight": 600,
+      "gridRows": "88px 17px 289px 67px 53px 44px",
+      "panelDisplay": "block",
+      "dataPanel": "collapsed"
+    },
+    {
+      "w": 844,
+      "h": 390,
+      "tag": "landscape-844x390",
+      "canvasHeight": 220,
+      "canvasWidth": 824,
+      "bodyHeight": 390,
+      "gridRows": "40px 17px 220px 0px 53px 44px",
+      "panelDisplay": "block",
+      "dataPanel": "collapsed"
+    }
+  ],
+  "ops": [
+    {
+      "prefix": "desktop",
+      "op": "select-hq",
+      "ok": true
+    },
+    {
+      "prefix": "desktop",
+      "op": "expand-detail",
+      "ok": true
+    },
+    {
+      "prefix": "desktop",
+      "op": "resource-overview",
+      "ok": true
+    },
+    {
+      "prefix": "mobile",
+      "op": "select-hq",
+      "ok": true
+    },
+    {
+      "prefix": "mobile",
+      "op": "expand-detail",
+      "ok": true
+    },
+    {
+      "prefix": "mobile",
+      "op": "resource-overview",
+      "ok": true
+    },
+    {
+      "op": "save",
+      "status": "营地已保存"
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "httpFailures": []
+}

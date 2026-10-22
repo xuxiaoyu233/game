@@ -1,0 +1,558 @@
+{
+  "analyzedOn": "2026-10-18",
+  "sourcePath": "next/civ-idle/shared/sandbox/camp-skills.ts",
+  "sourceSha256": "1b019941c410e7fc79f9e0326a8349c6752471d28696531e4eb054b079d0b153",
+  "scope": "Direct execution of existing pure skill rules; no browser, command queue, loader or player save mutation.",
+  "assumptions": "No manual XP, immediate prerequisite availability, enough inputs and HQ storage, no interruption; all times are simulation seconds. Optimized policy changes activities only at completed cycles.",
+  "thresholds": [
+    0,
+    20,
+    55,
+    110,
+    190,
+    300,
+    450,
+    650,
+    900,
+    1200
+  ],
+  "activityRates": [
+    {
+      "id": "gather-branches",
+      "requiredLevel": 1,
+      "seconds": 4,
+      "xpPerCycle": 2,
+      "xpPerMinuteBeforeCap": 30,
+      "baseOutputPerMinute": 15,
+      "inputPerMinute": 0,
+      "outputAtLevel10PerMinute": 17.7
+    },
+    {
+      "id": "fell-timber",
+      "requiredLevel": 3,
+      "seconds": 6,
+      "xpPerCycle": 5,
+      "xpPerMinuteBeforeCap": 50,
+      "baseOutputPerMinute": 25,
+      "inputPerMinute": 0,
+      "outputAtLevel10PerMinute": 29.499999999999996
+    },
+    {
+      "id": "select-logs",
+      "requiredLevel": 6,
+      "seconds": 8,
+      "xpPerCycle": 8,
+      "xpPerMinuteBeforeCap": 60,
+      "baseOutputPerMinute": 30,
+      "inputPerMinute": 0,
+      "outputAtLevel10PerMinute": 35.4
+    },
+    {
+      "id": "gather-stones",
+      "requiredLevel": 1,
+      "seconds": 4,
+      "xpPerCycle": 2,
+      "xpPerMinuteBeforeCap": 30,
+      "baseOutputPerMinute": 12,
+      "inputPerMinute": 0,
+      "outputAtLevel10PerMinute": 14.16
+    },
+    {
+      "id": "quarry-rock",
+      "requiredLevel": 3,
+      "seconds": 6,
+      "xpPerCycle": 5,
+      "xpPerMinuteBeforeCap": 50,
+      "baseOutputPerMinute": 15,
+      "inputPerMinute": 0,
+      "outputAtLevel10PerMinute": 17.7
+    },
+    {
+      "id": "cut-stone",
+      "requiredLevel": 6,
+      "seconds": 8,
+      "xpPerCycle": 8,
+      "xpPerMinuteBeforeCap": 60,
+      "baseOutputPerMinute": 18.75,
+      "inputPerMinute": 0,
+      "outputAtLevel10PerMinute": 22.124999999999996
+    },
+    {
+      "id": "tend-field",
+      "requiredLevel": 1,
+      "seconds": 6,
+      "xpPerCycle": 4,
+      "xpPerMinuteBeforeCap": 40,
+      "baseOutputPerMinute": 12,
+      "inputPerMinute": 0,
+      "outputAtLevel10PerMinute": 14.159999999999998
+    },
+    {
+      "id": "intensive-farming",
+      "requiredLevel": 3,
+      "seconds": 6,
+      "xpPerCycle": 6,
+      "xpPerMinuteBeforeCap": 60,
+      "baseOutputPerMinute": 18,
+      "inputPerMinute": 0,
+      "outputAtLevel10PerMinute": 21.240000000000002
+    },
+    {
+      "id": "saw-planks",
+      "requiredLevel": 1,
+      "seconds": 6,
+      "xpPerCycle": 4,
+      "xpPerMinuteBeforeCap": 40,
+      "baseOutputPerMinute": 10,
+      "inputPerMinute": 20,
+      "outputAtLevel10PerMinute": 11.799999999999999
+    },
+    {
+      "id": "batch-planks",
+      "requiredLevel": 3,
+      "seconds": 8,
+      "xpPerCycle": 7,
+      "xpPerMinuteBeforeCap": 52.5,
+      "baseOutputPerMinute": 15,
+      "inputPerMinute": 22.5,
+      "outputAtLevel10PerMinute": 17.7
+    }
+  ],
+  "progressions": [
+    {
+      "skill": "woodcutting",
+      "policy": "first-activity-only",
+      "secondsToCap": 2400,
+      "levels": {
+        "1": {
+          "seconds": 0,
+          "xp": 0
+        },
+        "2": {
+          "seconds": 40,
+          "xp": 20
+        },
+        "3": {
+          "seconds": 112,
+          "xp": 56
+        },
+        "4": {
+          "seconds": 220,
+          "xp": 110
+        },
+        "5": {
+          "seconds": 380,
+          "xp": 190
+        },
+        "6": {
+          "seconds": 600,
+          "xp": 300
+        },
+        "7": {
+          "seconds": 900,
+          "xp": 450
+        },
+        "8": {
+          "seconds": 1300,
+          "xp": 650
+        },
+        "9": {
+          "seconds": 1800,
+          "xp": 900
+        },
+        "10": {
+          "seconds": 2400,
+          "xp": 1200
+        }
+      }
+    },
+    {
+      "skill": "woodcutting",
+      "policy": "fastest-unlocked-xp",
+      "secondsToCap": 1310,
+      "levels": {
+        "1": {
+          "seconds": 0,
+          "xp": 0
+        },
+        "2": {
+          "seconds": 40,
+          "xp": 20
+        },
+        "3": {
+          "seconds": 112,
+          "xp": 56
+        },
+        "4": {
+          "seconds": 178,
+          "xp": 111
+        },
+        "5": {
+          "seconds": 274,
+          "xp": 191
+        },
+        "6": {
+          "seconds": 406,
+          "xp": 301
+        },
+        "7": {
+          "seconds": 558,
+          "xp": 453
+        },
+        "8": {
+          "seconds": 758,
+          "xp": 653
+        },
+        "9": {
+          "seconds": 1006,
+          "xp": 901
+        },
+        "10": {
+          "seconds": 1310,
+          "xp": 1200
+        }
+      }
+    },
+    {
+      "skill": "mining",
+      "policy": "first-activity-only",
+      "secondsToCap": 2400,
+      "levels": {
+        "1": {
+          "seconds": 0,
+          "xp": 0
+        },
+        "2": {
+          "seconds": 40,
+          "xp": 20
+        },
+        "3": {
+          "seconds": 112,
+          "xp": 56
+        },
+        "4": {
+          "seconds": 220,
+          "xp": 110
+        },
+        "5": {
+          "seconds": 380,
+          "xp": 190
+        },
+        "6": {
+          "seconds": 600,
+          "xp": 300
+        },
+        "7": {
+          "seconds": 900,
+          "xp": 450
+        },
+        "8": {
+          "seconds": 1300,
+          "xp": 650
+        },
+        "9": {
+          "seconds": 1800,
+          "xp": 900
+        },
+        "10": {
+          "seconds": 2400,
+          "xp": 1200
+        }
+      }
+    },
+    {
+      "skill": "mining",
+      "policy": "fastest-unlocked-xp",
+      "secondsToCap": 1310,
+      "levels": {
+        "1": {
+          "seconds": 0,
+          "xp": 0
+        },
+        "2": {
+          "seconds": 40,
+          "xp": 20
+        },
+        "3": {
+          "seconds": 112,
+          "xp": 56
+        },
+        "4": {
+          "seconds": 178,
+          "xp": 111
+        },
+        "5": {
+          "seconds": 274,
+          "xp": 191
+        },
+        "6": {
+          "seconds": 406,
+          "xp": 301
+        },
+        "7": {
+          "seconds": 558,
+          "xp": 453
+        },
+        "8": {
+          "seconds": 758,
+          "xp": 653
+        },
+        "9": {
+          "seconds": 1006,
+          "xp": 901
+        },
+        "10": {
+          "seconds": 1310,
+          "xp": 1200
+        }
+      }
+    },
+    {
+      "skill": "farming",
+      "policy": "first-activity-only",
+      "secondsToCap": 1800,
+      "levels": {
+        "1": {
+          "seconds": 0,
+          "xp": 0
+        },
+        "2": {
+          "seconds": 30,
+          "xp": 20
+        },
+        "3": {
+          "seconds": 84,
+          "xp": 56
+        },
+        "4": {
+          "seconds": 168,
+          "xp": 112
+        },
+        "5": {
+          "seconds": 288,
+          "xp": 192
+        },
+        "6": {
+          "seconds": 450,
+          "xp": 300
+        },
+        "7": {
+          "seconds": 678,
+          "xp": 452
+        },
+        "8": {
+          "seconds": 978,
+          "xp": 652
+        },
+        "9": {
+          "seconds": 1350,
+          "xp": 900
+        },
+        "10": {
+          "seconds": 1800,
+          "xp": 1200
+        }
+      }
+    },
+    {
+      "skill": "farming",
+      "policy": "fastest-unlocked-xp",
+      "secondsToCap": 1230,
+      "levels": {
+        "1": {
+          "seconds": 0,
+          "xp": 0
+        },
+        "2": {
+          "seconds": 30,
+          "xp": 20
+        },
+        "3": {
+          "seconds": 84,
+          "xp": 56
+        },
+        "4": {
+          "seconds": 138,
+          "xp": 110
+        },
+        "5": {
+          "seconds": 222,
+          "xp": 194
+        },
+        "6": {
+          "seconds": 330,
+          "xp": 302
+        },
+        "7": {
+          "seconds": 480,
+          "xp": 452
+        },
+        "8": {
+          "seconds": 678,
+          "xp": 650
+        },
+        "9": {
+          "seconds": 930,
+          "xp": 902
+        },
+        "10": {
+          "seconds": 1230,
+          "xp": 1200
+        }
+      }
+    },
+    {
+      "skill": "carpentry",
+      "policy": "first-activity-only",
+      "secondsToCap": 1800,
+      "levels": {
+        "1": {
+          "seconds": 0,
+          "xp": 0
+        },
+        "2": {
+          "seconds": 30,
+          "xp": 20
+        },
+        "3": {
+          "seconds": 84,
+          "xp": 56
+        },
+        "4": {
+          "seconds": 168,
+          "xp": 112
+        },
+        "5": {
+          "seconds": 288,
+          "xp": 192
+        },
+        "6": {
+          "seconds": 450,
+          "xp": 300
+        },
+        "7": {
+          "seconds": 678,
+          "xp": 452
+        },
+        "8": {
+          "seconds": 978,
+          "xp": 652
+        },
+        "9": {
+          "seconds": 1350,
+          "xp": 900
+        },
+        "10": {
+          "seconds": 1800,
+          "xp": 1200
+        }
+      }
+    },
+    {
+      "skill": "carpentry",
+      "policy": "fastest-unlocked-xp",
+      "secondsToCap": 1396,
+      "levels": {
+        "1": {
+          "seconds": 0,
+          "xp": 0
+        },
+        "2": {
+          "seconds": 30,
+          "xp": 20
+        },
+        "3": {
+          "seconds": 84,
+          "xp": 56
+        },
+        "4": {
+          "seconds": 148,
+          "xp": 112
+        },
+        "5": {
+          "seconds": 244,
+          "xp": 196
+        },
+        "6": {
+          "seconds": 364,
+          "xp": 301
+        },
+        "7": {
+          "seconds": 540,
+          "xp": 455
+        },
+        "8": {
+          "seconds": 764,
+          "xp": 651
+        },
+        "9": {
+          "seconds": 1052,
+          "xp": 903
+        },
+        "10": {
+          "seconds": 1396,
+          "xp": 1200
+        }
+      }
+    }
+  ],
+  "cases": {
+    "belowThreshold": {
+      "xp": 19,
+      "level": 1
+    },
+    "atThreshold": {
+      "xp": 20,
+      "level": 2
+    },
+    "nextLevelDisplayExample": {
+      "totalXp": 30,
+      "level": 2,
+      "currentLevelXp": 10,
+      "currentLevelRequirement": 35,
+      "remainingXp": 25
+    },
+    "nearCap": {
+      "progress": 0,
+      "complete": true,
+      "amount": 4.64,
+      "xp": 1200,
+      "reason": "训练中"
+    },
+    "capped": {
+      "progress": 0,
+      "complete": true,
+      "amount": 1.18,
+      "xp": 1200,
+      "reason": "训练中"
+    },
+    "fullStorage": {
+      "progress": 3,
+      "complete": false,
+      "amount": 0,
+      "xp": 30,
+      "reason": "营地仓满，腾出空间后自动继续"
+    },
+    "missingInput": {
+      "progress": 5,
+      "complete": false,
+      "amount": 0,
+      "xp": 30,
+      "reason": "缺少原料，补足后自动继续"
+    },
+    "missingPrerequisite": {
+      "progress": 0,
+      "complete": false,
+      "amount": 0,
+      "xp": 30,
+      "reason": "前置设施、研究或技能等级未满足"
+    },
+    "lockedLevel": {
+      "progress": 0,
+      "complete": false,
+      "amount": 0,
+      "xp": 0,
+      "reason": "前置设施、研究或技能等级未满足"
+    }
+  }
+}

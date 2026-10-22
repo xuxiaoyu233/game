@@ -1,0 +1,35 @@
+{
+  "note": "每个 contentVersion 对应的记录键集指纹（items/skills/tools 的 ID 集合 sha256 前 16 位）。只跟踪 ID 集合，不跟踪数值：技能等级从 3 级扩到 12 级时 skills 指纹不变，属于预期；7.0.0 只加效果字段与 sellOffers（无新 ID），指纹与 6.0.0 相同；8.0.0 只加精通（无新 ID），指纹与 7.0.0 相同，同样属于预期。改 ID 集合必须 bump contentVersion 并新增条目，否则 check:content-keyset 失败（2026-10-16 的死档就是「版本号相同但键集漂移」造成的）。重新生成：node scripts/check-content-keyset.mjs --print",
+  "versions": {
+    "5.0.0": {
+      "items": "7b82ea43b41e7989",
+      "skills": "3dab7f00e4f31792",
+      "tools": "af027474b949f6bb"
+    },
+    "6.0.0": {
+      "items": "e9cf487156a4f2e2",
+      "skills": "3dab7f00e4f31792",
+      "tools": "5d1b4dc8efd01ca0"
+    },
+    "7.0.0": {
+      "items": "e9cf487156a4f2e2",
+      "skills": "3dab7f00e4f31792",
+      "tools": "5d1b4dc8efd01ca0"
+    },
+    "8.0.0": {
+      "items": "e9cf487156a4f2e2",
+      "skills": "3dab7f00e4f31792",
+      "tools": "5d1b4dc8efd01ca0"
+    },
+    "9.0.0": {
+      "items": "bc8e97d19db86c0c",
+      "skills": "3dab7f00e4f31792",
+      "tools": "5d1b4dc8efd01ca0"
+    },
+    "10.0.0": {
+      "items": "bc8e97d19db86c0c",
+      "skills": "3dab7f00e4f31792",
+      "tools": "5d1b4dc8efd01ca0"
+    }
+  }
+}

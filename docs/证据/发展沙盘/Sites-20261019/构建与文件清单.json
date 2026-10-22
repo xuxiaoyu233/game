@@ -1,0 +1,252 @@
+{
+  "preparedOn": "2026-10-19",
+  "projectId": "appgprj_6ad5db696cc88191a49ecb7ce36fb8d9",
+  "product": "发展营地 · 工坊试玩",
+  "contentVersion": "d1-c-1",
+  "schemaVersion": 5,
+  "build": "Vite 7.3.1 built-in JSX transform, prepared existing atlases; no development SWC binding",
+  "changesForPublication": [
+    "Chinese title/metadata",
+    "Explicit browser-origin save scope and export-only note",
+    "quick checks no longer run tests"
+  ],
+  "scope": "Private Site source snapshot and static build; no player databases, root Git history, caches or credentials copied.",
+  "files": [
+    {
+      "path": "art/eras/bronze.jpg",
+      "bytes": 89090,
+      "sha256": "6bf9201bba37b3ec1e1e542e07667af8f05e1f2c60b161be7996f7777cf1e4b8"
+    },
+    {
+      "path": "art/eras/primitive.jpg",
+      "bytes": 79842,
+      "sha256": "b522e1ed79392bc518e07a90161f83ed1f3faf62d10928eac02dd784932b6a78"
+    },
+    {
+      "path": "art/midnight-workshop-v1.png",
+      "bytes": 2549369,
+      "sha256": "3eb3d0c27124d2ecc82dcc38358e15eb4a8e1d19b8436dec0bf7567acb7dbe8e"
+    },
+    {
+      "path": "art/SOURCES.md",
+      "bytes": 5150,
+      "sha256": "8e90de38c70168ed5051d9cd2888938fb185fa4d612d200d438f919f6c9f9125"
+    },
+    {
+      "path": "art-preview.html",
+      "bytes": 712,
+      "sha256": "f2d376e3c314caddad8053ebfcff4ff2bc5e5988041949b2c8e224e11ad90dc1"
+    },
+    {
+      "path": "assets/artPreview-BEBw8Dma.css",
+      "bytes": 4775,
+      "sha256": "9828a7710a5f190cc1e51ee2ec3d68efeddda82bb616cca989f96a4bacd41faa"
+    },
+    {
+      "path": "assets/artPreview-CqB0HfH5.js",
+      "bytes": 10929,
+      "sha256": "618f6c9c55a0c4f2b924d6e4865558f116feeab97ac66968fb6e632b33e9ea61"
+    },
+    {
+      "path": "assets/CompressWorker-BKxf7ac_.js",
+      "bytes": 8590,
+      "sha256": "1029a1714b00eeec8e80588e744f06888242a70ea6a388b7af06aafc1d3b60c4"
+    },
+    {
+      "path": "assets/index-BAS6AzCc.js",
+      "bytes": 4204704,
+      "sha256": "1e281bb5382e304e7bc4fab78e513e220ed0d92f4207d9813549b93474efe7ae"
+    },
+    {
+      "path": "assets/index-CjZPuayL.js",
+      "bytes": 143892,
+      "sha256": "943256023ceb298efd5a89ea24a3fd0b9ecb0a276fdafbd35c89d8b899a6745c"
+    },
+    {
+      "path": "assets/index-_DQcXzPh.css",
+      "bytes": 81884,
+      "sha256": "130f35d937eec2aaf4aea2a2e131e9f0a93e8fc5d544dbfd18173d30d518f478"
+    },
+    {
+      "path": "assets/ms_sans_serif-C3pax6mQ.woff",
+      "bytes": 8540,
+      "sha256": "11318ea166b8c0112088af3fa038da18071a3fe93d0a39c894998a940e804ba0"
+    },
+    {
+      "path": "assets/ms_sans_serif-Du8rjN1q.woff2",
+      "bytes": 6508,
+      "sha256": "11b5a68acb6b967d1faa5a3f58432028e9c9cada37c8778d9dcc7415dca73a32"
+    },
+    {
+      "path": "assets/ms_sans_serif_bold-B8yxhAcs.woff",
+      "bytes": 8304,
+      "sha256": "e7b28b601df431c5f7b62c466380ac9869395eacf4c9fafec5f4d7a67040e963"
+    },
+    {
+      "path": "assets/ms_sans_serif_bold-D5dpRRHG.woff2",
+      "bytes": 6264,
+      "sha256": "5f3fbc5790b315fc158b749078e7fd1d74e1f9b463f6b7266c1908cb82a450ae"
+    },
+    {
+      "path": "assets/PathFinderWorker-B7ctCkVH.js",
+      "bytes": 3743,
+      "sha256": "0dea3819abe3e28ac05abf59b9670a9e16d6e5a0a00f617c004d02a9b4df48c0"
+    },
+    {
+      "path": "assets/PerfectDOSVGA437Win-BZfDqYRn.woff2",
+      "bytes": 17348,
+      "sha256": "1499ed0e99813c4df5081f65ed9036b7890f42f8784ce42c87a57e06f0292a84"
+    },
+    {
+      "path": "assets/PerfectDOSVGA437Win-C4lD4zTj.woff",
+      "bytes": 23624,
+      "sha256": "16b1c3a49a574adf7276127201911b5c862c5e7f1e87c2f619241d93b1a7d0ec"
+    },
+    {
+      "path": "assets/textures_building-DlvQJy3e.png",
+      "bytes": 13015,
+      "sha256": "bf761fc2498a199a02d20545aafda98ef88cec8ea7c26421fdc948b6cc2492ba"
+    },
+    {
+      "path": "assets/textures_flag-BDvD0fYY.png",
+      "bytes": 6620,
+      "sha256": "6b2aefebc9c0d82db8ba38c7022bceb201d861af5626d83d64f70f80928ef314"
+    },
+    {
+      "path": "assets/textures_person1-DvdNZMA5.png",
+      "bytes": 7594,
+      "sha256": "8ff39f3ef7ae85ee43c98f3aef140b6274dc81d0bc9fd982daf44965074a5b58"
+    },
+    {
+      "path": "assets/textures_person2-DlRLpIZA.png",
+      "bytes": 4380,
+      "sha256": "dcc3db6634373d5ce4d06989439ee407f66c2a54da59ebb43af6e684e5494ecd"
+    },
+    {
+      "path": "assets/textures_sandbox-Bxy2R63Z.png",
+      "bytes": 92821,
+      "sha256": "bbf399b0c8c00862a4282d8c15093d44f0d82d87933cab4a77e436b6ea6d36eb"
+    },
+    {
+      "path": "icons/actions/build.svg",
+      "bytes": 740,
+      "sha256": "7682f46f187cda98fd90e92d7998c5ae6926f580bacc4488df8519c462e9a7c7"
+    },
+    {
+      "path": "icons/actions/cancel.svg",
+      "bytes": 239,
+      "sha256": "f44f8d4070a779c324f07a199122b4cc8686b5a8d9705727dc38d0cfd3bb27ec"
+    },
+    {
+      "path": "icons/actions/confirm.svg",
+      "bytes": 240,
+      "sha256": "a38b003121485ad864240dd3145324deae133485f3ed28a8a9d99747912c5f18"
+    },
+    {
+      "path": "icons/actions/expand.svg",
+      "bytes": 368,
+      "sha256": "c56d582414b52df330e6c3633a7604440a3743da8dbd5598818497ba3dcbc3f7"
+    },
+    {
+      "path": "icons/actions/locked.svg",
+      "bytes": 394,
+      "sha256": "339b23156b86e081a7c2676d7636229ad4e5cad52e3c2e3b00852bee720e5c70"
+    },
+    {
+      "path": "icons/actions/pause.svg",
+      "bytes": 250,
+      "sha256": "51d46111a245a9add33367dc8c9ff87724f7b68bec1a52d218b79b0a96fc5985"
+    },
+    {
+      "path": "icons/actions/research.svg",
+      "bytes": 650,
+      "sha256": "f4d3a4d8b369072eee0354354878911f1e6583aba41c5a13cd66c2bef366e28a"
+    },
+    {
+      "path": "icons/actions/resume.svg",
+      "bytes": 345,
+      "sha256": "88392682dbe1eac79795a5abe2c1b7a8eee73e696f9f770ffc7b0b851b898e8c"
+    },
+    {
+      "path": "icons/actions/upgrade.svg",
+      "bytes": 285,
+      "sha256": "1bd6853dc6ea516b60a9795fea1b980281cd4712670c64684e604016b0fea721"
+    },
+    {
+      "path": "icons/actions/warning.svg",
+      "bytes": 395,
+      "sha256": "3952df551d6c3b81b236831a5457931d9df1d8e5d9112e8f5de01b5c61e3144d"
+    },
+    {
+      "path": "icons/anvil.svg",
+      "bytes": 462,
+      "sha256": "bfb0a1a150a3d8079cf33e6ad6052c3df72552efdfa2d45c40f7f41846537aae"
+    },
+    {
+      "path": "icons/camp-ration.svg",
+      "bytes": 246,
+      "sha256": "2e79d18fd98b0ddc8889ab0d59c19f7462d0f655aa6b75d3c9f138d23058dd09"
+    },
+    {
+      "path": "icons/camp-water.svg",
+      "bytes": 249,
+      "sha256": "d0a7914990d085574397eb804aae5f1b8bc585eff8c00e850ba9f106f4c203fa"
+    },
+    {
+      "path": "icons/campfire.svg",
+      "bytes": 1651,
+      "sha256": "cf3186ba53c57da9142a90ed522c7ec9b0ea1999f45e6dcfe4a186ac6179eda7"
+    },
+    {
+      "path": "icons/hammer-drop.svg",
+      "bytes": 928,
+      "sha256": "4ae413522c53e4c145e6f62e49161fd6e75c58c5214ac16dc1b47c8e307c13ac"
+    },
+    {
+      "path": "icons/metal-bar.svg",
+      "bytes": 597,
+      "sha256": "9d2324172e0cda9192fa3767b87a938eed69994d26a8757e18f517a9c946f82d"
+    },
+    {
+      "path": "icons/mining.svg",
+      "bytes": 1011,
+      "sha256": "3e9ba1e0aa5926f414892302756e31672a3eefca8accd3008296e527cfd9a096"
+    },
+    {
+      "path": "icons/ore.svg",
+      "bytes": 1208,
+      "sha256": "222cdc2cc857c2cec3ad9e9b372fc0ffd4c9246b70592bf098a1bdbc29a543c0"
+    },
+    {
+      "path": "icons/rock.svg",
+      "bytes": 2235,
+      "sha256": "f28bc9255e9974b0d01768a175e19e8c3a889bfde1c903f060b44f0b0e14afca"
+    },
+    {
+      "path": "icons/wheat.svg",
+      "bytes": 3033,
+      "sha256": "3da43b7e3abc87df602a2a36832ed047a56ad152adf5c742828e0c480481b89d"
+    },
+    {
+      "path": "icons/wood-axe.svg",
+      "bytes": 785,
+      "sha256": "218efacbd28a8dbe8df40bfde076173e51c81d11c4376f70ea207ed2a421a9dd"
+    },
+    {
+      "path": "icons/wood-beam.svg",
+      "bytes": 1079,
+      "sha256": "ffa01a21336088ab26c980cc73d4d6a7e1adf2371cd06638860b0a9491575ac4"
+    },
+    {
+      "path": "icons/wood-pile.svg",
+      "bytes": 6100,
+      "sha256": "b9f97d33da1ec96372deb62b2db8bcf713f278aaad3a9f288d7f43be1912e8ff"
+    },
+    {
+      "path": "index.html",
+      "bytes": 753,
+      "sha256": "2d1398e197f3e64bc04cfe6edbbb9e869c1ab36320235259d3f6ad8c4cdcd8ac"
+    }
+  ],
+  "totalBytes": 7401941
+}

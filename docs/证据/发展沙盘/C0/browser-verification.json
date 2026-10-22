@@ -1,0 +1,42 @@
+{
+  "scope": "production dist; isolated Edge contexts; real UI and one explicit legacy-paused fixture; no new survival mechanics",
+  "checks": [
+    {
+      "name": "four real tabs with selected/tabpanel semantics",
+      "evidence": {}
+    },
+    {
+      "name": "training continues across tabs with no extra wallet",
+      "evidence": {
+        "wood": 32
+      }
+    },
+    {
+      "name": "arrow/Home/End navigation and camp selection retained",
+      "evidence": {}
+    },
+    {
+      "name": "native farm completes with automatic production and no pause/priority controls",
+      "evidence": {}
+    },
+    {
+      "name": "settings exports the actual saved profile, not a mock",
+      "evidence": {
+        "bytes": 117306,
+        "version": "d1-b-1"
+      }
+    },
+    {
+      "name": "legacy paused save has a one-time resume path; no new pause toggle",
+      "evidence": {}
+    },
+    {
+      "name": "420x600 four-tab navigation and no horizontal overflow",
+      "evidence": {}
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "failedResponses": [],
+  "passed": true
+}

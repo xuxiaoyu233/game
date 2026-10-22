@@ -1,0 +1,24 @@
+{
+  "log": [
+    {
+      "step": "skill research gap, return, planned facility"
+    },
+    {
+      "step": "XP cap and completed foundation fixture: resources continue, floating XP omitted",
+      "xp": 1200,
+      "floatText": [
+        "+1 原粮"
+      ]
+    },
+    {
+      "step": "upgrade preview, real legal missing-material order",
+      "preview": "Lv1 → Lv10\n总费用 木材 225.2\n原粮 0.20 → 2.00/秒\n缺 木材 203.0 · 可排单等待供料\n升级至 Lv10\n预计产能；实际受劳动力与运输影响",
+      "order": {
+        "level": 1,
+        "target": 10,
+        "status": "upgrading"
+      }
+    }
+  ],
+  "errors": []
+}

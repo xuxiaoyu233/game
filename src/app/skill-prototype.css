@@ -1,0 +1,2490 @@
+/* Loading screen: shown only while the save is read from IndexedDB. */
+.skill-prototype-loading {
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  color: oklch(0.96 0.012 60);
+  background: oklch(0.17 0.014 55);
+  font:
+    15px/1.5 'Noto Sans',
+    'Noto Sans SC',
+    'Microsoft YaHei',
+    system-ui,
+    sans-serif;
+}
+
+/* ===================== Tokens =====================
+   Type scale: three hierarchy tiers with exactly 1.25 steps (title 1.25rem / heading 1rem /
+   body 0.8rem) plus one non-hierarchical caption tier (0.7rem). The caption tier exists for
+   tool-style small print (meta lines, kickers, table hints); it is deliberately NOT part of the
+   hierarchy ratio, so the ratio between body and caption (1.143) is not a flat-scale violation:
+   hierarchy is expressed by the three primary tiers, and anything smaller is utility text.
+   Body stays >=12px and the caption tier is >=11px, the absolute floor. */
+.skill-prototype {
+  --background: oklch(0.16 0.022 55);
+  --surface: oklch(0.21 0.028 55);
+  --surface-raised: oklch(0.26 0.034 52);
+  --text: oklch(0.96 0.01 60);
+  --muted: oklch(0.77 0.024 55);
+  --accent: oklch(0.8 0.15 60);
+  --accent-strong: oklch(0.72 0.16 58);
+  --accent-soft: oklch(0.24 0.05 55);
+  --border: oklch(0.35 0.038 55);
+  /* Era overlay: the shell overwrites these per era; the theme colours are the fallback. */
+  --era-glow: oklch(0.82 0.16 60 / 0.5);
+  --era-backdrop: radial-gradient(
+    120% 80% at 50% -10%,
+    oklch(0.3 0.06 55 / 0.85) 0%,
+    transparent 60%
+  );
+  /* Era scene artwork (dark low-contrast bitmap) and the per-era texture drawn over it. */
+  --era-scene: none;
+  --era-texture: none;
+  /* Semantic tone hues (gather / craft / support) for icon bubbles, kickers and status marks. */
+  --tone-gather: oklch(0.82 0.14 55);
+  --tone-craft: oklch(0.82 0.13 130);
+  --tone-support: oklch(0.8 0.14 28);
+  /* Glass panel base: translucent fill + directional sheen + 1px top highlight. Backdrop blur is
+     reserved for the top bar and the persistent status bar and never above 8px. */
+  --glass-fill: linear-gradient(
+    160deg,
+    rgb(255 255 255 / 0.07),
+    rgb(255 255 255 / 0.02) 45%,
+    rgb(0 0 0 / 0.14)
+  );
+  --glass-highlight: rgb(255 255 255 / 0.14);
+  --glass-border: rgb(255 255 255 / 0.1);
+  --glass-blur: 6px;
+  /* Progress: track + fill are separate so the fill animates transform: scaleX(), never width. */
+  --progress-track: oklch(0.16 0.01 55 / 0.7);
+  --progress-fill: var(--accent);
+  --progress-height-sm: 5px;
+  --progress-height-md: 6px;
+  --progress-height-lg: 8px;
+  /* Three hierarchy tiers plus the non-hierarchical caption tier (see note above). */
+  --font-title: 1.25rem;
+  --font-heading: 1rem;
+  --font-body: 0.8rem;
+  --font-caption: 0.7rem;
+  /* Line height belongs to the type tier, not to individual components: Chinese body copy needs a
+     looser baseline than headings, and caption-tier text sits between the two. */
+  --line-title: 1.25;
+  --line-heading: 1.3;
+  --line-body: 1.55;
+  --line-caption: 1.45;
+  /* Design tokens: spacing, radius, shadow, motion.
+     Spacing sits on a 4px grid (2/4/6/8/12/16). The previous scale (2.4/4.16/6.4/9.6/13.6) was off
+     grid on every step, so padding pairs never aligned and the whole layout read as slightly crooked. */
+  --space-2xs: 0.125rem;
+  --space-xs: 0.25rem;
+  --space-sm: 0.375rem;
+  --space-md: 0.5rem;
+  --space-lg: 0.75rem;
+  /* Radii stay on the same grid so a 1px border and a 8px radius share an edge. */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --shadow-panel: 0 1px 0 rgb(255 235 200 / 0.04) inset, 0 0.4rem 1rem rgb(0 0 0 / 0.35);
+  --shadow-raised: 0 0.2rem 0.6rem rgb(0 0 0 / 0.45);
+  --motion-fast: 120ms;
+  --motion-base: 180ms;
+  --motion-slow: 320ms;
+  /* ease-out exponential: the only timing used for transform/opacity motion (no bounce/elastic). */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-standard: cubic-bezier(0.32, 0.72, 0, 1);
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  /* 64rem: the active window opens at 960px and the three-column layout needs the full width;
+     the old 760px cap left the shell floating in the middle of a wider window. */
+  width: min(100%, 64rem);
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 0.35rem 0.7rem 0.3rem;
+  color: var(--text);
+  /* Semi-transparent so the aurora behind the shell glows through; the frosted glass bars show it
+     most. The era backdrop is a faint top wash layered on top of the aurora. */
+  background: color-mix(in srgb, var(--background) 88%, transparent), var(--era-backdrop);
+  font:
+    14px 'Noto Sans',
+    'Noto Sans SC',
+    'Microsoft YaHei',
+    system-ui,
+    sans-serif;
+  /* The font shorthand resets line-height, so the body token is applied right after it. */
+  line-height: var(--line-body);
+  /* Digits are read down a column (rates, ETA, counts, prices), so every number in the shell is
+     tabular by default instead of only the handful that happened to opt in. */
+  font-variant-numeric: tabular-nums;
+  /* Long Chinese labels break only when a word cannot fit; per-component truncation still wins. */
+  overflow-wrap: break-word;
+}
+
+.skill-prototype * {
+  box-sizing: border-box;
+}
+
+/* ===================== Aurora (glass prerequisite) =====================
+   A fixed ambient layer behind the shell. Two era-hued blobs drift slowly via transform only;
+   the whole screen is no longer a flat colour block, and the frosted bars blur this glow through.
+   Reduced motion: blobs hold still. */
+.skill-prototype-aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.skill-prototype-aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(48px);
+  opacity: 0.55;
+  will-change: transform;
+}
+
+.skill-prototype-aurora-blob-a {
+  width: 62vmax;
+  height: 62vmax;
+  left: -18vmax;
+  top: -22vmax;
+  background: radial-gradient(circle, var(--era-glow) 0%, transparent 68%);
+  animation: skill-prototype-aurora-a 28s var(--ease-out-expo) infinite alternate;
+}
+
+.skill-prototype-aurora-blob-b {
+  width: 52vmax;
+  height: 52vmax;
+  right: -14vmax;
+  top: -12vmax;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--accent) 45%, transparent) 0%,
+    transparent 70%
+  );
+  animation: skill-prototype-aurora-b 34s var(--ease-out-expo) infinite alternate;
+}
+
+@keyframes skill-prototype-aurora-a {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(6vmax, 4vmax, 0) scale(1.15);
+  }
+}
+
+@keyframes skill-prototype-aurora-b {
+  from {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+  to {
+    transform: translate3d(-5vmax, 6vmax, 0) scale(0.92);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-prototype-aurora-blob {
+    animation: none;
+  }
+}
+
+/* ===================== Era scene (artwork under the aurora) =====================
+   The era's dark low-contrast bitmap sits under the aurora and behind the shell. A veil layer
+   keeps the top text zone darkest; a per-era texture (selected by data-era, no new state) adds
+   one more era tell. The image is bundled by Vite and injected as --era-scene by the shell, so
+   the era switch changes scene artwork, aurora hue, panel hue and accent in one move. */
+.skill-prototype-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(180deg, rgb(0 0 0 / 0.38), rgb(0 0 0 / 0) 34%), var(--era-scene);
+  background-size: cover;
+  background-position: center 26%;
+}
+
+.skill-prototype-scene::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--era-texture);
+}
+
+/* Per-era texture: brushed diagonals for industrial, instrument grid for precision, hologram
+   grid for synthetic; primitive and bronze stay organic (no texture). */
+.skill-prototype[data-era='industrial'] {
+  --era-texture: repeating-linear-gradient(
+    115deg,
+    transparent 0 7px,
+    rgb(255 255 255 / 0.016) 7px 8px
+  );
+}
+
+.skill-prototype[data-era='precision'] {
+  --era-texture:
+    repeating-linear-gradient(0deg, transparent 0 26px, rgb(255 255 255 / 0.013) 26px 27px),
+    repeating-linear-gradient(90deg, transparent 0 26px, rgb(255 255 255 / 0.013) 26px 27px);
+}
+
+.skill-prototype[data-era='synthetic'] {
+  --era-texture:
+    repeating-linear-gradient(0deg, transparent 0 22px, rgb(190 255 255 / 0.012) 22px 23px),
+    repeating-linear-gradient(90deg, transparent 0 22px, rgb(255 190 255 / 0.01) 22px 23px);
+}
+
+/* ===================== Mastery (schema 4) =====================
+   The pool card reuses the shared progress bar; checkpoint chips read their state from the pure
+   pool derivation, so a tier spent below its threshold flips back without any stored flag. */
+.skill-prototype-mastery-checkpoints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+}
+
+.skill-prototype-mastery-checkpoint {
+  font-size: var(--font-caption);
+  font-style: normal;
+  padding: 0 var(--space-xs);
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  line-height: var(--line-caption);
+  color: var(--muted);
+}
+
+.skill-prototype-mastery-checkpoint.is-active {
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  color: var(--accent);
+}
+
+.skill-prototype-mastery-checkpoint.is-spent {
+  border-style: dashed;
+  color: var(--muted);
+}
+
+.skill-prototype-mastery-activities {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skill-prototype-mastery-activities li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.skill-prototype-mastery-activities li > span {
+  min-width: 0;
+  font-size: var(--font-body);
+}
+
+.skill-prototype-activity-mastery {
+  color: var(--tone, var(--accent));
+}
+
+/* ===================== Tone system (semantic hues) =====================
+   Every row/segment declares one tone (gather / craft / support) whose hue comes from the era
+   palette. The tone tints the icon bubble, its border and the kicker dot; the glyph itself stays
+   currentColor-themed. --tone falls back to the accent so an unclassed row never renders hollow. */
+.skill-prototype-icon-bubble {
+  --tone: var(--accent);
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid color-mix(in srgb, var(--tone) 32%, transparent);
+  background: color-mix(in srgb, var(--tone) 15%, var(--surface));
+  color: var(--tone);
+}
+
+.skill-prototype .tone-gather {
+  --tone: var(--tone-gather);
+}
+
+.skill-prototype .tone-craft {
+  --tone: var(--tone-craft);
+}
+
+.skill-prototype .tone-support {
+  --tone: var(--tone-support);
+}
+
+.skill-prototype-icon-bubble .skill-prototype-icon {
+  color: var(--tone);
+  margin-right: 0;
+  vertical-align: baseline;
+}
+
+.skill-prototype-icon-bubble .skill-prototype-item-icon {
+  margin-right: 0;
+}
+
+/* Warehouse category headers and shop rows take their hue from the group tone. */
+.skill-prototype-inventory-group summary .skill-prototype-group-icon {
+  color: var(--tone);
+}
+
+.skill-prototype-tone-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  flex: none;
+  border-radius: 999px;
+  background: var(--tone);
+  box-shadow: 0 0 0.4rem var(--tone);
+}
+
+/* Glass base: translucent fill + directional sheen + 1px top highlight. Only the top bar and the
+   persistent status bar are glass, so blur is never stacked and never exceeds 8px. */
+.skill-prototype-header,
+.skill-prototype-status-bar {
+  border: 1px solid var(--glass-border);
+  background-color: color-mix(in srgb, var(--surface-raised) 70%, transparent);
+  background-image: var(--glass-fill);
+  backdrop-filter: blur(var(--glass-blur));
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    var(--shadow-panel);
+}
+
+.skill-prototype button,
+.skill-prototype-loading button {
+  min-height: 2.4rem;
+  border: 1px solid var(--border, oklch(0.34 0.03 55));
+  border-radius: var(--radius-md, 0.65rem);
+  padding: 0.45rem 0.75rem;
+  color: var(--text, oklch(0.96 0.012 60));
+  background: var(--surface-raised, oklch(0.26 0.018 52));
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+  transition:
+    border-color var(--motion-fast, 120ms) var(--ease-standard, ease),
+    transform var(--motion-fast, 120ms) var(--ease-standard, ease),
+    box-shadow var(--motion-fast, 120ms) var(--ease-standard, ease);
+}
+
+.skill-prototype button:active:not(:disabled),
+.skill-prototype-loading button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.skill-prototype button:hover:not(:disabled),
+.skill-prototype-loading button:hover:not(:disabled) {
+  border-color: var(--accent, oklch(0.8 0.15 60));
+}
+
+.skill-prototype button:focus-visible,
+.skill-prototype-loading button:focus-visible {
+  outline: 2px solid var(--accent, oklch(0.8 0.15 60));
+  outline-offset: 2px;
+}
+
+.skill-prototype button:disabled,
+.skill-prototype-loading button:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+/* The scene and aurora are fixed layers at z-index 0. In-flow shell content without an explicit
+   stacking slot paints *underneath* them: only the two glass panels survived, because their
+   backdrop-filter creates a stacking context. Lift every content region above the ambient
+   layers so the skill list, tabs and panels are never covered by the artwork. */
+.skill-prototype-header,
+.skill-prototype-status-wrap,
+.skill-prototype-tabs,
+.skill-prototype-tab-panel,
+/* The tree view is a content region like the others: without a stacking slot its static chips and
+   aside painted underneath the fixed scene layer, which is why the canvas (positioned) was the
+   only pane that ever reached the screen. */
+.skill-prototype-tree {
+  position: relative;
+  z-index: 1;
+}
+
+.skill-prototype-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  min-height: 2.35rem;
+  align-items: center;
+  gap: 0.4rem;
+  flex: none;
+  border-radius: var(--radius-md);
+  padding: 0 var(--space-sm);
+  margin-bottom: 0.2rem;
+}
+
+.skill-prototype-header h1,
+.skill-prototype-header p,
+.skill-prototype h2,
+.skill-prototype h3,
+.skill-prototype p {
+  margin: 0;
+}
+
+.skill-prototype-header h1 {
+  font-size: var(--font-title);
+  line-height: var(--line-title);
+}
+
+.skill-prototype-header > div:first-child {
+  min-width: 0;
+}
+
+.skill-prototype-kicker {
+  color: var(--muted);
+  font-size: var(--font-caption);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+/* Era banner: one inline line inside the header kicker, so the era stays visible without
+   spending any of the fixed top-area budget. */
+.skill-prototype-era-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-left: var(--space-sm);
+  letter-spacing: normal;
+  text-transform: none;
+  animation: skill-prototype-era-in var(--motion-slow) var(--ease-standard) both;
+}
+
+.skill-prototype-era-label {
+  color: var(--accent);
+  font-weight: 700;
+  text-shadow: 0 0 0.5rem var(--era-glow);
+}
+
+.skill-prototype-era-track {
+  display: inline-flex;
+  gap: 0.12rem;
+}
+
+.skill-prototype-era-dot {
+  width: 0.34rem;
+  height: 0.34rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+}
+
+.skill-prototype-era-dot.is-on {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.skill-prototype-era-next {
+  color: var(--muted);
+}
+
+@keyframes skill-prototype-era-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.15rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.skill-prototype-window-actions,
+.skill-prototype-primary-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.skill-prototype-window-actions {
+  flex-wrap: nowrap;
+}
+
+.skill-prototype .quiet-button {
+  min-height: 1.95rem;
+  padding: 0.25rem 0.45rem;
+  color: var(--muted);
+  background: transparent;
+  font-size: var(--font-body);
+}
+
+.skill-prototype-primary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.28rem 0.45rem;
+  min-height: 0;
+  flex: none;
+  margin-bottom: 0.35rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0.42rem 0.55rem;
+  background: linear-gradient(135deg, var(--surface-raised), var(--surface));
+}
+
+.skill-prototype-primary-summary {
+  min-width: 0;
+}
+
+.skill-prototype-return-report {
+  display: grid;
+  gap: 0.42rem;
+  margin-bottom: 0.65rem;
+  border: 1px solid var(--accent);
+  border-radius: 0.5rem;
+  padding: 0.7rem;
+  background: var(--accent-soft);
+}
+
+.skill-prototype-return-report h2 {
+  font-size: var(--font-heading);
+}
+
+.skill-prototype-return-report > p,
+.skill-prototype-return-deltas {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--font-body);
+}
+
+.skill-prototype-return-deltas {
+  display: grid;
+  gap: 0.12rem;
+  padding-left: 1.1rem;
+}
+
+.skill-prototype-return-guidance {
+  color: var(--text);
+  font-size: var(--font-body);
+}
+
+.skill-prototype-return-guidance a,
+.skill-prototype-next-step-line a {
+  color: var(--accent);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+}
+
+.skill-prototype .skill-prototype-return-report .primary-button {
+  min-height: 2.3rem;
+}
+
+.skill-prototype-primary h2 {
+  margin-top: 0.12rem;
+  font-size: var(--font-heading);
+}
+
+.skill-prototype-active-copy {
+  grid-column: 1 / -1;
+  margin-top: 0;
+  color: var(--muted);
+  font-size: var(--font-body);
+}
+
+.skill-prototype-cycle-warning {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: var(--font-caption);
+}
+
+.skill-prototype .primary-button {
+  width: auto;
+  min-height: 2.35rem;
+  border-color: var(--accent);
+  color: oklch(0.2 0.04 55);
+  background: var(--accent);
+}
+
+.skill-prototype-primary > .primary-button {
+  max-width: 10.5rem;
+  white-space: normal;
+}
+
+.skill-prototype-primary-actions {
+  grid-column: 2;
+  justify-content: flex-end;
+}
+
+.skill-prototype-active-heading {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.skill-prototype-active-heading > strong {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--font-body);
+  white-space: nowrap;
+}
+
+/* Progress: track + inner fill. The fill animates transform: scaleX() from the left; width is
+   never animated, so it stays on the compositor and never reflows. */
+.skill-prototype-progress {
+  display: block;
+  width: 100%;
+  height: var(--progress-height-lg);
+  border: 0;
+  background: var(--progress-track);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  accent-color: var(--accent);
+}
+
+.skill-prototype-progress--sm {
+  height: var(--progress-height-sm);
+}
+
+.skill-prototype-progress--md {
+  height: var(--progress-height-md);
+}
+
+.skill-prototype-progress--lg {
+  height: var(--progress-height-lg);
+}
+
+.skill-prototype-progress-fill {
+  height: 100%;
+  width: 100%;
+  background: var(--progress-fill);
+  border-radius: inherit;
+  transform: scaleX(var(--progress, 0));
+  transform-origin: left center;
+  transition: transform var(--motion-base) var(--ease-out-expo);
+}
+
+.skill-prototype-notice,
+.skill-prototype-save-warning {
+  flex: none;
+  margin: 0.15rem 0 0.35rem;
+  border-radius: 0.6rem;
+  padding: 0.38rem 0.55rem;
+  color: var(--text);
+  background: var(--accent-soft);
+  font-size: var(--font-body);
+}
+
+/* Next step is the status bar's second line: one wrapping row, no card of its own. */
+.skill-prototype-next-step-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2xs) var(--space-xs);
+  margin: var(--space-2xs) 0 0;
+  color: var(--muted);
+  font-size: var(--font-caption);
+  line-height: var(--line-caption);
+}
+
+.skill-prototype-next-step-tag {
+  flex: none;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.skill-prototype .skill-prototype-next-step-action {
+  min-height: 1.5rem;
+  padding: 0.05rem 0.4rem;
+  font-size: var(--font-caption);
+}
+
+.skill-prototype-save-warning {
+  color: oklch(0.85 0.06 60);
+  background: oklch(0.28 0.05 55);
+}
+
+.skill-prototype-section {
+  margin-top: 0.55rem;
+}
+
+.skill-prototype-tab-panel {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scroll-padding-top: 0.45rem;
+}
+
+.skill-prototype-tabs {
+  display: grid;
+  flex: none;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.2rem;
+  margin-bottom: 0.15rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.skill-prototype .skill-prototype-tab {
+  min-height: 2rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  padding: 0.3rem 0.5rem;
+  color: var(--muted);
+  background: transparent;
+  font-size: var(--font-body);
+  transition:
+    color var(--motion-base) var(--ease-standard),
+    background-color var(--motion-base) var(--ease-standard),
+    border-bottom-color var(--motion-base) var(--ease-standard);
+}
+
+.skill-prototype .skill-prototype-tab[aria-pressed='true'] {
+  border-bottom-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.skill-prototype-return-shortcut {
+  min-height: 1.95rem !important;
+  padding: 0.2rem 0.4rem !important;
+  color: var(--accent) !important;
+  background: var(--accent-soft) !important;
+  font-size: var(--font-caption) !important;
+  white-space: nowrap;
+}
+
+.skill-prototype-section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.skill-prototype-section-heading h2 {
+  font-size: var(--font-heading);
+}
+
+.skill-prototype-section-heading > span {
+  color: var(--muted);
+  font-size: var(--font-caption);
+  text-align: right;
+}
+
+.skill-prototype-status-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: var(--space-xs);
+  margin-bottom: var(--space-sm);
+}
+
+.skill-prototype-status-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-panel);
+  transition:
+    border-color var(--motion-fast) var(--ease-standard),
+    transform var(--motion-fast) var(--ease-standard);
+}
+
+.skill-prototype-status-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.skill-prototype-status-card strong {
+  display: block;
+  color: var(--muted);
+  font-size: var(--font-caption);
+  font-weight: 600;
+}
+
+.skill-prototype-status-card p {
+  margin: var(--space-2xs) 0 0;
+  font-size: var(--font-caption);
+}
+
+.skill-prototype-status-card p[data-testid='active-buff'] {
+  color: var(--accent);
+  font-weight: 650;
+  animation: skill-prototype-buff-breathe 2.4s var(--ease-standard) infinite;
+}
+
+.skill-prototype-status-card small {
+  display: block;
+  margin-top: var(--space-2xs);
+  color: var(--muted);
+  font-size: var(--font-caption);
+  line-height: var(--line-caption);
+}
+
+.skill-prototype-status-empty {
+  margin: var(--space-2xs) 0 0;
+  color: var(--muted);
+  font-size: var(--font-caption);
+  line-height: var(--line-caption);
+}
+
+@keyframes skill-prototype-buff-breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.72;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-prototype-status-card,
+  .skill-prototype-status-card:hover {
+    transform: none;
+  }
+
+  .skill-prototype-status-card p[data-testid='active-buff'] {
+    animation: none;
+  }
+}
+
+/* ===================== Training: grouped skill list =====================
+   Skills are one long list grouped by 采集 / 加工 / 辅助, not twelve equal cards. Each group has a
+   kicker + name + intra-group completion; each row carries an icon, name, level, an inline thin
+   progress bar and one line of decision info. Running rows are tinted with the era accent; maxed
+   rows are de-emphasised. */
+.skill-prototype-skill-groups {
+  display: flex;
+  flex-direction: column;
+}
+
+.skill-prototype-skill-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.skill-prototype-skill-group + .skill-prototype-skill-group {
+  margin-top: var(--space-md);
+}
+
+.skill-prototype-skill-group-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+  margin: 0 0 var(--space-2xs);
+  padding: 0 var(--space-2xs);
+}
+
+.skill-prototype-skill-group-kicker {
+  color: var(--tone, var(--accent));
+  font-size: var(--font-caption);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.skill-prototype-skill-group-head .skill-prototype-tone-dot {
+  align-self: center;
+}
+
+.skill-prototype-skill-group-name {
+  font-size: var(--font-heading);
+  font-weight: 650;
+}
+
+.skill-prototype-skill-group-count {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: var(--font-caption);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.skill-prototype-skill-group-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.skill-prototype-skill-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-sm);
+  /* 56px is the row budget from the design contract: 40px icon slot, one body line, a 5px bar and
+     one caption line, plus 4px padding. Rows read as a list, not as twelve equal cards. */
+  min-height: 3.5rem;
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-xs) var(--space-md);
+  color: var(--text);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--surface-raised) 94%, transparent),
+    color-mix(in srgb, var(--surface) 94%, transparent)
+  );
+  box-shadow: var(--shadow-panel);
+  transition:
+    border-color var(--motion-fast) var(--ease-standard),
+    transform var(--motion-fast) var(--ease-standard),
+    box-shadow var(--motion-fast) var(--ease-standard),
+    opacity var(--motion-fast) var(--ease-standard);
+}
+
+.skill-prototype-skill-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* Skill rows are buttons, so the generic button padding and solid fill would win on specificity;
+   restate both at higher specificity to keep the grouped list dense and layered (raised top edge
+   fading into the panel tone) on the 420x600 first screen. */
+.skill-prototype .skill-prototype-skill-card {
+  padding: var(--space-xs) var(--space-md);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--surface-raised) 94%, transparent),
+    color-mix(in srgb, var(--surface) 94%, transparent)
+  );
+}
+
+/* Glow is accent-only and capped at two sources per screen: the era banner and the running row. */
+.skill-prototype .skill-prototype-skill-card.is-running {
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 1px var(--accent-soft),
+    0 0 0.7rem var(--era-glow);
+}
+
+/* Maxed rows stay readable (0.6 read as disabled) but recede: the meta line already says so. */
+.skill-prototype .skill-prototype-skill-card.is-maxed {
+  opacity: 0.78;
+  border-color: color-mix(in srgb, var(--accent) 28%, var(--border));
+}
+
+.skill-prototype-skill-card-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  min-width: 0;
+}
+
+.skill-prototype-skill-card-top {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+}
+
+.skill-prototype-skill-name {
+  font-size: var(--font-body);
+  font-weight: 650;
+}
+
+/* Level reads as a carved badge, not as stray coloured text: 1px tone border, tinted plate and a
+   top inner highlight so it sits on the same lighting model as the row. */
+.skill-prototype-skill-level {
+  margin-left: auto;
+  padding: 0 var(--space-xs);
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08);
+  font-size: var(--font-caption);
+  font-variant-numeric: tabular-nums;
+  line-height: var(--line-caption);
+  white-space: nowrap;
+}
+
+/* The track is a groove: an inset shadow reads as depth at 5px where a flat fill reads as a line. */
+.skill-prototype-skill-card .skill-prototype-progress {
+  height: var(--progress-height-sm);
+  margin-top: var(--space-2xs);
+  box-shadow: inset 0 1px 1px rgb(0 0 0 / 0.45);
+}
+
+/* Skill rows own the large icon slot (40px); other panels keep the 32px default so the warehouse
+   and the shop stay dense. */
+.skill-prototype-skill-card .skill-prototype-icon-bubble {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+/* Keyboard users get a ring the pointer never sees; rows and tabs share one treatment. */
+.skill-prototype-skill-card:focus-visible,
+.skill-prototype [role='tab']:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.skill-prototype-skill-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--muted);
+  font-size: var(--font-caption);
+  line-height: var(--line-caption);
+}
+
+.skill-prototype-badge {
+  border-radius: 999px;
+  padding: 0 var(--space-xs);
+  line-height: var(--line-caption);
+  color: oklch(0.22 0.04 55);
+  background: var(--accent);
+  font-size: var(--font-caption);
+  font-style: normal;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.skill-prototype-badge.is-quiet {
+  color: var(--muted);
+  background: var(--accent-soft);
+}
+
+/* Icons are inline SVG strokes on a shared 24x24 grid (stroke 1.75, round caps, currentColor).
+   Primary row icons share one 1.4rem slot so rows line up across panels; icons inline with text
+   stay one step down so line rhythm is undisturbed. A tone bubble around a glyph rebinds colour
+   only and never shifts layout. */
+.skill-prototype-icon,
+.skill-prototype-skill-icon,
+.skill-prototype-status-icon,
+.skill-prototype-detail-icon,
+.skill-prototype-item-icon,
+.skill-prototype-group-icon {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.skill-prototype-icon {
+  flex: none;
+  color: var(--accent);
+}
+
+.skill-prototype-item-icon {
+  margin-right: var(--space-xs);
+  /* em-relative: the offset tracks the surrounding font size instead of a hand-tuned rem, so a
+     caption-tier label and a body-tier label both sit on the baseline. */
+  vertical-align: -0.15em;
+}
+
+.skill-prototype-activity-icon,
+.skill-prototype-relation-icon,
+.skill-prototype-search-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.skill-prototype-activity-icon {
+  margin-right: var(--space-xs);
+  vertical-align: -0.15em;
+}
+
+/* Persistent activity line: always visible above the tab panel. */
+.skill-prototype-status-bar {
+  border-radius: var(--radius-md);
+  padding: var(--space-2xs) var(--space-md) var(--space-xs);
+}
+
+.skill-prototype-status-bar.is-idle {
+  padding: var(--space-xs) var(--space-md);
+}
+
+.skill-prototype-status-line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.skill-prototype-status-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.skill-prototype-status-text h2 {
+  overflow: hidden;
+  font-size: var(--font-heading);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.skill-prototype-status-cycle {
+  color: var(--accent);
+  font-size: var(--font-caption);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.skill-prototype .skill-prototype-status-action {
+  min-height: 1.85rem;
+  padding: 0.25rem 0.6rem;
+  font-size: var(--font-caption);
+  white-space: nowrap;
+}
+
+.skill-prototype-status-bar .skill-prototype-progress {
+  height: var(--progress-height-md);
+  margin-top: var(--space-xs);
+}
+
+.skill-prototype-status-meta {
+  display: flex;
+  /* One line inside the status budget: wrapping here used to push a third row into the fixed area
+     and steal a skill row from the first screen. */
+  flex-wrap: nowrap;
+  gap: var(--space-xs);
+  margin-top: var(--space-2xs);
+  overflow: hidden;
+  color: var(--muted);
+  font-size: var(--font-caption);
+  line-height: var(--line-caption);
+}
+
+/* Segments shrink from the tail: the leading values keep their digits, the trailing note ellipsises. */
+.skill-prototype-status-meta > * {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.skill-prototype-status-warning {
+  color: oklch(0.85 0.06 60);
+}
+
+.skill-prototype-status-sep {
+  opacity: 0.5;
+}
+
+/* Floating "+1" feedback anchored to the persistent status bar. */
+.skill-prototype-status-wrap {
+  position: relative;
+}
+
+.skill-prototype-floats {
+  position: absolute;
+  right: var(--space-md);
+  bottom: -0.15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+  pointer-events: none;
+}
+
+.skill-prototype-float {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.1rem 0.5rem;
+  color: var(--text);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-raised);
+  font-size: var(--font-caption);
+  font-weight: 650;
+  white-space: nowrap;
+  animation: skill-prototype-float-rise var(--motion-slow) var(--ease-standard) both;
+}
+
+.skill-prototype-float.kind-item {
+  color: var(--accent);
+}
+
+.skill-prototype-float.kind-level {
+  border-color: var(--accent);
+  color: oklch(0.2 0.04 55);
+  background: var(--accent);
+}
+
+@keyframes skill-prototype-float-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.skill-prototype .skill-prototype-skill-card.is-levelup {
+  border-color: var(--accent);
+  animation: skill-prototype-levelup var(--motion-slow) var(--ease-standard) 3;
+}
+
+@keyframes skill-prototype-levelup {
+  0%,
+  100% {
+    box-shadow: var(--shadow-panel);
+  }
+  50% {
+    box-shadow:
+      0 0 0 2px var(--accent),
+      var(--shadow-panel);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-prototype-float {
+    animation: none;
+  }
+
+  .skill-prototype .skill-prototype-skill-card.is-levelup {
+    animation: none;
+    box-shadow:
+      0 0 0 2px var(--accent),
+      var(--shadow-panel);
+  }
+}
+
+/* Skill detail head and derived facts. */
+.skill-prototype-detail-head {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.skill-prototype .skill-prototype-back {
+  justify-self: start;
+  min-height: 1.8rem;
+  padding: 0.2rem 0.5rem;
+  font-size: var(--font-caption);
+}
+
+.skill-prototype-detail-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.skill-prototype-detail-title small {
+  display: block;
+  margin-top: var(--space-2xs);
+  color: var(--muted);
+  font-size: var(--font-caption);
+}
+
+.skill-prototype-detail-level {
+  margin-left: auto;
+  color: var(--accent);
+  font-size: var(--font-body);
+  white-space: nowrap;
+}
+
+.skill-prototype-detail-facts {
+  display: grid;
+  gap: var(--space-2xs);
+  margin: var(--space-sm) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skill-prototype-detail-facts li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  font-size: var(--font-caption);
+}
+
+.skill-prototype-detail-facts span {
+  color: var(--muted);
+}
+
+.skill-prototype-detail-facts b {
+  font-weight: 600;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.skill-prototype-relation-list {
+  display: grid;
+  gap: var(--space-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skill-prototype-relation-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-caption);
+}
+
+.skill-prototype-relation-list span {
+  color: var(--muted);
+}
+
+.skill-prototype-section-note {
+  margin: var(--space-sm) 0 0;
+  color: var(--muted);
+  font-size: var(--font-caption);
+  line-height: var(--line-caption);
+}
+
+.skill-prototype-activity,
+.skill-prototype-upgrade {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.48rem;
+  background: var(--surface);
+}
+
+.skill-prototype-activity-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.3rem;
+}
+
+.skill-prototype-activity h3 {
+  /* Icon and label share one flex baseline, so the glyph never drifts when the font size changes. */
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-body);
+}
+
+/* The heading's flex gap owns the spacing, so the glyph drops its inline right margin inside it. */
+.skill-prototype-activity h3 .skill-prototype-activity-icon {
+  margin-right: 0;
+}
+
+.skill-prototype-activity-title > span {
+  color: var(--accent);
+  font-size: var(--font-caption);
+  white-space: nowrap;
+}
+
+.skill-prototype-activity p,
+.skill-prototype-activity small,
+.skill-prototype-upgrade p {
+  display: block;
+  margin-top: 0.26rem;
+  color: var(--muted);
+  font-size: var(--font-caption);
+}
+
+.skill-prototype-activity.is-active {
+  border-color: var(--accent);
+}
+
+.skill-prototype-activity-rate {
+  color: var(--accent) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-prototype .skill-prototype-skill-card,
+  .skill-prototype .skill-prototype-skill-card:hover {
+    transform: none;
+  }
+}
+
+.skill-prototype-activity-tier {
+  margin-top: 0.4rem;
+}
+
+.skill-prototype-activity-tier-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.32rem 0.45rem;
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  background: var(--surface-raised);
+  color: var(--text);
+  font-size: var(--font-body);
+  cursor: pointer;
+}
+
+.skill-prototype-activity-tier-head:hover {
+  border-color: var(--accent);
+}
+
+.skill-prototype-activity-tier-label {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.skill-prototype-activity-tier-count {
+  color: var(--muted);
+  font-size: var(--font-caption);
+}
+
+.skill-prototype-activity-tier-chevron {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 0.8em;
+}
+
+.skill-prototype-activity-list {
+  display: grid;
+  gap: 0.32rem;
+  margin-top: 0.32rem;
+  /* Capacity guard: one open tier never pushes the rest of the detail off-screen; the panel keeps
+     roughly eight activity rows in view and scrolls the remainder rather than overflowing. */
+  max-height: 38rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scroll-padding-top: 0.2rem;
+}
+
+.skill-prototype-activity {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem;
+}
+
+.skill-prototype-activity.locked {
+  opacity: 0.76;
+}
+
+.skill-prototype-activity-copy {
+  min-width: 0;
+}
+
+.skill-prototype-activity-copy > p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.skill-prototype-activity-copy > small {
+  line-height: var(--line-caption);
+}
+
+.skill-prototype .secondary-button {
+  min-height: 2.15rem;
+  padding: 0.35rem 0.52rem;
+  font-size: var(--font-caption);
+  white-space: nowrap;
+}
+
+.skill-prototype-missing {
+  color: oklch(0.85 0.06 60) !important;
+}
+
+.skill-prototype-cap-tag {
+  grid-column: 1 / -1;
+  color: var(--accent);
+  font-size: var(--font-caption);
+}
+
+.skill-prototype-inventory {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.skill-prototype-inventory th,
+.skill-prototype-inventory td {
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.skill-prototype-inventory thead th {
+  color: var(--muted);
+  font-size: var(--font-caption);
+  font-weight: 500;
+}
+
+.skill-prototype-inventory tbody th {
+  font-size: var(--font-body);
+  font-weight: 600;
+}
+
+.skill-prototype-inventory-relations {
+  margin-top: 0.15rem;
+  font-size: var(--font-caption);
+  font-weight: 500;
+}
+
+.skill-prototype-inventory-relations summary {
+  width: fit-content;
+  color: var(--accent);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.skill-prototype-relation-groups {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 0.35rem;
+  font-weight: 400;
+  overflow-wrap: anywhere;
+}
+
+.skill-prototype-relation-group,
+.skill-prototype-relation-entry {
+  display: grid;
+  gap: 0.08rem;
+}
+
+.skill-prototype-relation-group > strong {
+  color: var(--text);
+  font-size: var(--font-caption);
+}
+
+.skill-prototype-relation-status {
+  font-size: var(--font-caption);
+  font-weight: 500;
+}
+
+.skill-prototype-relation-status-locked,
+.skill-prototype-relation-status-unknown {
+  color: var(--muted);
+}
+
+.skill-prototype-relation-status-materials-short {
+  color: oklch(0.85 0.06 60);
+}
+
+.skill-prototype-relation-status-available,
+.skill-prototype-relation-status-complete {
+  color: var(--accent);
+}
+
+.skill-prototype-inventory tbody td:last-child {
+  text-align: right;
+}
+
+.skill-prototype-inventory output {
+  color: var(--accent);
+  font-size: var(--font-heading);
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Warehouse search: a real input, styled to sit inside the tokenised panel. */
+.skill-prototype-search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-sm);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0 var(--space-sm);
+  background: var(--surface);
+  transition: border-color var(--motion-fast) var(--ease-standard);
+}
+
+.skill-prototype-search:focus-within {
+  border-color: var(--accent);
+}
+
+.skill-prototype-search-icon {
+  color: var(--muted);
+}
+
+.skill-prototype-search-input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  padding: 0.45rem 0;
+  color: var(--text);
+  background: transparent;
+  font: inherit;
+  font-size: var(--font-caption);
+  outline: none;
+}
+
+.skill-prototype-search-input::placeholder {
+  color: var(--muted);
+}
+
+.skill-prototype-search-count {
+  color: var(--muted);
+  font-size: var(--font-caption);
+  white-space: nowrap;
+}
+
+/* Category groups: collapsed by default, force-opened while searching. */
+.skill-prototype-inventory-group {
+  margin-bottom: var(--space-xs);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.skill-prototype-inventory-group > summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  cursor: pointer;
+  color: var(--text);
+  font-size: var(--font-caption);
+  list-style: none;
+}
+
+.skill-prototype-inventory-group > summary::-webkit-details-marker {
+  display: none;
+}
+
+.skill-prototype-inventory-group > summary strong {
+  font-weight: 650;
+}
+
+.skill-prototype-inventory-group > summary span {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: var(--font-caption);
+}
+
+.skill-prototype-inventory-group[open] > summary {
+  border-bottom: 1px solid var(--border);
+}
+
+.skill-prototype-inventory-name {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Growth groups: one card per tool line and per skill with pending unlocks. */
+.skill-prototype-growth-group {
+  margin-bottom: var(--space-xs);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm);
+  background: var(--surface);
+}
+
+.skill-prototype-growth-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-xs);
+}
+
+.skill-prototype-growth-heading strong {
+  font-size: var(--font-body);
+}
+
+.skill-prototype-growth-heading span {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: var(--font-caption);
+  white-space: nowrap;
+}
+
+.skill-prototype-unlocks li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-2xs);
+}
+
+.skill-prototype-unlocks small {
+  color: var(--muted);
+  font-size: var(--font-caption);
+  white-space: nowrap;
+}
+
+.skill-prototype-shop {
+  margin-top: var(--space-md);
+}
+
+.skill-prototype-shop-description {
+  margin: 0 0 var(--space-sm);
+  color: var(--muted);
+  font-size: var(--font-caption);
+  line-height: var(--line-caption);
+}
+
+.skill-prototype-shop-list {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.skill-prototype-shop-offer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--surface);
+  transition: border-color var(--motion-fast) var(--ease-standard);
+}
+
+.skill-prototype-shop-offer:hover {
+  border-color: var(--accent);
+}
+
+.skill-prototype-shop-offer strong {
+  display: block;
+  font-size: var(--font-body);
+}
+
+.skill-prototype-shop-offer small {
+  display: block;
+  margin-top: var(--space-2xs);
+  color: var(--muted);
+  font-size: var(--font-caption);
+}
+
+.skill-prototype-shop-buy {
+  flex: none;
+}
+
+.skill-prototype-consume {
+  margin-top: var(--space-2xs);
+  margin-left: var(--space-sm);
+  padding: 0.2rem 0.55rem;
+  min-height: 1.7rem;
+  border-color: var(--accent);
+  color: var(--accent);
+  font-size: var(--font-caption);
+  vertical-align: middle;
+  transition:
+    background-color var(--motion-fast) var(--ease-standard),
+    color var(--motion-fast) var(--ease-standard);
+}
+
+.skill-prototype-consume:hover:not(:disabled) {
+  background: var(--accent);
+  color: oklch(0.2 0.04 55);
+}
+
+/* The upgrade row used to squeeze its action note into whatever width was left, which broke the
+   material name mid-word at 420px. Wrapping lets the note drop to its own line instead. */
+.skill-prototype-upgrade {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs) var(--space-sm);
+}
+
+.skill-prototype-upgrade > div {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+.skill-prototype-upgrade > small,
+.skill-prototype-upgrade > button,
+.skill-prototype-upgrade > .skill-prototype-upgrade-complete {
+  flex: 0 0 auto;
+}
+
+/* Narrow windows give the description the whole row and put the material note underneath; sharing
+   the line broke "基础工具坯" across two lines at 420px. */
+@media (max-width: 520px) {
+  .skill-prototype-upgrade > div {
+    flex-basis: 100%;
+  }
+
+  .skill-prototype-upgrade > small {
+    flex-basis: 100%;
+  }
+}
+
+.skill-prototype-upgrade-complete {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.skill-prototype-route-note,
+.skill-prototype-unlocks,
+.skill-prototype-stage-end {
+  margin-top: 0.45rem !important;
+  color: var(--muted);
+  font-size: var(--font-caption);
+}
+
+.skill-prototype-unlocks {
+  padding-left: 1.1rem;
+}
+
+/* Stage-end note: full 1px ring + a low-opacity warning tint + a leading warning glyph.
+   No side stripe (the contract forbids >1px coloured borders on one edge). */
+.skill-prototype-stage-end {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.35rem 0.55rem;
+  color: var(--text);
+  background: color-mix(in srgb, var(--accent-soft) 70%, transparent);
+}
+
+.skill-prototype-stage-end .skill-prototype-stage-end-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex: none;
+  color: var(--accent);
+}
+
+.skill-prototype-save-menu {
+  margin-top: 0.65rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.65rem;
+  color: var(--muted);
+  font-size: var(--font-body);
+}
+
+.skill-prototype-save-menu > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+}
+
+.skill-prototype.compact .skill-prototype-activity-copy > p,
+.skill-prototype.compact .skill-prototype-activity p {
+  display: none;
+}
+
+/* Records tab: derived era, stats, milestones and item codex. Read-only, no actions.
+   The era card carries a top 1px highlight + an era-numbered chip + an era-hued tint (no side
+   stripe). Stats are a compact key/value table, not a hero-metric card array. */
+.skill-prototype-era-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-2xs) var(--space-sm);
+  align-items: start;
+  border: 1px solid var(--border);
+  border-top: 1px solid var(--glass-highlight);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent-soft) 55%, transparent),
+    color-mix(in srgb, var(--surface) 85%, transparent)
+  );
+}
+
+.skill-prototype-era-card-index {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: var(--font-caption);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.skill-prototype-era-card-body {
+  min-width: 0;
+}
+
+.skill-prototype-era-card strong {
+  display: block;
+  font-size: var(--font-heading);
+}
+
+.skill-prototype-era-card p,
+.skill-prototype-era-card small {
+  color: var(--muted);
+  font-size: var(--font-caption);
+  line-height: var(--line-caption);
+}
+
+/* Stats and milestones stay single-column lists; only the codex becomes a grid. These three used
+   to share one selector group, so restyling the codex silently re-columned the stat rows. */
+.skill-prototype-stat-list,
+.skill-prototype-milestone-list {
+  display: grid;
+  gap: var(--space-2xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 56 items as a scannable grid instead of 56 stacked rows: at 360px the shell leaves 337.6px, and
+   6 columns of 52px plus 5 gaps of 4px land at 332px, so the whole codex fits without horizontal
+   scroll and the section stops being a two-metre scroll. */
+.skill-prototype-codex-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(3.25rem, 1fr));
+  gap: var(--space-2xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skill-prototype-stat-row {
+  display: flex;
+  /* Mastery rows carry a fourth element (four checkpoint chips): wrap keeps label and value on the
+     first line and lets the chips drop to their own line at 360px instead of overflowing. */
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-sm);
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-2xs) 0;
+  font-size: var(--font-body);
+}
+
+.skill-prototype-stat-row > .skill-prototype-mastery-checkpoints {
+  flex-basis: 100%;
+}
+
+.skill-prototype-stat-row > span {
+  color: var(--muted);
+}
+
+.skill-prototype-stat-row > b {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.skill-prototype-stat-unrecorded {
+  flex: none;
+  color: var(--muted);
+  font-size: var(--font-caption);
+}
+
+.skill-prototype-milestone {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-2xs) var(--space-sm);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-xs) var(--space-md);
+  background: var(--surface);
+}
+
+.skill-prototype-milestone.is-reached {
+  border-color: var(--accent);
+}
+
+.skill-prototype-milestone-label {
+  font-size: var(--font-body);
+  font-weight: 600;
+}
+
+.skill-prototype-milestone > small {
+  grid-column: 1;
+  color: var(--muted);
+  font-size: var(--font-caption);
+}
+
+.skill-prototype-milestone > em {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+}
+
+/* One cell: glyph, clamped name, owned count. Sources and uses live in the cell tooltip so the
+   grid can stay dense without dropping information entirely. */
+.skill-prototype-codex-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+  min-height: 3.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-xs) var(--space-2xs);
+  background: var(--surface);
+  text-align: center;
+}
+
+.skill-prototype-codex-item > strong {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: var(--font-caption);
+  font-weight: 600;
+  line-height: var(--line-caption);
+}
+
+.skill-prototype-codex-owned {
+  color: var(--accent);
+  font-size: var(--font-caption);
+  font-variant-numeric: tabular-nums;
+  line-height: var(--line-caption);
+  white-space: nowrap;
+}
+
+@media (max-width: 380px) {
+  .skill-prototype {
+    padding-right: 0.65rem;
+    padding-left: 0.65rem;
+  }
+
+  .skill-prototype .quiet-button {
+    min-height: 1.95rem;
+    padding: 0.25rem 0.4rem;
+  }
+
+  .skill-prototype-activity {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.35rem;
+    padding: 0.48rem;
+  }
+
+  .skill-prototype-activity h3 {
+    font-size: var(--font-caption);
+  }
+
+  .skill-prototype .secondary-button {
+    max-width: 5.8rem;
+    white-space: normal;
+  }
+}
+
+@media (max-height: 520px) {
+  .skill-prototype-header {
+    margin-bottom: 0.2rem;
+  }
+
+  .skill-prototype .skill-prototype-tab {
+    min-height: 2rem;
+  }
+
+  .skill-prototype-section {
+    margin-top: 0.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-prototype-era-banner {
+    animation: none;
+  }
+}
+
+/* ===================== Trade band and level pips =====================
+   The shop and the sell counter describe the same decision (turn stock into coin and back), so a
+   wide window places them side by side while the narrow layout keeps them stacked in the same
+   order. This is the first min-width breakpoint: everything below it is the compact base. */
+.skill-prototype-trade {
+  display: grid;
+  gap: var(--space-md);
+}
+
+@media (min-width: 720px) {
+  .skill-prototype-trade {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+/* Five pips per tool line: the exact numbers stay in the text beside them, so the pips are the
+   glance and the text is the truth. */
+.skill-prototype-level-track {
+  display: inline-flex;
+  gap: var(--space-2xs);
+  margin-left: auto;
+}
+
+.skill-prototype-level-dot {
+  width: 6px;
+  height: 6px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+}
+
+.skill-prototype-level-dot.is-on {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+/* ===================== Idle strip (280x72) =====================
+   The same tree, cropped: the header, the tabs and the tab panel are hidden and the status bar
+   becomes the one-row strip from docs/设计/产品形态.md. Nothing unmounts, so the scroll position
+   and the open skill survive the switch. */
+.skill-prototype[data-mode='idle'] {
+  width: 17.5rem;
+  height: 4.5rem;
+  padding: 0 var(--space-xs);
+}
+
+.skill-prototype[data-mode='idle'] .skill-prototype-header,
+.skill-prototype[data-mode='idle'] .skill-prototype-tabs,
+.skill-prototype[data-mode='idle'] .skill-prototype-tab-panel,
+.skill-prototype[data-mode='idle'] .skill-prototype-notice,
+.skill-prototype[data-mode='idle'] .skill-prototype-save-warning,
+.skill-prototype[data-mode='idle'] .skill-prototype-scene {
+  display: none;
+}
+
+.skill-prototype[data-mode='idle'] .skill-prototype-status-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  height: 100%;
+  padding: 0;
+}
+
+/* The artwork is also the way back to the working window, so the strip needs no extra button. */
+.skill-prototype-idle-art {
+  flex: none;
+  width: 4rem;
+  height: 4rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0;
+  background: url('../themes/assets/mini/character.jpg') center / contain no-repeat;
+  cursor: pointer;
+}
+
+/* Character over the era's mini scene: the nine mini assets were generated for exactly this slot
+   and had been unused until now. */
+.skill-prototype[data-era='primitive'] .skill-prototype-idle-art {
+  background-image:
+    url('../themes/assets/mini/character.jpg'), url('../themes/assets/mini/era-primitive.jpg');
+  background-size: contain, cover;
+  background-repeat: no-repeat, no-repeat;
+}
+
+.skill-prototype[data-era='bronze'] .skill-prototype-idle-art {
+  background-image:
+    url('../themes/assets/mini/character.jpg'), url('../themes/assets/mini/era-bronze.jpg');
+  background-size: contain, cover;
+  background-repeat: no-repeat, no-repeat;
+}
+
+.skill-prototype[data-era='verdant'] .skill-prototype-idle-art {
+  background-image:
+    url('../themes/assets/mini/character.jpg'), url('../themes/assets/mini/era-verdant.jpg');
+  background-size: contain, cover;
+  background-repeat: no-repeat, no-repeat;
+}
+
+.skill-prototype[data-era='industrial'] .skill-prototype-idle-art {
+  background-image:
+    url('../themes/assets/mini/character.jpg'), url('../themes/assets/mini/era-industrial.jpg');
+  background-size: contain, cover;
+  background-repeat: no-repeat, no-repeat;
+}
+
+.skill-prototype[data-era='precision'] .skill-prototype-idle-art {
+  background-image:
+    url('../themes/assets/mini/character.jpg'), url('../themes/assets/mini/era-precision.jpg');
+  background-size: contain, cover;
+  background-repeat: no-repeat, no-repeat;
+}
+
+.skill-prototype[data-era='aurora'] .skill-prototype-idle-art {
+  background-image:
+    url('../themes/assets/mini/character.jpg'), url('../themes/assets/mini/era-aurora.jpg');
+  background-size: contain, cover;
+  background-repeat: no-repeat, no-repeat;
+}
+
+.skill-prototype[data-era='synthetic'] .skill-prototype-idle-art {
+  background-image:
+    url('../themes/assets/mini/character.jpg'), url('../themes/assets/mini/era-synthetic.jpg');
+  background-size: contain, cover;
+  background-repeat: no-repeat, no-repeat;
+}
+
+/* In the strip the glass bar loses its chrome and keeps only text, one 6px bar and the pause key. */
+.skill-prototype[data-mode='idle'] .skill-prototype-status-bar {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: none;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.skill-prototype[data-mode='idle'] .skill-prototype-status-meta {
+  display: none;
+}
+
+/* Crop the bar down to one row: the artwork replaces the icon bubble, the kicker and the next-step
+   hint are working-window information, and the start button shrinks to a pill that still fits 72px. */
+.skill-prototype[data-mode='idle'] .skill-prototype-status-bar .skill-prototype-icon-bubble,
+.skill-prototype[data-mode='idle'] .skill-prototype-status-bar .skill-prototype-kicker,
+.skill-prototype[data-mode='idle'] .skill-prototype-status-cycle,
+.skill-prototype[data-mode='idle'] .skill-prototype-next-step-line {
+  display: none;
+}
+
+.skill-prototype[data-mode='idle'] .skill-prototype-status-line {
+  flex-wrap: nowrap;
+}
+
+.skill-prototype[data-mode='idle'] .skill-prototype-status-text h2 {
+  overflow: hidden;
+  font-size: var(--font-body);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.skill-prototype[data-mode='idle'] .skill-prototype-status-action {
+  min-height: 1.75rem;
+  padding: 0 var(--space-sm);
+  font-size: var(--font-caption);
+  white-space: nowrap;
+}
+
+/* ===================== Training split (>=720px) =====================
+   Below 720px the list and the detail take turns, exactly as before; from 720px they sit side by
+   side, which removes the list -> detail -> back round trip on a wide window. The list column
+   flexes between 232px and 288px so the detail keeps at least ~400px. */
+.skill-prototype-training-split {
+  display: grid;
+  gap: var(--space-md);
+}
+
+@media (max-width: 719px) {
+  .skill-prototype-training-split.is-list-only .skill-prototype-training-detail,
+  .skill-prototype-training-split.is-detail-open .skill-prototype-training-list {
+    display: none;
+  }
+}
+
+.skill-prototype-split-hint {
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  color: var(--muted);
+  font-size: var(--font-body);
+  text-align: center;
+}
+
+@media (min-width: 720px) {
+  .skill-prototype-training-split {
+    grid-template-columns: minmax(14.5rem, 18rem) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+/* ===================== Tree view (progressive disclosure) =====================
+   Level 0 tree list, level 1 one canvas, level 2 node facts. The tab panel is hidden in tree mode
+   rather than unmounted, so returning keeps the tab and the open skill. */
+.skill-prototype[data-mode='tree'] .skill-prototype-tab-panel {
+  display: none;
+}
+
+.skill-prototype-tree {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: var(--space-xs);
+  min-height: 0;
+}
+
+.skill-prototype-tree-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.skill-prototype-tree-crumb {
+  color: var(--muted);
+  font-size: var(--font-caption);
+}
+
+.skill-prototype-tree-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+  margin-left: auto;
+}
+
+.skill-prototype-tree-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-xs);
+  min-height: 0;
+}
+
+.skill-prototype-tree-sidebar {
+  display: flex;
+  gap: var(--space-2xs);
+  overflow-x: auto;
+}
+
+/* Two classes: the generic `.skill-prototype button` rule outranks a single class and was painting
+   these list entries with the shared button fill, so the sidebar looked empty in screenshots. */
+.skill-prototype .skill-prototype-tree-item {
+  display: grid;
+  flex: 0 0 9rem;
+  gap: 1px;
+  border: 1px solid color-mix(in srgb, var(--accent) 16%, var(--border));
+  border-radius: var(--radius-sm);
+  padding: var(--space-2xs) var(--space-xs);
+  color: var(--text);
+  background: var(--surface-raised);
+  text-align: left;
+  cursor: pointer;
+}
+
+.skill-prototype-tree-item[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+}
+
+.skill-prototype-tree-item small {
+  color: var(--muted);
+  font-size: var(--font-caption);
+}
+
+.skill-prototype-tree-canvas {
+  position: relative;
+  overflow: hidden;
+  min-height: 18rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--background);
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--border) 60%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 32px 32px;
+  cursor: grab;
+}
+
+.skill-prototype-tree-canvas:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* One transform for pan and zoom: the layer never triggers layout. */
+.skill-prototype-tree-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+}
+
+.skill-prototype-tree-edges {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.skill-prototype-tree-edge {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 1.75;
+}
+
+.skill-prototype-tree-edge.is-done {
+  stroke: var(--accent);
+}
+
+.skill-prototype-tree-node {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2xs) var(--space-xs);
+  color: var(--text);
+  background: var(--surface);
+  text-align: left;
+  cursor: pointer;
+}
+
+.skill-prototype-tree-node-label {
+  overflow: hidden;
+  font-size: var(--font-body);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.skill-prototype-tree-node small {
+  color: var(--muted);
+  font-size: var(--font-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+.skill-prototype-tree-node.is-unlocked {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+}
+
+/* The next step is the one glow on this screen, matching the running-row rule from training. */
+.skill-prototype-tree-node.is-unlockable {
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 1px var(--accent-soft),
+    0 0 0.7rem var(--era-glow);
+}
+
+.skill-prototype-tree-node.is-maxed {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+}
+
+.skill-prototype-tree-node.is-locked {
+  opacity: 0.72;
+}
+
+.skill-prototype-tree-node.is-selected {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* Filtering dims instead of removing: the layout must not jump while the player compares states. */
+.skill-prototype-tree-node.is-dimmed {
+  opacity: 0.15;
+}
+
+.skill-prototype-tree-detail {
+  min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, var(--border));
+  border-radius: var(--radius-sm);
+  padding: var(--space-xs);
+  background: var(--surface-raised);
+}
+
+.skill-prototype-tree-detail > strong {
+  display: block;
+  font-size: var(--font-heading);
+}
+
+.skill-prototype-tree-detail dl {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-2xs) var(--space-sm);
+  margin: var(--space-xs) 0;
+  font-size: var(--font-caption);
+}
+
+.skill-prototype-tree-detail dt {
+  color: var(--muted);
+}
+
+.skill-prototype-tree-detail dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.skill-prototype-tree-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--font-caption);
+}
+
+/* Stacked on purpose: chips row, canvas, then the selected node's facts. The earlier three-column
+   variant laid the panes out correctly (probe: 152/577/200 px at x=11/167/749) yet painted only
+   the canvas, so the sidebar and the aside never reached the screen. A vertical flow keeps all
+   three levels visible without depending on that column behaviour. */
+.skill-prototype-tree-body {
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}

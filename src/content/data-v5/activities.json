@@ -1,0 +1,293 @@
+[
+  {
+    "id": "mine-common-ore",
+    "skillId": "mining",
+    "kind": "gather",
+    "requiredLevel": 1,
+    "durationMs": 8000,
+    "xpPerCycle": 2,
+    "outputs": [{ "itemId": "common-ore", "amount": 1 }]
+  },
+  {
+    "id": "mine-rich-common-ore",
+    "skillId": "mining",
+    "kind": "gather",
+    "requiredLevel": 2,
+    "durationMs": 10000,
+    "xpPerCycle": 4,
+    "outputs": [{ "itemId": "common-ore", "amount": 2 }]
+  },
+  {
+    "id": "mine-advanced-ore",
+    "skillId": "mining",
+    "kind": "gather",
+    "requiredLevel": 3,
+    "durationMs": 12000,
+    "xpPerCycle": 4,
+    "outputs": [{ "itemId": "advanced-ore", "amount": 1 }]
+  },
+  {
+    "id": "smelt-common-ingot",
+    "skillId": "metalworking",
+    "kind": "craft",
+    "requiredLevel": 1,
+    "durationMs": 6000,
+    "xpPerCycle": 5,
+    "recipeId": "recipe-common-ingot"
+  },
+  {
+    "id": "forge-common-tool-blank",
+    "skillId": "metalworking",
+    "kind": "craft",
+    "requiredLevel": 2,
+    "durationMs": 10000,
+    "xpPerCycle": 6,
+    "recipeId": "recipe-common-tool-blank"
+  },
+  {
+    "id": "smelt-advanced-ingot",
+    "skillId": "metalworking",
+    "kind": "craft",
+    "requiredLevel": 3,
+    "durationMs": 9000,
+    "xpPerCycle": 10,
+    "recipeId": "recipe-advanced-ingot"
+  },
+  {
+    "id": "forge-composite-tool-blank",
+    "skillId": "metalworking",
+    "kind": "craft",
+    "requiredLevel": 4,
+    "durationMs": 14000,
+    "xpPerCycle": 14,
+    "recipeId": "recipe-composite-tool-blank"
+  },
+  {
+    "id": "chop-wood-log",
+    "skillId": "woodcutting",
+    "kind": "gather",
+    "requiredLevel": 1,
+    "durationMs": 7000,
+    "xpPerCycle": 3,
+    "outputs": [{ "itemId": "wood-log", "amount": 1 }]
+  },
+  {
+    "id": "chop-hardwood",
+    "skillId": "woodcutting",
+    "kind": "gather",
+    "requiredLevel": 2,
+    "durationMs": 11000,
+    "xpPerCycle": 6,
+    "outputs": [{ "itemId": "hardwood", "amount": 1 }]
+  },
+  {
+    "id": "catch-raw-fish",
+    "skillId": "fishing",
+    "kind": "gather",
+    "requiredLevel": 1,
+    "durationMs": 9000,
+    "xpPerCycle": 3,
+    "outputs": [{ "itemId": "raw-fish", "amount": 1 }]
+  },
+  {
+    "id": "catch-raw-fish-deep",
+    "skillId": "fishing",
+    "kind": "gather",
+    "requiredLevel": 2,
+    "durationMs": 14000,
+    "xpPerCycle": 6,
+    "outputs": [{ "itemId": "raw-fish", "amount": 2 }]
+  },
+  {
+    "id": "burn-charcoal",
+    "skillId": "firemaking",
+    "kind": "craft",
+    "requiredLevel": 1,
+    "durationMs": 8000,
+    "xpPerCycle": 4,
+    "recipeId": "recipe-charcoal"
+  },
+  {
+    "id": "burn-charcoal-hardwood",
+    "skillId": "firemaking",
+    "kind": "craft",
+    "requiredLevel": 2,
+    "durationMs": 12000,
+    "xpPerCycle": 8,
+    "recipeId": "recipe-charcoal-hardwood"
+  },
+  {
+    "id": "cook-raw-fish",
+    "skillId": "cooking",
+    "kind": "craft",
+    "requiredLevel": 1,
+    "durationMs": 10000,
+    "xpPerCycle": 6,
+    "recipeId": "recipe-cooked-fish"
+  },
+  {
+    "id": "cook-fish-feast",
+    "skillId": "cooking",
+    "kind": "craft",
+    "requiredLevel": 2,
+    "durationMs": 16000,
+    "xpPerCycle": 10,
+    "recipeId": "recipe-fish-feast"
+  },
+  {
+    "id": "craft-wood-handle",
+    "skillId": "crafting",
+    "kind": "craft",
+    "requiredLevel": 1,
+    "durationMs": 5000,
+    "xpPerCycle": 4,
+    "recipeId": "recipe-wood-handle"
+  },
+  {
+    "id": "craft-reinforced-handle",
+    "skillId": "crafting",
+    "kind": "craft",
+    "requiredLevel": 2,
+    "durationMs": 12000,
+    "xpPerCycle": 10,
+    "recipeId": "recipe-reinforced-handle"
+  },
+  {
+    "id": "gather-clean-herb",
+    "skillId": "herbalism",
+    "kind": "gather",
+    "requiredLevel": 1,
+    "durationMs": 9000,
+    "xpPerCycle": 3,
+    "outputs": [{ "itemId": "clean-herb", "amount": 1 }]
+  },
+  {
+    "id": "gather-moon-herb",
+    "skillId": "herbalism",
+    "kind": "gather",
+    "requiredLevel": 2,
+    "durationMs": 13000,
+    "xpPerCycle": 6,
+    "outputs": [{ "itemId": "moon-herb", "amount": 1 }]
+  },
+  {
+    "id": "brew-cleansing-potion",
+    "skillId": "herblore",
+    "kind": "craft",
+    "requiredLevel": 1,
+    "durationMs": 14000,
+    "xpPerCycle": 6,
+    "recipeId": "recipe-cleansing-potion"
+  },
+  {
+    "id": "brew-clarity-potion",
+    "skillId": "herblore",
+    "kind": "craft",
+    "requiredLevel": 2,
+    "durationMs": 18000,
+    "xpPerCycle": 10,
+    "recipeId": "recipe-clarity-potion"
+  },
+  {
+    "id": "brew-swift-potion",
+    "skillId": "herblore",
+    "kind": "craft",
+    "requiredLevel": 3,
+    "durationMs": 20000,
+    "xpPerCycle": 14,
+    "recipeId": "recipe-swift-potion"
+  },
+  {
+    "id": "gather-wild-seed",
+    "skillId": "farming",
+    "kind": "gather",
+    "requiredLevel": 1,
+    "durationMs": 8000,
+    "xpPerCycle": 3,
+    "outputs": [{ "itemId": "wild-seed", "amount": 1 }]
+  },
+  {
+    "id": "plant-field-crop",
+    "skillId": "farming",
+    "kind": "craft",
+    "requiredLevel": 1,
+    "durationMs": 30000,
+    "xpPerCycle": 8,
+    "recipeId": "recipe-field-crop"
+  },
+  {
+    "id": "grow-moon-herb",
+    "skillId": "farming",
+    "kind": "craft",
+    "requiredLevel": 2,
+    "durationMs": 26000,
+    "xpPerCycle": 9,
+    "recipeId": "recipe-farm-moon-herb"
+  },
+  {
+    "id": "cultivate-abundant-harvest",
+    "skillId": "farming",
+    "kind": "craft",
+    "requiredLevel": 3,
+    "durationMs": 45000,
+    "xpPerCycle": 16,
+    "recipeId": "recipe-abundant-harvest"
+  },
+  {
+    "id": "run-agility-course",
+    "skillId": "agility",
+    "kind": "gather",
+    "requiredLevel": 1,
+    "durationMs": 12000,
+    "xpPerCycle": 4,
+    "outputs": [{ "itemId": "agility-mark", "amount": 1 }]
+  },
+  {
+    "id": "run-obstacle-circuit",
+    "skillId": "agility",
+    "kind": "gather",
+    "requiredLevel": 2,
+    "durationMs": 11000,
+    "xpPerCycle": 7,
+    "outputs": [{ "itemId": "agility-mark", "amount": 2 }]
+  },
+  {
+    "id": "run-endurance-trial",
+    "skillId": "agility",
+    "kind": "gather",
+    "requiredLevel": 3,
+    "durationMs": 16000,
+    "xpPerCycle": 12,
+    "outputs": [{ "itemId": "agility-mark", "amount": 3 }]
+  },
+  {
+    "id": "pickpocket",
+    "skillId": "thieving",
+    "kind": "gather",
+    "requiredLevel": 1,
+    "durationMs": 10000,
+    "xpPerCycle": 3,
+    "outputs": [{ "itemId": "coin", "amount": 2 }]
+  },
+  {
+    "id": "burgle-storehouse",
+    "skillId": "thieving",
+    "kind": "gather",
+    "requiredLevel": 2,
+    "durationMs": 14000,
+    "xpPerCycle": 6,
+    "outputs": [{ "itemId": "coin", "amount": 5 }]
+  },
+  {
+    "id": "heist-vault",
+    "skillId": "thieving",
+    "kind": "gather",
+    "requiredLevel": 3,
+    "durationMs": 20000,
+    "xpPerCycle": 11,
+    "outputs": [
+      { "itemId": "coin", "amount": 6 },
+      { "itemId": "gem", "amount": 1 }
+    ]
+  }
+]

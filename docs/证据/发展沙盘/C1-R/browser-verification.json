@@ -1,0 +1,130 @@
+{
+  "scope": "isolated Edge contexts; real early UI plus explicitly accelerated native ticks and synthetic XP/stock fixtures; not human balance, Windows or screen-reader acceptance",
+  "checks": [
+    {
+      "name": "real early mainline: farm, logging camp and quarry complete without injected supplies",
+      "evidence": {
+        "tick": 60,
+        "buildings": [
+          "StoneQuarry",
+          "LoggingCamp",
+          "Headquarter",
+          "WheatFarm"
+        ]
+      }
+    },
+    {
+      "name": "new save shows the split XP model and no false growth claim",
+      "evidence": {
+        "levelText": "本级 0/20 · 距 Lv2 还差 20"
+      }
+    },
+    {
+      "name": "30 cumulative XP renders as Lv2, 10/35, 25 to Lv3, cumulative secondary",
+      "evidence": {
+        "xp": 30
+      }
+    },
+    {
+      "name": "re-selecting the running activity is rejected without resetting progress",
+      "evidence": {
+        "message": "这项作业已在训练中。",
+        "progress": 1
+      }
+    },
+    {
+      "name": "below-level activity cannot start and earns no XP",
+      "evidence": {
+        "message": "作业尚未达到技能等级要求。"
+      }
+    },
+    {
+      "name": "stopping training keeps earned XP/materials and only drops the unfinished cycle",
+      "evidence": {
+        "xp": 30
+      }
+    },
+    {
+      "name": "nominal 8 XP is truncated to 2 at 1198 and caps at 1200",
+      "evidence": {
+        "xp": 1200
+      }
+    },
+    {
+      "name": "max-level training keeps producing with zero new XP",
+      "evidence": {
+        "xp": 1200,
+        "wood": 97.81999999999994
+      }
+    },
+    {
+      "name": "missing input shows the wait state and keeps the unfinished progress at that moment",
+      "evidence": {
+        "progress": 3
+      }
+    },
+    {
+      "name": "gather through the real command replenishes wood and the wait clears",
+      "evidence": {
+        "carpentryXp": 12
+      }
+    },
+    {
+      "name": "full central storage waits with progress kept; a real order frees space and training continues",
+      "evidence": {
+        "hqWood": 175.50000000000068,
+        "training": {
+          "activityId": "gather-branches",
+          "progress": 2
+        }
+      }
+    },
+    {
+      "name": "top bar uses payable stock; the detail panel names each scope without mislabelling transit",
+      "evidence": {
+        "top": "53.8",
+        "available": 53.77999999999999,
+        "total": 57.77999999999998,
+        "detail": "木材口径关闭可用库存（可支付/配给/训练）52.78未完工设施内4.00运输途中1.00自动供给 0.200/秒 · 加工消耗 0.200/秒速率为供需估算：不含训练消耗与产物、施工用料、手动采集与协助；食水已按当前居民满额配给扣除。顶栏主"
+      }
+    },
+    {
+      "name": "material-short research links to skills and offers a way back",
+      "evidence": {}
+    },
+    {
+      "name": "population page locates the kitchen through the shared navigation intent",
+      "evidence": {}
+    },
+    {
+      "name": "upgrade preview matches native totals; a shortage upgrade order is still accepted",
+      "evidence": {
+        "preview": "升级预览 Lv1 → Lv6总费用：木材 84.4 · 可用库存 21.6/84.4 · 缺缺 木材 62.8；材料不足也可排施工订单：材料逐级运送，缺料等待，运齐自动完工。产出变化：原粮 0.20→1.20/秒理论值按当前研究与设施不变估算，不承诺劳力/运输实时足够。排施工订单升至 Lv6",
+        "message": "目标Lv6，材料按原系统逐级运入施工。"
+      }
+    },
+    {
+      "name": "save/reload keeps XP, training target, buildings and population",
+      "evidence": {
+        "tick": 385,
+        "adults": 20
+      }
+    },
+    {
+      "name": "960x720 tabs, no overflow, arrow-key tab switching",
+      "evidence": {
+        "focused": "camp-tab-skills"
+      }
+    },
+    {
+      "name": "420x600 tabs, no overflow, arrow-key tab switching",
+      "evidence": {
+        "focused": "camp-tab-skills"
+      }
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "httpFailures": [],
+  "passed": true
+}

@@ -1,0 +1,117 @@
+{
+  "scope": "isolated Edge contexts; real early UI, then explicitly accelerated native simulation; synthetic zero-adult/corruption fixtures; not human balance or Windows acceptance",
+  "checks": [
+    {
+      "name": "all eight building classes, three original research and native housing upgrade remain reachable; service Lv6 rejected",
+      "evidence": {
+        "buildings": [
+          {
+            "type": "LumberMill",
+            "level": 1
+          },
+          {
+            "type": "Warehouse",
+            "level": 1
+          },
+          {
+            "type": "StoneQuarry",
+            "level": 1
+          },
+          {
+            "type": "Aqueduct",
+            "level": 1
+          },
+          {
+            "type": "Bakery",
+            "level": 1
+          },
+          {
+            "type": "LoggingCamp",
+            "level": 1
+          },
+          {
+            "type": "Headquarter",
+            "level": 1
+          },
+          {
+            "type": "House",
+            "level": 2
+          },
+          {
+            "type": "WheatFarm",
+            "level": 1
+          }
+        ],
+        "research": {
+          "wood-processing": true,
+          "field-irrigation": true,
+          "storage-organization": true
+        },
+        "beds": 40,
+        "stock": {
+          "Wheat": 71.25000000000179,
+          "Wood": 509.0599999999906,
+          "Stone": 162.56666666666342,
+          "Lumber": 2.100000000000018,
+          "Water": 338.59000000001515,
+          "Bread": 60.29999999999665
+        }
+      }
+    },
+    {
+      "name": "C1 short offline consumes thirty exact allocations once; immediate reload cannot consume again",
+      "evidence": {
+        "foodDelta": 1.8000000000000682,
+        "waterDelta": 2.7000000000001023,
+        "tick": 1652
+      }
+    },
+    {
+      "name": "real A2 fixture normalizes through B without retroactive training or population consumption",
+      "evidence": {
+        "id": "97f0c55c-06c8-4e10-9651-cc51196cf871",
+        "tick": 30,
+        "profile": {
+          "schemaVersion": 4,
+          "contentVersion": "c1-1",
+          "manualGatherReadyTick": 10,
+          "offlineRemainderSeconds": 0,
+          "skillXp": {
+            "woodcutting": 0,
+            "mining": 0,
+            "farming": 0,
+            "carpentry": 0
+          },
+          "training": null,
+          "expanded": false,
+          "population": {
+            "adults": 20,
+            "arrivalProgress": 0,
+            "foodRatio": 1,
+            "waterRatio": 1,
+            "foodConsumed": 0,
+            "waterConsumed": 0,
+            "arrivals": 0,
+            "reliefReadyTick": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "migration commit failure preserves exact B bytes and freezes ticks; existing retry commits C1 once",
+      "evidence": {
+        "tickBefore": 17,
+        "tickAfter": 17,
+        "content": "c1-1"
+      }
+    },
+    {
+      "name": "final mobile resource rates remain inside their cards; no horizontal overflow",
+      "evidence": {}
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "httpFailures": [],
+  "passed": true
+}

@@ -1,0 +1,12 @@
+[dev] badge="只读外观预览"
+[dev] scene style: {"backgroundSize":"cover","backgroundPosition":"50% 42%","hasUrl":true}
+[dev] scene image: {"ok":true,"naturalWidth":2024,"naturalHeight":777}
+[dev] resources: ["粮食 —","木材 —","石材 —","板材 —","矿石 —"]
+[dev] icon style: {"maskImage":true,"bg":"rgb(216, 180, 123)","w":"20px","h":"20px"}
+[dev] era tag: "开拓 · 外观预览" -> "工坊 · 外观预览"; overlay changed: true; overlay bronze: true
+[dev] toast: "「建造」为外观预览：未接入游戏，无实际效果"
+[dev] credits contains game-icons: true; CC BY 3.0: true; authors: true
+[dev] indexedDB databases: []
+[dev] total requests: 26; external: (none); failed: (none)
+[dev] 420px horizontal overflow px: 0
+[game-entry] index.html status: 200; canvas present: true

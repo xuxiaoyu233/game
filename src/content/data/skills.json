@@ -1,0 +1,1559 @@
+[
+  {
+    "id": "mining",
+    "levels": [
+      {
+        "level": 1,
+        "xpRequired": 0
+      },
+      {
+        "level": 2,
+        "xpRequired": 180
+      },
+      {
+        "level": 3,
+        "xpRequired": 407
+      },
+      {
+        "level": 4,
+        "xpRequired": 693
+      },
+      {
+        "level": 5,
+        "xpRequired": 1053
+      },
+      {
+        "level": 6,
+        "xpRequired": 1507
+      },
+      {
+        "level": 7,
+        "xpRequired": 2079
+      },
+      {
+        "level": 8,
+        "xpRequired": 2799
+      },
+      {
+        "level": 9,
+        "xpRequired": 3707
+      },
+      {
+        "level": 10,
+        "xpRequired": 4851
+      },
+      {
+        "level": 11,
+        "xpRequired": 6292
+      },
+      {
+        "level": 12,
+        "xpRequired": 8107
+      },
+      {
+        "level": 13,
+        "xpRequired": 9995
+      },
+      {
+        "level": 14,
+        "xpRequired": 11959
+      },
+      {
+        "level": 15,
+        "xpRequired": 14002
+      },
+      {
+        "level": 16,
+        "xpRequired": 16127
+      },
+      {
+        "level": 17,
+        "xpRequired": 18337
+      },
+      {
+        "level": 18,
+        "xpRequired": 20635
+      },
+      {
+        "level": 19,
+        "xpRequired": 23025
+      },
+      {
+        "level": 20,
+        "xpRequired": 25511
+      },
+      {
+        "level": 21,
+        "xpRequired": 28096
+      },
+      {
+        "level": 22,
+        "xpRequired": 30784
+      },
+      {
+        "level": 23,
+        "xpRequired": 33580
+      },
+      {
+        "level": 24,
+        "xpRequired": 36488
+      },
+      {
+        "level": 25,
+        "xpRequired": 39512
+      },
+      {
+        "level": 26,
+        "xpRequired": 42657
+      },
+      {
+        "level": 27,
+        "xpRequired": 45928
+      },
+      {
+        "level": 28,
+        "xpRequired": 49330
+      },
+      {
+        "level": 29,
+        "xpRequired": 52868
+      },
+      {
+        "level": 30,
+        "xpRequired": 56548
+      }
+    ]
+  },
+  {
+    "id": "metalworking",
+    "levels": [
+      {
+        "level": 1,
+        "xpRequired": 0
+      },
+      {
+        "level": 2,
+        "xpRequired": 180
+      },
+      {
+        "level": 3,
+        "xpRequired": 407
+      },
+      {
+        "level": 4,
+        "xpRequired": 693
+      },
+      {
+        "level": 5,
+        "xpRequired": 1053
+      },
+      {
+        "level": 6,
+        "xpRequired": 1507
+      },
+      {
+        "level": 7,
+        "xpRequired": 2079
+      },
+      {
+        "level": 8,
+        "xpRequired": 2799
+      },
+      {
+        "level": 9,
+        "xpRequired": 3707
+      },
+      {
+        "level": 10,
+        "xpRequired": 4851
+      },
+      {
+        "level": 11,
+        "xpRequired": 6292
+      },
+      {
+        "level": 12,
+        "xpRequired": 8107
+      },
+      {
+        "level": 13,
+        "xpRequired": 9995
+      },
+      {
+        "level": 14,
+        "xpRequired": 11959
+      },
+      {
+        "level": 15,
+        "xpRequired": 14002
+      },
+      {
+        "level": 16,
+        "xpRequired": 16127
+      },
+      {
+        "level": 17,
+        "xpRequired": 18337
+      },
+      {
+        "level": 18,
+        "xpRequired": 20635
+      },
+      {
+        "level": 19,
+        "xpRequired": 23025
+      },
+      {
+        "level": 20,
+        "xpRequired": 25511
+      },
+      {
+        "level": 21,
+        "xpRequired": 28096
+      },
+      {
+        "level": 22,
+        "xpRequired": 30784
+      },
+      {
+        "level": 23,
+        "xpRequired": 33580
+      },
+      {
+        "level": 24,
+        "xpRequired": 36488
+      },
+      {
+        "level": 25,
+        "xpRequired": 39512
+      },
+      {
+        "level": 26,
+        "xpRequired": 42657
+      },
+      {
+        "level": 27,
+        "xpRequired": 45928
+      },
+      {
+        "level": 28,
+        "xpRequired": 49330
+      },
+      {
+        "level": 29,
+        "xpRequired": 52868
+      },
+      {
+        "level": 30,
+        "xpRequired": 56548
+      }
+    ]
+  },
+  {
+    "id": "woodcutting",
+    "levels": [
+      {
+        "level": 1,
+        "xpRequired": 0
+      },
+      {
+        "level": 2,
+        "xpRequired": 180
+      },
+      {
+        "level": 3,
+        "xpRequired": 407
+      },
+      {
+        "level": 4,
+        "xpRequired": 693
+      },
+      {
+        "level": 5,
+        "xpRequired": 1053
+      },
+      {
+        "level": 6,
+        "xpRequired": 1507
+      },
+      {
+        "level": 7,
+        "xpRequired": 2079
+      },
+      {
+        "level": 8,
+        "xpRequired": 2799
+      },
+      {
+        "level": 9,
+        "xpRequired": 3707
+      },
+      {
+        "level": 10,
+        "xpRequired": 4851
+      },
+      {
+        "level": 11,
+        "xpRequired": 6292
+      },
+      {
+        "level": 12,
+        "xpRequired": 8107
+      },
+      {
+        "level": 13,
+        "xpRequired": 9995
+      },
+      {
+        "level": 14,
+        "xpRequired": 11959
+      },
+      {
+        "level": 15,
+        "xpRequired": 14002
+      },
+      {
+        "level": 16,
+        "xpRequired": 16127
+      },
+      {
+        "level": 17,
+        "xpRequired": 18337
+      },
+      {
+        "level": 18,
+        "xpRequired": 20635
+      },
+      {
+        "level": 19,
+        "xpRequired": 23025
+      },
+      {
+        "level": 20,
+        "xpRequired": 25511
+      },
+      {
+        "level": 21,
+        "xpRequired": 28096
+      },
+      {
+        "level": 22,
+        "xpRequired": 30784
+      },
+      {
+        "level": 23,
+        "xpRequired": 33580
+      },
+      {
+        "level": 24,
+        "xpRequired": 36488
+      },
+      {
+        "level": 25,
+        "xpRequired": 39512
+      },
+      {
+        "level": 26,
+        "xpRequired": 42657
+      },
+      {
+        "level": 27,
+        "xpRequired": 45928
+      },
+      {
+        "level": 28,
+        "xpRequired": 49330
+      },
+      {
+        "level": 29,
+        "xpRequired": 52868
+      },
+      {
+        "level": 30,
+        "xpRequired": 56548
+      }
+    ]
+  },
+  {
+    "id": "fishing",
+    "levels": [
+      {
+        "level": 1,
+        "xpRequired": 0
+      },
+      {
+        "level": 2,
+        "xpRequired": 180
+      },
+      {
+        "level": 3,
+        "xpRequired": 407
+      },
+      {
+        "level": 4,
+        "xpRequired": 693
+      },
+      {
+        "level": 5,
+        "xpRequired": 1053
+      },
+      {
+        "level": 6,
+        "xpRequired": 1507
+      },
+      {
+        "level": 7,
+        "xpRequired": 2079
+      },
+      {
+        "level": 8,
+        "xpRequired": 2799
+      },
+      {
+        "level": 9,
+        "xpRequired": 3707
+      },
+      {
+        "level": 10,
+        "xpRequired": 4851
+      },
+      {
+        "level": 11,
+        "xpRequired": 6292
+      },
+      {
+        "level": 12,
+        "xpRequired": 8107
+      },
+      {
+        "level": 13,
+        "xpRequired": 9995
+      },
+      {
+        "level": 14,
+        "xpRequired": 11959
+      },
+      {
+        "level": 15,
+        "xpRequired": 14002
+      },
+      {
+        "level": 16,
+        "xpRequired": 16127
+      },
+      {
+        "level": 17,
+        "xpRequired": 18337
+      },
+      {
+        "level": 18,
+        "xpRequired": 20635
+      },
+      {
+        "level": 19,
+        "xpRequired": 23025
+      },
+      {
+        "level": 20,
+        "xpRequired": 25511
+      },
+      {
+        "level": 21,
+        "xpRequired": 28096
+      },
+      {
+        "level": 22,
+        "xpRequired": 30784
+      },
+      {
+        "level": 23,
+        "xpRequired": 33580
+      },
+      {
+        "level": 24,
+        "xpRequired": 36488
+      },
+      {
+        "level": 25,
+        "xpRequired": 39512
+      },
+      {
+        "level": 26,
+        "xpRequired": 42657
+      },
+      {
+        "level": 27,
+        "xpRequired": 45928
+      },
+      {
+        "level": 28,
+        "xpRequired": 49330
+      },
+      {
+        "level": 29,
+        "xpRequired": 52868
+      },
+      {
+        "level": 30,
+        "xpRequired": 56548
+      }
+    ]
+  },
+  {
+    "id": "firemaking",
+    "levels": [
+      {
+        "level": 1,
+        "xpRequired": 0
+      },
+      {
+        "level": 2,
+        "xpRequired": 180
+      },
+      {
+        "level": 3,
+        "xpRequired": 407
+      },
+      {
+        "level": 4,
+        "xpRequired": 693
+      },
+      {
+        "level": 5,
+        "xpRequired": 1053
+      },
+      {
+        "level": 6,
+        "xpRequired": 1507
+      },
+      {
+        "level": 7,
+        "xpRequired": 2079
+      },
+      {
+        "level": 8,
+        "xpRequired": 2799
+      },
+      {
+        "level": 9,
+        "xpRequired": 3707
+      },
+      {
+        "level": 10,
+        "xpRequired": 4851
+      },
+      {
+        "level": 11,
+        "xpRequired": 6292
+      },
+      {
+        "level": 12,
+        "xpRequired": 8107
+      },
+      {
+        "level": 13,
+        "xpRequired": 9995
+      },
+      {
+        "level": 14,
+        "xpRequired": 11959
+      },
+      {
+        "level": 15,
+        "xpRequired": 14002
+      },
+      {
+        "level": 16,
+        "xpRequired": 16127
+      },
+      {
+        "level": 17,
+        "xpRequired": 18337
+      },
+      {
+        "level": 18,
+        "xpRequired": 20635
+      },
+      {
+        "level": 19,
+        "xpRequired": 23025
+      },
+      {
+        "level": 20,
+        "xpRequired": 25511
+      },
+      {
+        "level": 21,
+        "xpRequired": 28096
+      },
+      {
+        "level": 22,
+        "xpRequired": 30784
+      },
+      {
+        "level": 23,
+        "xpRequired": 33580
+      },
+      {
+        "level": 24,
+        "xpRequired": 36488
+      },
+      {
+        "level": 25,
+        "xpRequired": 39512
+      },
+      {
+        "level": 26,
+        "xpRequired": 42657
+      },
+      {
+        "level": 27,
+        "xpRequired": 45928
+      },
+      {
+        "level": 28,
+        "xpRequired": 49330
+      },
+      {
+        "level": 29,
+        "xpRequired": 52868
+      },
+      {
+        "level": 30,
+        "xpRequired": 56548
+      }
+    ]
+  },
+  {
+    "id": "cooking",
+    "levels": [
+      {
+        "level": 1,
+        "xpRequired": 0
+      },
+      {
+        "level": 2,
+        "xpRequired": 180
+      },
+      {
+        "level": 3,
+        "xpRequired": 407
+      },
+      {
+        "level": 4,
+        "xpRequired": 693
+      },
+      {
+        "level": 5,
+        "xpRequired": 1053
+      },
+      {
+        "level": 6,
+        "xpRequired": 1507
+      },
+      {
+        "level": 7,
+        "xpRequired": 2079
+      },
+      {
+        "level": 8,
+        "xpRequired": 2799
+      },
+      {
+        "level": 9,
+        "xpRequired": 3707
+      },
+      {
+        "level": 10,
+        "xpRequired": 4851
+      },
+      {
+        "level": 11,
+        "xpRequired": 6292
+      },
+      {
+        "level": 12,
+        "xpRequired": 8107
+      },
+      {
+        "level": 13,
+        "xpRequired": 9995
+      },
+      {
+        "level": 14,
+        "xpRequired": 11959
+      },
+      {
+        "level": 15,
+        "xpRequired": 14002
+      },
+      {
+        "level": 16,
+        "xpRequired": 16127
+      },
+      {
+        "level": 17,
+        "xpRequired": 18337
+      },
+      {
+        "level": 18,
+        "xpRequired": 20635
+      },
+      {
+        "level": 19,
+        "xpRequired": 23025
+      },
+      {
+        "level": 20,
+        "xpRequired": 25511
+      },
+      {
+        "level": 21,
+        "xpRequired": 28096
+      },
+      {
+        "level": 22,
+        "xpRequired": 30784
+      },
+      {
+        "level": 23,
+        "xpRequired": 33580
+      },
+      {
+        "level": 24,
+        "xpRequired": 36488
+      },
+      {
+        "level": 25,
+        "xpRequired": 39512
+      },
+      {
+        "level": 26,
+        "xpRequired": 42657
+      },
+      {
+        "level": 27,
+        "xpRequired": 45928
+      },
+      {
+        "level": 28,
+        "xpRequired": 49330
+      },
+      {
+        "level": 29,
+        "xpRequired": 52868
+      },
+      {
+        "level": 30,
+        "xpRequired": 56548
+      }
+    ]
+  },
+  {
+    "id": "crafting",
+    "levels": [
+      {
+        "level": 1,
+        "xpRequired": 0
+      },
+      {
+        "level": 2,
+        "xpRequired": 180
+      },
+      {
+        "level": 3,
+        "xpRequired": 407
+      },
+      {
+        "level": 4,
+        "xpRequired": 693
+      },
+      {
+        "level": 5,
+        "xpRequired": 1053
+      },
+      {
+        "level": 6,
+        "xpRequired": 1507
+      },
+      {
+        "level": 7,
+        "xpRequired": 2079
+      },
+      {
+        "level": 8,
+        "xpRequired": 2799
+      },
+      {
+        "level": 9,
+        "xpRequired": 3707
+      },
+      {
+        "level": 10,
+        "xpRequired": 4851
+      },
+      {
+        "level": 11,
+        "xpRequired": 6292
+      },
+      {
+        "level": 12,
+        "xpRequired": 8107
+      },
+      {
+        "level": 13,
+        "xpRequired": 9995
+      },
+      {
+        "level": 14,
+        "xpRequired": 11959
+      },
+      {
+        "level": 15,
+        "xpRequired": 14002
+      },
+      {
+        "level": 16,
+        "xpRequired": 16127
+      },
+      {
+        "level": 17,
+        "xpRequired": 18337
+      },
+      {
+        "level": 18,
+        "xpRequired": 20635
+      },
+      {
+        "level": 19,
+        "xpRequired": 23025
+      },
+      {
+        "level": 20,
+        "xpRequired": 25511
+      },
+      {
+        "level": 21,
+        "xpRequired": 28096
+      },
+      {
+        "level": 22,
+        "xpRequired": 30784
+      },
+      {
+        "level": 23,
+        "xpRequired": 33580
+      },
+      {
+        "level": 24,
+        "xpRequired": 36488
+      },
+      {
+        "level": 25,
+        "xpRequired": 39512
+      },
+      {
+        "level": 26,
+        "xpRequired": 42657
+      },
+      {
+        "level": 27,
+        "xpRequired": 45928
+      },
+      {
+        "level": 28,
+        "xpRequired": 49330
+      },
+      {
+        "level": 29,
+        "xpRequired": 52868
+      },
+      {
+        "level": 30,
+        "xpRequired": 56548
+      }
+    ]
+  },
+  {
+    "id": "herbalism",
+    "levels": [
+      {
+        "level": 1,
+        "xpRequired": 0
+      },
+      {
+        "level": 2,
+        "xpRequired": 180
+      },
+      {
+        "level": 3,
+        "xpRequired": 407
+      },
+      {
+        "level": 4,
+        "xpRequired": 693
+      },
+      {
+        "level": 5,
+        "xpRequired": 1053,
+        "effect": {
+          "globalXpBonusPermille": 1030
+        }
+      },
+      {
+        "level": 6,
+        "xpRequired": 1507,
+        "effect": {
+          "globalXpBonusPermille": 1030
+        }
+      },
+      {
+        "level": 7,
+        "xpRequired": 2079,
+        "effect": {
+          "globalXpBonusPermille": 1030
+        }
+      },
+      {
+        "level": 8,
+        "xpRequired": 2799,
+        "effect": {
+          "globalXpBonusPermille": 1060
+        }
+      },
+      {
+        "level": 9,
+        "xpRequired": 3707,
+        "effect": {
+          "globalXpBonusPermille": 1060
+        }
+      },
+      {
+        "level": 10,
+        "xpRequired": 4851,
+        "effect": {
+          "globalXpBonusPermille": 1060
+        }
+      },
+      {
+        "level": 11,
+        "xpRequired": 6292,
+        "effect": {
+          "globalXpBonusPermille": 1100
+        }
+      },
+      {
+        "level": 12,
+        "xpRequired": 8107,
+        "effect": {
+          "globalXpBonusPermille": 1100
+        }
+      },
+      {
+        "level": 13,
+        "xpRequired": 9995
+      },
+      {
+        "level": 14,
+        "xpRequired": 11959
+      },
+      {
+        "level": 15,
+        "xpRequired": 14002
+      },
+      {
+        "level": 16,
+        "xpRequired": 16127
+      },
+      {
+        "level": 17,
+        "xpRequired": 18337
+      },
+      {
+        "level": 18,
+        "xpRequired": 20635
+      },
+      {
+        "level": 19,
+        "xpRequired": 23025
+      },
+      {
+        "level": 20,
+        "xpRequired": 25511
+      },
+      {
+        "level": 21,
+        "xpRequired": 28096
+      },
+      {
+        "level": 22,
+        "xpRequired": 30784
+      },
+      {
+        "level": 23,
+        "xpRequired": 33580
+      },
+      {
+        "level": 24,
+        "xpRequired": 36488
+      },
+      {
+        "level": 25,
+        "xpRequired": 39512
+      },
+      {
+        "level": 26,
+        "xpRequired": 42657
+      },
+      {
+        "level": 27,
+        "xpRequired": 45928
+      },
+      {
+        "level": 28,
+        "xpRequired": 49330
+      },
+      {
+        "level": 29,
+        "xpRequired": 52868
+      },
+      {
+        "level": 30,
+        "xpRequired": 56548
+      }
+    ]
+  },
+  {
+    "id": "herblore",
+    "levels": [
+      {
+        "level": 1,
+        "xpRequired": 0
+      },
+      {
+        "level": 2,
+        "xpRequired": 180
+      },
+      {
+        "level": 3,
+        "xpRequired": 407
+      },
+      {
+        "level": 4,
+        "xpRequired": 693
+      },
+      {
+        "level": 5,
+        "xpRequired": 1053
+      },
+      {
+        "level": 6,
+        "xpRequired": 1507
+      },
+      {
+        "level": 7,
+        "xpRequired": 2079
+      },
+      {
+        "level": 8,
+        "xpRequired": 2799
+      },
+      {
+        "level": 9,
+        "xpRequired": 3707
+      },
+      {
+        "level": 10,
+        "xpRequired": 4851
+      },
+      {
+        "level": 11,
+        "xpRequired": 6292
+      },
+      {
+        "level": 12,
+        "xpRequired": 8107
+      },
+      {
+        "level": 13,
+        "xpRequired": 9995
+      },
+      {
+        "level": 14,
+        "xpRequired": 11959
+      },
+      {
+        "level": 15,
+        "xpRequired": 14002
+      },
+      {
+        "level": 16,
+        "xpRequired": 16127
+      },
+      {
+        "level": 17,
+        "xpRequired": 18337
+      },
+      {
+        "level": 18,
+        "xpRequired": 20635
+      },
+      {
+        "level": 19,
+        "xpRequired": 23025
+      },
+      {
+        "level": 20,
+        "xpRequired": 25511
+      },
+      {
+        "level": 21,
+        "xpRequired": 28096
+      },
+      {
+        "level": 22,
+        "xpRequired": 30784
+      },
+      {
+        "level": 23,
+        "xpRequired": 33580
+      },
+      {
+        "level": 24,
+        "xpRequired": 36488
+      },
+      {
+        "level": 25,
+        "xpRequired": 39512
+      },
+      {
+        "level": 26,
+        "xpRequired": 42657
+      },
+      {
+        "level": 27,
+        "xpRequired": 45928
+      },
+      {
+        "level": 28,
+        "xpRequired": 49330
+      },
+      {
+        "level": 29,
+        "xpRequired": 52868
+      },
+      {
+        "level": 30,
+        "xpRequired": 56548
+      }
+    ]
+  },
+  {
+    "id": "farming",
+    "levels": [
+      {
+        "level": 1,
+        "xpRequired": 0
+      },
+      {
+        "level": 2,
+        "xpRequired": 180
+      },
+      {
+        "level": 3,
+        "xpRequired": 407
+      },
+      {
+        "level": 4,
+        "xpRequired": 693,
+        "effect": {
+          "offlineCapBonusMs": 3600000
+        }
+      },
+      {
+        "level": 5,
+        "xpRequired": 1053,
+        "effect": {
+          "offlineCapBonusMs": 3600000
+        }
+      },
+      {
+        "level": 6,
+        "xpRequired": 1507,
+        "effect": {
+          "offlineCapBonusMs": 3600000
+        }
+      },
+      {
+        "level": 7,
+        "xpRequired": 2079,
+        "effect": {
+          "offlineCapBonusMs": 7200000
+        }
+      },
+      {
+        "level": 8,
+        "xpRequired": 2799,
+        "effect": {
+          "offlineCapBonusMs": 7200000
+        }
+      },
+      {
+        "level": 9,
+        "xpRequired": 3707,
+        "effect": {
+          "offlineCapBonusMs": 7200000
+        }
+      },
+      {
+        "level": 10,
+        "xpRequired": 4851,
+        "effect": {
+          "offlineCapBonusMs": 14400000
+        }
+      },
+      {
+        "level": 11,
+        "xpRequired": 6292,
+        "effect": {
+          "offlineCapBonusMs": 14400000
+        }
+      },
+      {
+        "level": 12,
+        "xpRequired": 8107,
+        "effect": {
+          "offlineCapBonusMs": 21600000
+        }
+      },
+      {
+        "level": 13,
+        "xpRequired": 9995
+      },
+      {
+        "level": 14,
+        "xpRequired": 11959
+      },
+      {
+        "level": 15,
+        "xpRequired": 14002
+      },
+      {
+        "level": 16,
+        "xpRequired": 16127
+      },
+      {
+        "level": 17,
+        "xpRequired": 18337
+      },
+      {
+        "level": 18,
+        "xpRequired": 20635
+      },
+      {
+        "level": 19,
+        "xpRequired": 23025
+      },
+      {
+        "level": 20,
+        "xpRequired": 25511
+      },
+      {
+        "level": 21,
+        "xpRequired": 28096
+      },
+      {
+        "level": 22,
+        "xpRequired": 30784
+      },
+      {
+        "level": 23,
+        "xpRequired": 33580
+      },
+      {
+        "level": 24,
+        "xpRequired": 36488
+      },
+      {
+        "level": 25,
+        "xpRequired": 39512
+      },
+      {
+        "level": 26,
+        "xpRequired": 42657
+      },
+      {
+        "level": 27,
+        "xpRequired": 45928
+      },
+      {
+        "level": 28,
+        "xpRequired": 49330
+      },
+      {
+        "level": 29,
+        "xpRequired": 52868
+      },
+      {
+        "level": 30,
+        "xpRequired": 56548
+      }
+    ]
+  },
+  {
+    "id": "agility",
+    "levels": [
+      {
+        "level": 1,
+        "xpRequired": 0
+      },
+      {
+        "level": 2,
+        "xpRequired": 180,
+        "effect": {
+          "globalSpeedBonusPermille": 971
+        }
+      },
+      {
+        "level": 3,
+        "xpRequired": 407,
+        "effect": {
+          "globalSpeedBonusPermille": 943
+        }
+      },
+      {
+        "level": 4,
+        "xpRequired": 693
+      },
+      {
+        "level": 5,
+        "xpRequired": 1053
+      },
+      {
+        "level": 6,
+        "xpRequired": 1507
+      },
+      {
+        "level": 7,
+        "xpRequired": 2079
+      },
+      {
+        "level": 8,
+        "xpRequired": 2799
+      },
+      {
+        "level": 9,
+        "xpRequired": 3707
+      },
+      {
+        "level": 10,
+        "xpRequired": 4851
+      },
+      {
+        "level": 11,
+        "xpRequired": 6292
+      },
+      {
+        "level": 12,
+        "xpRequired": 8107
+      },
+      {
+        "level": 13,
+        "xpRequired": 9995
+      },
+      {
+        "level": 14,
+        "xpRequired": 11959
+      },
+      {
+        "level": 15,
+        "xpRequired": 14002
+      },
+      {
+        "level": 16,
+        "xpRequired": 16127
+      },
+      {
+        "level": 17,
+        "xpRequired": 18337
+      },
+      {
+        "level": 18,
+        "xpRequired": 20635
+      },
+      {
+        "level": 19,
+        "xpRequired": 23025
+      },
+      {
+        "level": 20,
+        "xpRequired": 25511
+      },
+      {
+        "level": 21,
+        "xpRequired": 28096
+      },
+      {
+        "level": 22,
+        "xpRequired": 30784
+      },
+      {
+        "level": 23,
+        "xpRequired": 33580
+      },
+      {
+        "level": 24,
+        "xpRequired": 36488
+      },
+      {
+        "level": 25,
+        "xpRequired": 39512
+      },
+      {
+        "level": 26,
+        "xpRequired": 42657
+      },
+      {
+        "level": 27,
+        "xpRequired": 45928
+      },
+      {
+        "level": 28,
+        "xpRequired": 49330
+      },
+      {
+        "level": 29,
+        "xpRequired": 52868
+      },
+      {
+        "level": 30,
+        "xpRequired": 56548
+      }
+    ]
+  },
+  {
+    "id": "thieving",
+    "levels": [
+      {
+        "level": 1,
+        "xpRequired": 0
+      },
+      {
+        "level": 2,
+        "xpRequired": 180
+      },
+      {
+        "level": 3,
+        "xpRequired": 407
+      },
+      {
+        "level": 4,
+        "xpRequired": 693
+      },
+      {
+        "level": 5,
+        "xpRequired": 1053
+      },
+      {
+        "level": 6,
+        "xpRequired": 1507
+      },
+      {
+        "level": 7,
+        "xpRequired": 2079
+      },
+      {
+        "level": 8,
+        "xpRequired": 2799
+      },
+      {
+        "level": 9,
+        "xpRequired": 3707
+      },
+      {
+        "level": 10,
+        "xpRequired": 4851
+      },
+      {
+        "level": 11,
+        "xpRequired": 6292
+      },
+      {
+        "level": 12,
+        "xpRequired": 8107
+      },
+      {
+        "level": 13,
+        "xpRequired": 9995
+      },
+      {
+        "level": 14,
+        "xpRequired": 11959
+      },
+      {
+        "level": 15,
+        "xpRequired": 14002
+      },
+      {
+        "level": 16,
+        "xpRequired": 16127
+      },
+      {
+        "level": 17,
+        "xpRequired": 18337
+      },
+      {
+        "level": 18,
+        "xpRequired": 20635
+      },
+      {
+        "level": 19,
+        "xpRequired": 23025
+      },
+      {
+        "level": 20,
+        "xpRequired": 25511
+      },
+      {
+        "level": 21,
+        "xpRequired": 28096
+      },
+      {
+        "level": 22,
+        "xpRequired": 30784
+      },
+      {
+        "level": 23,
+        "xpRequired": 33580
+      },
+      {
+        "level": 24,
+        "xpRequired": 36488
+      },
+      {
+        "level": 25,
+        "xpRequired": 39512
+      },
+      {
+        "level": 26,
+        "xpRequired": 42657
+      },
+      {
+        "level": 27,
+        "xpRequired": 45928
+      },
+      {
+        "level": 28,
+        "xpRequired": 49330
+      },
+      {
+        "level": 29,
+        "xpRequired": 52868
+      },
+      {
+        "level": 30,
+        "xpRequired": 56548
+      }
+    ]
+  }
+]

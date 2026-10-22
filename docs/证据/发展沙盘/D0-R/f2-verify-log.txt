@@ -1,0 +1,24 @@
+V1 before recovery: disk tick=3 savedAt=1792250016503 mem tick=3
+V1 samples=15 recovering=14 first={"disk":3,"mem":1155,"lifecycle":"recovering"} last={"disk":14403,"mem":14403,"lifecycle":"ready"}
+PASS: V1 disk snapshot unchanged while recovering (no intermediate write)
+V1 after recovery: disk tick=14403 savedAt=1792264420562 mem tick=14403
+PASS: V1 committed snapshot matches memory state
+V1 reload: tick 14403 -> 14405 (delta 2, expect ~1-3)
+PASS: V1 reload does not replay catch-up (delta 2)
+V2 after queued-save + recovery: disk tick=608 savedAt=1792250631721 mem tick=609 lifecycle=ready
+PASS: V2 disk snapshot consistent with memory after recovery
+PASS: V2 savedAt advanced with the committed snapshot
+V2 reload: tick 609 -> 610 (delta 1, expect ~1-3, no +144 replay)
+PASS: V2 reload does not replay partial catch-up (delta 1)
+V3 after failed commit: disk tick=0 -> 0, savedAt 1792250036714 -> 1792250036714
+PASS: V3 failed commit keeps disk unchanged (residual tasks did not write)
+PASS: V3 saveGame rejected in failed state
+PASS: V3 rejected save did not write disk
+PASS: V3 retry after failure returns to ready
+V4 failed page: true; title text ok; welcome text: false; modal-window present: false
+PASS: V4 commit-failed page shown for fresh save
+PASS: V4 no welcome modal covering the failed page
+V4 after retry (direct click): ready=true tick=6
+PASS: V4 retry from failed page succeeds and enters ready
+external requests: (none)
+PASS: no external requests

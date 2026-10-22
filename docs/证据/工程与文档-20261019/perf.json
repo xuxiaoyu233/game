@@ -1,0 +1,12 @@
+{
+  "scope": "isolated Edge context; same 2025-tile camp snapshot; 9 rounds x 20 iterations per frame-equivalent, median of rounds",
+  "measuredOn": "2026-10-19T08:19:12.336Z",
+  "tiles": 2025,
+  "buildings": 6,
+  "transports": 1,
+  "mismatches": [],
+  "legacyMs": 0.29,
+  "currentMs": 0.045,
+  "ratio": 6.44,
+  "sink": 1002089.6739466608
+}

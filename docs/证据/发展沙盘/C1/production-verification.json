@@ -1,0 +1,19 @@
+{
+  "scope": "final production build; real UI only; isolated Edge contexts",
+  "checks": [
+    {
+      "name": "final build has five tabs/six resources, actual C1 food/water consumption, real backup and reload",
+      "foodConsumed": 0.12,
+      "waterConsumed": 0.18,
+      "newSvgStatus": 200
+    },
+    {
+      "name": "final 420x600 five-tab flow and contained resource rates",
+      "horizontalOverflow": 0
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "httpFailures": [],
+  "passed": true
+}

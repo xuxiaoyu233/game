@@ -1,0 +1,110 @@
+[
+  {
+    "id": "recipe-common-ingot",
+    "inputs": [{ "itemId": "common-ore", "amount": 2 }],
+    "outputs": [{ "itemId": "common-ingot", "amount": 1 }]
+  },
+  {
+    "id": "recipe-common-tool-blank",
+    "inputs": [{ "itemId": "common-ingot", "amount": 2 }],
+    "outputs": [{ "itemId": "common-tool-blank", "amount": 1 }]
+  },
+  {
+    "id": "recipe-advanced-ingot",
+    "inputs": [{ "itemId": "advanced-ore", "amount": 2 }],
+    "outputs": [{ "itemId": "advanced-ingot", "amount": 1 }]
+  },
+  {
+    "id": "recipe-composite-tool-blank",
+    "inputs": [
+      { "itemId": "common-ingot", "amount": 2 },
+      { "itemId": "advanced-ingot", "amount": 1 }
+    ],
+    "outputs": [{ "itemId": "composite-tool-blank", "amount": 1 }]
+  },
+  {
+    "id": "recipe-charcoal",
+    "inputs": [{ "itemId": "wood-log", "amount": 2 }],
+    "outputs": [{ "itemId": "wood-charcoal", "amount": 1 }]
+  },
+  {
+    "id": "recipe-charcoal-hardwood",
+    "inputs": [{ "itemId": "hardwood", "amount": 1 }],
+    "outputs": [{ "itemId": "wood-charcoal", "amount": 2 }]
+  },
+  {
+    "id": "recipe-cooked-fish",
+    "inputs": [
+      { "itemId": "raw-fish", "amount": 1 },
+      { "itemId": "wood-charcoal", "amount": 1 }
+    ],
+    "outputs": [{ "itemId": "cooked-fish", "amount": 1 }]
+  },
+  {
+    "id": "recipe-fish-feast",
+    "inputs": [
+      { "itemId": "raw-fish", "amount": 2 },
+      { "itemId": "wood-charcoal", "amount": 2 }
+    ],
+    "outputs": [{ "itemId": "cooked-fish", "amount": 2 }]
+  },
+  {
+    "id": "recipe-wood-handle",
+    "inputs": [{ "itemId": "wood-log", "amount": 2 }],
+    "outputs": [{ "itemId": "wood-handle", "amount": 1 }]
+  },
+  {
+    "id": "recipe-reinforced-handle",
+    "inputs": [
+      { "itemId": "hardwood", "amount": 2 },
+      { "itemId": "common-ingot", "amount": 1 }
+    ],
+    "outputs": [{ "itemId": "reinforced-handle", "amount": 1 }]
+  },
+  {
+    "id": "recipe-cleansing-potion",
+    "inputs": [
+      { "itemId": "clean-herb", "amount": 2 },
+      { "itemId": "vial", "amount": 1 }
+    ],
+    "outputs": [{ "itemId": "cleansing-potion", "amount": 1 }]
+  },
+  {
+    "id": "recipe-clarity-potion",
+    "inputs": [
+      { "itemId": "moon-herb", "amount": 2 },
+      { "itemId": "vial", "amount": 1 }
+    ],
+    "outputs": [{ "itemId": "clarity-potion", "amount": 1 }]
+  },
+  {
+    "id": "recipe-swift-potion",
+    "inputs": [
+      { "itemId": "moon-herb", "amount": 1 },
+      { "itemId": "agility-mark", "amount": 1 },
+      { "itemId": "vial", "amount": 1 }
+    ],
+    "outputs": [{ "itemId": "swift-potion", "amount": 1 }]
+  },
+  {
+    "id": "recipe-field-crop",
+    "inputs": [{ "itemId": "wild-seed", "amount": 2 }],
+    "outputs": [{ "itemId": "field-crop", "amount": 2 }]
+  },
+  {
+    "id": "recipe-farm-moon-herb",
+    "inputs": [
+      { "itemId": "wild-seed", "amount": 2 },
+      { "itemId": "field-crop", "amount": 1 }
+    ],
+    "outputs": [{ "itemId": "moon-herb", "amount": 2 }]
+  },
+  {
+    "id": "recipe-abundant-harvest",
+    "inputs": [
+      { "itemId": "wild-seed", "amount": 3 },
+      { "itemId": "field-crop", "amount": 2 }
+    ],
+    "outputs": [{ "itemId": "field-crop", "amount": 6 }]
+  }
+]

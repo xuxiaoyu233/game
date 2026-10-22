@@ -1,0 +1,48 @@
+{
+  "scope": "4 critical desktop text-color pairs only; not full accessibility or game acceptance",
+  "checks": [
+    {
+      "pair": "body-on-paper",
+      "foreground": "#403c2b",
+      "backgrounds": [
+        "#fffbef",
+        "#f8f0dd",
+        "#f2e6cd"
+      ],
+      "minimum_ratio": 8.94,
+      "passes_4_5": true
+    },
+    {
+      "pair": "secondary-on-paper",
+      "foreground": "#6c654f",
+      "backgrounds": [
+        "#fffbef",
+        "#f8f0dd",
+        "#f2e6cd"
+      ],
+      "minimum_ratio": 4.7,
+      "passes_4_5": true
+    },
+    {
+      "pair": "primary-button",
+      "foreground": "#fff9e8",
+      "backgrounds": [
+        "#58754f",
+        "#456a49"
+      ],
+      "minimum_ratio": 4.9,
+      "passes_4_5": true
+    },
+    {
+      "pair": "inactive-navigation",
+      "foreground": "#6e5c3e",
+      "backgrounds": [
+        "#e9dbb9",
+        "#fffaec"
+      ],
+      "minimum_ratio": 4.69,
+      "passes_4_5": true
+    }
+  ],
+  "status": "passed"
+}

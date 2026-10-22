@@ -1,0 +1,103 @@
+{
+  "environment": {
+    "node": "v24.21.0",
+    "browser": "Edge headless",
+    "isolatedContexts": true,
+    "origin": "http://127.0.0.1:1428",
+    "method": "controlled clock, synthetic visibility, injected save errors and delayed completion; not native Windows acceptance"
+  },
+  "preliminaryRunInterruption": "page.waitForEvent: Timeout 30000ms exceeded while waiting for event \"load\"\n=========================== logs ===========================\nwaiting for event \"load\"\n============================================================\n    at D:\\小游戏\\.cache\\codex-d0r-acceptance-20261017\\probe.mjs:82:31",
+  "preliminaryRunNote": "The first four cases completed. First-run welcome modal blocked the retry interaction; only F2 was revisited, with that method limitation recorded.",
+  "cases": [
+    {
+      "name": "F1-hide-save-failure",
+      "before": 121,
+      "after": {
+        "tick": 123,
+        "lifecycle": "ready"
+      },
+      "delta": 2,
+      "expected": 2,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "F1-resume-commit-retry",
+      "t0": 1,
+      "failure": {
+        "tick": 11,
+        "lifecycle": "failed"
+      },
+      "retry": {
+        "tick": 11,
+        "lifecycle": "ready"
+      },
+      "t2": 13,
+      "total": 12,
+      "expected": 12,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "F3-empty-existing-save",
+      "preserved": true,
+      "ready": false,
+      "raw": "",
+      "download": "development-sandbox-v1.raw.json",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "F4-missing-structure",
+      "preserved": true,
+      "ready": false,
+      "text": "Save File Corrupted\nThe save file exists but could not be parsed. Your existing data is left untouched.\nYou can:\n- Export the raw save data (for inspection or backup)\n- Retry loading the game\n- Start a new game (deletes the existing save)",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "F2-first-commit-failure-and-retry",
+      "before": {
+        "lifecycle": "failed",
+        "normalTickAllowed": false,
+        "ready": false
+      },
+      "after": {
+        "ready": true,
+        "tick": 3
+      },
+      "coveringModal": "Welcome to CivIdle\ntranslate\nEnglish\nEspañol\nČeština\nFrançais\nDeutsch\n한국어\nNederlands\nPortuguês\nРусский\nTürkçe\n简体中文\n繁體中文\nNext",
+      "methodNote": "Removed an existing welcome modal through UI module to isolate commit-retry handler; this does not validate unobstructed first-run recovery UI",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "F2-preexisting-save-queue-during-recovery",
+      "initial": {
+        "tick": 1,
+        "time": 1792249444091
+      },
+      "held": {
+        "tick": 145,
+        "lifecycle": "recovering",
+        "normalTickAllowed": false
+      },
+      "partial": {
+        "diskTick": 145,
+        "savedAt": 1792249444091,
+        "memoryTick": 145,
+        "memoryConsumedAt": 1792249444091,
+        "lifecycle": "recovering",
+        "heldWallTime": 1792250044091
+      },
+      "persistedPartial": true,
+      "reopened": {
+        "tick": 746,
+        "lifecycle": "ready"
+      },
+      "expectedCompletedTickApprox": 602,
+      "passed": false,
+      "errors": []
+    }
+  ]
+}

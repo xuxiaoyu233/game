@@ -1,0 +1,69 @@
+{
+  "profileId": "skill-prototype-v1",
+  "schemaVersion": 4,
+  "contentVersion": "9.0.0",
+  "maxOfflineMs": 28800000,
+  "offlineFuel": {
+    "itemId": "wood-charcoal",
+    "extensionMs": 3600000,
+    "maxExtensionMs": 28800000
+  },
+  "shopOffers": [
+    {
+      "id": "buy-vial",
+      "itemId": "vial",
+      "amount": 2,
+      "coinCost": 6
+    },
+    {
+      "id": "buy-wild-seed",
+      "itemId": "wild-seed",
+      "amount": 3,
+      "coinCost": 4
+    },
+    {
+      "id": "buy-wood-log",
+      "itemId": "wood-log",
+      "amount": 2,
+      "coinCost": 4
+    },
+    {
+      "id": "buy-common-ore",
+      "itemId": "common-ore",
+      "amount": 2,
+      "coinCost": 4
+    }
+  ],
+  "sellOffers": [
+    {
+      "id": "sell-clay",
+      "itemId": "clay",
+      "amount": 4,
+      "coinValue": 1
+    },
+    {
+      "id": "sell-common-ore",
+      "itemId": "common-ore",
+      "amount": 4,
+      "coinValue": 2
+    },
+    {
+      "id": "sell-wood-log",
+      "itemId": "wood-log",
+      "amount": 4,
+      "coinValue": 2
+    },
+    {
+      "id": "sell-wild-seed",
+      "itemId": "wild-seed",
+      "amount": 4,
+      "coinValue": 2
+    },
+    {
+      "id": "sell-clean-herb",
+      "itemId": "clean-herb",
+      "amount": 4,
+      "coinValue": 2
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "log": [
+    {
+      "step": "production cold visit",
+      "elapsedMs": 1545,
+      "resources": [
+        {
+          "name": "index-B5LLNLAQ.js",
+          "bytes": 1282248
+        },
+        {
+          "name": "index-gwa8jE65.css",
+          "bytes": 16813
+        },
+        {
+          "name": "index-CjZPuayL.js",
+          "bytes": 46309
+        },
+        {
+          "name": "CompressWorker-BKxf7ac_.js",
+          "bytes": 4374
+        },
+        {
+          "name": "PathFinderWorker-D37jJnuE.js",
+          "bytes": 1656
+        },
+        {
+          "name": "favicon.ico",
+          "bytes": 0
+        },
+        {
+          "name": "wood-pile.svg",
+          "bytes": 2781
+        },
+        {
+          "name": "wheat.svg",
+          "bytes": 1571
+        },
+        {
+          "name": "camp-water.svg",
+          "bytes": 249
+        },
+        {
+          "name": "rock.svg",
+          "bytes": 1155
+        },
+        {
+          "name": "wood-beam.svg",
+          "bytes": 589
+        },
+        {
+          "name": "camp-ration.svg",
+          "bytes": 246
+        }
+      ]
+    },
+    {
+      "step": "production short-screen return and mobile",
+      "width": 844,
+      "height": 390,
+      "overflow": 0,
+      "canvas": {
+        "x": 10,
+        "y": 56.5,
+        "width": 824,
+        "height": 220,
+        "top": 56.5,
+        "right": 834,
+        "bottom": 276.5,
+        "left": 10
+      }
+    },
+    {
+      "step": "production short-screen return and mobile",
+      "width": 420,
+      "height": 600,
+      "overflow": 0,
+      "canvas": {
+        "x": 10,
+        "y": 102.5,
+        "width": 400,
+        "height": 319.5,
+        "top": 102.5,
+        "right": 410,
+        "bottom": 422,
+        "left": 10
+      }
+    },
+    {
+      "step": "keyboard tabs"
+    },
+    {
+      "step": "six-resource overview"
+    },
+    {
+      "step": "player copy internal markers absent"
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "badHttp": []
+}

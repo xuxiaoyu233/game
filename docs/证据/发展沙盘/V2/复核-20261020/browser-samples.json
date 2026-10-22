@@ -1,0 +1,430 @@
+{
+  "scope": "current source via portable dev config; isolated context; injected fixtures are appearance/command checks, not natural pacing",
+  "checks": [
+    {
+      "step": "all 11 slot centers and canvas clicks 1440x900",
+      "projected": [
+        {
+          "id": "HQ",
+          "tile": 1441814,
+          "x": 744.2835820895522,
+          "y": 435.66511194029846,
+          "inside": true,
+          "selected": 1441814,
+          "matches": true
+        },
+        {
+          "id": "S01",
+          "tile": 1507350,
+          "x": 870.7014925373134,
+          "y": 578.3367537313433,
+          "inside": true,
+          "selected": 1507350,
+          "matches": true
+        },
+        {
+          "id": "S02",
+          "tile": 1441813,
+          "x": 263.8955223880596,
+          "y": 420.3143656716418,
+          "inside": true,
+          "selected": 1441813,
+          "matches": true
+        },
+        {
+          "id": "S03",
+          "tile": 1376277,
+          "x": 1199.3880597014925,
+          "y": 467.26958955223876,
+          "inside": true,
+          "selected": 1376277,
+          "matches": true
+        },
+        {
+          "id": "S04",
+          "tile": 1376278,
+          "x": 491.4477611940298,
+          "y": 483.5233208955224,
+          "inside": true,
+          "selected": 1376278,
+          "matches": true
+        },
+        {
+          "id": "S05",
+          "tile": 1376279,
+          "x": 617.865671641791,
+          "y": 586.463619402985,
+          "inside": true,
+          "selected": 1376279,
+          "matches": true
+        },
+        {
+          "id": "S06",
+          "tile": 1441815,
+          "x": 946.5522388059701,
+          "y": 451.918843283582,
+          "inside": true,
+          "selected": 1441815,
+          "matches": true
+        },
+        {
+          "id": "E01",
+          "tile": 1310742,
+          "x": 289.1791044776119,
+          "y": 594.5904850746268,
+          "inside": true,
+          "selected": 1310742,
+          "matches": true
+        },
+        {
+          "id": "E02",
+          "tile": 1310743,
+          "x": 440.8805970149253,
+          "y": 673.1501865671642,
+          "inside": true,
+          "selected": 1310743,
+          "matches": true
+        },
+        {
+          "id": "E03",
+          "tile": 1376280,
+          "x": 1224.6716417910447,
+          "y": 673.1501865671642,
+          "inside": true,
+          "selected": 1376280,
+          "matches": true
+        },
+        {
+          "id": "E04",
+          "tile": 1310741,
+          "x": 1123.5373134328358,
+          "y": 626.1949626865671,
+          "inside": true,
+          "selected": 1310741,
+          "matches": true
+        }
+      ]
+    },
+    {
+      "step": "all 11 slot centers and canvas clicks 960x720",
+      "projected": [
+        {
+          "id": "HQ",
+          "tile": 1441814,
+          "x": 494.88059701492534,
+          "y": 359.43376865671644,
+          "inside": true,
+          "selected": 1441814,
+          "matches": true
+        },
+        {
+          "id": "S01",
+          "tile": 1507350,
+          "x": 574.2835820895522,
+          "y": 449.0457089552239,
+          "inside": true,
+          "selected": 1507350,
+          "matches": true
+        },
+        {
+          "id": "S02",
+          "tile": 1441813,
+          "x": 193.1492537313433,
+          "y": 349.7919776119403,
+          "inside": true,
+          "selected": 1441813,
+          "matches": true
+        },
+        {
+          "id": "S03",
+          "tile": 1376277,
+          "x": 780.7313432835821,
+          "y": 379.2845149253732,
+          "inside": true,
+          "selected": 1376277,
+          "matches": true
+        },
+        {
+          "id": "S04",
+          "tile": 1376278,
+          "x": 336.07462686567163,
+          "y": 389.49347014925377,
+          "inside": true,
+          "selected": 1376278,
+          "matches": true
+        },
+        {
+          "id": "S05",
+          "tile": 1376279,
+          "x": 415.4776119402985,
+          "y": 454.1501865671642,
+          "inside": true,
+          "selected": 1376279,
+          "matches": true
+        },
+        {
+          "id": "S06",
+          "tile": 1441815,
+          "x": 621.9253731343283,
+          "y": 369.64272388059703,
+          "inside": true,
+          "selected": 1441815,
+          "matches": true
+        },
+        {
+          "id": "E01",
+          "tile": 1310742,
+          "x": 209.02985074626866,
+          "y": 459.2546641791045,
+          "inside": true,
+          "selected": 1310742,
+          "matches": true
+        },
+        {
+          "id": "E02",
+          "tile": 1310743,
+          "x": 304.3134328358209,
+          "y": 508.59794776119406,
+          "inside": true,
+          "selected": 1310743,
+          "matches": true
+        },
+        {
+          "id": "E03",
+          "tile": 1376280,
+          "x": 796.6119402985074,
+          "y": 508.59794776119406,
+          "inside": true,
+          "selected": 1376280,
+          "matches": true
+        },
+        {
+          "id": "E04",
+          "tile": 1310741,
+          "x": 733.0895522388059,
+          "y": 479.10541044776124,
+          "inside": true,
+          "selected": 1310741,
+          "matches": true
+        }
+      ]
+    },
+    {
+      "step": "mill empty -> real UI construction -> completed with prepared prerequisites",
+      "state": [
+        {
+          "id": "HQ",
+          "tile": 1441814,
+          "type": "Headquarter",
+          "level": 1,
+          "status": "completed"
+        },
+        {
+          "id": "S01",
+          "tile": 1507350,
+          "type": "WheatFarm",
+          "level": 4,
+          "rank": 1,
+          "status": "completed"
+        },
+        {
+          "id": "S02",
+          "tile": 1441813,
+          "type": "LoggingCamp",
+          "level": 3,
+          "rank": 1,
+          "status": "completed"
+        },
+        {
+          "id": "S03",
+          "tile": 1376277,
+          "type": "StoneQuarry",
+          "level": 3,
+          "rank": 1,
+          "status": "completed"
+        },
+        {
+          "id": "S04",
+          "tile": 1376278,
+          "type": "Warehouse",
+          "level": 10,
+          "rank": 1,
+          "status": "completed"
+        },
+        {
+          "id": "S05",
+          "tile": 1376279,
+          "type": "LumberMill",
+          "level": 1,
+          "rank": 1,
+          "status": "completed"
+        },
+        {
+          "id": "S06",
+          "tile": 1441815,
+          "type": "House",
+          "level": 3,
+          "rank": 1,
+          "status": "completed"
+        },
+        {
+          "id": "E01",
+          "tile": 1310742,
+          "type": "Aqueduct",
+          "level": 3,
+          "rank": 1,
+          "status": "completed"
+        },
+        {
+          "id": "E02",
+          "tile": 1310743,
+          "type": "Bakery",
+          "level": 3,
+          "rank": 1,
+          "status": "completed"
+        },
+        {
+          "id": "E03",
+          "tile": 1376280
+        },
+        {
+          "id": "E04",
+          "tile": 1310741
+        }
+      ]
+    },
+    {
+      "step": "real paid 4 -> 5 order S01",
+      "notice": "目标Lv5，材料按原系统逐级运入施工。"
+    },
+    {
+      "step": "real paid 4 -> 5 order S05",
+      "notice": "目标Lv5，材料按原系统逐级运入施工。"
+    },
+    {
+      "step": "both real level 5 completions",
+      "state": [
+        {
+          "id": "HQ",
+          "tile": 1441814,
+          "type": "Headquarter",
+          "level": 1,
+          "status": "completed"
+        },
+        {
+          "id": "S01",
+          "tile": 1507350,
+          "type": "WheatFarm",
+          "level": 5,
+          "rank": 1,
+          "status": "completed"
+        },
+        {
+          "id": "S02",
+          "tile": 1441813,
+          "type": "LoggingCamp",
+          "level": 3,
+          "rank": 1,
+          "status": "completed"
+        },
+        {
+          "id": "S03",
+          "tile": 1376277,
+          "type": "StoneQuarry",
+          "level": 3,
+          "rank": 1,
+          "status": "completed"
+        },
+        {
+          "id": "S04",
+          "tile": 1376278,
+          "type": "Warehouse",
+          "level": 10,
+          "rank": 1,
+          "status": "completed"
+        },
+        {
+          "id": "S05",
+          "tile": 1376279,
+          "type": "LumberMill",
+          "level": 5,
+          "rank": 1,
+          "status": "completed"
+        },
+        {
+          "id": "S06",
+          "tile": 1441815,
+          "type": "House",
+          "level": 3,
+          "rank": 1,
+          "status": "completed"
+        },
+        {
+          "id": "E01",
+          "tile": 1310742,
+          "type": "Aqueduct",
+          "level": 3,
+          "rank": 1,
+          "status": "completed"
+        },
+        {
+          "id": "E02",
+          "tile": 1310743,
+          "type": "Bakery",
+          "level": 3,
+          "rank": 1,
+          "status": "completed"
+        },
+        {
+          "id": "E03",
+          "tile": 1376280
+        },
+        {
+          "id": "E04",
+          "tile": 1310741
+        }
+      ]
+    },
+    {
+      "step": "real promote farm from Lv10 appearance fixture",
+      "before": {
+        "id": "S01",
+        "tile": 1507350,
+        "type": "WheatFarm",
+        "level": 10,
+        "rank": 1,
+        "status": "completed"
+      },
+      "after": {
+        "id": "S01",
+        "tile": 1507350,
+        "type": "WheatFarm",
+        "level": 10,
+        "rank": 2,
+        "status": "completed"
+      },
+      "notice": "农田已晋升2星，可升级至Lv20。"
+    },
+    {
+      "step": "real promote mill from Lv10 appearance fixture",
+      "before": {
+        "id": "S05",
+        "tile": 1376279,
+        "type": "LumberMill",
+        "level": 10,
+        "rank": 1,
+        "status": "completed"
+      },
+      "after": {
+        "id": "S05",
+        "tile": 1376279,
+        "type": "LumberMill",
+        "level": 10,
+        "rank": 2,
+        "status": "completed"
+      },
+      "notice": "木工坊已晋升2星，可升级至Lv20。"
+    }
+  ],
+  "pageErrors": []
+}

@@ -1,0 +1,49 @@
+[
+  { "id": "common-ore", "categoryId": "raw-material" },
+  { "id": "common-ingot", "categoryId": "processed-material" },
+  { "id": "common-tool-blank", "categoryId": "tool-component" },
+  { "id": "advanced-ore", "categoryId": "raw-material" },
+  { "id": "advanced-ingot", "categoryId": "processed-material" },
+  { "id": "composite-tool-blank", "categoryId": "tool-component" },
+  { "id": "clay", "categoryId": "raw-material" },
+  { "id": "wood-log", "categoryId": "raw-material" },
+  { "id": "hardwood", "categoryId": "raw-material" },
+  { "id": "wood-charcoal", "categoryId": "fuel" },
+  { "id": "raw-fish", "categoryId": "raw-material" },
+  { "id": "fish-t2", "categoryId": "raw-material" },
+  {
+    "id": "cooked-fish",
+    "categoryId": "consumable",
+    "consumable": { "speedMultiplierPermille": 870, "durationMs": 1800000 }
+  },
+  {
+    "id": "meal-t2",
+    "categoryId": "consumable",
+    "consumable": { "speedMultiplierPermille": 833, "durationMs": 2700000 }
+  },
+  { "id": "wood-handle", "categoryId": "tool-component" },
+  { "id": "reinforced-handle", "categoryId": "tool-component" },
+  { "id": "clean-herb", "categoryId": "raw-material" },
+  { "id": "moon-herb", "categoryId": "raw-material" },
+  { "id": "wild-seed", "categoryId": "raw-material" },
+  { "id": "field-crop", "categoryId": "raw-material" },
+  { "id": "agility-mark", "categoryId": "raw-material" },
+  { "id": "vial", "categoryId": "processed-material" },
+  { "id": "coin", "categoryId": "currency" },
+  { "id": "gem", "categoryId": "trade-good" },
+  {
+    "id": "cleansing-potion",
+    "categoryId": "consumable",
+    "consumable": { "speedMultiplierPermille": 870, "durationMs": 1200000 }
+  },
+  {
+    "id": "clarity-potion",
+    "categoryId": "consumable",
+    "consumable": { "xpMultiplierPermille": 1200, "durationMs": 1500000 }
+  },
+  {
+    "id": "swift-potion",
+    "categoryId": "consumable",
+    "consumable": { "speedMultiplierPermille": 800, "durationMs": 900000 }
+  }
+]

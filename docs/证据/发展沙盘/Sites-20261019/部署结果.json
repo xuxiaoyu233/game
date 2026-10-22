@@ -1,0 +1,17 @@
+{
+  "id": "appgdep_6ad5e27bd9b08191ba7f2f8c5ac89c74",
+  "project_id": "appgprj_6ad5db696cc88191a49ecb7ce36fb8d9",
+  "title": "发展营地 · 工坊试玩",
+  "version_id": "appgprj_6ad5db696cc88191a49ecb7ce36fb8d9~appgver_7c4a231ffcc481919bfcb1b52f23c398",
+  "type": "publish",
+  "status": "succeeded",
+  "url": "https://development-camp.l0ya1er.chatgpt.site",
+  "has_mcp": false,
+  "screenshot_asset_pointer": null,
+  "provider_deployment_id": "site---6ad5db696cc88191a49ecb7ce36fb8d9",
+  "failure_message": null,
+  "env_set_revision": 0,
+  "updated_at": "2026-10-19T09:27:51.397626+00:00",
+  "source_commit": "c417dafa0665fe32fb8ae639f55351cff3b5a435",
+  "verification_scope": "Native Sites deployment succeeded; independent TypeScript/build/static-file checks passed. Current-turn browser runtime verification unavailable; prior D1-C screenshots reviewed."
+}

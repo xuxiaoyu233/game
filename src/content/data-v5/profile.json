@@ -1,0 +1,17 @@
+{
+  "profileId": "skill-prototype-v1",
+  "schemaVersion": 3,
+  "contentVersion": "5.0.0",
+  "maxOfflineMs": 28800000,
+  "offlineFuel": {
+    "itemId": "wood-charcoal",
+    "extensionMs": 3600000,
+    "maxExtensionMs": 28800000
+  },
+  "shopOffers": [
+    { "id": "buy-vial", "itemId": "vial", "amount": 2, "coinCost": 6 },
+    { "id": "buy-wild-seed", "itemId": "wild-seed", "amount": 3, "coinCost": 4 },
+    { "id": "buy-wood-log", "itemId": "wood-log", "amount": 2, "coinCost": 4 },
+    { "id": "buy-common-ore", "itemId": "common-ore", "amount": 2, "coinCost": 4 }
+  ]
+}

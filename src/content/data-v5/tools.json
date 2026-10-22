@@ -1,0 +1,29 @@
+[
+  {
+    "id": "mining-tool",
+    "skillId": "mining",
+    "levels": [
+      { "level": 1, "durationMultiplierPermille": 1000 },
+      { "level": 2, "durationMultiplierPermille": 800 },
+      { "level": 3, "durationMultiplierPermille": 650 }
+    ]
+  },
+  {
+    "id": "woodcutting-tool",
+    "skillId": "woodcutting",
+    "levels": [
+      { "level": 1, "durationMultiplierPermille": 1000 },
+      { "level": 2, "durationMultiplierPermille": 800 },
+      { "level": 3, "durationMultiplierPermille": 650 }
+    ]
+  },
+  {
+    "id": "fishing-tool",
+    "skillId": "fishing",
+    "levels": [
+      { "level": 1, "durationMultiplierPermille": 1000 },
+      { "level": 2, "durationMultiplierPermille": 820 },
+      { "level": 3, "durationMultiplierPermille": 680 }
+    ]
+  }
+]

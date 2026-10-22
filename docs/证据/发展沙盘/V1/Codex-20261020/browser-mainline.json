@@ -1,0 +1,159 @@
+{
+  "note": "Passed new-save steps preserved from earlier run; short-screen failure then fixed and verified in production. No claim that the failed run itself passed.",
+  "mainline": [
+    {
+      "name": "UI farm construction and harvest actual XP/cooldown",
+      "xpBefore": 0,
+      "xpAfter": 1
+    },
+    {
+      "name": "UI foundation chain complete",
+      "buildings": [
+        "Headquarter",
+        "WheatFarm",
+        "LoggingCamp",
+        "StoneQuarry"
+      ]
+    },
+    {
+      "name": "Skills arrival DOM",
+      "tab": "skills",
+      "activities": 10,
+      "text": "技能\nLv1–10\n选择一项作业\n尚未开始\n伐木\nLv1\n0/20 XP · 下一级还需 20\n成长详情\n拾取枯枝\n4秒 · +1.00 木材 · +2 XP\n作业详情\n开始\n择木采伐\n6秒 · +2.50 木材 · +5 XP\n前置未满足：伐木 Lv3（当前 Lv1）\n作业详情\n未解锁\n先训练提升技能等级\n整木采集\n8秒 · +4.00 木材 · +8 XP\n前置未满足：伐木 Lv6（当前 Lv1）\n作业详情\n未解锁\n先训练提升技能等级\n下一作业：择木采伐 · 伐木 Lv3（当前 Lv1）\n采石\nLv1\n0/20 XP · 下一级还需 20\n成长详情\n拾取碎石\n4秒 · +0.80 石材 · +2 XP\n作业详情\n开始\n岩层开采\n6秒 · +1.50 石材 · +5 XP\n前置未满足：采石 Lv3（当前 Lv1）\n作业详情\n未解锁\n先训练提升技能等级\n整石开采\n8秒 · +2.50 石材 · +8 XP\n前置未满足：采石 Lv6（当前 Lv1）\n作业详情\n未解锁\n先训练提升技能等级\n下一作业：岩层开采 · 采石 Lv3（当前 Lv1）\n农事\nLv1\n1/20 XP · 下一级还需 19\n成长详情\n田间护理\n6秒 · +1.20 原粮 · +4 XP\n作业详情\n开始\n精耕作业\n6秒 · +1.80 原粮 · +6 XP\n前置未满足：农事 Lv3（当前 Lv1）；研究：田地灌溉（未研究）\n作业详情\n未解锁\n先训练提升技能等级\n下一作业：精耕作业 · 农事 Lv3（当前 Lv1）；研究：田地灌溉（未研究）\n木工\nLv1\n0/20 XP · 下一级还需 20\n成长详情\n手工锯板\n6秒 · +1.00 板材 · +4 XP\n消耗 2 木材\n前置未满足：研究：木材加工（未研究）；设施：木工坊（尚未建成）\n作业详情\n未解锁\n前往研究：木材加工\n批量裁板\n8秒 · +2.00 板材 · +7 XP\n消耗 3 木材\n前置未满足：木工 Lv3（当前 Lv1）；研究：木材加工（未研究）；设施：木工坊（尚未建成）\n作业详情\n未解锁\n先训练提升技能等级\n下一作业：手工锯板 · 研究：木材加工（未研究）；设施：木工坊（尚未建成）\n训练规则"
+    },
+    {
+      "name": "UI training continues through tabs"
+    },
+    {
+      "name": "Research page",
+      "height": 492.3125
+    },
+    {
+      "name": "UI courtyard repair uses existing unlock"
+    },
+    {
+      "name": "Fixed scene anchors, sprite picking, drag without reward"
+    },
+    {
+      "name": "UI save and reload",
+      "loaded": {
+        "expanded": true,
+        "buildings": [
+          "StoneQuarry",
+          "LoggingCamp",
+          "Headquarter",
+          "WheatFarm"
+        ]
+      }
+    },
+    {
+      "name": "Responsive town and functional page",
+      "width": 960,
+      "height": 720,
+      "overflow": 0,
+      "canvas": {
+        "x": 10,
+        "y": 147.6875,
+        "width": 940,
+        "height": 419.3125,
+        "top": 147.6875,
+        "right": 950,
+        "bottom": 567,
+        "left": 10
+      },
+      "panel": {
+        "x": 10,
+        "y": 573,
+        "width": 940,
+        "height": 67,
+        "top": 573,
+        "right": 950,
+        "bottom": 640,
+        "left": 10
+      }
+    },
+    {
+      "name": "Responsive town and functional page",
+      "width": 420,
+      "height": 600,
+      "overflow": 0,
+      "canvas": {
+        "x": 10,
+        "y": 102.5,
+        "width": 400,
+        "height": 319.5,
+        "top": 102.5,
+        "right": 410,
+        "bottom": 422,
+        "left": 10
+      },
+      "panel": {
+        "x": 10,
+        "y": 428,
+        "width": 400,
+        "height": 65,
+        "top": 428,
+        "right": 410,
+        "bottom": 493,
+        "left": 10
+      }
+    },
+    {
+      "name": "Responsive town and functional page",
+      "width": 390,
+      "height": 844,
+      "overflow": 0,
+      "canvas": {
+        "x": 10,
+        "y": 102.5,
+        "width": 370,
+        "height": 563.5,
+        "top": 102.5,
+        "right": 380,
+        "bottom": 666,
+        "left": 10
+      },
+      "panel": {
+        "x": 10,
+        "y": 672,
+        "width": 370,
+        "height": 65,
+        "top": 672,
+        "right": 380,
+        "bottom": 737,
+        "left": 10
+      }
+    },
+    {
+      "name": "Responsive town and functional page",
+      "width": 320,
+      "height": 600,
+      "overflow": 0,
+      "canvas": {
+        "x": 10,
+        "y": 102.5,
+        "width": 300,
+        "height": 319.5,
+        "top": 102.5,
+        "right": 310,
+        "bottom": 422,
+        "left": 10
+      },
+      "panel": {
+        "x": 10,
+        "y": 428,
+        "width": 300,
+        "height": 65,
+        "top": 428,
+        "right": 310,
+        "bottom": 493,
+        "left": 10
+      }
+    }
+  ],
+  "fixEvidence": "production-and-short-screen.json",
+  "visualEvidence": "browser-visual.json",
+  "errors": [],
+  "external": [],
+  "badHttp": []
+}

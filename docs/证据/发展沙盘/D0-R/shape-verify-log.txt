@@ -1,0 +1,25 @@
+PASS: F3a empty string enters recovery page (not new game)
+PASS: F3a empty string preserved (not overwritten)
+F3b export empty save: noData=false exported=true
+PASS: F3b empty string can be exported
+PASS: F3c non-string value enters recovery page
+PASS: F3c non-string value preserved
+PASS: F4a options-only enters recovery page in 1245ms (no Loading hang)
+PASS: F4a options-only raw value preserved
+PASS: F4b no-current enters recovery page in 1253ms (no Loading hang)
+PASS: F4b no-current raw value preserved
+PASS: F4c bad-tiles enters recovery page in 1243ms (no Loading hang)
+PASS: F4c bad-tiles raw value preserved
+PASS: F4d bad-city enters recovery page in 1280ms (no Loading hang)
+PASS: F4d bad-city raw value preserved
+PASS: REG new game starts with ready state
+REG savedAt=1792250165028 memAt=1792250166031 (diff 1003ms)
+PASS: REG savedAt equals memory consumed boundary (not wall clock)
+REG short offline: tick 5 -> 39 (delta 34, expect >=30)
+PASS: REG short offline catch-up applied
+PASS: REG no summary modal for <60s
+REG background: 39 -> hidden 39 -> resumed 50 (hidden must not advance)
+PASS: REG tick frozen while hidden
+PASS: REG background catch-up applied
+external requests: (none)
+PASS: no external requests

@@ -1,0 +1,15 @@
+{
+  "scope": "final production build; controlled legacy fraction and new fraction boundary",
+  "checks": [
+    {
+      "name": "legacy .75s expires at content boundary; new .25s remains C1 remainder without food/population tick",
+      "legacyRemainder": 0.75,
+      "newRemainder": 0.25,
+      "foodConsumed": 0
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "httpFailures": [],
+  "passed": true
+}

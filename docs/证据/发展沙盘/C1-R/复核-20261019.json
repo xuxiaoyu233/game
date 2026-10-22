@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-19",
+  "scope": "Function-level reproduction using current TS source with injected storage/IO/slot adapters; no browser, real Grid/ticker/transport execution or player save access.",
+  "sourceSha256": {
+    "shared/sandbox/camp-content.ts": "4fb01edef9827ea9037942c9ca4bd64afb0332132bbc708958696ac8ccdf4b3f",
+    "shared/sandbox/camp-skills.ts": "75f6a394d56758ce2c2687456fd15a3e0cbc8dc6b202a06fe53a714d1a2c13ed",
+    "shared/sandbox/camp-population.ts": "d2e8fe157b29b1469df1b32b949fb78508fa36c066c3a344a39e1862e1f80382",
+    "shared/sandbox/camp-economy.ts": "16ec5fc6f1f014d80c1651d10be5b02d23f456ecc073eab342b305d18e510ce7",
+    "shared/sandbox/camp-status.ts": "2f5ffd37f36368f9d9c544b7c0534a57c01bf3273385a6a69480387c0754d319"
+  },
+  "reproduced": [
+    {
+      "id": "F1",
+      "condition": "fresh camp, full starter food/water, no production facilities",
+      "goal": {
+        "id": "reserve-falling",
+        "title": "口粮储备下降",
+        "reason": "按当前居民满额配给估算，新增供给暂时跟不上消耗；储备下降不等于断粮，补齐产能或控制消耗即可恢复。",
+        "action": {
+          "label": "准备建设厨房",
+          "tab": "camp",
+          "tile": 2,
+          "planType": "Bakery"
+        }
+      },
+      "kitchenPermitted": false
+    },
+    {
+      "id": "F2",
+      "condition": "saw-planks, no Wood and full HQ with Stone",
+      "kind": "waiting-input",
+      "displayedBlockedResource": "Lumber",
+      "actualRequiredInput": "Wood"
+    }
+  ],
+  "staticEvidence": {
+    "skillsHasNavigationRequest": false,
+    "selectedButtonStillSaysTraining": true,
+    "saveFailurePromisesNoLoss": true,
+    "navHasScrollPosition": false
+  },
+  "existingEvidence": "Read CodeBuddy 18-case browser JSON and viewed desktop/mobile screenshots; did not rerun that suite."
+}

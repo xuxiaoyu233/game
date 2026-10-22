@@ -1,0 +1,206 @@
+[
+  {
+    "id": "mining",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 180 },
+      { "level": 3, "xpRequired": 407 },
+      { "level": 4, "xpRequired": 693 },
+      { "level": 5, "xpRequired": 1053 },
+      { "level": 6, "xpRequired": 1507 },
+      { "level": 7, "xpRequired": 2079 },
+      { "level": 8, "xpRequired": 2799 },
+      { "level": 9, "xpRequired": 3707 },
+      { "level": 10, "xpRequired": 4851 },
+      { "level": 11, "xpRequired": 6292 },
+      { "level": 12, "xpRequired": 8107 }
+    ]
+  },
+  {
+    "id": "metalworking",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 180 },
+      { "level": 3, "xpRequired": 407 },
+      { "level": 4, "xpRequired": 693 },
+      { "level": 5, "xpRequired": 1053 },
+      { "level": 6, "xpRequired": 1507 },
+      { "level": 7, "xpRequired": 2079 },
+      { "level": 8, "xpRequired": 2799 },
+      { "level": 9, "xpRequired": 3707 },
+      { "level": 10, "xpRequired": 4851 },
+      { "level": 11, "xpRequired": 6292 },
+      { "level": 12, "xpRequired": 8107 }
+    ]
+  },
+  {
+    "id": "woodcutting",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 180 },
+      { "level": 3, "xpRequired": 407 },
+      { "level": 4, "xpRequired": 693 },
+      { "level": 5, "xpRequired": 1053 },
+      { "level": 6, "xpRequired": 1507 },
+      { "level": 7, "xpRequired": 2079 },
+      { "level": 8, "xpRequired": 2799 },
+      { "level": 9, "xpRequired": 3707 },
+      { "level": 10, "xpRequired": 4851 },
+      { "level": 11, "xpRequired": 6292 },
+      { "level": 12, "xpRequired": 8107 }
+    ]
+  },
+  {
+    "id": "fishing",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 180 },
+      { "level": 3, "xpRequired": 407 },
+      { "level": 4, "xpRequired": 693 },
+      { "level": 5, "xpRequired": 1053 },
+      { "level": 6, "xpRequired": 1507 },
+      { "level": 7, "xpRequired": 2079 },
+      { "level": 8, "xpRequired": 2799 },
+      { "level": 9, "xpRequired": 3707 },
+      { "level": 10, "xpRequired": 4851 },
+      { "level": 11, "xpRequired": 6292 },
+      { "level": 12, "xpRequired": 8107 }
+    ]
+  },
+  {
+    "id": "firemaking",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 180 },
+      { "level": 3, "xpRequired": 407 },
+      { "level": 4, "xpRequired": 693 },
+      { "level": 5, "xpRequired": 1053 },
+      { "level": 6, "xpRequired": 1507 },
+      { "level": 7, "xpRequired": 2079 },
+      { "level": 8, "xpRequired": 2799 },
+      { "level": 9, "xpRequired": 3707 },
+      { "level": 10, "xpRequired": 4851 },
+      { "level": 11, "xpRequired": 6292 },
+      { "level": 12, "xpRequired": 8107 }
+    ]
+  },
+  {
+    "id": "cooking",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 180 },
+      { "level": 3, "xpRequired": 407 },
+      { "level": 4, "xpRequired": 693 },
+      { "level": 5, "xpRequired": 1053 },
+      { "level": 6, "xpRequired": 1507 },
+      { "level": 7, "xpRequired": 2079 },
+      { "level": 8, "xpRequired": 2799 },
+      { "level": 9, "xpRequired": 3707 },
+      { "level": 10, "xpRequired": 4851 },
+      { "level": 11, "xpRequired": 6292 },
+      { "level": 12, "xpRequired": 8107 }
+    ]
+  },
+  {
+    "id": "crafting",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 180 },
+      { "level": 3, "xpRequired": 407 },
+      { "level": 4, "xpRequired": 693 },
+      { "level": 5, "xpRequired": 1053 },
+      { "level": 6, "xpRequired": 1507 },
+      { "level": 7, "xpRequired": 2079 },
+      { "level": 8, "xpRequired": 2799 },
+      { "level": 9, "xpRequired": 3707 },
+      { "level": 10, "xpRequired": 4851 },
+      { "level": 11, "xpRequired": 6292 },
+      { "level": 12, "xpRequired": 8107 }
+    ]
+  },
+  {
+    "id": "herbalism",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 180 },
+      { "level": 3, "xpRequired": 407 },
+      { "level": 4, "xpRequired": 693 },
+      { "level": 5, "xpRequired": 1053 },
+      { "level": 6, "xpRequired": 1507 },
+      { "level": 7, "xpRequired": 2079 },
+      { "level": 8, "xpRequired": 2799 },
+      { "level": 9, "xpRequired": 3707 },
+      { "level": 10, "xpRequired": 4851 },
+      { "level": 11, "xpRequired": 6292 },
+      { "level": 12, "xpRequired": 8107 }
+    ]
+  },
+  {
+    "id": "herblore",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 180 },
+      { "level": 3, "xpRequired": 407 },
+      { "level": 4, "xpRequired": 693 },
+      { "level": 5, "xpRequired": 1053 },
+      { "level": 6, "xpRequired": 1507 },
+      { "level": 7, "xpRequired": 2079 },
+      { "level": 8, "xpRequired": 2799 },
+      { "level": 9, "xpRequired": 3707 },
+      { "level": 10, "xpRequired": 4851 },
+      { "level": 11, "xpRequired": 6292 },
+      { "level": 12, "xpRequired": 8107 }
+    ]
+  },
+  {
+    "id": "farming",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 180 },
+      { "level": 3, "xpRequired": 407 },
+      { "level": 4, "xpRequired": 693 },
+      { "level": 5, "xpRequired": 1053 },
+      { "level": 6, "xpRequired": 1507 },
+      { "level": 7, "xpRequired": 2079 },
+      { "level": 8, "xpRequired": 2799 },
+      { "level": 9, "xpRequired": 3707 },
+      { "level": 10, "xpRequired": 4851 },
+      { "level": 11, "xpRequired": 6292 },
+      { "level": 12, "xpRequired": 8107 }
+    ]
+  },
+  {
+    "id": "agility",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 180, "effect": { "globalSpeedBonusPermille": 1030 } },
+      { "level": 3, "xpRequired": 407, "effect": { "globalSpeedBonusPermille": 1060 } },
+      { "level": 4, "xpRequired": 693 },
+      { "level": 5, "xpRequired": 1053 },
+      { "level": 6, "xpRequired": 1507 },
+      { "level": 7, "xpRequired": 2079 },
+      { "level": 8, "xpRequired": 2799 },
+      { "level": 9, "xpRequired": 3707 },
+      { "level": 10, "xpRequired": 4851 },
+      { "level": 11, "xpRequired": 6292 },
+      { "level": 12, "xpRequired": 8107 }
+    ]
+  },
+  {
+    "id": "thieving",
+    "levels": [
+      { "level": 1, "xpRequired": 0 },
+      { "level": 2, "xpRequired": 180 },
+      { "level": 3, "xpRequired": 407 },
+      { "level": 4, "xpRequired": 693 },
+      { "level": 5, "xpRequired": 1053 },
+      { "level": 6, "xpRequired": 1507 },
+      { "level": 7, "xpRequired": 2079 },
+      { "level": 8, "xpRequired": 2799 },
+      { "level": 9, "xpRequired": 3707 },
+      { "level": 10, "xpRequired": 4851 },
+      { "level": 11, "xpRequired": 6292 },
+      { "level": 12, "xpRequired": 8107 }
+    ]
+  }
+]

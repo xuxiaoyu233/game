@@ -1,0 +1,80 @@
+{
+  "environment": {
+    "node": "v24.21.0",
+    "browser": "Edge headless",
+    "isolatedContexts": true,
+    "origin": "http://127.0.0.1:1428",
+    "method": "controlled clock, synthetic visibility, injected save errors and delayed completion; not native Windows acceptance"
+  },
+  "cases": [
+    {
+      "name": "F2-drain-existing-queue-before-catchup",
+      "initial": {
+        "tick": 1,
+        "time": 1792251270944
+      },
+      "whileWaiting": {
+        "tick": 1,
+        "lifecycle": "recovering",
+        "normalTickAllowed": false,
+        "batchAlreadyStarted": false
+      },
+      "partial": {
+        "diskTick": 1,
+        "savedAt": 1792251270944,
+        "memoryTick": 145,
+        "lifecycle": "recovering"
+      },
+      "completed": {
+        "tick": 601,
+        "diskTick": 601,
+        "savedAt": 1792251870944,
+        "wallTime": 1792251870944
+      },
+      "reopened": {
+        "tick": 602,
+        "lifecycle": "ready"
+      },
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "F2-direct-retry-without-removing-welcome",
+      "before": {
+        "lifecycle": "failed",
+        "normalTickAllowed": false,
+        "ready": false,
+        "overlay": false,
+        "welcome": false
+      },
+      "after": {
+        "ready": true,
+        "tick": 3
+      },
+      "noProgrammaticModalRemoval": true,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "F2-failed-state-rejects-queued-residue",
+      "queuedSecondRejected": true,
+      "newSaveRejected": true,
+      "rawUnchanged": true,
+      "drained": true,
+      "lifecycle": "failed",
+      "passed": true,
+      "errors": []
+    },
+    {
+      "name": "current-playable-ui-inventory",
+      "title": "CivIdle 1.5.0 Build 1014 ANGLE (NVIDIA, NVIDIA GeForce RTX 4060 Laptop GPU (0x000028E0) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tileCount": 2025,
+      "city": "Rome",
+      "unlockedTech": ["Fire", "StoneTools", "Logging", "Shelter"],
+      "bodyText": "school\nBuild 3 Hut\n0/3\nkid_star\nsentiment_satisfied\n17\ncelebration\n0\nperson\n0/0\nscience\n0\ndo_not_disturb_on\n0\naccount_balance\n00\nperson_celebrate\n0(0%)\n1x\n2x\nRoman Forum\nView\nOptions\nHelp\nPlayer Handle\nYou are currently offline\nShow Account Details\nProduce\nWorker\n10\nHappiness\nsentiment_extremely_dissatisfied\nsentiment_dissatisfied\nsentiment_neutral\nsentiment_satisfied\nsentiment_very_satisfied\n-50\n0\n50\nHappiness\n17\nHappiness Multiplier\n134%\nCensus\nTotal Workers\n0\nBusy Workers\n0\nPercentage of Transportation Workers\n0%\nBuilder Capacity Multiplier\n1\nTransport Capacity Multiplier\n0\nRoman / Stone Age\nScience\n0\nWorker Science Production\n0\nScience From Idle Workers\n0\nScience From Busy Workers\n0\nUnlockable Research\nName\tScience\tProgress\tEst. Time Left\t\nMasonry\t7500\t0%\t\tView\nCounting\t7500\t0%\t\tView\nFarming\t7500\t0%\t\tView\nRebirth\nGreat People From This Run\n0\nTotal Empire Value\n0\nExtra Great People At Rebirth\n0\nstroller\nRebirth\nhistory\nRebirth History\nGreat People\nGreat People From This Run\n0\nEffective Great People Level\n0\nperson_celebrate\nManage Great People\ncalendar_month\nemoji_objects\nManage Age Wisdom\nWonder\nWorld Wonders Unlocked\n0\nWorld Wonders Built\n0\naccount_balance\nManage Wonders\nSteam Achievement\nemoji_events\nView Steam Achievement\nworkspace_premium\nHall of Fame\nBuilding Color\nsearch\nRoman Forum\nkid_star\nAdd To Favorite",
+      "artPreviewText": "发展沙盘 · 美术预览\n只读外观预览\n制作信息与署名\n开拓 · 外观预览\n夜间工坊全景 · primitive 纹理低对比叠加 · 插画内容不与建设绑定\n开拓\n工坊\n切换仅改变外观氛围，标为预览，不代表实际时代\n资源\n\n只读预览：显示为“—”，非实际库存\n\n粮食\n—\n木材\n—\n石材\n—\n板材\n—\n操作\n\n按钮为样式预览，点击不触发游戏\n\n建造\n采集\n伐木\n加工\n待补素材（D1/D2）\nD1\n独立农田（基础 + 扩建/灌溉部件）\n当前无合格独立资产；不能从全景裁切冒充，也不把整图热点当动态建设。\nD1\n独立木工坊（基础 + 一套升级部件）\n全景中的工坊为插画内容，不与玩家建设绑定。\nD1\n不带固定建筑的建设区地形\n未生成前，建设区以明确占位表示，不得用全景地面直接充当可建地板。\nD2\n伐木场/采石场/仓库与农田/工坊的两时代外观\nD2 前保持明确占位，不缺素材不写成美术完成。\nD2\n道路、田垄、水渠、货架、灯具和时代装饰\n随 D2 资产组合小样一起验收。\nA0 只读美术预览 · 不启动游戏、不读写玩家存档 · 素材清单 src/scripts/art/art-manifest.ts",
+      "scope": "Current screenshots are inventory evidence, not D1 playthrough acceptance",
+      "errors": []
+    }
+  ]
+}

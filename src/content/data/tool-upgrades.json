@@ -1,0 +1,162 @@
+[
+  {
+    "id": "mining-tool-ii",
+    "toolId": "mining-tool",
+    "sourceLevel": 1,
+    "targetLevel": 2,
+    "requiredItemId": "common-tool-blank",
+    "requiredAmount": 1
+  },
+  {
+    "id": "mining-tool-iii",
+    "toolId": "mining-tool",
+    "sourceLevel": 2,
+    "targetLevel": 3,
+    "requiredItemId": "composite-tool-blank",
+    "requiredAmount": 1
+  },
+  {
+    "id": "woodcutting-tool-ii",
+    "toolId": "woodcutting-tool",
+    "sourceLevel": 1,
+    "targetLevel": 2,
+    "requiredItemId": "wood-handle",
+    "requiredAmount": 1
+  },
+  {
+    "id": "woodcutting-tool-iii",
+    "toolId": "woodcutting-tool",
+    "sourceLevel": 2,
+    "targetLevel": 3,
+    "requiredItemId": "reinforced-handle",
+    "requiredAmount": 1
+  },
+  {
+    "id": "fishing-tool-ii",
+    "toolId": "fishing-tool",
+    "sourceLevel": 1,
+    "targetLevel": 2,
+    "requiredItemId": "wood-handle",
+    "requiredAmount": 1
+  },
+  {
+    "id": "fishing-tool-iii",
+    "toolId": "fishing-tool",
+    "sourceLevel": 2,
+    "targetLevel": 3,
+    "requiredItemId": "reinforced-handle",
+    "requiredAmount": 1
+  },
+  {
+    "id": "metalworking-tool-ii",
+    "toolId": "metalworking-tool",
+    "sourceLevel": 1,
+    "targetLevel": 2,
+    "requiredItemId": "common-tool-blank",
+    "requiredAmount": 1
+  },
+  {
+    "id": "metalworking-tool-iii",
+    "toolId": "metalworking-tool",
+    "sourceLevel": 2,
+    "targetLevel": 3,
+    "requiredItemId": "composite-tool-blank",
+    "requiredAmount": 1
+  },
+  {
+    "id": "crafting-tool-ii",
+    "toolId": "crafting-tool",
+    "sourceLevel": 1,
+    "targetLevel": 2,
+    "requiredItemId": "gem",
+    "requiredAmount": 1
+  },
+  {
+    "id": "mining-tool-iv",
+    "toolId": "mining-tool",
+    "sourceLevel": 3,
+    "targetLevel": 4,
+    "requiredItemId": "composite-tool-blank",
+    "requiredAmount": 2
+  },
+  {
+    "id": "mining-tool-v",
+    "toolId": "mining-tool",
+    "sourceLevel": 4,
+    "targetLevel": 5,
+    "requiredItemId": "composite-tool-blank",
+    "requiredAmount": 4
+  },
+  {
+    "id": "woodcutting-tool-iv",
+    "toolId": "woodcutting-tool",
+    "sourceLevel": 3,
+    "targetLevel": 4,
+    "requiredItemId": "reinforced-handle",
+    "requiredAmount": 2
+  },
+  {
+    "id": "woodcutting-tool-v",
+    "toolId": "woodcutting-tool",
+    "sourceLevel": 4,
+    "targetLevel": 5,
+    "requiredItemId": "reinforced-handle",
+    "requiredAmount": 4
+  },
+  {
+    "id": "fishing-tool-iv",
+    "toolId": "fishing-tool",
+    "sourceLevel": 3,
+    "targetLevel": 4,
+    "requiredItemId": "reinforced-handle",
+    "requiredAmount": 2
+  },
+  {
+    "id": "fishing-tool-v",
+    "toolId": "fishing-tool",
+    "sourceLevel": 4,
+    "targetLevel": 5,
+    "requiredItemId": "reinforced-handle",
+    "requiredAmount": 4
+  },
+  {
+    "id": "metalworking-tool-iv",
+    "toolId": "metalworking-tool",
+    "sourceLevel": 3,
+    "targetLevel": 4,
+    "requiredItemId": "composite-tool-blank",
+    "requiredAmount": 2
+  },
+  {
+    "id": "metalworking-tool-v",
+    "toolId": "metalworking-tool",
+    "sourceLevel": 4,
+    "targetLevel": 5,
+    "requiredItemId": "composite-tool-blank",
+    "requiredAmount": 4
+  },
+  {
+    "id": "crafting-tool-iii",
+    "toolId": "crafting-tool",
+    "sourceLevel": 2,
+    "targetLevel": 3,
+    "requiredItemId": "gem",
+    "requiredAmount": 2
+  },
+  {
+    "id": "crafting-tool-iv",
+    "toolId": "crafting-tool",
+    "sourceLevel": 3,
+    "targetLevel": 4,
+    "requiredItemId": "gem",
+    "requiredAmount": 3
+  },
+  {
+    "id": "crafting-tool-v",
+    "toolId": "crafting-tool",
+    "sourceLevel": 4,
+    "targetLevel": 5,
+    "requiredItemId": "gem",
+    "requiredAmount": 4
+  }
+]

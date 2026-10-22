@@ -1,0 +1,66 @@
+{
+  "fixture": true,
+  "log": [
+    {
+      "name": "all five real promotions from fixture",
+      "ranks": [
+        {
+          "id": "S01",
+          "type": "WheatFarm",
+          "rank": 2
+        },
+        {
+          "id": "S02",
+          "type": "LoggingCamp",
+          "rank": 2
+        },
+        {
+          "id": "S03",
+          "type": "StoneQuarry",
+          "rank": 2
+        },
+        {
+          "id": "S04",
+          "type": "Warehouse",
+          "rank": 2
+        },
+        {
+          "id": "S05",
+          "type": "LumberMill",
+          "rank": 2
+        },
+        {
+          "id": "S06",
+          "type": "House",
+          "rank": 1
+        },
+        {
+          "id": "E01",
+          "type": "Aqueduct",
+          "rank": 1
+        },
+        {
+          "id": "E02",
+          "type": "Bakery",
+          "rank": 1
+        }
+      ]
+    },
+    {
+      "name": "persistent save failure feedback",
+      "rect": {
+        "x": 10,
+        "y": 504,
+        "width": 400,
+        "height": 34
+      }
+    },
+    {
+      "name": "CDP pinch/cancel",
+      "before": 0.3162162162162162,
+      "after": 0.5872586872586872,
+      "remaining": 0
+    }
+  ],
+  "errors": []
+}

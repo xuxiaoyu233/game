@@ -1,0 +1,22 @@
+{
+  "origin": "http://127.0.0.1:1430",
+  "build": "production dist, d1-a-2",
+  "errors": [],
+  "external": [],
+  "failedResponses": [],
+  "atlasResponses": [
+    {
+      "url": "http://127.0.0.1:1430/assets/textures_sandbox-Bxy2R63Z.png",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:1430/assets/textures_sandbox-Bxy2R63Z.png",
+      "status": 200
+    }
+  ],
+  "before": "一片土地，慢慢生长\n发展营地 开拓时代\n粮食\n0.0\n+0.00/秒\n木材\n30.0\n+0.00/秒\n石材\n20.0\n+0.00/秒\n板材\n0.0\n+0.00/秒",
+  "after": "一片土地，慢慢生长\n发展营地 开拓时代\n粮食\n0.0\n+0.00/秒\n木材\n31.0\n+0.00/秒\n石材\n20.0\n+0.00/秒\n板材\n0.0\n+0.00/秒",
+  "reloaded": "一片土地，慢慢生长\n发展营地 开拓时代\n粮食\n0.0\n+0.00/秒\n木材\n31.0\n+0.00/秒\n石材\n20.0\n+0.00/秒\n板材\n0.0\n+0.00/秒",
+  "atlasLoaded": true,
+  "passed": true
+}

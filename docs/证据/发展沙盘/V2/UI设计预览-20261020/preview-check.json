@@ -1,0 +1,108 @@
+{
+  "scope": "Desktop only, isolated local UI design preview; no game runtime, real data, saves, mobile acceptance or deployment",
+  "errors": [],
+  "externalRequests": [],
+  "cases": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "name": "desktop",
+      "geometry": {
+        "horizontalOverflow": false,
+        "pageHeight": 900,
+        "world": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900,
+          "top": 0,
+          "right": 1440,
+          "bottom": 900,
+          "left": 0
+        },
+        "card": {
+          "x": 1118,
+          "y": 284,
+          "width": 294,
+          "height": 498,
+          "top": 284,
+          "right": 1412,
+          "bottom": 782,
+          "left": 1118
+        },
+        "navigation": {
+          "x": 516,
+          "y": 800,
+          "width": 408,
+          "height": 77,
+          "top": 800,
+          "right": 924,
+          "bottom": 877,
+          "left": 516
+        }
+      },
+      "selection": "木工坊",
+      "upgradeOpen": true,
+      "confirmDisabled": true,
+      "researchCount": 6,
+      "stored": {
+        "localStorageLength": 0,
+        "sessionStorageLength": 0
+      },
+      "result": "UI interactions checked"
+    },
+    {
+      "viewport": {
+        "width": 960,
+        "height": 720
+      },
+      "name": "desktop-small",
+      "geometry": {
+        "horizontalOverflow": false,
+        "pageHeight": 720,
+        "world": {
+          "x": 0,
+          "y": 0,
+          "width": 960,
+          "height": 720,
+          "top": 0,
+          "right": 960,
+          "bottom": 720,
+          "left": 0
+        },
+        "card": {
+          "x": 675,
+          "y": 154,
+          "width": 265,
+          "height": 454,
+          "top": 154,
+          "right": 940,
+          "bottom": 608,
+          "left": 675
+        },
+        "navigation": {
+          "x": 276,
+          "y": 620,
+          "width": 408,
+          "height": 77,
+          "top": 620,
+          "right": 684,
+          "bottom": 697,
+          "left": 276
+        }
+      },
+      "selection": "木工坊",
+      "upgradeOpen": true,
+      "confirmDisabled": true,
+      "researchCount": 6,
+      "stored": {
+        "localStorageLength": 0,
+        "sessionStorageLength": 0
+      },
+      "result": "UI interactions checked"
+    }
+  ],
+  "status": "passed"
+}

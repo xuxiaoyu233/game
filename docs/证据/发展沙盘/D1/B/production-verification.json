@@ -1,0 +1,21 @@
+{
+  "origin": "http://127.0.0.1:1430",
+  "build": "production d1-b-1",
+  "errors": [],
+  "external": [],
+  "failedResponses": [],
+  "atlasResponses": [
+    {
+      "url": "http://127.0.0.1:1430/assets/textures_sandbox-Bxy2R63Z.png",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:1430/assets/textures_sandbox-Bxy2R63Z.png",
+      "status": 200
+    }
+  ],
+  "wood": 32,
+  "xp": "3 / 20 XP · 训练收益 +0%",
+  "reloaded": "3 / 20 XP · 训练收益 +0%",
+  "passed": true
+}

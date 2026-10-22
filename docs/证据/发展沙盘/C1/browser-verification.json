@@ -1,0 +1,167 @@
+{
+  "scope": "isolated Edge contexts; real early UI, then explicitly accelerated native simulation; synthetic zero-adult/corruption fixtures; not human balance or Windows acceptance",
+  "checks": [
+    {
+      "name": "new camp has six resources, five real tabs and a single population workforce",
+      "evidence": {
+        "population": {
+          "adults": 20,
+          "arrivalProgress": 0,
+          "foodRatio": 1,
+          "waterRatio": 1,
+          "foodConsumed": 0,
+          "waterConsumed": 0,
+          "arrivals": 0,
+          "reliefReadyTick": 0
+        },
+        "stock": {
+          "Wheat": 0,
+          "Wood": 30,
+          "Stone": 20,
+          "Lumber": 0,
+          "Water": 36,
+          "Bread": 24
+        }
+      }
+    },
+    {
+      "name": "real-time basic farm/logging/quarry construction without injecting supplies",
+      "evidence": {
+        "tick": 36,
+        "stock": {
+          "Wheat": 4.800000000000002,
+          "Wood": 13.2,
+          "Stone": 16,
+          "Lumber": 0,
+          "Water": 33.83999999999992,
+          "Bread": 22.56000000000003
+        },
+        "foodConsumed": 1.4400000000000006
+      }
+    },
+    {
+      "name": "four connected slots open with one atomic payment; duplicate expansion rejected",
+      "evidence": {
+        "explored": 11,
+        "cost": {
+          "Wood": 10,
+          "Stone": 5,
+          "Wheat": 5
+        }
+      }
+    },
+    {
+      "name": "three survival buildings complete through native supply/construction; housing adds beds, not instant people",
+      "evidence": {
+        "tick": 117,
+        "beds": 30,
+        "adults": 20,
+        "stock": {
+          "Wheat": 14.49999999999998,
+          "Wood": 9.800000000000004,
+          "Stone": 3.8000000000000034,
+          "Lumber": 0,
+          "Water": 34.1799999999999,
+          "Bread": 20.6000000000001
+        }
+      }
+    },
+    {
+      "name": "native ticks centrally consume exactly one food/water allocation and project no extra housing workers",
+      "evidence": {
+        "ticks": 5,
+        "foodDelta": 0.20000000000000018,
+        "waterDelta": 0.29999999999999805,
+        "worker": 20
+      }
+    },
+    {
+      "name": "accelerated native production sustains thirty residents, respects beds and survives save/reload",
+      "evidence": {
+        "tick": 1623,
+        "stock": {
+          "Wheat": 170.50000000000327,
+          "Wood": 505.63999999999083,
+          "Stone": 204.46666666666536,
+          "Lumber": 0,
+          "Water": 296.9100000000081,
+          "Bread": 59.03999999999761
+        },
+        "population": {
+          "adults": 30,
+          "arrivalProgress": 0,
+          "foodRatio": 1,
+          "waterRatio": 1,
+          "foodConsumed": 82.1600000000001,
+          "waterConsumed": 123.24000000000323,
+          "arrivals": 10,
+          "reliefReadyTick": 0
+        }
+      }
+    },
+    {
+      "name": "real B export: thirty old offline seconds match retained C0 build exactly; migration starts new needs at zero",
+      "evidence": {
+        "tick": 47,
+        "oldResources": {
+          "Wheat": 5.8000000000000025,
+          "Wood": 32.02,
+          "Stone": 20,
+          "Lumber": 0
+        },
+        "newResources": {
+          "Wheat": 5.8000000000000025,
+          "Wood": 32.02,
+          "Stone": 20,
+          "Lumber": 0
+        },
+        "population": {
+          "adults": 20,
+          "arrivalProgress": 0,
+          "foodRatio": 1,
+          "waterRatio": 1,
+          "foodConsumed": 0,
+          "waterConsumed": 0,
+          "arrivals": 0,
+          "reliefReadyTick": 0
+        }
+      }
+    },
+    {
+      "name": "zero-adult fixture can request relief without labor/materials; cooldown and workforce stay real",
+      "evidence": {
+        "population": {
+          "adults": 3,
+          "arrivalProgress": 3,
+          "foodRatio": 1,
+          "waterRatio": 1,
+          "foodConsumed": 82.1180000000001,
+          "waterConsumed": 123.17700000000323,
+          "arrivals": 10,
+          "reliefReadyTick": 2222
+        },
+        "stock": {
+          "Wheat": 170.80000000000325,
+          "Wood": 505.63999999999083,
+          "Stone": 204.46666666666536,
+          "Lumber": 0,
+          "Water": 9.572999999999999,
+          "Bread": 5.982
+        },
+        "worker": 3
+      }
+    },
+    {
+      "name": "malformed population and future content are refused; hidden/pagehide preserve original bytes",
+      "evidence": {}
+    },
+    {
+      "name": "420x600 five-tab flow stays readable with zero horizontal overflow",
+      "evidence": {}
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "httpFailures": [],
+  "passed": true
+}
